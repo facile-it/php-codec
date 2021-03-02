@@ -1,0 +1,50 @@
+{
+    "name": "pybatt/php-codec",
+    "description": "A partial porting of io-ts in PHP",
+    "type": "library",
+    "config": {
+        "platform": {
+        }
+    },
+    "require-dev": {
+        "vimeo/psalm": "4.4.0",
+        "phpunit/phpunit": "^8.5",
+        "giorgiosironi/eris": "^0.11.0",
+        "phpunit/php-code-coverage": "^7.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ilario Pierbattista",
+            "email": "pierbattista.ilario@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pybatt\\": "src/"
+        },
+        "files": [
+            "src/Codec/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Pybatt\\Codec\\": "tests/Codec/",
+            "Examples\\Pybatt\\Codec\\": "examples/"
+        }
+    },
+    "require": {
+        "php": "^7.2 | ^8.0"
+    },
+    "prefer-stable": true,
+    "archive": {
+        "exclude": [
+            "tests/",
+            "examples/",
+            ".github/",
+            "docker/",
+            "docker-compose.yml",
+            "Makefile"
+        ]
+    }
+}

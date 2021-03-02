@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  php:
+    build:
+      context: docker/
+    volumes:
+      - .:/home/dev/lib
+    tty: true
+    user: dev
+    working_dir: /home/dev/lib
