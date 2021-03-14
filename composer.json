@@ -7,10 +7,11 @@
         }
     },
     "require-dev": {
-        "vimeo/psalm": "4.4.0",
+        "vimeo/psalm": "^4.4.0",
         "phpunit/phpunit": "^8.5",
         "giorgiosironi/eris": "^0.11.0",
-        "phpunit/php-code-coverage": "^7.0"
+        "phpunit/php-code-coverage": "^7.0",
+        "phpat/phpat": "^0.7.5"
     },
     "license": "MIT",
     "authors": [
@@ -24,13 +25,15 @@
             "Pybatt\\": "src/"
         },
         "files": [
-            "src/Codec/functions.php"
+            "src/Codec/functions.php",
+            "src/Codec/Internal/utils.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Pybatt\\Codec\\": "tests/Codec/",
-            "Examples\\Pybatt\\Codec\\": "examples/"
+            "Tests\\Pybatt\\Codec\\": "tests/unit/",
+            "Examples\\Pybatt\\Codec\\": "tests/examples/",
+            "TypeAssertions\\Pybatt\\Codec\\": "tests/type-assertions/"
         }
     },
     "require": {
@@ -39,10 +42,9 @@
     "prefer-stable": true,
     "archive": {
         "exclude": [
-            "tests/",
-            "examples/",
             ".github/",
             "docker/",
+            "tests/",
             "docker-compose.yml",
             "Makefile"
         ]

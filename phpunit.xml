@@ -10,10 +10,10 @@
          verbose="true">
     <testsuites>
         <testsuite name="Unit">
-            <directory suffix="Test.php">./tests</directory>
+            <directory suffix="Test.php">./tests/unit/</directory>
         </testsuite>
         <testsuite name="Examples">
-            <directory suffix="Test.php">./examples</directory>
+            <directory suffix="Test.php">./tests/examples</directory>
         </testsuite>
     </testsuites>
 

@@ -1,10 +1,6 @@
 name: Static analysis
 
-on:
-  pull_request: ~
-  push:
-    branches:
-      - master
+on: [pull_request, push]
 
 jobs:
   job:
@@ -16,7 +12,11 @@ jobs:
 #          - description: Code style
 #            script: composer cs-check
           - description: PSalm
-            script: ./vendor/bin/psalm --no-cache
+            script: make psalm
+          - description: Type assertions
+            script: make type-assertions
+          - description: Architecture assertions
+            script: make architecture
 
     name: ${{ matrix.description }}
     runs-on: ubuntu-latest

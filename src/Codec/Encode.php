@@ -17,15 +17,7 @@ class Encode
      */
     public static function identity(): self
     {
-        return new self(
-        /**
-         * @param X $a
-         * @return X
-         */
-            function ($a) {
-                return $a;
-            }
-        );
+        return new self(identity);
     }
 
     /**

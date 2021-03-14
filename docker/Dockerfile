@@ -13,6 +13,8 @@ RUN apt-get update \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
 RUN useradd -ms /bin/bash dev
 USER dev
 WORKDIR /home/dev/lib

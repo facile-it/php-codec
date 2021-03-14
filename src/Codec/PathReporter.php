@@ -2,6 +2,10 @@
 
 namespace Pybatt\Codec;
 
+use Pybatt\Codec\Validation\Context;
+use Pybatt\Codec\Validation\Validation;
+use Pybatt\Codec\Validation\VError;
+
 /**
  * @implements Reporter<list<string>>
  */
@@ -23,7 +27,7 @@ class PathReporter implements Reporter
         );
     }
 
-    public static function getMessage(ValidationError $error): string
+    public static function getMessage(VError $error): string
     {
         return $error->getMessage()
             ?: sprintf(

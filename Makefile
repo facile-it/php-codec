@@ -1,4 +1,4 @@
-.PHONY: setup sh psalm usage test
+.PHONY: setup sh psalm usage test type-assertions architecture
 
 usage:
 	@echo "select target"
@@ -13,5 +13,14 @@ sh:
 psalm:
 	./vendor/bin/psalm src --no-cache
 
+type-assertions:
+	./vendor/bin/psalm tests/type-assertions --no-cache
+
 test:
 	./vendor/bin/phpunit
+
+architecture:
+	./vendor/bin/phpat
+
+.PHONY: ci
+ci: test psalm type-assertions architecture

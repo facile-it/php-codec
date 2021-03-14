@@ -2,13 +2,18 @@
 
 namespace Pybatt\Codec;
 
-use Pybatt\Codec\Arrays\ArrayType;
-use Pybatt\Codec\CommonTypes\ClassFromArray;
-use Pybatt\Codec\CommonTypes\UnionType;
-use Pybatt\Codec\Primitives\FloatType;
-use Pybatt\Codec\Primitives\IntType;
-use Pybatt\Codec\Primitives\NullType;
-use Pybatt\Codec\Primitives\StringType;
+use Pybatt\Codec\Internal\Arrays\ListType;
+use Pybatt\Codec\Internal\Arrays\MapType;
+use Pybatt\Codec\Internal\Combinators\ClassFromArray;
+use Pybatt\Codec\Internal\Combinators\ComposeType;
+use Pybatt\Codec\Internal\Combinators\UnionType;
+use Pybatt\Codec\Internal\Primitives\BoolType;
+use Pybatt\Codec\Internal\Primitives\FloatType;
+use Pybatt\Codec\Internal\Primitives\IntType;
+use Pybatt\Codec\Internal\Primitives\NullType;
+use Pybatt\Codec\Internal\Primitives\StringType;
+use Pybatt\Codec\Internal\Type;
+use Pybatt\Codec\Internal\Useful\IntFromStringType;
 
 final class Codecs
 {
@@ -33,24 +38,89 @@ final class Codecs
     }
 
     /**
+     * @return Type<bool, mixed, bool>
+     */
+    public static function bool(): Type
+    {
+        return new BoolType();
+    }
+
+    /**
+     * @return Type<int, string, int>
+     */
+    public static function intFromString(): Type
+    {
+        return new IntFromStringType();
+    }
+
+    /**
      * @template T
      * @param Type<T,mixed,T> $itemCodec
-     * @return ArrayType<T>
+     * @return ListType<T>
      */
-    public static function listt(Type $itemCodec): ArrayType
+    public static function listt(Type $itemCodec): ListType
     {
-        return new ArrayType($itemCodec);
+        return new ListType($itemCodec);
     }
 
     /**
      * @template T
      * @param non-empty-array<string, Type> $props
      * @param callable(...mixed):T $factory
-     * @return ClassFromArray<T>
+     * @param class-string<T> $fqcn
+     * @return Type<T, mixed, T>
      */
-    public static function classFromArray(array $props, callable $factory): ClassFromArray
+    public static function classFromArray(
+        array $props,
+        callable $factory,
+        string $fqcn
+    ): Type
     {
-        return new ClassFromArray($props, $factory);
+        return self::pipe(
+            new MapType(),
+            new ClassFromArray($props, $factory, $fqcn)
+        );
+    }
+
+    /**
+     * @template A
+     * @template IA
+     * @template B
+     * @template OB
+     * @template C
+     * @template OC
+     * @template D
+     * @template OD
+     * @template E
+     * @template OE
+     *
+     * @param Type<A, IA, mixed> $a
+     * @param Type<B, A, OB> $b
+     * @param Type<C, B, OC> | null $c
+     * @param Type<D, C, OD> | null $d
+     * @param Type<E, D, OE> | null $e
+     *
+     * // TODO must add type assertions
+     * @return (func_num_args() is 2 ? Type<B, IA, OB>
+     *   : (func_num_args() is 3 ? Type<C, IA, OC>
+     *   : (func_num_args() is 4 ? Type<D, IA, OD>
+     *   : (func_num_args() is 5 ? Type<E, IA, OC> : Type)
+     * )))
+     */
+    public static function pipe(
+        Type $a,
+        Type $b,
+        ?Type $c = null,
+        ?Type $d = null,
+        ?Type $e = null
+    ): Type
+    {
+        return new ComposeType(
+            $a,
+            $c instanceof Type
+                ? self::pipe($b, $c, $d, $e)
+                : $b
+        );
     }
 
     /**
@@ -59,9 +129,9 @@ final class Codecs
      * @param Type ...$others
      * @return UnionType
      *
-     * TODO semplice da scrivere, ma perde completamente la tipizzazione
+     * TODO simple to write, awful to type
      */
-    public static function unionType(Type $a, Type $b, Type ...$others): UnionType
+    public static function union(Type $a, Type $b, Type ...$others): UnionType
     {
         return array_reduce(
             $others,
