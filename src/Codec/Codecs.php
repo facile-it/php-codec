@@ -17,22 +17,34 @@ use Pybatt\Codec\Internal\Useful\IntFromStringType;
 
 final class Codecs
 {
-    public static function null(): NullType
+    /**
+     * @return Type<null, mixed, null>
+     */
+    public static function null(): Type
     {
         return new NullType();
     }
 
-    public static function string(): StringType
+    /**
+     * @return Type<string, mixed, string>
+     */
+    public static function string(): Type
     {
         return new StringType();
     }
 
-    public static function int(): IntType
+    /**
+     * @return Type<int, mixed, int>
+     */
+    public static function int(): Type
     {
         return new IntType();
     }
 
-    public static function float(): FloatType
+    /**
+     * @return Type<float, mixed, float>
+     */
+    public static function float(): Type
     {
         return new FloatType();
     }
@@ -115,6 +127,7 @@ final class Codecs
         ?Type $e = null
     ): Type
     {
+        // Order is important: composition is not commutative
         return new ComposeType(
             $a,
             $c instanceof Type
@@ -133,6 +146,7 @@ final class Codecs
      */
     public static function union(Type $a, Type $b, Type ...$others): UnionType
     {
+        // Order is not important, unions should be commutatives
         return array_reduce(
             $others,
             static function (Type $carry, Type $current): Type {

@@ -12,8 +12,66 @@ Php-codec is a partial porting of [io-ts](https://github.com/gcanti/io-ts) in PH
 
     composer require pybatt/php-codec
 
-## TODO
+## Introduction
 
-- [ ] Find a way to avoid exposing codecs implementation
-- [ ] Error reporting in case of `ClassFromArrayType` and `ArrayType` is too poor (all success or general error approach)
-- [ ] I need a way for piping codecs, eg: `(Type<A, I, A>, Type<B, A, B>) => Type<B, I, B>`
+This is a partial porting of the fantastic [io-ts](https://github.com/gcanti/io-ts) library for Typescript.
+
+> A value of type `Type<A, O, I>` (called "codec") is the runtime representation of the static type `A`.
+
+I strongly recomend the reading of [The Idea](https://github.com/gcanti/io-ts/blob/master/index.md#the-idea) section
+from the io-ts documentation.
+
+## Types and combinators
+
+All the implemented codecs and combinators are exposed through methods of the class `Pybatt\Codec\Codecs`.
+
+| Typescript Type | Psalm Type | Codec | 
+| --- | --- | --- |
+| `unknown` | `mixed` | TODO |
+| `null` | `null` | `Codecs::null()` |
+| `bool` | `bool` | `Codecs::bool()` |
+| `number` | `int` | `Codecs::int()` |
+| `number` | `float` | `Codecs::float()` |
+| `string` | `string` | `Codecs::string()` |
+| `'s'` | `'s'` | `Codecs::litteral('s')` |
+| `Array<T>` | `list<T>` | `Codecs::listt(Type $item)` |
+| - | `A::class` | `Codecs::classFromArray(Type[] $props, callable $factory, A::class)` |
+
+## Examples
+
+For further examples take a look to the [examples](https://github.com/ilario-pierbattista/php-codec/tree/docs/tests/examples):
+
+```php
+use Pybatt\Codec\Codecs;
+
+$codec = Codecs::classFromArray(
+    [
+        'a' => Codecs::string(),
+        'b' => Codecs::int(),
+        'c' => Codecs::bool(),
+        'd' => Codecs::float()
+    ],
+    function (string $a, int $b, bool $c, float $d): Foo {
+        return new Foo($a, $b, $c, $d);
+    },
+    Foo::class
+);
+
+// Gives an instance of ValidationSuccess<Foo>
+$validation = $codec->decode(['a' => 'hey', 'b' => 123, 'c' => false, 'd' => 1.23]);
+
+// Gives an instance of ValidationFailures
+$failures = $codec->decode(['a' => 'hey', 'b' => 123, 'c' => 'a random string', 'd' => 1.23]);
+
+class Foo { 
+    public function __construct(
+        string $a,
+        int $b,
+        bool $c,
+        float $d
+    ) {
+    // [...]
+    }
+}
+```
+
