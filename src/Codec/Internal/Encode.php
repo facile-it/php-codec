@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Pybatt\Codec;
+namespace Pybatt\Codec\Internal;
+
+use const Pybatt\Codec\identity;
 
 /**
  * @template A

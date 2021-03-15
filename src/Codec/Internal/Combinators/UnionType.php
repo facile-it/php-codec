@@ -2,7 +2,7 @@
 
 namespace Pybatt\Codec\Internal\Combinators;
 
-use Pybatt\Codec\Encode;
+use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;
 use Pybatt\Codec\Validation\Validation;

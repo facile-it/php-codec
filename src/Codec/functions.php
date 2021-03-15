@@ -2,6 +2,8 @@
 
 namespace Pybatt\Codec;
 
+use Pybatt\Codec\Validation\ContextEntry;
+
 /**
  * @const callable
  */
@@ -27,7 +29,7 @@ function strigify($x): string
         return 'null';
     }
 
-    if($x === Reporter::VALUE_UNDEFINED) {
+    if($x === ContextEntry::VALUE_UNDEFINED) {
         return 'undefined';
     }
 

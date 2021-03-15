@@ -2,12 +2,11 @@
 
 namespace Pybatt\Codec\Internal\Combinators;
 
-use Pybatt\Codec\Encode;
 use Pybatt\Codec\Internal\Arrays\MapRefine;
+use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\PreconditionFailureExcepion;
 use Pybatt\Codec\Internal\Primitives\InstanceOfRefine;
 use Pybatt\Codec\Internal\Type;
-use Pybatt\Codec\Reporter;
 use Pybatt\Codec\Validation\Context;
 use Pybatt\Codec\Validation\ContextEntry;
 use Pybatt\Codec\Validation\Validation;
@@ -57,8 +56,8 @@ class ClassFromArray extends Type
                 $validations[] = $v->validate($i[$k], $context->appendEntries(new ContextEntry($key, $v, $i[$k])));
             } else {
                 $validations[] = Validation::failure(
-                    Reporter::VALUE_UNDEFINED,
-                    $context->appendEntries(new ContextEntry($key, $v, Reporter::VALUE_UNDEFINED))
+                    ContextEntry::VALUE_UNDEFINED,
+                    $context->appendEntries(new ContextEntry($key, $v, ContextEntry::VALUE_UNDEFINED))
                 );
             }
         }

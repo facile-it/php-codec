@@ -2,8 +2,8 @@
 
 namespace Pybatt\Codec\Internal\Useful;
 
-use Pybatt\Codec\Encode;
 use Pybatt\Codec\Internal\Arrays\MapRefine;
+use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\PreconditionFailureExcepion;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;

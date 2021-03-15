@@ -27,7 +27,7 @@ class BaseTestCase extends TestCase
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
-            implode("\n", (new PathReporter())->report($v))
+            implode("\n", PathReporter::create()->report($v))
         );
         /** @var ValidationSuccess<T> $v */
         $x = $v->getValue();
@@ -56,7 +56,7 @@ class BaseTestCase extends TestCase
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
-            implode("\n", (new PathReporter())->report($v))
+            implode("\n", PathReporter::create()->report($v))
         );
 
         /** @var ValidationSuccess<T> $v */
@@ -83,7 +83,7 @@ class BaseTestCase extends TestCase
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
-            implode("\n", (new PathReporter())->report($v))
+            implode("\n", PathReporter::create()->report($v))
         );
 
         /** @var ValidationSuccess<T> $v */

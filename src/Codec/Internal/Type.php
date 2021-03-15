@@ -3,7 +3,6 @@
 namespace Pybatt\Codec\Internal;
 
 use Pybatt\Codec\Decoder;
-use Pybatt\Codec\Encode;
 use Pybatt\Codec\Encoder;
 use Pybatt\Codec\Refine;
 use Pybatt\Codec\Validation\Context;

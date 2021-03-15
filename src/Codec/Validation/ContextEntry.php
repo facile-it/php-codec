@@ -6,6 +6,8 @@ use Pybatt\Codec\Decoder;
 
 class ContextEntry
 {
+    public const VALUE_UNDEFINED = 'd5d4cd07616a542891b7ec2d0257b3a24b69856e';
+
     /** @var string */
     private $key;
     /** @var Decoder */

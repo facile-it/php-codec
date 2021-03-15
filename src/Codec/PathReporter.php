@@ -11,6 +11,11 @@ use Pybatt\Codec\Validation\VError;
  */
 class PathReporter implements Reporter
 {
+    public static function create(): self
+    {
+        return new self();
+    }
+
     public function report(Validation $validation): array
     {
         return Validation::fold(
