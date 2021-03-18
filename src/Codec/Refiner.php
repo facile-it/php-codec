@@ -5,7 +5,7 @@ namespace Pybatt\Codec;
 /**
  * @template A
  */
-interface Refine
+interface Refiner
 {
     /**
      * @param mixed $u

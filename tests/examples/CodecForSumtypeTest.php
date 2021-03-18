@@ -9,7 +9,7 @@ use Pybatt\Codec\Internal\Primitives\LitteralType;
 use Pybatt\Codec\Validation\ValidationSuccess;
 use Tests\Pybatt\Codec\BaseTestCase;
 
-class SumTypeTest extends BaseTestCase
+class CodecForSumtypeTest extends BaseTestCase
 {
     use TestTrait;
 
@@ -18,10 +18,10 @@ class SumTypeTest extends BaseTestCase
         $codec = Codecs::union(
             Codecs::classFromArray(
                 [
-                    'type' => new LitteralType(internal\P::Type_a),
+                    'type' => Codecs::litteral(internal\P::Type_a),
                     'subType' => Codecs::union(
-                        new LitteralType(internal\A::SUB_foo),
-                        new LitteralType(internal\A::SUB_bar)
+                        Codecs::litteral(internal\A::SUB_foo),
+                        Codecs::litteral(internal\A::SUB_bar)
                     ),
                     'propA' => Codecs::int(),
                     'propB' => Codecs::string()
@@ -33,11 +33,11 @@ class SumTypeTest extends BaseTestCase
             ),
             Codecs::classFromArray(
                 [
-                    'type' => new LitteralType(internal\P::Type_b),
+                    'type' => Codecs::litteral(internal\P::Type_b),
                     'case' => Codecs::union(
-                        new LitteralType(internal\B::CASE_B1),
-                        new LitteralType(internal\B::CASE_B2),
-                        new LitteralType(internal\B::CASE_B3)
+                        Codecs::litteral(internal\B::CASE_B1),
+                        Codecs::litteral(internal\B::CASE_B2),
+                        Codecs::litteral(internal\B::CASE_B3)
                     ),
                     'amount' => Codecs::float(),
                     'flag' => Codecs::bool()

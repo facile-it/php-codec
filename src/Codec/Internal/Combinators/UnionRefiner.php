@@ -2,25 +2,25 @@
 
 namespace Pybatt\Codec\Internal\Combinators;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
  * @template A
  * @template B
- * @implements Refine<A|B>
+ * @implements Refiner<A|B>
  */
-class UnionRefine implements Refine
+class UnionRefiner implements Refiner
 {
-    /** @var Refine<A> */
+    /** @var Refiner<A> */
     private $a;
-    /** @var Refine<B> */
+    /** @var Refiner<B> */
     private $b;
 
     /**
-     * @param Refine<A> $a
-     * @param Refine<B> $b
+     * @param Refiner<A> $a
+     * @param Refiner<B> $b
      */
-    public function __construct(Refine $a, Refine $b)
+    public function __construct(Refiner $a, Refiner $b)
     {
         $this->a = $a;
         $this->b = $b;

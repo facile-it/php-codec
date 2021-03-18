@@ -2,12 +2,12 @@
 
 namespace Pybatt\Codec\Internal\Arrays;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
- * @implements Refine<array<array-key,mixed>>
+ * @implements Refiner<array<array-key,mixed>>
  */
-class MapRefine implements Refine
+class MapRefiner implements Refiner
 {
     /**
      * @param mixed $u

@@ -5,11 +5,11 @@ namespace Tests\Pybatt\Codec\Internal\Combinators;
 use Eris\Generator;
 use Eris\TestTrait;
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\Internal\Arrays\AssociativeArrayRefine;
-use Pybatt\Codec\Internal\Combinators\UnionRefine;
-use Pybatt\Codec\Internal\Primitives\IntRefine;
-use Pybatt\Codec\Internal\Primitives\NullRefine;
-use Pybatt\Codec\Internal\Primitives\StringRefine;
+use Pybatt\Codec\Internal\Combinators\UnionRefiner;
+use Pybatt\Codec\Internal\Experimental\AssociativeArrayRefiner;
+use Pybatt\Codec\Internal\Primitives\IntRefiner;
+use Pybatt\Codec\Internal\Primitives\NullRefiner;
+use Pybatt\Codec\Internal\Primitives\StringRefiner;
 
 class UnionRefineTest extends TestCase
 {
@@ -17,10 +17,10 @@ class UnionRefineTest extends TestCase
 
     public function testRefineUnion(): void
     {
-        $stringOrInt = new UnionRefine(new StringRefine(), new IntRefine());
-        $stringOrNull = new UnionRefine(new StringRefine(), new NullRefine());
-        $intOrNull = new UnionRefine(new IntRefine(), new NullRefine());
-        $mapOrNull = new UnionRefine(new AssociativeArrayRefine(['a' => new StringRefine(), 'b' => new IntRefine()]), new NullRefine());
+        $stringOrInt = new UnionRefiner(new StringRefiner(), new IntRefiner());
+        $stringOrNull = new UnionRefiner(new StringRefiner(), new NullRefiner());
+        $intOrNull = new UnionRefiner(new IntRefiner(), new NullRefiner());
+        $mapOrNull = new UnionRefiner(new AssociativeArrayRefiner(['a' => new StringRefiner(), 'b' => new IntRefiner()]), new NullRefiner());
 
         $this
             ->forAll(

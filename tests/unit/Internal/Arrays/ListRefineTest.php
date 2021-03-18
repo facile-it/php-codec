@@ -5,8 +5,8 @@ namespace Tests\Pybatt\Codec\Internal\Arrays;
 use Eris\Generator as g;
 use Eris\TestTrait;
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\Internal\Arrays\ListRefine;
-use Pybatt\Codec\Internal\Primitives\IntRefine;
+use Pybatt\Codec\Internal\Arrays\ListRefiner;
+use Pybatt\Codec\Internal\Primitives\IntRefiner;
 
 class ListRefineTest extends TestCase
 {
@@ -14,7 +14,7 @@ class ListRefineTest extends TestCase
 
     public function testRefine(): void
     {
-        $refine = new ListRefine(new IntRefine());
+        $refine = new ListRefiner(new IntRefiner());
 
         $this
             ->forAll(

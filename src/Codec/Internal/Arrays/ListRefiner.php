@@ -2,21 +2,21 @@
 
 namespace Pybatt\Codec\Internal\Arrays;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
  * @template T
- * @implements Refine<list<T>>
+ * @implements Refiner<list<T>>
  */
-class ListRefine implements Refine
+class ListRefiner implements Refiner
 {
-    /** @var Refine<T> */
+    /** @var Refiner<T> */
     private $itemRefiner;
 
     /**
-     * @param Refine<T> $item
+     * @param Refiner<T> $item
      */
-    public function __construct(Refine $item)
+    public function __construct(Refiner $item)
     {
         $this->itemRefiner = $item;
     }

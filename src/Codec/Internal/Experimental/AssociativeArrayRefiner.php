@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Pybatt\Codec\Internal\Arrays;
+namespace Pybatt\Codec\Internal\Experimental;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
- * @implements Refine<array<array-key, mixed>>
+ * @implements Refiner<array<array-key, mixed>>
  */
-class AssociativeArrayRefine implements Refine
+class AssociativeArrayRefiner implements Refiner
 {
-    /** @var Refine[] */
+    /** @var Refiner[] */
     private $props;
 
     /**
-     * @param non-empty-array<array-key, Refine> $props
+     * @param non-empty-array<array-key, Refiner> $props
      */
     public function __construct(array $props)
     {

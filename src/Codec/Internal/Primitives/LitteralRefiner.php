@@ -2,13 +2,13 @@
 
 namespace Pybatt\Codec\Internal\Primitives;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
  * @template T of bool | int | string
- * @implements Refine<T>
+ * @implements Refiner<T>
  */
-class LitteralRefine implements Refine
+class LitteralRefiner implements Refiner
 {
     /** @var T */
     private $litteral;

@@ -5,7 +5,7 @@ namespace Tests\Pybatt\Codec\Internal\Primitives;
 use Eris\Generator;
 use Eris\TestTrait;
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\Internal\Primitives\IntRefine;
+use Pybatt\Codec\Internal\Primitives\IntRefiner;
 
 class IntRefineTest extends TestCase
 {
@@ -13,7 +13,7 @@ class IntRefineTest extends TestCase
 
     public function testRefiner(): void
     {
-        $refiner = new IntRefine();
+        $refiner = new IntRefiner();
 
         $this
             ->forAll(

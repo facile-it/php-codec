@@ -3,6 +3,8 @@
 namespace Examples\Pybatt\Codec;
 
 use Examples\Pybatt\Codec\in\Coordinates;
+use Examples\Pybatt\Codec\in\Sys;
+use Pybatt\Codec\Codec;
 use Pybatt\Codec\Codecs;
 use Tests\Pybatt\Codec\BaseTestCase;
 
@@ -34,10 +36,21 @@ class DecodeApiResponseTest extends BaseTestCase
                         },
                         in\Weather::class
                     )
+                ),
+                "sys" => Codecs::classFromArray(
+                    [
+                        'country' => Codecs::string(),
+                        'sunrise' => Codecs::dateTimeFromIsoString(),
+                        'sunset' => Codecs::dateTimeFromIsoString()
+                    ],
+                    function(string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): in\Sys {
+                        return new Sys($county, $sunrise, $sunset);
+                    },
+                    in\Sys::class
                 )
             ],
-            function (Coordinates $coordinates, array $weathers): in\OpenWeatherResponse {
-                return new in\OpenWeatherResponse($coordinates, $weathers);
+            function (Coordinates $coordinates, array $weathers, Sys $sys): in\OpenWeatherResponse {
+                return new in\OpenWeatherResponse($coordinates, $weathers, $sys);
             },
             in\OpenWeatherResponse::class
         );
@@ -89,8 +102,8 @@ class DecodeApiResponseTest extends BaseTestCase
     "type": 3,
     "id": 2001891,
     "country": "IT",
-    "sunrise": "2021-03-12T06:22:48.000+01:00",
-    "sunset": "2021-03-12T18:07:28.000+01:00"
+    "sunrise": "2021-03-12T06:22:48+01:00",
+    "sunset": "2021-03-12T18:07:28+01:00"
   },
   "timezone": 3600,
   "id": 3172720,
@@ -133,11 +146,18 @@ class OpenWeatherResponse
     private $coordinates;
     /** @var array */
     private $weather;
+    /** @var Sys */
+    private $sys;
 
-    public function __construct(Coordinates $coordinates, array $weathers)
+    public function __construct(
+        Coordinates $coordinates,
+        array $weathers,
+        Sys $sys
+    )
     {
         $this->coordinates = $coordinates;
         $this->weather = $weathers;
+        $this->sys = $sys;
     }
 
     public function getCoordinates(): Coordinates
@@ -148,6 +168,43 @@ class OpenWeatherResponse
     public function getWeather(): array
     {
         return $this->weather;
+    }
+
+    public function getSys(): Sys
+    {
+        return $this->sys;
+    }
+}
+
+class Sys
+{
+    /** @var string */
+    private $country;
+    /** @var \DateTimeInterface */
+    private $sunrise;
+    /** @var \DateTimeInterface */
+    private $sunset;
+
+    public function __construct(string $country, \DateTimeInterface $sunrise, \DateTimeInterface $sunset)
+    {
+        $this->country = $country;
+        $this->sunrise = $sunrise;
+        $this->sunset = $sunset;
+    }
+
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    public function getSunrise(): \DateTimeInterface
+    {
+        return $this->sunrise;
+    }
+
+    public function getSunset(): \DateTimeInterface
+    {
+        return $this->sunset;
     }
 }
 

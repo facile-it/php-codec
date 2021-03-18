@@ -20,7 +20,7 @@ class LitteralType extends Type
     {
         parent::__construct(
             self::litteralName($litteral),
-            new LitteralRefine($litteral),
+            new LitteralRefiner($litteral),
             Encode::identity()
         );
     }

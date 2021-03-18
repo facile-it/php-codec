@@ -2,10 +2,12 @@
 
 use PhpAT\Rule\Rule;
 use PhpAT\Selector\Selector;
+use Pybatt\Codec\Codec;
 use Pybatt\Codec\Codecs;
 use Pybatt\Codec\Decoder;
 use Pybatt\Codec\Encoder;
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Internal\Experimental\ExperimentalMarker;
+use Pybatt\Codec\Refiner;
 
 class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
 {
@@ -23,9 +25,9 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
     {
         return $this->newRule
             ->classesThat(Selector::haveClassName('Pybatt\Codec\*\*Refine'))
-            ->excludingClassesThat(Selector::haveClassName(Refine::class))
+            ->excludingClassesThat(Selector::haveClassName(Refiner::class))
             ->mustImplement()
-            ->classesThat(Selector::haveClassName(Refine::class))
+            ->classesThat(Selector::haveClassName(Refiner::class))
             ->build();
     }
 
@@ -47,9 +49,19 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
             ->classesThat(Selector::havePath('Codec/*'))
             ->excludingClassesThat(Selector::havePath('Codec/Internal/*'))
             ->andExcludingClassesThat(Selector::havePath('Codec/Validation/*'))
-            ->andExcludingClassesThat(Selector::haveClassName(Refine::class))
+            ->andExcludingClassesThat(Selector::haveClassName(Refiner::class))
             ->andExcludingClassesThat(Selector::haveClassName(Decoder::class))
             ->andExcludingClassesThat(Selector::haveClassName(Encoder::class))
+            ->andExcludingClassesThat(Selector::haveClassName(Codec::class))
+            ->build();
+    }
+
+    public function testCodecsMustExposeEveryInteralCodec(): Rule
+    {
+        return $this->newRule
+            ->classesThat(Selector::haveClassName(Codecs::class))
+            ->mustDependOn()
+            ->andClassesThat(Selector::extendClass(\Pybatt\Codec\Internal\Type::class))
             ->build();
     }
 }

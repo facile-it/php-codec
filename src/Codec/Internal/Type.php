@@ -2,9 +2,8 @@
 
 namespace Pybatt\Codec\Internal;
 
-use Pybatt\Codec\Decoder;
-use Pybatt\Codec\Encoder;
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Codec;
+use Pybatt\Codec\Refiner;
 use Pybatt\Codec\Validation\Context;
 use Pybatt\Codec\Validation\ContextEntry;
 use Pybatt\Codec\Validation\Validation;
@@ -14,27 +13,25 @@ use Pybatt\Codec\Validation\Validation;
  * @template I
  * @template O
  *
- * @implements Decoder<I, A>
- * @implements Encoder<A, O>
- * @implements Refine<A>
+ * @implements Codec<A, I, O>
  */
-abstract class Type implements Decoder, Encoder, Refine
+abstract class Type implements Codec
 {
     /** @var string */
     protected $name;
     /** @var Encode<A,O> */
     protected $encode;
-    /** @var Refine */
+    /** @var Refiner */
     private $refine;
 
     /**
      * @param string $name
-     * @param Refine<A> $refine
+     * @param Refiner<A> $refine
      * @param Encode<A, O> $encode
      */
     public function __construct(
         string $name,
-        Refine $refine,
+        Refiner $refine,
         Encode $encode
     )
     {
@@ -52,6 +49,11 @@ abstract class Type implements Decoder, Encoder, Refine
         return $this->refine->is($u);
     }
 
+    /**
+     * @param I $i
+     * @param Context $context
+     * @return Validation<A>
+     */
     public function decode($i): Validation
     {
         return $this->validate(
@@ -61,6 +63,13 @@ abstract class Type implements Decoder, Encoder, Refine
             )
         );
     }
+
+    /**
+     * @param I $i
+     * @param Context $context
+     * @return Validation<A>
+     */
+    abstract public function validate($i, Context $context): Validation;
 
     /**
      * @param A $a
@@ -77,19 +86,11 @@ abstract class Type implements Decoder, Encoder, Refine
     }
 
     /**
-     * @return Encode<A, O>
-     */
-    public function getEncode(): Encode
-    {
-        return $this->encode;
-    }
-
-    /**
      * @param mixed $i
      * @return static
      * @psalm-assert I $i
      */
-    protected function forceCheckPrecondition($i)
+    public function forceCheckPrecondition($i)
     {
         return $this;
     }

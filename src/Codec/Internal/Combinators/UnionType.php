@@ -2,6 +2,7 @@
 
 namespace Pybatt\Codec\Internal\Combinators;
 
+use Pybatt\Codec\Codec;
 use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;
@@ -15,38 +16,38 @@ use Pybatt\Codec\Validation\ValidationSuccess;
  */
 class UnionType extends Type
 {
-    /** @var Type<A, mixed, A> */
-    private $typeA;
-    /** @var Type<B, mixed, B> */
-    private $typeB;
+    /** @var Codec<A, mixed, A> */
+    private $a;
+    /** @var Codec<B, mixed, B> */
+    private $b;
 
     /**
-     * @param Type<A, mixed, A> $typeA
-     * @param Type<B, mixed, B> $typeB
+     * @param Codec<A, mixed, A> $a
+     * @param Codec<B, mixed, B> $b
      */
     public function __construct(
-        Type $typeA,
-        Type $typeB
+        Codec $a,
+        Codec $b
     )
     {
         $name = sprintf(
             '%s | %s',
-            $typeA->getName(),
-            $typeB->getName()
+            $a->getName(),
+            $b->getName()
         );
 
         parent::__construct(
             $name,
-            new UnionRefine($typeA, $typeB),
+            new UnionRefiner($a, $b),
             Encode::identity()
         );
-        $this->typeA = $typeA;
-        $this->typeB = $typeB;
+        $this->a = $a;
+        $this->b = $b;
     }
 
     public function validate($i, Context $context): Validation
     {
-        $va = $this->typeA
+        $va = $this->a
             ->forceCheckPrecondition($i)
             ->validate($i, $context);
 
@@ -55,7 +56,7 @@ class UnionType extends Type
             return $va;
         }
 
-        return $this->typeB
+        return $this->b
             ->forceCheckPrecondition($i)
             ->validate($i, $context);
     }

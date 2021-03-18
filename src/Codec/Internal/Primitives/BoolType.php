@@ -14,7 +14,7 @@ class BoolType extends Type
 {
     public function __construct()
     {
-        parent::__construct('bool', new BoolRefine(), Encode::identity());
+        parent::__construct('bool', new BoolRefiner(), Encode::identity());
     }
 
     public function validate($i, Context $context): Validation

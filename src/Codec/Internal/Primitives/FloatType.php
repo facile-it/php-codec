@@ -14,7 +14,7 @@ class FloatType extends Type
 {
     public function __construct()
     {
-        parent::__construct('float', new FloatRefine(), Encode::identity());
+        parent::__construct('float', new FloatRefiner(), Encode::identity());
     }
 
     public function validate($i, Context $context): Validation

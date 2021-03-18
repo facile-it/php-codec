@@ -16,7 +16,7 @@ class MapType extends Type
     {
         parent::__construct(
             'array',
-            new MapRefine(),
+            new MapRefiner(),
             Encode::identity()
         );
     }

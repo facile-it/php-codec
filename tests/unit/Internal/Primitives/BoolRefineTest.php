@@ -4,7 +4,7 @@ namespace Tests\Pybatt\Codec\Internal\Primitives;
 
 use Eris\TestTrait;
 use Eris\Generator as g;
-use Pybatt\Codec\Internal\Primitives\BoolRefine;
+use Pybatt\Codec\Internal\Primitives\BoolRefiner;
 use PHPUnit\Framework\TestCase;
 
 class BoolRefineTest extends TestCase
@@ -13,7 +13,7 @@ class BoolRefineTest extends TestCase
 
     public function test(): void
     {
-        $refine = new BoolRefine();
+        $refine = new BoolRefiner();
 
         self::assertTrue($refine->is(true));
         self::assertTrue($refine->is(false));

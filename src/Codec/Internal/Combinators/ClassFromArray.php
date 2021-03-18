@@ -2,10 +2,11 @@
 
 namespace Pybatt\Codec\Internal\Combinators;
 
-use Pybatt\Codec\Internal\Arrays\MapRefine;
+use Pybatt\Codec\Codec;
+use Pybatt\Codec\Internal\Arrays\MapRefiner;
 use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\PreconditionFailureExcepion;
-use Pybatt\Codec\Internal\Primitives\InstanceOfRefine;
+use Pybatt\Codec\Internal\Primitives\InstanceOfRefiner;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;
 use Pybatt\Codec\Validation\ContextEntry;
@@ -21,11 +22,11 @@ class ClassFromArray extends Type
 {
     /** @var callable(...mixed):T */
     private $builder;
-    /** @var non-empty-array<array-key, Type> */
+    /** @var non-empty-array<array-key, Codec> */
     private $props;
 
     /**
-     * @param non-empty-array<array-key, Type> $props
+     * @param non-empty-array<array-key, Codec> $props
      * @param callable(...mixed):T $builder
      * @param class-string<T> $fqcn
      */
@@ -37,7 +38,7 @@ class ClassFromArray extends Type
     {
         parent::__construct(
             sprintf('%s(%s)', $fqcn, nameFromProps($props)),
-            new InstanceOfRefine($fqcn),
+            new InstanceOfRefiner($fqcn),
             Encode::identity()
         );
 
@@ -68,9 +69,9 @@ class ClassFromArray extends Type
         );
     }
 
-    protected function forceCheckPrecondition($i)
+    public function forceCheckPrecondition($i)
     {
-        if(!(new MapRefine())->is($i)) {
+        if(!(new MapRefiner())->is($i)) {
             throw PreconditionFailureExcepion::create('array<string, mixed>', $i);
         }
 

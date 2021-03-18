@@ -2,7 +2,8 @@
 
 namespace Pybatt\Codec\Internal\Useful;
 
-use Pybatt\Codec\Internal\Arrays\MapRefine;
+use Pybatt\Codec\Decoder;
+use Pybatt\Codec\Internal\Arrays\MapRefiner;
 use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\PreconditionFailureExcepion;
 use Pybatt\Codec\Internal\Type;
@@ -21,7 +22,7 @@ class RegexType extends Type
     {
         parent::__construct(
             sprintf('regex(%s)', $regex),
-            new MapRefine(),
+            new MapRefiner(),
             Encode::identity()
         );
         $this->regex = $regex;
@@ -42,7 +43,7 @@ class RegexType extends Type
      * @return static
      * @psalm-assert string $i
      */
-    protected function forceCheckPrecondition($i)
+    public function forceCheckPrecondition($i)
     {
         if (!is_string($i)) {
             throw PreconditionFailureExcepion::create('string', $i);

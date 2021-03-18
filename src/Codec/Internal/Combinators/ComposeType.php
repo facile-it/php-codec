@@ -2,6 +2,8 @@
 
 namespace Pybatt\Codec\Internal\Combinators;
 
+use Pybatt\Codec\Codec;
+use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;
 use Pybatt\Codec\Validation\Validation;
@@ -20,18 +22,18 @@ use Pybatt\Codec\Validation\Validation;
  */
 class ComposeType extends Type
 {
-    /** @var Type<A, IA, OA> */
+    /** @var Codec<A, IA, OA> */
     private $a;
-    /** @var Type<B, A, OB> */
+    /** @var Codec<B, A, OB> */
     private $b;
 
     /**
-     * @param Type<A, IA, OA> $a
-     * @param Type<B, A, OB> $b
+     * @param Codec<A, IA, OA> $a
+     * @param Codec<B, A, OB> $b
      */
     public function __construct(
-        Type $a,
-        Type $b
+        Codec $a,
+        Codec $b
     )
     {
         $this->a = $a;
@@ -40,7 +42,7 @@ class ComposeType extends Type
         parent::__construct(
             $b->getName(),
             $b,
-            $b->getEncode()
+            Encode::fromCodec($b)
         );
     }
 

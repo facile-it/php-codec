@@ -14,7 +14,7 @@ class StringType extends Type
 {
     public function __construct()
     {
-        parent::__construct('string', new StringRefine(), Encode::identity());
+        parent::__construct('string', new StringRefiner(), Encode::identity());
     }
 
     public function validate($i, Context $context): Validation

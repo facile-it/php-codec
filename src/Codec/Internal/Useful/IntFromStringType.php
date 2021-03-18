@@ -4,7 +4,7 @@ namespace Pybatt\Codec\Internal\Useful;
 
 use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\PreconditionFailureExcepion;
-use Pybatt\Codec\Internal\Primitives\IntRefine;
+use Pybatt\Codec\Internal\Primitives\IntRefiner;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;
 use Pybatt\Codec\Validation\Validation;
@@ -16,7 +16,7 @@ class IntFromStringType extends Type
 {
     public function __construct()
     {
-        parent::__construct('IntFromString', new IntRefine(), Encode::identity());
+        parent::__construct('IntFromString', new IntRefiner(), Encode::identity());
     }
 
     public function validate($i, Context $context): Validation
@@ -26,7 +26,7 @@ class IntFromStringType extends Type
             : Validation::failure($i, $context);
     }
 
-    protected function forceCheckPrecondition($i)
+    public function forceCheckPrecondition($i)
     {
         if(!is_string($i)) {
             throw PreconditionFailureExcepion::create('string', $i);

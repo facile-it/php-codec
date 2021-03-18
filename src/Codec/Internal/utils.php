@@ -2,10 +2,11 @@
 
 namespace Pybatt\Codec\Internal;
 
+use Pybatt\Codec\Codec;
+
 /**
- * @param non-empty-array<array-key, Type> $props
+ * @param non-empty-array<array-key, Codec> $props
  * @return string
- * @psalm-pure
  */
 function nameFromProps(array $props): string
 {
@@ -14,7 +15,7 @@ function nameFromProps(array $props): string
         implode(
             ', ',
             array_map(
-                static function (Type $t, $k): string {
+                static function (Codec $t, $k): string {
                     return sprintf(
                         '%s: %s',
                         is_string($k) ? $k : sprintf('[%d]', $k),

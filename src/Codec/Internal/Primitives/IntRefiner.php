@@ -2,12 +2,12 @@
 
 namespace Pybatt\Codec\Internal\Primitives;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
- * @implements Refine<int>
+ * @implements Refiner<int>
  */
-class IntRefine implements Refine
+class IntRefiner implements Refiner
 {
     public function is($u): bool
     {

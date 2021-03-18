@@ -2,6 +2,8 @@
 
 namespace Pybatt\Codec\Internal;
 
+use Pybatt\Codec\Codec;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug;
 use const Pybatt\Codec\identity;
 
 /**
@@ -20,6 +22,31 @@ class Encode
     public static function identity(): self
     {
         return new self(identity);
+    }
+
+    /**
+     * @template X
+     * @template Y
+     * @template Z
+     *
+     * @param Codec<X, Y, Z> $c
+     * @return self<X, Z>
+     */
+    public static function fromCodec(Codec $c): self
+    {
+        return new self(
+        /**
+         * @param X $x
+         * @psalm-return Z
+         * @psalm-suppress MixedInferredReturnType
+         */
+            function ($x) use ($c) {
+                /**
+                 * @psalm-suppress MixedReturnStatement
+                 */
+                return $c->encode($x);
+            }
+        );
     }
 
     /**

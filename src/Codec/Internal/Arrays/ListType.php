@@ -2,6 +2,7 @@
 
 namespace Pybatt\Codec\Internal\Arrays;
 
+use Pybatt\Codec\Codec;
 use Pybatt\Codec\Internal\Encode;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;
@@ -15,20 +16,20 @@ use Pybatt\Codec\Validation\Validation;
  */
 class ListType extends Type
 {
-    /** @var Type<T, mixed, T> */
-    private $itemType;
+    /** @var Codec<T, mixed, T> */
+    private $itemCodec;
 
     /**
-     * @param Type<T, mixed, T> $itemType
+     * @param Codec<T, mixed, T> $itemCodec
      */
-    public function __construct(Type $itemType)
+    public function __construct(Codec $itemCodec)
     {
         parent::__construct(
-            $itemType->getName() . '[]',
-            new ListRefine($itemType),
+            $itemCodec->getName() . '[]',
+            new ListRefiner($itemCodec),
             Encode::identity()
         );
-        $this->itemType = $itemType;
+        $this->itemCodec = $itemCodec;
     }
 
     public function validate($i, Context $context): Validation
@@ -39,7 +40,7 @@ class ListType extends Type
                 $context->appendEntries(
                     new ContextEntry(
                         $this->getName(),
-                        $this->itemType,
+                        $this->itemCodec,
                         $i
                     )
                 )
@@ -52,7 +53,7 @@ class ListType extends Type
          * @var mixed $item
          */
         foreach ($i as $k => $item) {
-            $validation[] = $this->itemType->validate($item, $context);
+            $validation[] = $this->itemCodec->validate($item, $context);
         }
 
         return Validation::sequence($validation);

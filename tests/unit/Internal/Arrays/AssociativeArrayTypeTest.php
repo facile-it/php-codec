@@ -4,7 +4,7 @@ namespace Tests\Pybatt\Codec\Internal\Arrays;
 
 use PHPUnit\Framework\TestCase;
 use Pybatt\Codec\Codecs;
-use Pybatt\Codec\Internal\Arrays\AssociativeArrayType;
+use Pybatt\Codec\Internal\Experimental\AssociativeArrayType;
 use Pybatt\Codec\PathReporter;
 
 class AssociativeArrayTypeTest extends TestCase

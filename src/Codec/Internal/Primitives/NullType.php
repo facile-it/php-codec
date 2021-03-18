@@ -21,6 +21,6 @@ class NullType extends Type
 
     public function __construct()
     {
-        parent::__construct('null', new NullRefine(), Encode::identity());
+        parent::__construct('null', new NullRefiner(), Encode::identity());
     }
 }

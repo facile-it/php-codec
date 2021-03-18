@@ -2,15 +2,14 @@
 
 namespace Pybatt\Codec\Internal\Primitives;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
- * @implements Refine<string>
+ * @implements Refiner<null>
  */
-class StringRefine implements Refine
-{
+class NullRefiner implements Refiner {
     public function is($u): bool
     {
-        return is_string($u);
+        return $u === null;
     }
 }

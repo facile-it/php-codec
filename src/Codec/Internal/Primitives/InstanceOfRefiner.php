@@ -2,13 +2,13 @@
 
 namespace Pybatt\Codec\Internal\Primitives;
 
-use Pybatt\Codec\Refine;
+use Pybatt\Codec\Refiner;
 
 /**
  * @template T of object
- * @implements Refine<T>
+ * @implements Refiner<T>
  */
-class InstanceOfRefine implements Refine
+class InstanceOfRefiner implements Refiner
 {
     /** @var class-string<T> */
     private $fqcn;

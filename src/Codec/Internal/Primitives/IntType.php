@@ -14,7 +14,7 @@ class IntType extends Type
 {
     public function __construct()
     {
-        parent::__construct('int', new IntRefine(), Encode::identity());
+        parent::__construct('int', new IntRefiner(), Encode::identity());
     }
 
     public function validate($i, Context $context): Validation

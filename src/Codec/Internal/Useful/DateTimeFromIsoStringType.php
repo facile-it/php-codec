@@ -3,7 +3,7 @@
 namespace Pybatt\Codec\Internal\Useful;
 
 use Pybatt\Codec\Internal\Encode;
-use Pybatt\Codec\Internal\Primitives\InstanceOfRefine;
+use Pybatt\Codec\Internal\Primitives\InstanceOfRefiner;
 use Pybatt\Codec\Internal\Type;
 use Pybatt\Codec\Validation\Context;
 use Pybatt\Codec\Validation\Validation;
@@ -17,7 +17,7 @@ class DateTimeFromIsoStringType extends Type
     {
         parent::__construct(
             'DateFromATOMString',
-            new InstanceOfRefine(\DateTime::class),
+            new InstanceOfRefiner(\DateTime::class),
             Encode::identity()
         );
     }

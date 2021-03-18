@@ -2,15 +2,15 @@
 
 namespace TypeAssertions\Pybatt\Codec;
 
-use Pybatt\Codec\Internal\Arrays\MapRefine;
-use Pybatt\Codec\Internal\Primitives\InstanceOfRefine;
-use Pybatt\Codec\Internal\Primitives\LitteralRefine;
+use Pybatt\Codec\Internal\Arrays\MapRefiner;
+use Pybatt\Codec\Internal\Primitives\InstanceOfRefiner;
+use Pybatt\Codec\Internal\Primitives\LitteralRefiner;
 
 class RefineTypeAssertions extends TypeAssertion
 {
     public function assertInstanceOf(): void
     {
-        $refiner = new InstanceOfRefine(\DateTimeInterface::class);
+        $refiner = new InstanceOfRefiner(\DateTimeInterface::class);
 
         $assert = function (\DateTimeInterface $_): void {
         };
@@ -24,7 +24,7 @@ class RefineTypeAssertions extends TypeAssertion
 
     public function testRefineAssociativeArray(): void
     {
-        $refiner = new MapRefine();
+        $refiner = new MapRefiner();
 
         /**
          * @param array<array-key,mixed> $x
@@ -43,22 +43,22 @@ class RefineTypeAssertions extends TypeAssertion
         /** @var mixed $x */
         $x = self::mixed();
 
-        if((new LitteralRefine('a'))->is($x)) {
+        if((new LitteralRefiner('a'))->is($x)) {
             self::assertString($x);
         }
 
-        if((new LitteralRefine(true))->is($x)) {
+        if((new LitteralRefiner(true))->is($x)) {
             self::assertBool($x);
             self::assertTrue($x);
         }
 
-        if((new LitteralRefine(false))->is($x)) {
+        if((new LitteralRefiner(false))->is($x)) {
             self::assertFalse($x);
             self::assertTrue($x); // Why?
             self::assertBool($x);
         }
 
-        if((new LitteralRefine(123))->is($x)) {
+        if((new LitteralRefiner(123))->is($x)) {
             self::assertInt($x);
         }
     }
