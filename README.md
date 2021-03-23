@@ -8,6 +8,14 @@ Php-codec is a partial porting of [io-ts](https://github.com/gcanti/io-ts) in PH
 [![Static analysis](https://github.com/facile-it/php-codec/actions/workflows/static-analysis.yaml/badge.svg?branch=master&event=push)](https://github.com/facile-it/php-codec/actions/workflows/static-analysis.yaml)
 [![codecov](https://codecov.io/gh/facile-it/php-codec/branch/master/graph/badge.svg?token=HP4OFEEPY6)](https://codecov.io/gh/facile-it/php-codec)
 
+## Disclaimer
+
+This project is under active development.
+It's very unstable and poorly documented.
+The APIs are likely to change several times, and it won't be ready for production in the near future.
+
+This project will be released following the [semantic versioning](https://semver.org/).
+
 ## Installation
 
     composer require pybatt/php-codec
