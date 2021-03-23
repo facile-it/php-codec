@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec\Internal;
+namespace Tests\Facile\Codec\Internal;
 
-use Pybatt\Codec\Internal\PreconditionFailureExcepion;
+use Facile\Codec\Internal\PreconditionFailureExcepion;
 use PHPUnit\Framework\TestCase;
 
 class PreconditionFailureExcepionTest extends TestCase

@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Pybatt\Codec\Internal\Primitives;
+namespace Tests\Facile\Codec\Internal\Primitives;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Pybatt\Codec\Internal\Primitives\BoolType;
-use Pybatt\Codec\Validation\ValidationFailures;
-use Tests\Pybatt\Codec\BaseTestCase;
+use Facile\Codec\Internal\Primitives\BoolType;
+use Facile\Codec\Validation\ValidationFailures;
+use Tests\Facile\Codec\BaseTestCase;
 
 class BoolTypeTest extends BaseTestCase
 {

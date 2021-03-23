@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec\Internal\Combinators;
+namespace Tests\Facile\Codec\Internal\Combinators;
 
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\Codecs;
-use Pybatt\Codec\Internal\Combinators\UnionType;
-use Pybatt\Codec\PathReporter;
+use Facile\Codec\Codecs;
+use Facile\Codec\Internal\Combinators\UnionType;
+use Facile\Codec\PathReporter;
 
 class UnionTypeTest extends TestCase
 {

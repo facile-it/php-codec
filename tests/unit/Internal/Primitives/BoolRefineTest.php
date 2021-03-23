@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec\Internal\Primitives;
+namespace Tests\Facile\Codec\Internal\Primitives;
 
 use Eris\TestTrait;
 use Eris\Generator as g;
-use Pybatt\Codec\Internal\Primitives\BoolRefiner;
+use Facile\Codec\Internal\Primitives\BoolRefiner;
 use PHPUnit\Framework\TestCase;
 
 class BoolRefineTest extends TestCase

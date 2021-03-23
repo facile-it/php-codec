@@ -1,5 +1,5 @@
 {
-    "name": "pybatt/php-codec",
+    "name": "facile-it/php-codec",
     "description": "A partial porting of io-ts in PHP",
     "type": "library",
     "config": {
@@ -22,18 +22,18 @@
     ],
     "autoload": {
         "psr-4": {
-            "Pybatt\\": "src/"
+            "Facile\\Codec\\": "src/"
         },
         "files": [
-            "src/Codec/functions.php",
-            "src/Codec/Internal/utils.php"
+            "src/functions.php",
+            "src/Internal/utils.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Pybatt\\Codec\\": "tests/unit/",
-            "Examples\\Pybatt\\Codec\\": "tests/examples/",
-            "TypeAssertions\\Pybatt\\Codec\\": "tests/type-assertions/"
+            "Tests\\Facile\\Codec\\": "tests/unit/",
+            "Examples\\Facile\\Codec\\": "tests/examples/",
+            "TypeAssertions\\Facile\\Codec\\": "tests/type-assertions/"
         }
     },
     "require": {

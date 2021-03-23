@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec\Internal\Arrays;
+namespace Tests\Facile\Codec\Internal\Arrays;
 
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\Codecs;
-use Pybatt\Codec\Internal\Experimental\AssociativeArrayType;
-use Pybatt\Codec\PathReporter;
+use Facile\Codec\Codecs;
+use Facile\Codec\Internal\Experimental\AssociativeArrayType;
+use Facile\Codec\PathReporter;
 
 class AssociativeArrayTypeTest extends TestCase
 {

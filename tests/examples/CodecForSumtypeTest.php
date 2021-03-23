@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Examples\Pybatt\Codec;
+namespace Examples\Facile\Codec;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Pybatt\Codec\Codecs;
-use Pybatt\Codec\Internal\Primitives\LitteralType;
-use Pybatt\Codec\Validation\ValidationSuccess;
-use Tests\Pybatt\Codec\BaseTestCase;
+use Facile\Codec\Codecs;
+use Facile\Codec\Internal\Primitives\LitteralType;
+use Facile\Codec\Validation\ValidationSuccess;
+use Tests\Facile\Codec\BaseTestCase;
 
 class CodecForSumtypeTest extends BaseTestCase
 {
@@ -99,7 +99,7 @@ class CodecForSumtypeTest extends BaseTestCase
     }
 }
 
-namespace Examples\Pybatt\Codec\internal;
+namespace Examples\Facile\Codec\internal;
 
 abstract class P
 {

@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec\Internal\Combinators;
+namespace Tests\Facile\Codec\Internal\Combinators;
 
 use Eris\Generator;
 use Eris\TestTrait;
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\Internal\Combinators\UnionRefiner;
-use Pybatt\Codec\Internal\Experimental\AssociativeArrayRefiner;
-use Pybatt\Codec\Internal\Primitives\IntRefiner;
-use Pybatt\Codec\Internal\Primitives\NullRefiner;
-use Pybatt\Codec\Internal\Primitives\StringRefiner;
+use Facile\Codec\Internal\Combinators\UnionRefiner;
+use Facile\Codec\Internal\Experimental\AssociativeArrayRefiner;
+use Facile\Codec\Internal\Primitives\IntRefiner;
+use Facile\Codec\Internal\Primitives\NullRefiner;
+use Facile\Codec\Internal\Primitives\StringRefiner;
 
 class UnionRefineTest extends TestCase
 {
