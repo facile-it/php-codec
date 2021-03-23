@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec\Internal\Useful;
+namespace Tests\Facile\Codec\Internal\Useful;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Pybatt\Codec\Internal\Useful\DateTimeFromIsoStringType;
-use Tests\Pybatt\Codec\BaseTestCase;
+use Facile\Codec\Internal\Useful\DateTimeFromIsoStringType;
+use Tests\Facile\Codec\BaseTestCase;
 
 class DateTimeFromIsoStringTypeTest extends BaseTestCase
 {

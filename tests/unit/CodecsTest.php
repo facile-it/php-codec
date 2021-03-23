@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec;
+namespace Tests\Facile\Codec;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Pybatt\Codec\Codecs;
-use Pybatt\Codec\Internal\Combinators\ClassFromArray;
-use Pybatt\Codec\Internal\Useful\RegexType;
-use Pybatt\Codec\Validation\ValidationFailures;
-use Pybatt\Codec\Validation\ValidationSuccess;
+use Facile\Codec\Codecs;
+use Facile\Codec\Internal\Combinators\ClassFromArray;
+use Facile\Codec\Internal\Useful\RegexType;
+use Facile\Codec\Validation\ValidationFailures;
+use Facile\Codec\Validation\ValidationSuccess;
 
 class CodecsTest extends BaseTestCase
 {
@@ -226,7 +226,7 @@ class CodecsTest extends BaseTestCase
     }
 }
 
-namespace Tests\Pybatt\Codec\in;
+namespace Tests\Facile\Codec\in;
 
 class A
 {

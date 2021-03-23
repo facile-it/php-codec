@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Examples\Pybatt\Codec;
+namespace Examples\Facile\Codec;
 
-use Examples\Pybatt\Codec\ParseACsvTest\in;
-use Pybatt\Codec\Codecs;
-use Tests\Pybatt\Codec\BaseTestCase;
+use Examples\Facile\Codec\ParseACsvTest\in;
+use Facile\Codec\Codecs;
+use Tests\Facile\Codec\BaseTestCase;
 
 class ParseACsvTest extends BaseTestCase
 {
@@ -62,7 +62,7 @@ CSV;
     }
 }
 
-namespace Examples\Pybatt\Codec\ParseACsvTest\in;
+namespace Examples\Facile\Codec\ParseACsvTest\in;
 
 class City
 {

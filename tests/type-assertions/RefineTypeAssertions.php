@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace TypeAssertions\Pybatt\Codec;
+namespace TypeAssertions\Facile\Codec;
 
-use Pybatt\Codec\Internal\Arrays\MapRefiner;
-use Pybatt\Codec\Internal\Primitives\InstanceOfRefiner;
-use Pybatt\Codec\Internal\Primitives\LitteralRefiner;
+use Facile\Codec\Internal\Arrays\MapRefiner;
+use Facile\Codec\Internal\Primitives\InstanceOfRefiner;
+use Facile\Codec\Internal\Primitives\LitteralRefiner;
 
 class RefineTypeAssertions extends TypeAssertion
 {

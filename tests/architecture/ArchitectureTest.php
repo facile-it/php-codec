@@ -2,29 +2,29 @@
 
 use PhpAT\Rule\Rule;
 use PhpAT\Selector\Selector;
-use Pybatt\Codec\Codec;
-use Pybatt\Codec\Codecs;
-use Pybatt\Codec\Decoder;
-use Pybatt\Codec\Encoder;
-use Pybatt\Codec\Internal\Experimental\ExperimentalMarker;
-use Pybatt\Codec\Refiner;
+use Facile\Codec\Codec;
+use Facile\Codec\Codecs;
+use Facile\Codec\Decoder;
+use Facile\Codec\Encoder;
+use Facile\Codec\Internal\Experimental\ExperimentalMarker;
+use Facile\Codec\Refiner;
 
 class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
 {
     public function testAllTypesExtendsAbstractType(): Rule
     {
         return $this->newRule
-            ->classesThat(Selector::haveClassName('Pybatt\Codec\*Type'))
-            ->excludingClassesThat(Selector::haveClassName(\Pybatt\Codec\Internal\Type::class))
+            ->classesThat(Selector::haveClassName('*Type'))
+            ->excludingClassesThat(Selector::haveClassName(\Facile\Codec\Internal\Type::class))
             ->mustExtend()
-            ->classesThat(Selector::haveClassName(\Pybatt\Codec\Internal\Type::class))
+            ->classesThat(Selector::haveClassName(\Facile\Codec\Internal\Type::class))
             ->build();
     }
 
     public function testRefineNamedClassesMustImplementsRefineInterface(): Rule
     {
         return $this->newRule
-            ->classesThat(Selector::haveClassName('Pybatt\Codec\*\*Refine'))
+            ->classesThat(Selector::haveClassName('*Refine'))
             ->excludingClassesThat(Selector::haveClassName(Refiner::class))
             ->mustImplement()
             ->classesThat(Selector::haveClassName(Refiner::class))
@@ -34,7 +34,7 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
     public function testCodecsShouldntBeUsed(): Rule
     {
         return $this->newRule
-            ->classesThat(Selector::havePath('Codec/*'))
+            ->classesThat(Selector::havePath('*'))
             ->excludingClassesThat(Selector::haveClassName(Codecs::class))
             ->mustNotDependOn()
             ->classesThat(Selector::haveClassName(Codecs::class))
@@ -44,11 +44,11 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
     public function testAnyInternalClassShouldNotDependFromAnythingOutsideExceptDefinitionInterfaces(): Rule
     {
         return $this->newRule
-            ->classesThat(Selector::havePath('Codec/Internal/*'))
+            ->classesThat(Selector::havePath('Internal/*'))
             ->mustNotDependOn()
-            ->classesThat(Selector::havePath('Codec/*'))
-            ->excludingClassesThat(Selector::havePath('Codec/Internal/*'))
-            ->andExcludingClassesThat(Selector::havePath('Codec/Validation/*'))
+            ->classesThat(Selector::havePath('*'))
+            ->excludingClassesThat(Selector::havePath('Internal/*'))
+            ->andExcludingClassesThat(Selector::havePath('Validation/*'))
             ->andExcludingClassesThat(Selector::haveClassName(Refiner::class))
             ->andExcludingClassesThat(Selector::haveClassName(Decoder::class))
             ->andExcludingClassesThat(Selector::haveClassName(Encoder::class))
@@ -61,7 +61,7 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
         return $this->newRule
             ->classesThat(Selector::haveClassName(Codecs::class))
             ->mustDependOn()
-            ->andClassesThat(Selector::extendClass(\Pybatt\Codec\Internal\Type::class))
+            ->andClassesThat(Selector::extendClass(\Facile\Codec\Internal\Type::class))
             ->build();
     }
 }

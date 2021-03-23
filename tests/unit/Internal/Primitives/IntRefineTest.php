@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec\Internal\Primitives;
+namespace Tests\Facile\Codec\Internal\Primitives;
 
 use Eris\Generator;
 use Eris\TestTrait;
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\Internal\Primitives\IntRefiner;
+use Facile\Codec\Internal\Primitives\IntRefiner;
 
 class IntRefineTest extends TestCase
 {

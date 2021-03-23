@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Examples\Pybatt\Codec;
+namespace Examples\Facile\Codec;
 
-use Examples\Pybatt\Codec\in\Coordinates;
-use Examples\Pybatt\Codec\in\Sys;
-use Pybatt\Codec\Codec;
-use Pybatt\Codec\Codecs;
-use Tests\Pybatt\Codec\BaseTestCase;
+use Examples\Facile\Codec\in\Coordinates;
+use Examples\Facile\Codec\in\Sys;
+use Facile\Codec\Codec;
+use Facile\Codec\Codecs;
+use Tests\Facile\Codec\BaseTestCase;
 
 class DecodeApiResponseTest extends BaseTestCase
 {
@@ -114,7 +114,7 @@ JSON;
     }
 }
 
-namespace Examples\Pybatt\Codec\in;
+namespace Examples\Facile\Codec\in;
 
 class Coordinates
 {

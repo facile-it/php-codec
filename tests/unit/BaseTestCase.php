@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Pybatt\Codec;
+namespace Tests\Facile\Codec;
 
 use PHPUnit\Framework\TestCase;
-use Pybatt\Codec\PathReporter;
-use Pybatt\Codec\Validation\Validation;
-use Pybatt\Codec\Validation\ValidationSuccess;
+use Facile\Codec\PathReporter;
+use Facile\Codec\Validation\Validation;
+use Facile\Codec\Validation\ValidationSuccess;
 
 class BaseTestCase extends TestCase
 {
