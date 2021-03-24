@@ -18,7 +18,7 @@ This project will be released following the [semantic versioning](https://semver
 
 ## Installation
 
-    composer require pybatt/php-codec
+    composer require facile-it/php-codec
 
 ## Introduction
 
