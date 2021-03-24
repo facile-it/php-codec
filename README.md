@@ -14,7 +14,7 @@ This project is under active development.
 It's very unstable and poorly documented.
 The APIs are likely to change several times, and it won't be ready for production in the near future.
 
-This project will be released following the [semantic versioning](https://semver.org/).
+This project follows the [semantic versioning](https://semver.org/).
 
 ## Installation
 
