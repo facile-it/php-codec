@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace TypeAssertions\Facile\Codec;
+namespace TypeAssertions\Facile\PhpCodec;
 
 class TypeAssertion
 {

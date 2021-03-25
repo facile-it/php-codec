@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal\Experimental;
+namespace Facile\PhpCodec\Internal\Experimental;
 
-use Facile\Codec\Internal\Encode;
-use Facile\Codec\Internal\Type;
-use Facile\Codec\Validation\Context;
-use Facile\Codec\Validation\ContextEntry;
-use Facile\Codec\Validation\Validation;
-use function Facile\Codec\Internal\nameFromProps;
+use Facile\PhpCodec\Internal\Encode;
+use Facile\PhpCodec\Internal\Type;
+use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\ContextEntry;
+use Facile\PhpCodec\Validation\Validation;
+use function Facile\PhpCodec\Internal\nameFromProps;
 
 /**
  * @extends Type<array<array-key, mixed>, mixed, array<array-key, mixed>>

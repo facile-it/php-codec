@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal\Primitives;
+namespace Facile\PhpCodec\Internal\Primitives;
 
-use Facile\Codec\Refiner;
+use Facile\PhpCodec\Refiner;
 
 /**
  * @implements Refiner<string>

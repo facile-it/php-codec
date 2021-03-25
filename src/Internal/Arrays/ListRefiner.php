@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal\Arrays;
+namespace Facile\PhpCodec\Internal\Arrays;
 
-use Facile\Codec\Refiner;
+use Facile\PhpCodec\Refiner;
 
 /**
  * @template T

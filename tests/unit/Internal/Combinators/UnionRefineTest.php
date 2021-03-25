@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec\Internal\Combinators;
+namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
 use Eris\Generator;
 use Eris\TestTrait;
 use PHPUnit\Framework\TestCase;
-use Facile\Codec\Internal\Combinators\UnionRefiner;
-use Facile\Codec\Internal\Experimental\AssociativeArrayRefiner;
-use Facile\Codec\Internal\Primitives\IntRefiner;
-use Facile\Codec\Internal\Primitives\NullRefiner;
-use Facile\Codec\Internal\Primitives\StringRefiner;
+use Facile\PhpCodec\Internal\Combinators\UnionRefiner;
+use Facile\PhpCodec\Internal\Experimental\AssociativeArrayRefiner;
+use Facile\PhpCodec\Internal\Primitives\IntRefiner;
+use Facile\PhpCodec\Internal\Primitives\NullRefiner;
+use Facile\PhpCodec\Internal\Primitives\StringRefiner;
 
 class UnionRefineTest extends TestCase
 {

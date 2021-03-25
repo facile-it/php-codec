@@ -31,7 +31,7 @@ from the io-ts documentation.
 
 ## Types and combinators
 
-All the implemented codecs and combinators are exposed through methods of the class `Facile\Codec\Codecs`.
+All the implemented codecs and combinators are exposed through methods of the class `Facile\PhpCodec\Codecs`.
 
 | Typescript Type | Psalm Type | Codec | 
 | --- | --- | --- |
@@ -50,7 +50,7 @@ All the implemented codecs and combinators are exposed through methods of the cl
 For further examples take a look to the [examples](https://github.com/facile-it/php-codec/tree/docs/tests/examples):
 
 ```php
-use Facile\Codec\Codecs;
+use Facile\PhpCodec\Codecs;
 
 $codec = Codecs::classFromArray(
     [

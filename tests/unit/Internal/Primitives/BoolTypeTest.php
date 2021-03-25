@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Facile\Codec\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Facile\Codec\Internal\Primitives\BoolType;
-use Facile\Codec\Validation\ValidationFailures;
-use Tests\Facile\Codec\BaseTestCase;
+use Facile\PhpCodec\Internal\Primitives\BoolType;
+use Facile\PhpCodec\Validation\ValidationFailures;
+use Tests\Facile\PhpCodec\BaseTestCase;
 
 class BoolTypeTest extends BaseTestCase
 {

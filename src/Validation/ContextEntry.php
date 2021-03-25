@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Validation;
+namespace Facile\PhpCodec\Validation;
 
-use Facile\Codec\Decoder;
+use Facile\PhpCodec\Decoder;
 
 class ContextEntry
 {

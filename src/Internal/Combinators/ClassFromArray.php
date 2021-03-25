@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal\Combinators;
+namespace Facile\PhpCodec\Internal\Combinators;
 
-use Facile\Codec\Codec;
-use Facile\Codec\Internal\Arrays\MapRefiner;
-use Facile\Codec\Internal\Encode;
-use Facile\Codec\Internal\PreconditionFailureExcepion;
-use Facile\Codec\Internal\Primitives\InstanceOfRefiner;
-use Facile\Codec\Internal\Type;
-use Facile\Codec\Validation\Context;
-use Facile\Codec\Validation\ContextEntry;
-use Facile\Codec\Validation\Validation;
-use function Facile\Codec\destructureIn;
-use function Facile\Codec\Internal\nameFromProps;
+use Facile\PhpCodec\Codec;
+use Facile\PhpCodec\Internal\Arrays\MapRefiner;
+use Facile\PhpCodec\Internal\Encode;
+use Facile\PhpCodec\Internal\PreconditionFailureExcepion;
+use Facile\PhpCodec\Internal\Primitives\InstanceOfRefiner;
+use Facile\PhpCodec\Internal\Type;
+use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\ContextEntry;
+use Facile\PhpCodec\Validation\Validation;
+use function Facile\PhpCodec\destructureIn;
+use function Facile\PhpCodec\Internal\nameFromProps;
 
 /**
  * @template T

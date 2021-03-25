@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec\Internal\Combinators;
+namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
 use PHPUnit\Framework\TestCase;
-use Facile\Codec\Codecs;
-use Facile\Codec\Internal\Combinators\UnionType;
-use Facile\Codec\PathReporter;
+use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Internal\Combinators\UnionType;
+use Facile\PhpCodec\PathReporter;
 
 class UnionTypeTest extends TestCase
 {

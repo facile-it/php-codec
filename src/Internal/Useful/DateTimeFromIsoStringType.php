@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal\Useful;
+namespace Facile\PhpCodec\Internal\Useful;
 
-use Facile\Codec\Internal\Encode;
-use Facile\Codec\Internal\Primitives\InstanceOfRefiner;
-use Facile\Codec\Internal\Type;
-use Facile\Codec\Validation\Context;
-use Facile\Codec\Validation\Validation;
+use Facile\PhpCodec\Internal\Encode;
+use Facile\PhpCodec\Internal\Primitives\InstanceOfRefiner;
+use Facile\PhpCodec\Internal\Type;
+use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @extends Type<\DateTime, string, \DateTime>

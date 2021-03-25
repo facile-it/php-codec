@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec\Internal\Arrays;
+namespace Tests\Facile\PhpCodec\Internal\Arrays;
 
 use PHPUnit\Framework\TestCase;
-use Facile\Codec\Codecs;
-use Facile\Codec\Internal\Experimental\AssociativeArrayType;
-use Facile\Codec\PathReporter;
+use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Internal\Experimental\AssociativeArrayType;
+use Facile\PhpCodec\PathReporter;
 
 class AssociativeArrayTypeTest extends TestCase
 {

@@ -1,13 +1,15 @@
 <?php declare(strict_types=1);
 
+namespace ArchitectureAssertions\Facile\PhpCodec;
+
+use Facile\PhpCodec\Internal\Type;
 use PhpAT\Rule\Rule;
 use PhpAT\Selector\Selector;
-use Facile\Codec\Codec;
-use Facile\Codec\Codecs;
-use Facile\Codec\Decoder;
-use Facile\Codec\Encoder;
-use Facile\Codec\Internal\Experimental\ExperimentalMarker;
-use Facile\Codec\Refiner;
+use Facile\PhpCodec\Codec;
+use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Decoder;
+use Facile\PhpCodec\Encoder;
+use Facile\PhpCodec\Refiner;
 
 class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
 {
@@ -15,9 +17,9 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
     {
         return $this->newRule
             ->classesThat(Selector::haveClassName('*Type'))
-            ->excludingClassesThat(Selector::haveClassName(\Facile\Codec\Internal\Type::class))
+            ->excludingClassesThat(Selector::haveClassName(Type::class))
             ->mustExtend()
-            ->classesThat(Selector::haveClassName(\Facile\Codec\Internal\Type::class))
+            ->classesThat(Selector::haveClassName(Type::class))
             ->build();
     }
 
@@ -61,7 +63,7 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
         return $this->newRule
             ->classesThat(Selector::haveClassName(Codecs::class))
             ->mustDependOn()
-            ->andClassesThat(Selector::extendClass(\Facile\Codec\Internal\Type::class))
+            ->andClassesThat(Selector::extendClass(Type::class))
             ->build();
     }
 }

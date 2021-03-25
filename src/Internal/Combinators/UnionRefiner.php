@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal\Combinators;
+namespace Facile\PhpCodec\Internal\Combinators;
 
-use Facile\Codec\Refiner;
+use Facile\PhpCodec\Refiner;
 
 /**
  * @template A

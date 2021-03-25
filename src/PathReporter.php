@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec;
+namespace Facile\PhpCodec;
 
-use Facile\Codec\Validation\Context;
-use Facile\Codec\Validation\Validation;
-use Facile\Codec\Validation\VError;
+use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\Validation;
+use Facile\PhpCodec\Validation\VError;
 
 /**
  * @implements Reporter<list<string>>
