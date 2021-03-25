@@ -9,7 +9,7 @@
     "require-dev": {
         "vimeo/psalm": "^4.4.0",
         "phpunit/phpunit": "^8.5",
-        "giorgiosironi/eris": "^0.11.0",
+        "giorgiosironi/eris": "^0.12.0",
         "phpunit/php-code-coverage": "^7.0",
         "phpat/phpat": "^0.7.5"
     },
