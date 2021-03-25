@@ -23,6 +23,7 @@ This project follows the [semantic versioning](https://semver.org/).
 ## Introduction
 
 This is a partial porting of the fantastic [io-ts](https://github.com/gcanti/io-ts) library for Typescript.
+Its documentation starts with:
 
 > A value of type `Type<A, O, I>` (called "codec") is the runtime representation of the static type `A`.
 
