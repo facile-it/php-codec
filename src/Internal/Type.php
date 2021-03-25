@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal;
+namespace Facile\PhpCodec\Internal;
 
-use Facile\Codec\Codec;
-use Facile\Codec\Refiner;
-use Facile\Codec\Validation\Context;
-use Facile\Codec\Validation\ContextEntry;
-use Facile\Codec\Validation\Validation;
+use Facile\PhpCodec\Codec;
+use Facile\PhpCodec\Refiner;
+use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\ContextEntry;
+use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @template A

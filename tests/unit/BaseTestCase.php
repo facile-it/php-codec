@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec;
+namespace Tests\Facile\PhpCodec;
 
 use PHPUnit\Framework\TestCase;
-use Facile\Codec\PathReporter;
-use Facile\Codec\Validation\Validation;
-use Facile\Codec\Validation\ValidationSuccess;
+use Facile\PhpCodec\PathReporter;
+use Facile\PhpCodec\Validation\Validation;
+use Facile\PhpCodec\Validation\ValidationSuccess;
 
 class BaseTestCase extends TestCase
 {

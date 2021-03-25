@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Eris\TestTrait;
 use Eris\Generator as g;
-use Facile\Codec\Internal\Primitives\BoolRefiner;
+use Facile\PhpCodec\Internal\Primitives\BoolRefiner;
 use PHPUnit\Framework\TestCase;
 
 class BoolRefineTest extends TestCase

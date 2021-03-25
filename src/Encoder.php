@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec;
+namespace Facile\PhpCodec;
 
 /**
  * @template A

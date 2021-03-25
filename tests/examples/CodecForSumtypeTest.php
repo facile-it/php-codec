@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Examples\Facile\Codec;
+namespace Examples\Facile\PhpCodec;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Facile\Codec\Codecs;
-use Facile\Codec\Internal\Primitives\LitteralType;
-use Facile\Codec\Validation\ValidationSuccess;
-use Tests\Facile\Codec\BaseTestCase;
+use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Internal\Primitives\LitteralType;
+use Facile\PhpCodec\Validation\ValidationSuccess;
+use Tests\Facile\PhpCodec\BaseTestCase;
 
 class CodecForSumtypeTest extends BaseTestCase
 {
@@ -99,7 +99,7 @@ class CodecForSumtypeTest extends BaseTestCase
     }
 }
 
-namespace Examples\Facile\Codec\internal;
+namespace Examples\Facile\PhpCodec\internal;
 
 abstract class P
 {

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec;
+namespace Facile\PhpCodec;
 
-use Facile\Codec\Validation\Context;
-use Facile\Codec\Validation\Validation;
+use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @template I

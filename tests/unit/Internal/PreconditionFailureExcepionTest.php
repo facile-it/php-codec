@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec\Internal;
+namespace Tests\Facile\PhpCodec\Internal;
 
-use Facile\Codec\Internal\PreconditionFailureExcepion;
+use Facile\PhpCodec\Internal\PreconditionFailureExcepion;
 use PHPUnit\Framework\TestCase;
 
 class PreconditionFailureExcepionTest extends TestCase

@@ -22,7 +22,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Facile\\Codec\\": "src/"
+            "Facile\\PhpCodec\\": "src/"
         },
         "files": [
             "src/functions.php",
@@ -31,9 +31,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Facile\\Codec\\": "tests/unit/",
-            "Examples\\Facile\\Codec\\": "tests/examples/",
-            "TypeAssertions\\Facile\\Codec\\": "tests/type-assertions/"
+            "Tests\\Facile\\PhpCodec\\": "tests/unit/",
+            "Examples\\Facile\\PhpCodec\\": "tests/examples/",
+            "TypeAssertions\\Facile\\PhpCodec\\": "tests/type-assertions/",
+            "ArchitectureAssertions\\Facile\\PhpCodec\\": "tests/architecture/"
         }
     },
     "require": {

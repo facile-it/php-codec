@@ -1,23 +1,23 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec;
+namespace Facile\PhpCodec;
 
-use Facile\Codec\Internal\Arrays\ListType;
-use Facile\Codec\Internal\Arrays\MapType;
-use Facile\Codec\Internal\Combinators\ClassFromArray;
-use Facile\Codec\Internal\Combinators\ComposeType;
-use Facile\Codec\Internal\Combinators\UnionType;
-use Facile\Codec\Internal\Experimental\AssociativeArrayType;
-use Facile\Codec\Internal\Primitives\BoolType;
-use Facile\Codec\Internal\Primitives\FloatType;
-use Facile\Codec\Internal\Primitives\IntType;
-use Facile\Codec\Internal\Primitives\LitteralType;
-use Facile\Codec\Internal\Primitives\NullType;
-use Facile\Codec\Internal\Primitives\StringType;
-use Facile\Codec\Internal\Type;
-use Facile\Codec\Internal\Useful\DateTimeFromIsoStringType;
-use Facile\Codec\Internal\Useful\IntFromStringType;
-use Facile\Codec\Internal\Useful\RegexType;
+use Facile\PhpCodec\Internal\Arrays\ListType;
+use Facile\PhpCodec\Internal\Arrays\MapType;
+use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
+use Facile\PhpCodec\Internal\Combinators\ComposeType;
+use Facile\PhpCodec\Internal\Combinators\UnionType;
+use Facile\PhpCodec\Internal\Experimental\AssociativeArrayType;
+use Facile\PhpCodec\Internal\Primitives\BoolType;
+use Facile\PhpCodec\Internal\Primitives\FloatType;
+use Facile\PhpCodec\Internal\Primitives\IntType;
+use Facile\PhpCodec\Internal\Primitives\LitteralType;
+use Facile\PhpCodec\Internal\Primitives\NullType;
+use Facile\PhpCodec\Internal\Primitives\StringType;
+use Facile\PhpCodec\Internal\Type;
+use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
+use Facile\PhpCodec\Internal\Useful\IntFromStringType;
+use Facile\PhpCodec\Internal\Useful\RegexType;
 
 final class Codecs
 {

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal\Experimental;
+namespace Facile\PhpCodec\Internal\Experimental;
 
-use Facile\Codec\Refiner;
+use Facile\PhpCodec\Refiner;
 
 /**
  * @implements Refiner<array<array-key, mixed>>

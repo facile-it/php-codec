@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec;
+namespace Tests\Facile\PhpCodec;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Facile\Codec\Codecs;
-use Facile\Codec\Internal\Combinators\ClassFromArray;
-use Facile\Codec\Internal\Useful\RegexType;
-use Facile\Codec\Validation\ValidationFailures;
-use Facile\Codec\Validation\ValidationSuccess;
+use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
+use Facile\PhpCodec\Internal\Useful\RegexType;
+use Facile\PhpCodec\Validation\ValidationFailures;
+use Facile\PhpCodec\Validation\ValidationSuccess;
 
 class CodecsTest extends BaseTestCase
 {
@@ -226,7 +226,7 @@ class CodecsTest extends BaseTestCase
     }
 }
 
-namespace Tests\Facile\Codec\in;
+namespace Tests\Facile\PhpCodec\in;
 
 class A
 {

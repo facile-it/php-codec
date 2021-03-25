@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec;
+namespace Tests\Facile\PhpCodec;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Facile\Codec\Codecs;
-use Facile\Codec\PathReporter;
-use Tests\Facile\Codec\PathReporterTest as in;
-use function Facile\Codec\strigify;
+use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\PathReporter;
+use Tests\Facile\PhpCodec\PathReporterTest as in;
+use function Facile\PhpCodec\strigify;
 
 class PathReporterTest extends BaseTestCase
 {
@@ -30,23 +30,23 @@ class PathReporterTest extends BaseTestCase
         $reporter = new PathReporter();
 
         self::assertEquals(
-            ['Invalid value 1 supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/a: string'],
+            ['Invalid value 1 supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string'],
             $reporter->report($type->decode(['a' => 1, 'b' => 2, 'c' => 1.23]))
         );
 
         self::assertEquals(
             [
-                'Invalid value 1 supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/a: string',
-                'Invalid value "ciao" supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/b: int',
-                'Invalid value undefined supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/c: float',
+                'Invalid value 1 supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string',
+                'Invalid value "ciao" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int',
+                'Invalid value undefined supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float',
             ],
             $reporter->report($type->decode(['a' => 1, 'b' => 'ciao']))
         );
 
         self::assertEquals(
             [
-                'Invalid value "ciao" supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/b: int',
-                'Invalid value undefined supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/c: float',
+                'Invalid value "ciao" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int',
+                'Invalid value undefined supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float',
             ],
             $reporter->report($type->decode(['a' => "ciao", 'b' => 'ciao']))
         );
@@ -68,9 +68,9 @@ class PathReporterTest extends BaseTestCase
 
                 self::assertEquals(
                     [
-                        sprintf('Invalid value %s supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/a: string', strigify($a)),
-                        sprintf('Invalid value %s supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/b: int', strigify($b)),
-                        sprintf('Invalid value %s supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})/c: float', strigify($c)),
+                        sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string', strigify($a)),
+                        sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int', strigify($b)),
+                        sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float', strigify($c)),
                     ],
                     $errors
                 );
@@ -78,14 +78,14 @@ class PathReporterTest extends BaseTestCase
 
         self::assertEquals(
             [
-                'Invalid value "abc" supplied to : Tests\Facile\Codec\PathReporterTest\A({a: string, b: int, c: float})'
+                'Invalid value "abc" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})'
             ],
             $reporter->report($type->decode('abc'))
         );
     }
 }
 
-namespace Tests\Facile\Codec\PathReporterTest;
+namespace Tests\Facile\PhpCodec\PathReporterTest;
 
 class A
 {

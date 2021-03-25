@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Examples\Facile\Codec;
+namespace Examples\Facile\PhpCodec;
 
-use Examples\Facile\Codec\in\Coordinates;
-use Examples\Facile\Codec\in\Sys;
-use Facile\Codec\Codec;
-use Facile\Codec\Codecs;
-use Tests\Facile\Codec\BaseTestCase;
+use Examples\Facile\PhpCodec\in\Coordinates;
+use Examples\Facile\PhpCodec\in\Sys;
+use Facile\PhpCodec\Codec;
+use Facile\PhpCodec\Codecs;
+use Tests\Facile\PhpCodec\BaseTestCase;
 
 class DecodeApiResponseTest extends BaseTestCase
 {
@@ -114,7 +114,7 @@ JSON;
     }
 }
 
-namespace Examples\Facile\Codec\in;
+namespace Examples\Facile\PhpCodec\in;
 
 class Coordinates
 {

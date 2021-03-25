@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Facile\Codec\Internal\Useful;
+namespace Tests\Facile\PhpCodec\Internal\Useful;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use Facile\Codec\Internal\Useful\DateTimeFromIsoStringType;
-use Tests\Facile\Codec\BaseTestCase;
+use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
+use Tests\Facile\PhpCodec\BaseTestCase;
 
 class DateTimeFromIsoStringTypeTest extends BaseTestCase
 {

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec;
+namespace Facile\PhpCodec;
 
-use Facile\Codec\Validation\ContextEntry;
+use Facile\PhpCodec\Validation\ContextEntry;
 
 /**
  * @const callable

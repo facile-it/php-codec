@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace TypeAssertions\Facile\Codec;
+namespace TypeAssertions\Facile\PhpCodec;
 
-use Facile\Codec\Internal\Arrays\MapRefiner;
-use Facile\Codec\Internal\Primitives\InstanceOfRefiner;
-use Facile\Codec\Internal\Primitives\LitteralRefiner;
+use Facile\PhpCodec\Internal\Arrays\MapRefiner;
+use Facile\PhpCodec\Internal\Primitives\InstanceOfRefiner;
+use Facile\PhpCodec\Internal\Primitives\LitteralRefiner;
 
 class RefineTypeAssertions extends TypeAssertion
 {

@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Examples\Facile\Codec;
+namespace Examples\Facile\PhpCodec;
 
-use Examples\Facile\Codec\ParseACsvTest\in;
-use Facile\Codec\Codecs;
-use Tests\Facile\Codec\BaseTestCase;
+use Examples\Facile\PhpCodec\ParseACsvTest\in;
+use Facile\PhpCodec\Codecs;
+use Tests\Facile\PhpCodec\BaseTestCase;
 
 class ParseACsvTest extends BaseTestCase
 {
@@ -62,7 +62,7 @@ CSV;
     }
 }
 
-namespace Examples\Facile\Codec\ParseACsvTest\in;
+namespace Examples\Facile\PhpCodec\ParseACsvTest\in;
 
 class City
 {

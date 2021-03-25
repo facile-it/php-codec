@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal;
+namespace Facile\PhpCodec\Internal;
 
-use Facile\Codec\Codec;
+use Facile\PhpCodec\Codec;
 
 /**
  * @param non-empty-array<array-key, Codec> $props

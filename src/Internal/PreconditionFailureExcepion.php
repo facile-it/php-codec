@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Facile\Codec\Internal;
+namespace Facile\PhpCodec\Internal;
 
 class PreconditionFailureExcepion extends \LogicException
 {
