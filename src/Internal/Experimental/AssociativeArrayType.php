@@ -37,7 +37,7 @@ class AssociativeArrayType extends Type
         }
 
         foreach ($this->props as $k => $v) {
-            if (isset($i[$k]) && !$v->is($i[$k])) {
+            if (isset($i[$k]) && !$v->is($i[$k])) { // TODO it won't work if something need to be actyually decoded
                 $context = $context->appendEntries(
                     new ContextEntry($k, $v, $i[$k])
                 );

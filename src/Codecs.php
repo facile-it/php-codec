@@ -2,7 +2,7 @@
 
 namespace Facile\PhpCodec;
 
-use Facile\PhpCodec\Internal\Arrays\ListType;
+use Facile\PhpCodec\Internal\Arrays\ListOfType;
 use Facile\PhpCodec\Internal\Arrays\MapType;
 use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
 use Facile\PhpCodec\Internal\Combinators\ComposeType;
@@ -14,10 +14,13 @@ use Facile\PhpCodec\Internal\Primitives\IntType;
 use Facile\PhpCodec\Internal\Primitives\LitteralType;
 use Facile\PhpCodec\Internal\Primitives\NullType;
 use Facile\PhpCodec\Internal\Primitives\StringType;
+use Facile\PhpCodec\Internal\Primitives\UndefinedType;
 use Facile\PhpCodec\Internal\Type;
+use Facile\PhpCodec\Internal\Undefined;
 use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
 use Facile\PhpCodec\Internal\Useful\IntFromStringType;
 use Facile\PhpCodec\Internal\Useful\RegexType;
+use Facile\PhpCodec\Validation\Validation;
 
 final class Codecs
 {
@@ -62,6 +65,43 @@ final class Codecs
     }
 
     /**
+     * @template A
+     * @template I
+     * @template O
+     * @template T
+     *
+     * @param Codec<A, I, O> $codec
+     * @param T | null $default
+     *
+     * @return
+     */
+    public static function undefinableOf(Codec $codec, $default = null): Codec
+    {
+        return Validation::map(
+            function ($decoded) use ($default) {
+                return $decoded instanceof Undefined ? $default : $decoded;
+            },
+            self::union(self::undefined(), $codec)
+        );
+    }
+
+    /**
+     * @template I
+     * @template O
+     * @template A
+     * @template B
+     *
+     * @param callable(A):B $f
+     * @param callable(B):A $g
+     * @param Codec<A, I, O> $fa
+     * @return Codec<B, I, O>
+     */
+    public static function invmap(callable $f, callable $g, Codec $fa): Codec
+    {
+        // TODO I need a compositor codec to store these mappings
+    }
+
+    /**
      * @template T of bool | string | int
      * @param T $x
      * @return Codec<T, mixed, T>
@@ -92,9 +132,9 @@ final class Codecs
      * @param Codec<T,mixed,T> $itemCodec
      * @return Codec<list<T>, mixed, list<T>>
      */
-    public static function listt(Codec $itemCodec): Codec
+    public static function listOf(Codec $itemCodec): Codec
     {
-        return new ListType($itemCodec);
+        return new ListOfType($itemCodec);
     }
 
     /**
@@ -190,7 +230,13 @@ final class Codecs
      * @param string $regex
      * @return Codec<string[], string, string[]>
      */
-    public static function regex(string $regex): Codec {
+    public static function regex(string $regex): Codec
+    {
         return new RegexType($regex);
+    }
+
+    private static function undefined(): Codec
+    {
+        return new UndefinedType();
     }
 }

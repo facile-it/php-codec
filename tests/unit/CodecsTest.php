@@ -164,7 +164,7 @@ class CodecsTest extends BaseTestCase
 
     public function testListType(): void
     {
-        $type = Codecs::listt(
+        $type = Codecs::listOf(
             Codecs::classFromArray(
                 [
                     'foo' => Codecs::string(),

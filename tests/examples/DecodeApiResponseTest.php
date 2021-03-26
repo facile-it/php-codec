@@ -24,7 +24,7 @@ class DecodeApiResponseTest extends BaseTestCase
                     },
                     in\Coordinates::class
                 ),
-                'weather' => Codecs::listt(
+                'weather' => Codecs::listOf(
                     Codecs::classFromArray(
                         [
                             'id' => Codecs::int(),

@@ -13,6 +13,9 @@
         "phpunit/php-code-coverage": "^7.0",
         "phpat/phpat": "^0.7.5"
     },
+    "suggest": {
+        "ext-json": "*"
+    },
     "license": "MIT",
     "authors": [
         {

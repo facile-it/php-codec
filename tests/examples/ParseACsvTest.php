@@ -16,7 +16,7 @@ class ParseACsvTest extends BaseTestCase
 3,Monte Urano,F653
 CSV;
 
-        $codec = Codecs::listt(
+        $codec = Codecs::listOf(
             Codecs::pipe(
                 Codecs::string(),
                 Codecs::regex('/^(?<id>\d),(?<name>.*),(?<code>[A-Z]{1}\d{3})$/'),

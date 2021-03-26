@@ -29,17 +29,16 @@ function strigify($x): string
         return 'null';
     }
 
-    if($x === ContextEntry::VALUE_UNDEFINED) {
-        return 'undefined';
-    }
-
     if(is_string($x)) {
         return "\"$x\"";
     }
 
     if(is_array($x)) {
-        // TODO check if json-ext is available
-        return json_encode($x);
+        if(function_exists('json_encode')) {
+            return json_encode($x);
+        }
+
+        return serialize($x);
     }
 
     if(is_bool($x)) {

@@ -14,7 +14,7 @@ use Facile\PhpCodec\Validation\Validation;
  *
  * @extends Type<list<T>, mixed, list<T>>
  */
-class ListType extends Type
+class ListOfType extends Type
 {
     /** @var Codec<T, mixed, T> */
     private $itemCodec;
