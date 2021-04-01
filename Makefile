@@ -11,7 +11,7 @@ sh:
 	docker-compose exec php bash
 
 psalm:
-	./vendor/bin/psalm src --no-cache
+	./vendor/bin/psalm --no-cache
 
 type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
