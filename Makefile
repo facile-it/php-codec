@@ -29,4 +29,4 @@ cs-check:
 	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
 
 .PHONY: ci
-ci: test psalm type-assertions architecture
+ci: test cs-check psalm type-assertions architecture
