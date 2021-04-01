@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec;
 
@@ -59,11 +61,12 @@ class CodecsTest extends BaseTestCase
             });
     }
 
-    public function testDecodeMapToClass(): void {
+    public function testDecodeMapToClass(): void
+    {
         $type = new ClassFromArray(
             [
                 'foo' => Codecs::string(),
-                'bar' => Codecs::int()
+                'bar' => Codecs::int(),
             ],
             function (string $foo, int $bar): in\A {
                 return new in\A($foo, $bar);
@@ -75,7 +78,7 @@ class CodecsTest extends BaseTestCase
             ->forAll(
                 g\associative([
                     'foo' => g\string(),
-                    'bar' => g\int()
+                    'bar' => g\int(),
                 ])
             )
             ->then(function (array $i) use ($type) {
@@ -87,7 +90,6 @@ class CodecsTest extends BaseTestCase
                 self::assertSame($i['foo'], $validation->getValue()->getFoo());
                 self::assertSame($i['bar'], $validation->getValue()->getBar());
             });
-
 
         $this
             ->forAll(
@@ -103,7 +105,7 @@ class CodecsTest extends BaseTestCase
                         g\date(),
                         g\bool(),
                         g\string()
-                    )
+                    ),
                 ])
             )
             ->then(function (array $i) use ($type) {
@@ -113,12 +115,13 @@ class CodecsTest extends BaseTestCase
             });
     }
 
-    public function testUnionType(): void {
+    public function testUnionType(): void
+    {
         $type = Codecs::union(
             Codecs::classFromArray(
                 [
                     'foo' => Codecs::string(),
-                    'bar' => Codecs::int()
+                    'bar' => Codecs::int(),
                 ],
                 function (string $foo, int $bar): in\A {
                     return new in\A($foo, $bar);
@@ -132,7 +135,7 @@ class CodecsTest extends BaseTestCase
             ->forAll(
                 g\associative([
                     'foo' => g\string(),
-                    'bar' => g\int()
+                    'bar' => g\int(),
                 ])
             )
             ->then(function (array $i) use ($type) {
@@ -151,7 +154,7 @@ class CodecsTest extends BaseTestCase
                 g\oneOf(
                     g\associative([
                         'foo' => g\string(),
-                        'bar' => g\int()
+                        'bar' => g\int(),
                     ]),
                     g\constant(null)
                 )
@@ -168,9 +171,9 @@ class CodecsTest extends BaseTestCase
             Codecs::classFromArray(
                 [
                     'foo' => Codecs::string(),
-                    'bar' => Codecs::int()
+                    'bar' => Codecs::int(),
                 ],
-                function(string $f, int $b): in\A {
+                function (string $f, int $b): in\A {
                     return new in\A($f, $b);
                 },
                 in\A::class
@@ -181,13 +184,12 @@ class CodecsTest extends BaseTestCase
             ->forAll(
                 g\bind(
                     g\choose(3, 10),
-                    function (int $size): g
-                    {
+                    function (int $size): g {
                         return g\vector(
                             $size,
                             g\associative([
                                 'foo' => g\string(),
-                                'bar' => g\int()
+                                'bar' => g\int(),
                             ])
                         );
                     }
@@ -212,7 +214,7 @@ class CodecsTest extends BaseTestCase
             Codecs::classFromArray(
                 [
                     'foo' => Codecs::string(),
-                    'bar' => Codecs::pipe(Codecs::string(), Codecs::intFromString())
+                    'bar' => Codecs::pipe(Codecs::string(), Codecs::intFromString()),
                 ],
                 [in\A::class, 'create'],
                 in\A::class
@@ -243,8 +245,7 @@ class A
     public function __construct(
         string $foo,
         int $bar
-    )
-    {
+    ) {
         $this->foo = $foo;
         $this->bar = $bar;
     }

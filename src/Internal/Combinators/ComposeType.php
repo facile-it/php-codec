@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Combinators;
 
@@ -34,8 +36,7 @@ class ComposeType extends Type
     public function __construct(
         Codec $a,
         Codec $b
-    )
-    {
+    ) {
         $this->a = $a;
         $this->b = $b;
 
@@ -48,15 +49,13 @@ class ComposeType extends Type
 
     /**
      * @param IA $i
-     * @param Context $context
-     * @return Validation
      */
     public function validate($i, Context $context): Validation
     {
         return Validation::bind(
-        /**
-         * @param A $aValue
-         */
+            /**
+             * @param A $aValue
+             */
             function ($aValue) use ($context): Validation {
                 return $this->b->forceCheckPrecondition($aValue)->validate($aValue, $context);
             },

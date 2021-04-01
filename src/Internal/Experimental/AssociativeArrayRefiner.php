@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Experimental;
 
@@ -22,12 +24,12 @@ class AssociativeArrayRefiner implements Refiner
 
     public function is($u): bool
     {
-        if(!is_array($u)) {
+        if (! is_array($u)) {
             return false;
         }
 
         foreach ($this->props as $key => $refiner) {
-            if(! $refiner->is($u[$key] ?? null)) {
+            if (! $refiner->is($u[$key] ?? null)) {
                 return false;
             }
         }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec;
 
@@ -6,8 +8,8 @@ use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\PathReporter;
-use Tests\Facile\PhpCodec\PathReporterTest as in;
 use function Facile\PhpCodec\strigify;
+use Tests\Facile\PhpCodec\PathReporterTest as in;
 
 class PathReporterTest extends BaseTestCase
 {
@@ -19,7 +21,7 @@ class PathReporterTest extends BaseTestCase
             [
                 'a' => Codecs::string(),
                 'b' => Codecs::int(),
-                'c' => Codecs::float()
+                'c' => Codecs::float(),
             ],
             function (string $a, int $b, float $c): in\A {
                 return new in\A($a, $b, $c);
@@ -48,7 +50,7 @@ class PathReporterTest extends BaseTestCase
                 'Invalid value "ciao" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int',
                 'Invalid value undefined supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float',
             ],
-            $reporter->report($type->decode(['a' => "ciao", 'b' => 'ciao']))
+            $reporter->report($type->decode(['a' => 'ciao', 'b' => 'ciao']))
         );
 
         $this
@@ -62,7 +64,7 @@ class PathReporterTest extends BaseTestCase
                     $type->decode([
                         'a' => $a,
                         'b' => $b,
-                        'c' => $c
+                        'c' => $c,
                     ])
                 );
 
@@ -78,7 +80,7 @@ class PathReporterTest extends BaseTestCase
 
         self::assertEquals(
             [
-                'Invalid value "abc" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})'
+                'Invalid value "abc" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})',
             ],
             $reporter->report($type->decode('abc'))
         );
@@ -93,7 +95,6 @@ class A
         string $a,
         int $b,
         float $d
-    )
-    {
+    ) {
     }
 }

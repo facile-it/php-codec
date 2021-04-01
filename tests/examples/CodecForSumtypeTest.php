@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Examples\Facile\PhpCodec;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
-use Facile\PhpCodec\Internal\Primitives\LiteralType;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
@@ -24,7 +25,7 @@ class CodecForSumtypeTest extends BaseTestCase
                         Codecs::literal(internal\A::SUB_bar)
                     ),
                     'propA' => Codecs::int(),
-                    'propB' => Codecs::string()
+                    'propB' => Codecs::string(),
                 ],
                 function (string $t, string $subT, int $propA, string $propB): internal\A {
                     return new internal\A($subT, $propA, $propB);
@@ -40,7 +41,7 @@ class CodecForSumtypeTest extends BaseTestCase
                         Codecs::literal(internal\B::CASE_B3)
                     ),
                     'amount' => Codecs::float(),
-                    'flag' => Codecs::bool()
+                    'flag' => Codecs::bool(),
                 ],
                 function (string $t, int $case, float $amount, bool $flag): internal\B {
                     return new internal\B($case, $amount, $flag);
@@ -55,7 +56,7 @@ class CodecForSumtypeTest extends BaseTestCase
                     'type' => g\constant(internal\P::Type_a),
                     'subType' => g\elements(internal\A::SUB_foo, internal\A::SUB_bar),
                     'propA' => g\int(),
-                    'propB' => g\string()
+                    'propB' => g\string(),
                 ])
             )
             ->then(function ($i) use ($codec) {
@@ -79,7 +80,7 @@ class CodecForSumtypeTest extends BaseTestCase
                     'type' => g\constant(internal\P::Type_b),
                     'case' => g\elements(internal\B::CASE_B1, internal\B::CASE_B2, internal\B::CASE_B3),
                     'amount' => g\float(),
-                    'flag' => g\bool()
+                    'flag' => g\bool(),
                 ])
             )
             ->then(function ($i) use ($codec) {
@@ -89,7 +90,7 @@ class CodecForSumtypeTest extends BaseTestCase
                 self::asserSuccessInstanceOf(
                     internal\B::class,
                     $result,
-                    function(internal\B $b) use ($i) {
+                    function (internal\B $b) use ($i) {
                         self::assertSame($i['case'], $b->getCase());
                         self::assertEquals($i['amount'], $b->getAmount());
                         self::assertSame($i['flag'], $b->isFlag());
@@ -111,7 +112,6 @@ abstract class P
 
 class A extends P
 {
-
     public const SUB_foo = 'foo';
     public const SUB_bar = 'bar';
 

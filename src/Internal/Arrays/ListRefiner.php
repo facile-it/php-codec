@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Arrays;
 
@@ -23,12 +25,12 @@ class ListRefiner implements Refiner
 
     public function is($u): bool
     {
-        if(! is_array($u)) {
+        if (! is_array($u)) {
             return false;
         }
 
         foreach ($u as $item) {
-            if (!$this->itemRefiner->is($item)) {
+            if (! $this->itemRefiner->is($item)) {
                 return false;
             }
         }

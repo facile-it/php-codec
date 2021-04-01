@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Examples\Facile\PhpCodec;
 
 use Examples\Facile\PhpCodec\in\Coordinates;
 use Examples\Facile\PhpCodec\in\Sys;
-use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Codecs;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
@@ -17,7 +18,7 @@ class DecodeApiResponseTest extends BaseTestCase
                 'coord' => Codecs::classFromArray(
                     [
                         'lon' => Codecs::float(),
-                        'lat' => Codecs::float()
+                        'lat' => Codecs::float(),
                     ],
                     function (float $lon, float $lat): in\Coordinates {
                         return new in\Coordinates($lon, $lat);
@@ -29,7 +30,7 @@ class DecodeApiResponseTest extends BaseTestCase
                         [
                             'id' => Codecs::int(),
                             'main' => Codecs::string(),
-                            'description' => Codecs::string()
+                            'description' => Codecs::string(),
                         ],
                         function (int $id, string $main, string $desc): in\Weather {
                             return new in\Weather($id, $main, $desc);
@@ -37,17 +38,17 @@ class DecodeApiResponseTest extends BaseTestCase
                         in\Weather::class
                     )
                 ),
-                "sys" => Codecs::classFromArray(
+                'sys' => Codecs::classFromArray(
                     [
                         'country' => Codecs::string(),
                         'sunrise' => Codecs::dateTimeFromIsoString(),
-                        'sunset' => Codecs::dateTimeFromIsoString()
+                        'sunset' => Codecs::dateTimeFromIsoString(),
                     ],
-                    function(string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): in\Sys {
+                    function (string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): in\Sys {
                         return new Sys($county, $sunrise, $sunset);
                     },
                     in\Sys::class
-                )
+                ),
             ],
             function (Coordinates $coordinates, array $weathers, Sys $sys): in\OpenWeatherResponse {
                 return new in\OpenWeatherResponse($coordinates, $weathers, $sys);
@@ -153,8 +154,7 @@ class OpenWeatherResponse
         Coordinates $coordinates,
         array $weathers,
         Sys $sys
-    )
-    {
+    ) {
         $this->coordinates = $coordinates;
         $this->weather = $weathers;
         $this->sys = $sys;

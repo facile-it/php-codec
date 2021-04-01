@@ -1,13 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Experimental;
 
 use Facile\PhpCodec\Internal\Encode;
+use function Facile\PhpCodec\Internal\nameFromProps;
 use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
-use function Facile\PhpCodec\Internal\nameFromProps;
 
 /**
  * @extends Type<array<array-key, mixed>, mixed, array<array-key, mixed>>
@@ -37,7 +39,7 @@ class AssociativeArrayType extends Type
         }
 
         foreach ($this->props as $k => $v) {
-            if (isset($i[$k]) && !$v->is($i[$k])) {
+            if (isset($i[$k]) && ! $v->is($i[$k])) {
                 $context = $context->appendEntries(
                     new ContextEntry($k, $v, $i[$k])
                 );

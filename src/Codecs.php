@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
@@ -63,7 +65,9 @@ final class Codecs
 
     /**
      * @template T of bool | string | int
+     *
      * @param T $x
+     *
      * @return Codec<T, mixed, T>
      */
     public static function literal($x): Codec
@@ -89,7 +93,9 @@ final class Codecs
 
     /**
      * @template T
+     *
      * @param Codec<T,mixed,T> $itemCodec
+     *
      * @return Codec<list<T>, mixed, list<T>>
      */
     public static function listt(Codec $itemCodec): Codec
@@ -99,25 +105,28 @@ final class Codecs
 
     /**
      * @param non-empty-array<string, Type> $props
+     *
      * @return Codec<array, mixed, array>
      */
-    public static function associativeArray(array $props):Codec {
+    public static function associativeArray(array $props): Codec
+    {
         return new AssociativeArrayType($props);
     }
 
     /**
      * @template T
+     *
      * @param non-empty-array<string, Codec> $props
      * @param callable(...mixed):T $factory
      * @param class-string<T> $fqcn
+     *
      * @return Codec<T, mixed, T>
      */
     public static function classFromArray(
         array $props,
         callable $factory,
         string $fqcn
-    ): Codec
-    {
+    ): Codec {
         return self::pipe(
             new MapType(),
             new ClassFromArray($props, $factory, $fqcn)
@@ -143,6 +152,7 @@ final class Codecs
      * @param Codec<E, D, OE> | null $e
      *
      * // TODO must add type assertions
+     *
      * @return (func_num_args() is 2 ? Codec<B, IA, OB>
      *   : (func_num_args() is 3 ? Codec<C, IA, OC>
      *   : (func_num_args() is 4 ? Codec<D, IA, OD>
@@ -155,8 +165,7 @@ final class Codecs
         ?Codec $c = null,
         ?Codec $d = null,
         ?Codec $e = null
-    ): Codec
-    {
+    ): Codec {
         // Order is important: composition is not commutative
         return new ComposeType(
             $a,
@@ -167,9 +176,8 @@ final class Codecs
     }
 
     /**
-     * @param Codec $a
-     * @param Codec $b
      * @param Codec ...$others
+     *
      * @return Codec
      *
      * TODO simple to write, awful to type
@@ -187,10 +195,10 @@ final class Codecs
     }
 
     /**
-     * @param string $regex
      * @return Codec<string[], string, string[]>
      */
-    public static function regex(string $regex): Codec {
+    public static function regex(string $regex): Codec
+    {
         return new RegexType($regex);
     }
 }

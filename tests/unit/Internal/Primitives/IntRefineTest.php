@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Eris\Generator;
 use Eris\TestTrait;
-use PHPUnit\Framework\TestCase;
 use Facile\PhpCodec\Internal\Primitives\IntRefiner;
+use PHPUnit\Framework\TestCase;
 
 class IntRefineTest extends TestCase
 {

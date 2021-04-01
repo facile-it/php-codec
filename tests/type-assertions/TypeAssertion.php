@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace TypeAssertions\Facile\PhpCodec;
 
@@ -16,13 +18,15 @@ class TypeAssertion
      * @param true $b
      */
     protected static function assertTrue(bool $b): void
-    {}
+    {
+    }
 
     /**
      * @param false $b
      */
     protected static function assertFalse(bool $b): void
-    {}
+    {
+    }
 
     protected static function assertBool(bool $b): void
     {

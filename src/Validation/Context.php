@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Validation;
 
@@ -16,8 +18,7 @@ class Context implements \Iterator
 
     public function __construct(
         ContextEntry ...$entries
-    )
-    {
+    ) {
         $this->entries = $entries;
         $this->currentIndex = 0;
     }
@@ -39,7 +40,7 @@ class Context implements \Iterator
 
     public function next(): void
     {
-        $this->currentIndex++;
+        ++$this->currentIndex;
     }
 
     public function key(): int

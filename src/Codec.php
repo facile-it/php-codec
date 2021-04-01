@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
@@ -15,6 +17,7 @@ interface Codec extends Decoder, Encoder, Refiner
 {
     /**
      * @param mixed $i
+     *
      * @return static
      * @psalm-assert I $i
      */

@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Useful;
 
-use Facile\PhpCodec\Decoder;
 use Facile\PhpCodec\Internal\Arrays\MapRefiner;
 use Facile\PhpCodec\Internal\Encode;
 use Facile\PhpCodec\Internal\PreconditionFailureExcepion;
@@ -40,12 +41,13 @@ class RegexType extends Type
 
     /**
      * @param mixed $i
+     *
      * @return static
      * @psalm-assert string $i
      */
     public function forceCheckPrecondition($i)
     {
-        if (!is_string($i)) {
+        if (! is_string($i)) {
             throw PreconditionFailureExcepion::create('string', $i);
         }
 
