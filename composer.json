@@ -2,9 +2,6 @@
     "name": "facile-it/php-codec",
     "description": "A partial porting of io-ts in PHP",
     "type": "library",
-    "config": {
-        "platform": {}
-    },
     "require-dev": {
         "vimeo/psalm": "^4.4.0",
         "phpunit/phpunit": "^8.5",
