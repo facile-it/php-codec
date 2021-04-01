@@ -5,7 +5,7 @@ namespace Examples\Facile\PhpCodec;
 use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
-use Facile\PhpCodec\Internal\Primitives\LitteralType;
+use Facile\PhpCodec\Internal\Primitives\LiteralType;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
@@ -18,10 +18,10 @@ class CodecForSumtypeTest extends BaseTestCase
         $codec = Codecs::union(
             Codecs::classFromArray(
                 [
-                    'type' => Codecs::litteral(internal\P::Type_a),
+                    'type' => Codecs::literal(internal\P::Type_a),
                     'subType' => Codecs::union(
-                        Codecs::litteral(internal\A::SUB_foo),
-                        Codecs::litteral(internal\A::SUB_bar)
+                        Codecs::literal(internal\A::SUB_foo),
+                        Codecs::literal(internal\A::SUB_bar)
                     ),
                     'propA' => Codecs::int(),
                     'propB' => Codecs::string()
@@ -33,11 +33,11 @@ class CodecForSumtypeTest extends BaseTestCase
             ),
             Codecs::classFromArray(
                 [
-                    'type' => Codecs::litteral(internal\P::Type_b),
+                    'type' => Codecs::literal(internal\P::Type_b),
                     'case' => Codecs::union(
-                        Codecs::litteral(internal\B::CASE_B1),
-                        Codecs::litteral(internal\B::CASE_B2),
-                        Codecs::litteral(internal\B::CASE_B3)
+                        Codecs::literal(internal\B::CASE_B1),
+                        Codecs::literal(internal\B::CASE_B2),
+                        Codecs::literal(internal\B::CASE_B3)
                     ),
                     'amount' => Codecs::float(),
                     'flag' => Codecs::bool()

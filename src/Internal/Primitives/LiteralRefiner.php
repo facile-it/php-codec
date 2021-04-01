@@ -8,17 +8,17 @@ use Facile\PhpCodec\Refiner;
  * @template T of bool | int | string
  * @implements Refiner<T>
  */
-class LitteralRefiner implements Refiner
+class LiteralRefiner implements Refiner
 {
     /** @var T */
-    private $litteral;
+    private $literal;
 
     /**
-     * @param T $litteral
+     * @param T $literal
      */
-    public function __construct($litteral)
+    public function __construct($literal)
     {
-        $this->litteral = $litteral;
+        $this->literal = $literal;
     }
 
     /**
@@ -28,6 +28,6 @@ class LitteralRefiner implements Refiner
      */
     public function is($u): bool
     {
-        return $u === $this->litteral;
+        return $u === $this->literal;
     }
 }

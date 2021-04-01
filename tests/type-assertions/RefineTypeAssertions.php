@@ -4,7 +4,7 @@ namespace TypeAssertions\Facile\PhpCodec;
 
 use Facile\PhpCodec\Internal\Arrays\MapRefiner;
 use Facile\PhpCodec\Internal\Primitives\InstanceOfRefiner;
-use Facile\PhpCodec\Internal\Primitives\LitteralRefiner;
+use Facile\PhpCodec\Internal\Primitives\LiteralRefiner;
 
 class RefineTypeAssertions extends TypeAssertion
 {
@@ -38,27 +38,27 @@ class RefineTypeAssertions extends TypeAssertion
         }
     }
 
-    public function testRefineLitterals(): void
+    public function testRefineLiterals(): void
     {
         /** @var mixed $x */
         $x = self::mixed();
 
-        if((new LitteralRefiner('a'))->is($x)) {
+        if((new LiteralRefiner('a'))->is($x)) {
             self::assertString($x);
         }
 
-        if((new LitteralRefiner(true))->is($x)) {
+        if((new LiteralRefiner(true))->is($x)) {
             self::assertBool($x);
             self::assertTrue($x);
         }
 
-        if((new LitteralRefiner(false))->is($x)) {
+        if((new LiteralRefiner(false))->is($x)) {
             self::assertFalse($x);
             self::assertTrue($x); // Why?
             self::assertBool($x);
         }
 
-        if((new LitteralRefiner(123))->is($x)) {
+        if((new LiteralRefiner(123))->is($x)) {
             self::assertInt($x);
         }
     }

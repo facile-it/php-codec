@@ -11,16 +11,16 @@ use Facile\PhpCodec\Validation\Validation;
  * @template T of bool | string | int
  * @extends Type<T, mixed, T>
  */
-class LitteralType extends Type
+class LiteralType extends Type
 {
     /**
-     * @param T $litteral
+     * @param T $literal
      */
-    public function __construct($litteral)
+    public function __construct($literal)
     {
         parent::__construct(
-            self::litteralName($litteral),
-            new LitteralRefiner($litteral),
+            self::literalName($literal),
+            new LiteralRefiner($literal),
             Encode::identity()
         );
     }
@@ -36,7 +36,7 @@ class LitteralType extends Type
      * @param int | bool | string $x
      * @return string
      */
-    private static function litteralName($x): string
+    private static function literalName($x): string
     {
         if(is_string($x)) {
             return "'$x'";

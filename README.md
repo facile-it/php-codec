@@ -42,7 +42,7 @@ All the implemented codecs and combinators are exposed through methods of the cl
 | `number` | `int` | `Codecs::int()` |
 | `number` | `float` | `Codecs::float()` |
 | `string` | `string` | `Codecs::string()` |
-| `'s'` | `'s'` | `Codecs::litteral('s')` |
+| `'s'` | `'s'` | `Codecs::literal('s')` |
 | `Array<T>` | `list<T>` | `Codecs::listt(Type $item)` |
 | - | `A::class` | `Codecs::classFromArray(Type[] $props, callable $factory, A::class)` |
 

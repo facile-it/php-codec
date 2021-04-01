@@ -11,7 +11,7 @@ use Facile\PhpCodec\Internal\Experimental\AssociativeArrayType;
 use Facile\PhpCodec\Internal\Primitives\BoolType;
 use Facile\PhpCodec\Internal\Primitives\FloatType;
 use Facile\PhpCodec\Internal\Primitives\IntType;
-use Facile\PhpCodec\Internal\Primitives\LitteralType;
+use Facile\PhpCodec\Internal\Primitives\LiteralType;
 use Facile\PhpCodec\Internal\Primitives\NullType;
 use Facile\PhpCodec\Internal\Primitives\StringType;
 use Facile\PhpCodec\Internal\Type;
@@ -66,9 +66,9 @@ final class Codecs
      * @param T $x
      * @return Codec<T, mixed, T>
      */
-    public static function litteral($x): Codec
+    public static function literal($x): Codec
     {
-        return new LitteralType($x);
+        return new LiteralType($x);
     }
 
     /**
