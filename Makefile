@@ -22,5 +22,11 @@ test:
 architecture:
 	./vendor/bin/phpat
 
+cs-fix:
+	./vendor/bin/php-cs-fixer fix --ansi --verbose
+
+cs-check:
+	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
+
 .PHONY: ci
 ci: test psalm type-assertions architecture
