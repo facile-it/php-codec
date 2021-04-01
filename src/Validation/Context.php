@@ -4,7 +4,7 @@ namespace Facile\PhpCodec\Validation;
 
 class Context implements \Iterator
 {
-    /** @var list<ContextEntry> */
+    /** @var ContextEntry[] */
     private $entries;
     /** @var int */
     private $currentIndex;

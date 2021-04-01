@@ -28,6 +28,7 @@ class RefineTypeAssertions extends TypeAssertion
 
         /**
          * @param array<array-key,mixed> $x
+         * @psalm-suppress UnusedParam
          */
         function assert(array $x): void {}
 

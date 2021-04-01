@@ -52,7 +52,7 @@ class ListType extends Type
         /**
          * @var mixed $item
          */
-        foreach ($i as $k => $item) {
+        foreach ($i as $item) {
             $validation[] = $this->itemCodec->validate($item, $context);
         }
 
