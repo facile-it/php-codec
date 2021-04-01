@@ -3,7 +3,7 @@
     "description": "A partial porting of io-ts in PHP",
     "type": "library",
     "config": {
-        "platform": []
+        "platform": {}
     },
     "require-dev": {
         "vimeo/psalm": "^4.4.0",
