@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
-use PHPUnit\Framework\TestCase;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Internal\Combinators\UnionType;
 use Facile\PhpCodec\PathReporter;
+use PHPUnit\Framework\TestCase;
 
 class UnionTypeTest extends TestCase
 {
@@ -25,7 +27,6 @@ class UnionTypeTest extends TestCase
 
     public function testUnionOfThree(): void
     {
-
         $unionOfTwo = new UnionType(Codecs::null(), new UnionType(Codecs::string(), Codecs::int()));
 
         $r = $unionOfTwo->decode(1.2);
@@ -36,6 +37,5 @@ class UnionTypeTest extends TestCase
             ['Invalid value 1.2 supplied to : null | string | int'],
             $reporter->report($r)
         );
-
     }
 }

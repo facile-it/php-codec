@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Primitives;
 
@@ -23,7 +25,6 @@ class LiteralRefiner implements Refiner
 
     /**
      * @param mixed $u
-     * @return bool
      * @psalm-assert-if-true T $u
      */
     public function is($u): bool

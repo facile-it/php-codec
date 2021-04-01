@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Arrays;
 
@@ -23,7 +25,7 @@ class MapType extends Type
 
     public function validate($i, Context $context): Validation
     {
-        if($this->is($i)) {
+        if ($this->is($i)) {
             /** @var array<array-key, mixed> $i */
             return Validation::success($i);
         }

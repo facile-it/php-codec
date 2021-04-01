@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Arrays;
 
@@ -34,7 +36,7 @@ class ListType extends Type
 
     public function validate($i, Context $context): Validation
     {
-        if (!is_array($i)) {
+        if (! is_array($i)) {
             return Validation::failure(
                 $i,
                 $context->appendEntries(
@@ -52,7 +54,7 @@ class ListType extends Type
         /**
          * @var mixed $item
          */
-        foreach ($i as $k => $item) {
+        foreach ($i as $item) {
             $validation[] = $this->itemCodec->validate($item, $context);
         }
 

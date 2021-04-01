@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
@@ -13,13 +15,14 @@ interface Decoder
 {
     /**
      * @param I $i
-     * @param Context $context
+     *
      * @return Validation<A>
      */
     public function validate($i, Context $context): Validation;
 
     /**
      * @param I $i
+     *
      * @return Validation<A>
      */
     public function decode($i): Validation;

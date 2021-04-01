@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Validation;
 
@@ -16,7 +18,6 @@ class ContextEntry
     private $actual;
 
     /**
-     * @param string $key
      * @param Decoder<mixed, mixed> $decoder
      * @param mixed $actual
      */
@@ -24,8 +25,7 @@ class ContextEntry
         string $key,
         Decoder $decoder,
         $actual
-    )
-    {
+    ) {
         $this->key = $key;
         $this->decoder = $decoder;
         $this->actual = $actual;

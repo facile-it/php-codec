@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Useful;
 
@@ -11,7 +13,8 @@ class DateTimeFromIsoStringTypeTest extends BaseTestCase
 {
     use TestTrait;
 
-    public function test(): void {
+    public function test(): void
+    {
         $codec = new DateTimeFromIsoStringType();
         self::asserSuccessInstanceOf(
             \DateTimeInterface::class,

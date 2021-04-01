@@ -1,15 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
 use Eris\Generator;
 use Eris\TestTrait;
-use PHPUnit\Framework\TestCase;
 use Facile\PhpCodec\Internal\Combinators\UnionRefiner;
 use Facile\PhpCodec\Internal\Experimental\AssociativeArrayRefiner;
 use Facile\PhpCodec\Internal\Primitives\IntRefiner;
 use Facile\PhpCodec\Internal\Primitives\NullRefiner;
 use Facile\PhpCodec\Internal\Primitives\StringRefiner;
+use PHPUnit\Framework\TestCase;
 
 class UnionRefineTest extends TestCase
 {
@@ -29,7 +31,7 @@ class UnionRefineTest extends TestCase
                     Generator\string()
                 )
             )
-            ->then(function($x) use ($mapOrNull, $stringOrInt) {
+            ->then(function ($x) use ($mapOrNull, $stringOrInt) {
                 self::assertTrue($stringOrInt->is($x));
                 self::assertFalse($mapOrNull->is($x));
             });
@@ -41,7 +43,7 @@ class UnionRefineTest extends TestCase
                     Generator\string()
                 )
             )
-            ->then(function($x) use ($stringOrNull) {
+            ->then(function ($x) use ($stringOrNull) {
                 self::assertTrue($stringOrNull->is($x));
             });
 
@@ -52,7 +54,7 @@ class UnionRefineTest extends TestCase
                     Generator\int()
                 )
             )
-            ->then(function($x) use ($intOrNull) {
+            ->then(function ($x) use ($intOrNull) {
                 self::assertTrue($intOrNull->is($x));
             });
 
@@ -62,11 +64,11 @@ class UnionRefineTest extends TestCase
                     Generator\constant(null),
                     Generator\associative([
                         'a' => Generator\string(),
-                        'b' => Generator\int()
+                        'b' => Generator\int(),
                     ])
                 )
             )
-            ->then(function($x) use ($stringOrInt, $mapOrNull) {
+            ->then(function ($x) use ($stringOrInt, $mapOrNull) {
                 self::assertTrue($mapOrNull->is($x));
                 self::assertFalse($stringOrInt->is($x));
             });

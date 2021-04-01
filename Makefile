@@ -11,7 +11,7 @@ sh:
 	docker-compose exec php bash
 
 psalm:
-	./vendor/bin/psalm src --no-cache
+	./vendor/bin/psalm --no-cache
 
 type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
@@ -22,5 +22,11 @@ test:
 architecture:
 	./vendor/bin/phpat
 
+cs-fix:
+	./vendor/bin/php-cs-fixer fix --ansi --verbose
+
+cs-check:
+	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
+
 .PHONY: ci
-ci: test psalm type-assertions architecture
+ci: test cs-check psalm type-assertions architecture

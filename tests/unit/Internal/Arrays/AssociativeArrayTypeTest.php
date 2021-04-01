@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Arrays;
 
-use PHPUnit\Framework\TestCase;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Internal\Experimental\AssociativeArrayType;
 use Facile\PhpCodec\PathReporter;
+use PHPUnit\Framework\TestCase;
 
 class AssociativeArrayTypeTest extends TestCase
 {
@@ -15,9 +17,9 @@ class AssociativeArrayTypeTest extends TestCase
             'a' => Codecs::null(),
             'b' => new AssociativeArrayType([
                 'b1' => Codecs::int(),
-                'b2' => Codecs::string()
+                'b2' => Codecs::string(),
             ]),
-            'c' => Codecs::string()
+            'c' => Codecs::string(),
         ]);
 
         $r = $map->decode([

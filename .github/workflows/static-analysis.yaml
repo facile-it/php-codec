@@ -9,8 +9,8 @@ jobs:
         include:
           - description: Validate composer.json
             script: composer validate
-#          - description: Code style
-#            script: composer cs-check
+          - description: Code style
+            script: make cs-fix
           - description: PSalm
             script: make psalm
           - description: Type assertions

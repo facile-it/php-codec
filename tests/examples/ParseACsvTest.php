@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Examples\Facile\PhpCodec;
 
@@ -24,7 +26,7 @@ CSV;
                     [
                         'id' => Codecs::intFromString(),
                         'name' => Codecs::string(),
-                        'code' => Codecs::string()
+                        'code' => Codecs::string(),
                     ],
                     function (int $id, string $name, string $code): in\City {
                         return new in\City($id, $name, $code);
@@ -77,8 +79,7 @@ class City
         int $id,
         string $name,
         string $italianLandRegistryCode
-    )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->italianLandRegistryCode = $italianLandRegistryCode;

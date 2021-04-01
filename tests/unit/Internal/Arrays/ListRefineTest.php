@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Arrays;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
-use PHPUnit\Framework\TestCase;
 use Facile\PhpCodec\Internal\Arrays\ListRefiner;
 use Facile\PhpCodec\Internal\Primitives\IntRefiner;
+use PHPUnit\Framework\TestCase;
 
 class ListRefineTest extends TestCase
 {

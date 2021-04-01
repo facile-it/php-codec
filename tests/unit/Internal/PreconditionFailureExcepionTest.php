@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal;
 
@@ -16,7 +18,7 @@ class PreconditionFailureExcepionTest extends TestCase
 
         self::assertSame(
             'Bad codec composition: expecting input to be of type "stdClass", given "array"',
-            PreconditionFailureExcepion::create(\stdClass::class, [1,2])->getMessage()
+            PreconditionFailureExcepion::create(\stdClass::class, [1, 2])->getMessage()
         );
     }
 }

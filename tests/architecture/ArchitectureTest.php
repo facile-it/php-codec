@@ -1,15 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace ArchitectureAssertions\Facile\PhpCodec;
 
-use Facile\PhpCodec\Internal\Type;
-use PhpAT\Rule\Rule;
-use PhpAT\Selector\Selector;
 use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Decoder;
 use Facile\PhpCodec\Encoder;
+use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Refiner;
+use PhpAT\Rule\Rule;
+use PhpAT\Selector\Selector;
 
 class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
 {

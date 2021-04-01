@@ -1,13 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal;
 
 class PreconditionFailureExcepion extends \LogicException
 {
     /**
-     * @param string $expectedType
      * @param mixed $given
-     * @return self
      */
     public static function create(string $expectedType, $given): self
     {

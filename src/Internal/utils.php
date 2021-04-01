@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal;
 
@@ -6,7 +8,6 @@ use Facile\PhpCodec\Codec;
 
 /**
  * @param non-empty-array<array-key, Codec> $props
- * @return string
  */
 function nameFromProps(array $props): string
 {
@@ -31,10 +32,10 @@ function nameFromProps(array $props): string
 
 /**
  * @param mixed $x
- * @return string
  */
-function typeof($x): string {
-    if(is_object($x)) {
+function typeof($x): string
+{
+    if (is_object($x)) {
         return get_class($x);
     }
 

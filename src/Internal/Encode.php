@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal;
 
 use Facile\PhpCodec\Codec;
-use SebastianBergmann\CodeCoverage\Driver\Xdebug;
 use const Facile\PhpCodec\identity;
 
 /**
@@ -12,11 +13,12 @@ use const Facile\PhpCodec\identity;
  */
 class Encode
 {
-    /** @var callable(A):O $encode */
+    /** @var callable(A):O */
     private $encode;
 
     /**
      * @template X
+     *
      * @return Encode<X, X>
      */
     public static function identity(): self
@@ -30,16 +32,17 @@ class Encode
      * @template Z
      *
      * @param Codec<X, Y, Z> $c
+     *
      * @return self<X, Z>
      */
     public static function fromCodec(Codec $c): self
     {
         return new self(
-        /**
-         * @param X $x
-         * @psalm-return Z
-         * @psalm-suppress MixedInferredReturnType
-         */
+            /**
+             * @param X $x
+             * @psalm-return Z
+             * @psalm-suppress MixedInferredReturnType
+             */
             function ($x) use ($c) {
                 /**
                  * @psalm-suppress MixedReturnStatement
@@ -59,6 +62,7 @@ class Encode
 
     /**
      * @param A $a
+     *
      * @return O
      */
     public function __invoke($a)

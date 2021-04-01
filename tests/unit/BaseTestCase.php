@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec;
 
-use PHPUnit\Framework\TestCase;
 use Facile\PhpCodec\PathReporter;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationSuccess;
+use PHPUnit\Framework\TestCase;
 
 class BaseTestCase extends TestCase
 {
@@ -16,14 +18,14 @@ class BaseTestCase extends TestCase
      * @param class-string $fqcn
      * @param Validation<T> $v
      * @param null | callable(T):R $thenDo
+     *
      * @return R | T
      */
     public static function asserSuccessInstanceOf(
         string $fqcn,
         Validation $v,
         callable $thenDo = null
-    )
-    {
+    ) {
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
@@ -46,13 +48,13 @@ class BaseTestCase extends TestCase
      *
      * @param T $expected
      * @param Validation<T> $v
+     *
      * @return T
      */
     public static function asserSuccessSameTo(
         $expected,
         Validation $v
-    )
-    {
+    ) {
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
@@ -66,20 +68,19 @@ class BaseTestCase extends TestCase
         return $x;
     }
 
-
     /**
      * @template T
      * @template R
      *
      * @param Validation<T> $v
      * @param callable(T):R $thenDo
+     *
      * @return R
      */
     public static function asserSuccessAnd(
         Validation $v,
         callable $thenDo
-    )
-    {
+    ) {
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Validation;
 
@@ -13,15 +15,12 @@ class VError
 
     /**
      * @param mixed $value
-     * @param Context $context
-     * @param string|null $message
      */
     public function __construct(
         $value,
         Context $context,
         ?string $message = null
-    )
-    {
+    ) {
         $this->value = $value;
         $this->context = $context;
         $this->message = $message;

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Useful;
 
@@ -26,7 +28,7 @@ class DateTimeFromIsoStringType extends Type
     {
         $r = \DateTime::createFromFormat(DATE_ATOM, $i);
 
-        if($r === false) {
+        if ($r === false) {
             return Validation::failure($i, $context);
         }
 

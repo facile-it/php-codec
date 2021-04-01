@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Primitives;
 
@@ -34,18 +36,17 @@ class LiteralType extends Type
 
     /**
      * @param int | bool | string $x
-     * @return string
      */
     private static function literalName($x): string
     {
-        if(is_string($x)) {
+        if (is_string($x)) {
             return "'$x'";
         }
 
-        if(is_bool($x)) {
+        if (is_bool($x)) {
             return $x ? 'true' : 'false';
         }
 
-        return (string)$x;
+        return (string) $x;
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
@@ -11,7 +13,9 @@ const identity = __NAMESPACE__ . '\identity';
 
 /**
  * @template A
+ *
  * @param A $x
+ *
  * @return A
  */
 function identity($x)
@@ -21,42 +25,43 @@ function identity($x)
 
 /**
  * @param mixed $x
- * @return string
  */
 function strigify($x): string
 {
-    if($x === null) {
+    if ($x === null) {
         return 'null';
     }
 
-    if($x === ContextEntry::VALUE_UNDEFINED) {
+    if ($x === ContextEntry::VALUE_UNDEFINED) {
         return 'undefined';
     }
 
-    if(is_string($x)) {
+    if (is_string($x)) {
         return "\"$x\"";
     }
 
-    if(is_array($x)) {
+    if (is_array($x)) {
         // TODO check if json-ext is available
         return json_encode($x);
     }
 
-    if(is_bool($x)) {
+    if (is_bool($x)) {
         return $x ? 'true' : 'false';
     }
 
-    return (string)$x;
+    return (string) $x;
 }
 
 /**
  * @template R
+ *
  * @param callable(...mixed):R $f
+ *
  * @return callable(list<mixed>):R
  */
 function destructureIn(callable $f): callable
 {
-    return function(array $params) use ($f) {
+    return function (array $params) use ($f) {
         return $f(...$params);
     };
 }

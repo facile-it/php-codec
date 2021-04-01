@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
@@ -11,6 +13,7 @@ interface Reporter
 {
     /**
      * @param Validation<mixed> $validation
+     *
      * @return A
      */
     public function report(Validation $validation);

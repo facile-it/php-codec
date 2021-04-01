@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal;
 
@@ -25,7 +27,6 @@ abstract class Type implements Codec
     private $refine;
 
     /**
-     * @param string $name
      * @param Refiner<A> $refine
      * @param Encode<A, O> $encode
      */
@@ -33,8 +34,7 @@ abstract class Type implements Codec
         string $name,
         Refiner $refine,
         Encode $encode
-    )
-    {
+    ) {
         $this->name = $name;
         $this->encode = $encode;
         $this->refine = $refine;
@@ -42,16 +42,16 @@ abstract class Type implements Codec
 
     /**
      * @param mixed $u
-     * @return bool
      * @psalm-assert-if-true A $i
      */
-    final public function is($u): bool {
+    final public function is($u): bool
+    {
         return $this->refine->is($u);
     }
 
     /**
      * @param I $i
-     * @param Context $context
+     *
      * @return Validation<A>
      */
     public function decode($i): Validation
@@ -66,13 +66,14 @@ abstract class Type implements Codec
 
     /**
      * @param I $i
-     * @param Context $context
+     *
      * @return Validation<A>
      */
     abstract public function validate($i, Context $context): Validation;
 
     /**
      * @param A $a
+     *
      * @return O
      */
     public function encode($a)
@@ -87,6 +88,7 @@ abstract class Type implements Codec
 
     /**
      * @param mixed $i
+     *
      * @return static
      * @psalm-assert I $i
      */

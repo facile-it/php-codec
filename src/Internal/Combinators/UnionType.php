@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Combinators;
 
@@ -28,8 +30,7 @@ class UnionType extends Type
     public function __construct(
         Codec $a,
         Codec $b
-    )
-    {
+    ) {
         $name = sprintf(
             '%s | %s',
             $a->getName(),
@@ -51,7 +52,7 @@ class UnionType extends Type
             ->forceCheckPrecondition($i)
             ->validate($i, $context);
 
-        if($va instanceof ValidationSuccess) {
+        if ($va instanceof ValidationSuccess) {
             /** @var ValidationSuccess<A> */
             return $va;
         }

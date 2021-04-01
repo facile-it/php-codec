@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Eris\Generator as g;
@@ -23,7 +25,7 @@ class BoolTypeTest extends BaseTestCase
             ->forAll(
                 g\oneOf(g\string(), g\int(), g\float(), g\date(), g\constant(null))
             )
-            ->then(function($x) use ($type) {
+            ->then(function ($x) use ($type) {
                 self::assertInstanceOf(
                     ValidationFailures::class,
                     $type->decode($x)
