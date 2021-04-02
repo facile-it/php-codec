@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
-use Facile\PhpCodec\Validation\ContextEntry;
-
 /**
  * @const callable
  */
@@ -32,17 +30,14 @@ function strigify($x): string
         return 'null';
     }
 
-    if ($x === ContextEntry::VALUE_UNDEFINED) {
-        return 'undefined';
-    }
-
     if (is_string($x)) {
         return "\"$x\"";
     }
 
     if (is_array($x)) {
-        // TODO check if json-ext is available
-        return json_encode($x);
+        return function_exists('json_encode')
+            ? json_encode($x)
+            : serialize($x);
     }
 
     if (is_bool($x)) {
