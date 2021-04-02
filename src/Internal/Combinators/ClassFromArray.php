@@ -12,6 +12,7 @@ use function Facile\PhpCodec\Internal\nameFromProps;
 use Facile\PhpCodec\Internal\PreconditionFailureExcepion;
 use Facile\PhpCodec\Internal\Primitives\InstanceOfRefiner;
 use Facile\PhpCodec\Internal\Type;
+use Facile\PhpCodec\Internal\Undefined;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
@@ -51,17 +52,12 @@ class ClassFromArray extends Type
     {
         $validations = [];
 
-        foreach ($this->props as $k => $v) {
-            $key = is_string($k) ? $k : sprintf('[%d]', $k);
+        foreach ($this->props as $k => $codec) {
+            $keyName = is_string($k) ? $k : sprintf('[%d]', $k);
+            /** @var mixed $value */
+            $value = array_key_exists($k, $i) ? $i[$k] : new Undefined();
 
-            if (array_key_exists($k, $i)) {
-                $validations[] = $v->validate($i[$k], $context->appendEntries(new ContextEntry($key, $v, $i[$k])));
-            } else {
-                $validations[] = Validation::failure(
-                    ContextEntry::VALUE_UNDEFINED,
-                    $context->appendEntries(new ContextEntry($key, $v, ContextEntry::VALUE_UNDEFINED))
-                );
-            }
+            $validations[] = $codec->validate($value, $context->appendEntries(new ContextEntry($keyName, $codec, $value)));
         }
 
         return Validation::map(
