@@ -23,6 +23,8 @@ function identity($x)
 
 /**
  * @param mixed $x
+ *
+ * @return string
  */
 function strigify($x): string
 {

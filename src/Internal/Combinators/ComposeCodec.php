@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Codec;
-use Facile\PhpCodec\Internal\Encode;
-use Facile\PhpCodec\Internal\Type;
+use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
@@ -17,12 +16,12 @@ use Facile\PhpCodec\Validation\Validation;
  * @template B
  * @template OB
  *
- * Type<A, IA, OA>
- * Type<B, A, OB>
+ * Codec<A, IA, OA>
+ * Codec<B, A, OB>
  *
- * @extends Type<B, IA, OB>
+ * @implements Codec<B, IA, OB>
  */
-class ComposeType extends Type
+class ComposeCodec implements Codec
 {
     /** @var Codec<A, IA, OA> */
     private $a;
@@ -39,16 +38,13 @@ class ComposeType extends Type
     ) {
         $this->a = $a;
         $this->b = $b;
-
-        parent::__construct(
-            $b->getName(),
-            $b,
-            Encode::fromCodec($b)
-        );
     }
 
     /**
-     * @param IA $i
+     * @param IA      $i
+     * @param Context $context
+     *
+     * @return Validation<B>
      */
     public function validate($i, Context $context): Validation
     {
@@ -57,9 +53,24 @@ class ComposeType extends Type
              * @param A $aValue
              */
             function ($aValue) use ($context): Validation {
-                return $this->b->forceCheckPrecondition($aValue)->validate($aValue, $context);
+                return $this->b->validate($aValue, $context);
             },
-            $this->a->forceCheckPrecondition($i)->validate($i, $context)
+            $this->a->validate($i, $context)
         );
+    }
+
+    public function decode($i): Validation
+    {
+        return standardDecode($this, $i);
+    }
+
+    public function getName(): string
+    {
+        return $this->b->getName();
+    }
+
+    public function encode($a)
+    {
+        return $this->b->encode($a);
     }
 }

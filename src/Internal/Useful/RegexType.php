@@ -6,7 +6,6 @@ namespace Facile\PhpCodec\Internal\Useful;
 
 use Facile\PhpCodec\Internal\Arrays\MapRefiner;
 use Facile\PhpCodec\Internal\Encode;
-use Facile\PhpCodec\Internal\PreconditionFailureExcepion;
 use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
@@ -37,20 +36,5 @@ class RegexType extends Type
         }
 
         return Validation::success($matches);
-    }
-
-    /**
-     * @param mixed $i
-     *
-     * @return static
-     * @psalm-assert string $i
-     */
-    public function forceCheckPrecondition($i)
-    {
-        if (! \is_string($i)) {
-            throw PreconditionFailureExcepion::create('string', $i);
-        }
-
-        return $this;
     }
 }

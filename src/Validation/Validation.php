@@ -34,7 +34,9 @@ abstract class Validation
     }
 
     /**
-     * @param mixed $value
+     * @param mixed       $value
+     * @param Context     $context
+     * @param string|null $message
      *
      * @return Validation<empty>
      */

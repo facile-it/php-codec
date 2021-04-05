@@ -6,10 +6,8 @@ namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Codec;
 use function Facile\PhpCodec\destructureIn;
-use Facile\PhpCodec\Internal\Arrays\MapRefiner;
 use Facile\PhpCodec\Internal\Encode;
 use function Facile\PhpCodec\Internal\nameFromProps;
-use Facile\PhpCodec\Internal\PreconditionFailureExcepion;
 use Facile\PhpCodec\Internal\Primitives\InstanceOfRefiner;
 use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Internal\Undefined;
@@ -64,14 +62,5 @@ class ClassFromArray extends Type
             destructureIn($this->builder),
             Validation::reduceToSuccessOrAllFailures($validations)
         );
-    }
-
-    public function forceCheckPrecondition($i)
-    {
-        if (! (new MapRefiner())->is($i)) {
-            throw PreconditionFailureExcepion::create('array<string, mixed>', $i);
-        }
-
-        return $this;
     }
 }

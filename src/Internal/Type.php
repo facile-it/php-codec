@@ -7,7 +7,6 @@ namespace Facile\PhpCodec\Internal;
 use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Refiner;
 use Facile\PhpCodec\Validation\Context;
-use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
@@ -27,6 +26,7 @@ abstract class Type implements Codec
     private $refine;
 
     /**
+     * @param string       $name
      * @param Refiner<A>   $refine
      * @param Encode<A, O> $encode
      */
@@ -43,6 +43,8 @@ abstract class Type implements Codec
     /**
      * @param mixed $u
      * @psalm-assert-if-true A $i
+     *
+     * @return bool
      */
     final public function is($u): bool
     {
@@ -56,12 +58,7 @@ abstract class Type implements Codec
      */
     public function decode($i): Validation
     {
-        return $this->validate(
-            $i,
-            new Context(
-                new ContextEntry('', $this, $i)
-            )
-        );
+        return standardDecode($this, $i);
     }
 
     /**
@@ -84,16 +81,5 @@ abstract class Type implements Codec
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @param mixed $i
-     *
-     * @return static
-     * @psalm-assert I $i
-     */
-    public function forceCheckPrecondition($i)
-    {
-        return $this;
     }
 }

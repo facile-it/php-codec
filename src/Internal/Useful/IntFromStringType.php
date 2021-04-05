@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Useful;
 
 use Facile\PhpCodec\Internal\Encode;
-use Facile\PhpCodec\Internal\PreconditionFailureExcepion;
 use Facile\PhpCodec\Internal\Primitives\IntRefiner;
 use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Validation\Context;
@@ -26,14 +25,5 @@ class IntFromStringType extends Type
         return \is_numeric($i)
             ? Validation::success((int) $i)
             : Validation::failure($i, $context);
-    }
-
-    public function forceCheckPrecondition($i)
-    {
-        if (! \is_string($i)) {
-            throw PreconditionFailureExcepion::create('string', $i);
-        }
-
-        return $this;
     }
 }

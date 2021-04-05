@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Codec;
-use Facile\PhpCodec\Internal\Encode;
-use Facile\PhpCodec\Internal\Type;
+use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationSuccess;
@@ -14,9 +13,9 @@ use Facile\PhpCodec\Validation\ValidationSuccess;
 /**
  * @template A
  * @template B
- * @extends Type<A|B, mixed, A|B>
+ * @implements Codec<A|B, mixed, A|B>
  */
-class UnionType extends Type
+class UnionCodec implements Codec
 {
     /** @var Codec<A, mixed, A> */
     private $a;
@@ -31,34 +30,34 @@ class UnionType extends Type
         Codec $a,
         Codec $b
     ) {
-        $name = \sprintf(
-            '%s | %s',
-            $a->getName(),
-            $b->getName()
-        );
-
-        parent::__construct(
-            $name,
-            new UnionRefiner($a, $b),
-            Encode::identity()
-        );
         $this->a = $a;
         $this->b = $b;
     }
 
     public function validate($i, Context $context): Validation
     {
-        $va = $this->a
-            ->forceCheckPrecondition($i)
-            ->validate($i, $context);
+        $va = $this->a->validate($i, $context);
 
         if ($va instanceof ValidationSuccess) {
             /** @var ValidationSuccess<A> */
             return $va;
         }
 
-        return $this->b
-            ->forceCheckPrecondition($i)
-            ->validate($i, $context);
+        return $this->b->validate($i, $context);
+    }
+
+    public function decode($i): Validation
+    {
+        return standardDecode($this, $i);
+    }
+
+    public function getName(): string
+    {
+        return \sprintf('%s | %s', $this->a->getName(), $this->b->getName());
+    }
+
+    public function encode($a)
+    {
+        return $a;
     }
 }

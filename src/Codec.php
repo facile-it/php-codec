@@ -9,17 +9,9 @@ namespace Facile\PhpCodec;
  * @template I
  * @template O
  *
- * @implements Decoder<I, A>
- * @implements Encoder<A, O>
- * @implements Refiner<A>
+ * @extends Decoder<I, A>
+ * @extends Encoder<A, O>
  */
-interface Codec extends Decoder, Encoder, Refiner
+interface Codec extends Decoder, Encoder
 {
-    /**
-     * @param mixed $i
-     *
-     * @return static
-     * @psalm-assert I $i
-     */
-    public function forceCheckPrecondition($i);
 }

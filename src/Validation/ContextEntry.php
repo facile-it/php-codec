@@ -16,6 +16,7 @@ class ContextEntry
     private $actual;
 
     /**
+     * @param string                $key
      * @param Decoder<mixed, mixed> $decoder
      * @param mixed                 $actual
      */

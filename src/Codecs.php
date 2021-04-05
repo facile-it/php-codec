@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
-use Facile\PhpCodec\Internal\Arrays\ListType;
+use Facile\PhpCodec\Internal\Arrays\ListCodec;
 use Facile\PhpCodec\Internal\Arrays\MapType;
 use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
-use Facile\PhpCodec\Internal\Combinators\ComposeType;
-use Facile\PhpCodec\Internal\Combinators\UnionType;
-use Facile\PhpCodec\Internal\Experimental\AssociativeArrayType;
+use Facile\PhpCodec\Internal\Combinators\ComposeCodec;
+use Facile\PhpCodec\Internal\Combinators\UnionCodec;
 use Facile\PhpCodec\Internal\Primitives\BoolType;
 use Facile\PhpCodec\Internal\Primitives\FloatType;
 use Facile\PhpCodec\Internal\Primitives\IntType;
 use Facile\PhpCodec\Internal\Primitives\LiteralType;
 use Facile\PhpCodec\Internal\Primitives\NullType;
 use Facile\PhpCodec\Internal\Primitives\StringType;
-use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
 use Facile\PhpCodec\Internal\Useful\IntFromStringType;
 use Facile\PhpCodec\Internal\Useful\RegexType;
@@ -100,17 +98,7 @@ final class Codecs
      */
     public static function listt(Codec $itemCodec): Codec
     {
-        return new ListType($itemCodec);
-    }
-
-    /**
-     * @param non-empty-array<string, Type> $props
-     *
-     * @return Codec<array, mixed, array>
-     */
-    public static function associativeArray(array $props): Codec
-    {
-        return new AssociativeArrayType($props);
+        return new ListCodec($itemCodec);
     }
 
     /**
@@ -167,7 +155,7 @@ final class Codecs
         ?Codec $e = null
     ): Codec {
         // Order is important: composition is not commutative
-        return new ComposeType(
+        return new ComposeCodec(
             $a,
             $c instanceof Codec
                 ? self::pipe($b, $c, $d, $e)
@@ -188,9 +176,9 @@ final class Codecs
         return \array_reduce(
             $others,
             static function (Codec $carry, Codec $current): Codec {
-                return new UnionType($current, $carry);
+                return new UnionCodec($current, $carry);
             },
-            new UnionType($a, $b)
+            new UnionCodec($a, $b)
         );
     }
 
