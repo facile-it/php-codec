@@ -10,7 +10,7 @@ jobs:
           - description: Validate composer.json
             script: composer validate
           - description: Code style
-            script: make cs-fix
+            script: make cs-check
           - description: PSalm
             script: make psalm
           - description: Type assertions
