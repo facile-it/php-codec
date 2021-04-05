@@ -29,17 +29,17 @@ class RefineTypeAssertions extends TypeAssertion
         $refiner = new MapRefiner();
 
         /**
-         * @param array<array-key,mixed> $x
          * @psalm-suppress UnusedParam
+         *
+         * @var callable(array<array-key,mixed>):void
          */
-        function assert(array $x): void
-        {
-        }
+        $assert = static function (array $x): void {
+        };
 
         /** @var mixed $x */
         $x = self::mixed();
         if ($refiner->is($x)) {
-            assert($x);
+            $assert($x);
         }
     }
 
