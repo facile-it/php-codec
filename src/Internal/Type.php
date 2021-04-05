@@ -27,7 +27,7 @@ abstract class Type implements Codec
     private $refine;
 
     /**
-     * @param Refiner<A> $refine
+     * @param Refiner<A>   $refine
      * @param Encode<A, O> $encode
      */
     public function __construct(

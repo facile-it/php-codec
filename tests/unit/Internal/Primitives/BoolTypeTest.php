@@ -25,7 +25,7 @@ class BoolTypeTest extends BaseTestCase
             ->forAll(
                 g\oneOf(g\string(), g\int(), g\float(), g\date(), g\constant(null))
             )
-            ->then(function ($x) use ($type) {
+            ->then(function ($x) use ($type): void {
                 self::assertInstanceOf(
                     ValidationFailures::class,
                     $type->decode($x)

@@ -17,7 +17,7 @@ class ContextEntry
 
     /**
      * @param Decoder<mixed, mixed> $decoder
-     * @param mixed $actual
+     * @param mixed                 $actual
      */
     public function __construct(
         string $key,

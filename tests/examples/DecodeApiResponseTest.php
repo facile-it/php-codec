@@ -56,7 +56,7 @@ class DecodeApiResponseTest extends BaseTestCase
             in\OpenWeatherResponse::class
         );
 
-        $result = $codec->decode(json_decode(self::weatherJson(), true));
+        $result = $codec->decode(\json_decode(self::weatherJson(), true));
 
         self::asserSuccessInstanceOf(
             in\OpenWeatherResponse::class,

@@ -39,11 +39,11 @@ class LiteralType extends Type
      */
     private static function literalName($x): string
     {
-        if (is_string($x)) {
+        if (\is_string($x)) {
             return "'$x'";
         }
 
-        if (is_bool($x)) {
+        if (\is_bool($x)) {
             return $x ? 'true' : 'false';
         }
 

@@ -13,6 +13,6 @@ class BoolRefiner implements Refiner
 {
     public function is($u): bool
     {
-        return is_bool($u);
+        return \is_bool($u);
     }
 }

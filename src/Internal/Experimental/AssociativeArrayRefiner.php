@@ -24,7 +24,7 @@ class AssociativeArrayRefiner implements Refiner
 
     public function is($u): bool
     {
-        if (! is_array($u)) {
+        if (! \is_array($u)) {
             return false;
         }
 

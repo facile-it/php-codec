@@ -13,6 +13,6 @@ class StringRefiner implements Refiner
 {
     public function is($u): bool
     {
-        return is_string($u);
+        return \is_string($u);
     }
 }

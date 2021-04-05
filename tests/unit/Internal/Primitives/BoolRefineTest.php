@@ -24,7 +24,7 @@ class BoolRefineTest extends TestCase
             ->forAll(
                 g\oneOf(g\string(), g\int(), g\float(), g\date())
             )
-            ->then(function ($x) use ($refine) {
+            ->then(function ($x) use ($refine): void {
                 self::assertFalse($refine->is($x));
             });
     }

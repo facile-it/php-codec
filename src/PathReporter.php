@@ -22,7 +22,7 @@ class PathReporter implements Reporter
     {
         return Validation::fold(
             function (array $errors): array {
-                return array_map(
+                return \array_map(
                     [self::class, 'getMessage'],
                     $errors
                 );
@@ -37,7 +37,7 @@ class PathReporter implements Reporter
     public static function getMessage(VError $error): string
     {
         return $error->getMessage()
-            ?: sprintf(
+            ?: \sprintf(
                 'Invalid value %s supplied to %s',
                 strigify($error->getValue()),
                 self::getContextPath($error->getContext())
@@ -48,9 +48,9 @@ class PathReporter implements Reporter
     {
         $parts = [];
         foreach ($context as $entry) {
-            $parts[] = sprintf('%s: %s', $entry->getKey(), $entry->getDecoder()->getName());
+            $parts[] = \sprintf('%s: %s', $entry->getKey(), $entry->getDecoder()->getName());
         }
 
-        return implode('/', $parts);
+        return \implode('/', $parts);
     }
 }

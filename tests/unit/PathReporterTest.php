@@ -59,7 +59,7 @@ class PathReporterTest extends BaseTestCase
                 g\oneOf(g\string(), g\float(), g\bool(), g\constant(null)),
                 g\oneOf(g\string(), g\int(), g\bool(), g\constant(null))
             )
-            ->then(function ($a, $b, $c) use ($type, $reporter) {
+            ->then(function ($a, $b, $c) use ($type, $reporter): void {
                 $errors = $reporter->report(
                     $type->decode([
                         'a' => $a,
@@ -70,9 +70,9 @@ class PathReporterTest extends BaseTestCase
 
                 self::assertEquals(
                     [
-                        sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string', strigify($a)),
-                        sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int', strigify($b)),
-                        sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float', strigify($c)),
+                        \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string', strigify($a)),
+                        \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int', strigify($b)),
+                        \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float', strigify($c)),
                     ],
                     $errors
                 );

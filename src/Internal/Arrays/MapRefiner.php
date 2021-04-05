@@ -17,6 +17,6 @@ class MapRefiner implements Refiner
      */
     public function is($u): bool
     {
-        return is_array($u);
+        return \is_array($u);
     }
 }

@@ -12,7 +12,7 @@ class PreconditionFailureExcepion extends \LogicException
     public static function create(string $expectedType, $given): self
     {
         return new self(
-            sprintf(
+            \sprintf(
                 'Bad codec composition: expecting input to be of type "%s", given "%s"',
                 $expectedType,
                 typeof($given)

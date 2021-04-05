@@ -29,6 +29,6 @@ class InstanceOfRefiner implements Refiner
      */
     public function is($u): bool
     {
-        return is_a($u, $this->fqcn);
+        return \is_a($u, $this->fqcn);
     }
 }

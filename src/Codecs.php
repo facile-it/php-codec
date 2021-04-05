@@ -117,8 +117,8 @@ final class Codecs
      * @template T
      *
      * @param non-empty-array<string, Codec> $props
-     * @param callable(...mixed):T $factory
-     * @param class-string<T> $fqcn
+     * @param callable(...mixed):T           $factory
+     * @param class-string<T>                $fqcn
      *
      * @return Codec<T, mixed, T>
      */
@@ -145,8 +145,8 @@ final class Codecs
      * @template E
      * @template OE
      *
-     * @param Codec<A, IA, mixed> $a
-     * @param Codec<B, A, OB> $b
+     * @param Codec<A, IA, mixed>    $a
+     * @param Codec<B, A, OB>        $b
      * @param Codec<C, B, OC> | null $c
      * @param Codec<D, C, OD> | null $d
      * @param Codec<E, D, OE> | null $e
@@ -154,10 +154,10 @@ final class Codecs
      * // TODO must add type assertions
      *
      * @return (func_num_args() is 2 ? Codec<B, IA, OB>
-     *   : (func_num_args() is 3 ? Codec<C, IA, OC>
-     *   : (func_num_args() is 4 ? Codec<D, IA, OD>
-     *   : (func_num_args() is 5 ? Codec<E, IA, OC> : Codec)
-     * )))
+     *                          : (func_num_args() is 3 ? Codec<C, IA, OC>
+     *                          : (func_num_args() is 4 ? Codec<D, IA, OD>
+     *                          : (func_num_args() is 5 ? Codec<E, IA, OC> : Codec)
+     *                          )))
      */
     public static function pipe(
         Codec $a,
@@ -185,7 +185,7 @@ final class Codecs
     public static function union(Codec $a, Codec $b, Codec ...$others): Codec
     {
         // Order is not important, unions should be commutatives
-        return array_reduce(
+        return \array_reduce(
             $others,
             static function (Codec $carry, Codec $current): Codec {
                 return new UnionType($current, $carry);
