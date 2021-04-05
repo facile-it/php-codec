@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal;
 
-use Facile\PhpCodec\Codec;
 use const Facile\PhpCodec\identity;
 
 /**
@@ -24,32 +23,6 @@ class Encode
     public static function identity(): self
     {
         return new self(identity);
-    }
-
-    /**
-     * @template X
-     * @template Y
-     * @template Z
-     *
-     * @param Codec<X, Y, Z> $c
-     *
-     * @return self<X, Z>
-     */
-    public static function fromCodec(Codec $c): self
-    {
-        return new self(
-            /**
-             * @param X $x
-             * @psalm-return Z
-             * @psalm-suppress MixedInferredReturnType
-             */
-            function ($x) use ($c) {
-                /**
-                 * @psalm-suppress MixedReturnStatement
-                 */
-                return $c->encode($x);
-            }
-        );
     }
 
     /**

@@ -14,7 +14,9 @@ class VError
     private $message;
 
     /**
-     * @param mixed $value
+     * @param mixed       $value
+     * @param Context     $context
+     * @param string|null $message
      */
     public function __construct(
         $value,
