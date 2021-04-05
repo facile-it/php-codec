@@ -9,7 +9,10 @@ $rulesProvider = new Facile\CodingStandards\Rules\CompositeRulesProvider([
         'indentation_type' => true,
         'phpdoc_to_comment' => false,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
-        'phpdoc_align' => true
+        'phpdoc_align' => true,
+        'nullable_type_declaration_for_default_null_value' => true,
+        'lambda_not_used_import' => true,
+        'phpdoc_add_missing_param_annotation' => true
     ]),
 ]);
 
