@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Decoder;
+use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Internal\Undefined;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
-use function Facile\PhpCodec\Internal\standardDecode;
 
 /**
  * @template U

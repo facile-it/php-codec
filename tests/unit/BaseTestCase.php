@@ -81,8 +81,7 @@ class BaseTestCase extends TestCase
     public static function asserSuccessAnd(
         Validation $v,
         callable $thenDo
-    )
-    {
+    ) {
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
@@ -104,8 +103,7 @@ class BaseTestCase extends TestCase
      */
     public static function codecLaws(
         Codec $codec
-    ): \Closure
-    {
+    ): \Closure {
         return function ($input, $a) use ($codec): void {
             self::assertCodecLaw1($codec, $input);
             self::assertCodecLaw2($codec, $a);
@@ -118,13 +116,12 @@ class BaseTestCase extends TestCase
      * @template O
      *
      * @param Codec<A, I, O> $codec
-     * @param I $input
+     * @param I              $input
      */
     public static function assertCodecLaw1(
         Codec $codec,
         $input
-    ): void
-    {
+    ): void {
         self::assertEquals(
             $input,
             Validation::fold(
@@ -145,13 +142,12 @@ class BaseTestCase extends TestCase
      * @template O
      *
      * @param Codec<A, I, O> $codec
-     * @param A $a
+     * @param A              $a
      */
     public static function assertCodecLaw2(
         Codec $codec,
         $a
-    ): void
-    {
+    ): void {
         self::asserSuccessAnd(
             $codec->decode($codec->encode($a)),
             function ($r) use ($a): void {

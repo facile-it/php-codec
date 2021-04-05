@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
-use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Internal\Undefined;
@@ -17,10 +18,10 @@ class UndefinedDecoderTest extends BaseTestCase
     {
         $this
             ->forAll(GeneratorUtils::scalar())
-            ->then(function ($default) {
+            ->then(function ($default): void {
                 self::asserSuccessAnd(
                     Codecs::undefined($default)->decode(new Undefined()),
-                    function ($x) use ($default) {
+                    function ($x) use ($default): void {
                         self::assertSame($default, $x);
                     }
                 );
