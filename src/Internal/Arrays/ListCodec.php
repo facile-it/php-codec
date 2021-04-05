@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Arrays;
 
 use Facile\PhpCodec\Codec;
-use Facile\PhpCodec\Internal\Encode;
-use Facile\PhpCodec\Internal\Type;
+use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
@@ -14,9 +13,9 @@ use Facile\PhpCodec\Validation\Validation;
 /**
  * @template T
  *
- * @extends Type<list<T>, mixed, list<T>>
+ * @implements Codec<list<T>, mixed, list<T>>
  */
-class ListType extends Type
+class ListCodec implements Codec
 {
     /** @var Codec<T, mixed, T> */
     private $itemCodec;
@@ -26,11 +25,6 @@ class ListType extends Type
      */
     public function __construct(Codec $itemCodec)
     {
-        parent::__construct(
-            $itemCodec->getName() . '[]',
-            new ListRefiner($itemCodec),
-            Encode::identity()
-        );
         $this->itemCodec = $itemCodec;
     }
 
@@ -59,5 +53,20 @@ class ListType extends Type
         }
 
         return Validation::sequence($validation);
+    }
+
+    public function decode($i): Validation
+    {
+        return standardDecode($this, $i);
+    }
+
+    public function getName(): string
+    {
+        return $this->itemCodec->getName() . '[]';
+    }
+
+    public function encode($a)
+    {
+        return $a;
     }
 }

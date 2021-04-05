@@ -12,6 +12,8 @@ interface Refiner
     /**
      * @param mixed $u
      * @psalm-assert-if-true A $u
+     *
+     * @return bool
      */
     public function is($u): bool;
 }
