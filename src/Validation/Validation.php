@@ -50,8 +50,8 @@ abstract class Validation
      * @template R
      *
      * @param callable(list<VError>):R $onFailures
-     * @param callable(T):R $onSuccess
-     * @param Validation<T> $v
+     * @param callable(T):R            $onSuccess
+     * @param Validation<T>            $v
      *
      * @return R
      */
@@ -76,7 +76,7 @@ abstract class Validation
      *
      * @return Validation<list<T>>
      */
-    public static function sequence(array $validations): Validation
+    public static function sequence(array $validations): self
     {
         $results = [];
         foreach ($validations as $v) {
@@ -99,7 +99,7 @@ abstract class Validation
      *
      * @return Validation<list<T>>
      */
-    public static function reduceToSuccessOrAllFailures(array $validations): Validation
+    public static function reduceToSuccessOrAllFailures(array $validations): self
     {
         $results = [];
         $errors = [];
@@ -114,7 +114,7 @@ abstract class Validation
         }
 
         if (! empty($errors)) {
-            return self::failures(array_merge([], ...$errors));
+            return self::failures(\array_merge([], ...$errors));
         }
 
         return self::success($results);
@@ -125,11 +125,11 @@ abstract class Validation
      * @template T2
      *
      * @param callable(T1):T2 $f
-     * @param Validation<T1> $v
+     * @param Validation<T1>  $v
      *
      * @return Validation<T2>
      */
-    public static function map(callable $f, Validation $v): Validation
+    public static function map(callable $f, self $v): self
     {
         if ($v instanceof ValidationSuccess) {
             /** @var ValidationSuccess<T1> $v */
@@ -145,11 +145,11 @@ abstract class Validation
      * @template T2
      *
      * @param callable(T1):Validation<T2> $f
-     * @param Validation<T1> $v
+     * @param Validation<T1>              $v
      *
      * @return Validation<T2>
      */
-    public static function bind(callable $f, Validation $v): Validation
+    public static function bind(callable $f, self $v): self
     {
         if ($v instanceof ValidationSuccess) {
             /** @var ValidationSuccess<T1> $v */

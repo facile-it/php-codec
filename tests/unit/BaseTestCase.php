@@ -15,8 +15,8 @@ class BaseTestCase extends TestCase
      * @template T
      * @template R
      *
-     * @param class-string $fqcn
-     * @param Validation<T> $v
+     * @param class-string         $fqcn
+     * @param Validation<T>        $v
      * @param null | callable(T):R $thenDo
      *
      * @return R | T
@@ -24,18 +24,18 @@ class BaseTestCase extends TestCase
     public static function asserSuccessInstanceOf(
         string $fqcn,
         Validation $v,
-        callable $thenDo = null
+        ?callable $thenDo = null
     ) {
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
-            implode("\n", PathReporter::create()->report($v))
+            \implode("\n", PathReporter::create()->report($v))
         );
         /** @var ValidationSuccess<T> $v */
         $x = $v->getValue();
         self::assertInstanceOf($fqcn, $x);
 
-        if (is_callable($thenDo)) {
+        if (\is_callable($thenDo)) {
             return $thenDo($x);
         }
 
@@ -46,7 +46,7 @@ class BaseTestCase extends TestCase
      * @template T
      * @template R
      *
-     * @param T $expected
+     * @param T             $expected
      * @param Validation<T> $v
      *
      * @return T
@@ -58,7 +58,7 @@ class BaseTestCase extends TestCase
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
-            implode("\n", PathReporter::create()->report($v))
+            \implode("\n", PathReporter::create()->report($v))
         );
 
         /** @var ValidationSuccess<T> $v */
@@ -84,7 +84,7 @@ class BaseTestCase extends TestCase
         self::assertInstanceOf(
             ValidationSuccess::class,
             $v,
-            implode("\n", PathReporter::create()->report($v))
+            \implode("\n", PathReporter::create()->report($v))
         );
 
         /** @var ValidationSuccess<T> $v */

@@ -22,7 +22,7 @@ class RegexType extends Type
     public function __construct(string $regex)
     {
         parent::__construct(
-            sprintf('regex(%s)', $regex),
+            \sprintf('regex(%s)', $regex),
             new MapRefiner(),
             Encode::identity()
         );
@@ -32,7 +32,7 @@ class RegexType extends Type
     public function validate($i, Context $context): Validation
     {
         $matches = [];
-        if (preg_match($this->regex, $i, $matches) === false) {
+        if (\preg_match($this->regex, $i, $matches) === false) {
             return Validation::failure($i, $context);
         }
 
@@ -47,7 +47,7 @@ class RegexType extends Type
      */
     public function forceCheckPrecondition($i)
     {
-        if (! is_string($i)) {
+        if (! \is_string($i)) {
             throw PreconditionFailureExcepion::create('string', $i);
         }
 

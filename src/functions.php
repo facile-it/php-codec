@@ -30,17 +30,17 @@ function strigify($x): string
         return 'null';
     }
 
-    if (is_string($x)) {
+    if (\is_string($x)) {
         return "\"$x\"";
     }
 
-    if (is_array($x)) {
-        return function_exists('json_encode')
-            ? json_encode($x)
-            : serialize($x);
+    if (\is_array($x)) {
+        return \function_exists('json_encode')
+            ? \json_encode($x)
+            : \serialize($x);
     }
 
-    if (is_bool($x)) {
+    if (\is_bool($x)) {
         return $x ? 'true' : 'false';
     }
 

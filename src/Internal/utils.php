@@ -11,20 +11,20 @@ use Facile\PhpCodec\Codec;
  */
 function nameFromProps(array $props): string
 {
-    return sprintf(
+    return \sprintf(
         '{%s}',
-        implode(
+        \implode(
             ', ',
-            array_map(
+            \array_map(
                 static function (Codec $t, $k): string {
-                    return sprintf(
+                    return \sprintf(
                         '%s: %s',
-                        is_string($k) ? $k : sprintf('[%d]', $k),
+                        \is_string($k) ? $k : \sprintf('[%d]', $k),
                         $t->getName()
                     );
                 },
                 $props,
-                array_keys($props)
+                \array_keys($props)
             )
         )
     );
@@ -35,9 +35,9 @@ function nameFromProps(array $props): string
  */
 function typeof($x): string
 {
-    if (is_object($x)) {
-        return get_class($x);
+    if (\is_object($x)) {
+        return \get_class($x);
     }
 
-    return gettype($x);
+    return \gettype($x);
 }

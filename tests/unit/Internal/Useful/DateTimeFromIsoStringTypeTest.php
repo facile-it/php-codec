@@ -25,10 +25,10 @@ class DateTimeFromIsoStringTypeTest extends BaseTestCase
             ->forAll(
                 g\date()
             )
-            ->then(function (\DateTimeInterface $date) use ($codec) {
+            ->then(function (\DateTimeInterface $date) use ($codec): void {
                 self::asserSuccessInstanceOf(
                     \DateTimeInterface::class,
-                    $codec->decode($date->format(DATE_ATOM))
+                    $codec->decode($date->format(\DATE_ATOM))
                 );
             });
     }

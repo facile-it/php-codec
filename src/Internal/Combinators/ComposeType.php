@@ -31,7 +31,7 @@ class ComposeType extends Type
 
     /**
      * @param Codec<A, IA, OA> $a
-     * @param Codec<B, A, OB> $b
+     * @param Codec<B, A, OB>  $b
      */
     public function __construct(
         Codec $a,

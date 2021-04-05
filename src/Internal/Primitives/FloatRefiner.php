@@ -13,6 +13,6 @@ class FloatRefiner implements Refiner
 {
     public function is($u): bool
     {
-        return is_float($u);
+        return \is_float($u);
     }
 }

@@ -59,14 +59,14 @@ class CodecForSumtypeTest extends BaseTestCase
                     'propB' => g\string(),
                 ])
             )
-            ->then(function ($i) use ($codec) {
+            ->then(function ($i) use ($codec): void {
                 /** @var ValidationSuccess $result */
                 $result = $codec->decode($i);
 
                 self::asserSuccessInstanceOf(
                     internal\A::class,
                     $result,
-                    function (internal\A $a) use ($i) {
+                    function (internal\A $a) use ($i): void {
                         self::assertSame($i['subType'], $a->getSubType());
                         self::assertSame($i['propA'], $a->getPropertyA());
                         self::assertSame($i['propB'], $a->getPropertyB());
@@ -83,14 +83,14 @@ class CodecForSumtypeTest extends BaseTestCase
                     'flag' => g\bool(),
                 ])
             )
-            ->then(function ($i) use ($codec) {
+            ->then(function ($i) use ($codec): void {
                 /** @var ValidationSuccess $result */
                 $result = $codec->decode($i);
 
                 self::asserSuccessInstanceOf(
                     internal\B::class,
                     $result,
-                    function (internal\B $b) use ($i) {
+                    function (internal\B $b) use ($i): void {
                         self::assertSame($i['case'], $b->getCase());
                         self::assertEquals($i['amount'], $b->getAmount());
                         self::assertSame($i['flag'], $b->isFlag());

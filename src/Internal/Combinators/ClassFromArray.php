@@ -30,8 +30,8 @@ class ClassFromArray extends Type
 
     /**
      * @param non-empty-array<array-key, Codec> $props
-     * @param callable(...mixed):T $builder
-     * @param class-string<T> $fqcn
+     * @param callable(...mixed):T              $builder
+     * @param class-string<T>                   $fqcn
      */
     public function __construct(
         array $props,
@@ -39,7 +39,7 @@ class ClassFromArray extends Type
         string $fqcn
     ) {
         parent::__construct(
-            sprintf('%s(%s)', $fqcn, nameFromProps($props)),
+            \sprintf('%s(%s)', $fqcn, nameFromProps($props)),
             new InstanceOfRefiner($fqcn),
             Encode::identity()
         );
@@ -53,9 +53,9 @@ class ClassFromArray extends Type
         $validations = [];
 
         foreach ($this->props as $k => $codec) {
-            $keyName = is_string($k) ? $k : sprintf('[%d]', $k);
+            $keyName = \is_string($k) ? $k : \sprintf('[%d]', $k);
             /** @var mixed $value */
-            $value = array_key_exists($k, $i) ? $i[$k] : new Undefined();
+            $value = \array_key_exists($k, $i) ? $i[$k] : new Undefined();
 
             $validations[] = $codec->validate($value, $context->appendEntries(new ContextEntry($keyName, $codec, $value)));
         }

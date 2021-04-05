@@ -31,7 +31,7 @@ class UnionRefineTest extends TestCase
                     Generator\string()
                 )
             )
-            ->then(function ($x) use ($mapOrNull, $stringOrInt) {
+            ->then(function ($x) use ($mapOrNull, $stringOrInt): void {
                 self::assertTrue($stringOrInt->is($x));
                 self::assertFalse($mapOrNull->is($x));
             });
@@ -43,7 +43,7 @@ class UnionRefineTest extends TestCase
                     Generator\string()
                 )
             )
-            ->then(function ($x) use ($stringOrNull) {
+            ->then(function ($x) use ($stringOrNull): void {
                 self::assertTrue($stringOrNull->is($x));
             });
 
@@ -54,7 +54,7 @@ class UnionRefineTest extends TestCase
                     Generator\int()
                 )
             )
-            ->then(function ($x) use ($intOrNull) {
+            ->then(function ($x) use ($intOrNull): void {
                 self::assertTrue($intOrNull->is($x));
             });
 
@@ -68,7 +68,7 @@ class UnionRefineTest extends TestCase
                     ])
                 )
             )
-            ->then(function ($x) use ($stringOrInt, $mapOrNull) {
+            ->then(function ($x) use ($stringOrInt, $mapOrNull): void {
                 self::assertTrue($mapOrNull->is($x));
                 self::assertFalse($stringOrInt->is($x));
             });

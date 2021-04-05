@@ -37,12 +37,12 @@ CSV;
         );
 
         $result = $codec->decode(
-            explode("\n", $simpleCsv)
+            \explode("\n", $simpleCsv)
         );
 
         self::asserSuccessAnd(
             $result,
-            function (array $cs) {
+            function (array $cs): void {
                 /** @var in\City[] $cs */
                 self::assertContainsOnlyInstancesOf(in\City::class, $cs);
 

@@ -36,7 +36,7 @@ class ListType extends Type
 
     public function validate($i, Context $context): Validation
     {
-        if (! is_array($i)) {
+        if (! \is_array($i)) {
             return Validation::failure(
                 $i,
                 $context->appendEntries(

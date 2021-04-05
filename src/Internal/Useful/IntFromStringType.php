@@ -23,14 +23,14 @@ class IntFromStringType extends Type
 
     public function validate($i, Context $context): Validation
     {
-        return is_numeric($i)
+        return \is_numeric($i)
             ? Validation::success((int) $i)
             : Validation::failure($i, $context);
     }
 
     public function forceCheckPrecondition($i)
     {
-        if (! is_string($i)) {
+        if (! \is_string($i)) {
             throw PreconditionFailureExcepion::create('string', $i);
         }
 

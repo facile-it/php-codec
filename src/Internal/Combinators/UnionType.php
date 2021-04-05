@@ -31,7 +31,7 @@ class UnionType extends Type
         Codec $a,
         Codec $b
     ) {
-        $name = sprintf(
+        $name = \sprintf(
             '%s | %s',
             $a->getName(),
             $b->getName()

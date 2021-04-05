@@ -26,7 +26,7 @@ class DateTimeFromIsoStringType extends Type
 
     public function validate($i, Context $context): Validation
     {
-        $r = \DateTime::createFromFormat(DATE_ATOM, $i);
+        $r = \DateTime::createFromFormat(\DATE_ATOM, $i);
 
         if ($r === false) {
             return Validation::failure($i, $context);

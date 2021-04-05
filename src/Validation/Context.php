@@ -26,7 +26,7 @@ class Context implements \Iterator
     public function appendEntries(ContextEntry ...$entries): self
     {
         return new self(
-            ...array_merge(
+            ...\array_merge(
                 $this->entries,
                 $entries
             )

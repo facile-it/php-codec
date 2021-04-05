@@ -13,6 +13,6 @@ class IntRefiner implements Refiner
 {
     public function is($u): bool
     {
-        return is_int($u);
+        return \is_int($u);
     }
 }

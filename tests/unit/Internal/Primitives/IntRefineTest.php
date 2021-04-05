@@ -21,7 +21,7 @@ class IntRefineTest extends TestCase
             ->forAll(
                 Generator\int()
             )
-            ->then(function ($i) use ($refiner) {
+            ->then(function ($i) use ($refiner): void {
                 self::assertTrue($refiner->is($i));
             });
 
@@ -34,7 +34,7 @@ class IntRefineTest extends TestCase
                     Generator\bool()
                 )
             )
-            ->then(function ($i) use ($refiner) {
+            ->then(function ($i) use ($refiner): void {
                 self::assertFalse($refiner->is($i));
             });
     }

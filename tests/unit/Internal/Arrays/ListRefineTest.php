@@ -22,7 +22,7 @@ class ListRefineTest extends TestCase
             ->forAll(
                 self::generateList(g\int())
             )
-            ->then(function ($l) use ($refine) {
+            ->then(function ($l) use ($refine): void {
                 self::assertTrue($refine->is($l));
             });
     }

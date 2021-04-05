@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class UnionTypeTest extends TestCase
 {
-    public function testValidate()
+    public function testValidate(): void
     {
         $unionOfTwo = new UnionType(Codecs::null(), Codecs::string());
 
