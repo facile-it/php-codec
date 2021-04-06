@@ -8,13 +8,15 @@ use Facile\PhpCodec\Internal\Arrays\ListCodec;
 use Facile\PhpCodec\Internal\Arrays\MapType;
 use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
 use Facile\PhpCodec\Internal\Combinators\ComposeCodec;
+use Facile\PhpCodec\Internal\Combinators\LiteralType;
 use Facile\PhpCodec\Internal\Combinators\UnionCodec;
+use Facile\PhpCodec\Internal\IdentityEncoder;
 use Facile\PhpCodec\Internal\Primitives\BoolType;
 use Facile\PhpCodec\Internal\Primitives\FloatType;
 use Facile\PhpCodec\Internal\Primitives\IntType;
-use Facile\PhpCodec\Internal\Primitives\LiteralType;
 use Facile\PhpCodec\Internal\Primitives\NullType;
 use Facile\PhpCodec\Internal\Primitives\StringType;
+use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
 use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
 use Facile\PhpCodec\Internal\Useful\IntFromStringType;
 use Facile\PhpCodec\Internal\Useful\RegexType;
@@ -188,5 +190,30 @@ final class Codecs
     public static function regex(string $regex): Codec
     {
         return new RegexType($regex);
+    }
+
+    /**
+     * @template I
+     * @template T
+     *
+     * @param Decoder<I, T> $decoder
+     *
+     * @return Codec<T, I, T>
+     */
+    public static function fromDecoder(Decoder $decoder): Codec
+    {
+        return new ConcreteCodec($decoder, new IdentityEncoder());
+    }
+
+    /**
+     * @template U
+     *
+     * @param U | null $default
+     *
+     * @return Codec<U, mixed, U>
+     */
+    public static function undefined($default = null): Codec
+    {
+        return self::fromDecoder(new UndefinedDecoder($default));
     }
 }

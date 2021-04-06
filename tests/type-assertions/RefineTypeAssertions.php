@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace TypeAssertions\Facile\PhpCodec;
 
 use Facile\PhpCodec\Internal\Arrays\MapRefiner;
+use Facile\PhpCodec\Internal\Combinators\LiteralRefiner;
 use Facile\PhpCodec\Internal\Primitives\InstanceOfRefiner;
-use Facile\PhpCodec\Internal\Primitives\LiteralRefiner;
 
 class RefineTypeAssertions extends TypeAssertion
 {

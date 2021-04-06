@@ -10,7 +10,7 @@ use Facile\PhpCodec\Codecs;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
-class BoolTypeTest extends BaseTestCase
+class StringTypeTest extends BaseTestCase
 {
     use TestTrait;
 
@@ -19,8 +19,8 @@ class BoolTypeTest extends BaseTestCase
         $this
             ->forAll(
                 GeneratorUtils::scalar(),
-                g\bool()
+                g\string()
             )
-            ->then(self::codecLaws(Codecs::bool()));
+            ->then(self::codecLaws(Codecs::string()));
     }
 }
