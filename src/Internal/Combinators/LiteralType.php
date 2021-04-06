@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Facile\PhpCodec\Internal\Primitives;
+namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Internal\Encode;
 use Facile\PhpCodec\Internal\Type;
