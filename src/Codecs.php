@@ -14,6 +14,7 @@ use Facile\PhpCodec\Internal\IdentityEncoder;
 use Facile\PhpCodec\Internal\Primitives\BoolType;
 use Facile\PhpCodec\Internal\Primitives\FloatType;
 use Facile\PhpCodec\Internal\Primitives\IntType;
+use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
 use Facile\PhpCodec\Internal\Primitives\NullType;
 use Facile\PhpCodec\Internal\Primitives\StringType;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
@@ -215,5 +216,15 @@ final class Codecs
     public static function undefined($default = null): Codec
     {
         return self::fromDecoder(new UndefinedDecoder($default));
+    }
+
+    /**
+     * @template U of mixed
+     *
+     * @return Codec<U, U, U>
+     */
+    public static function mixed(): Codec
+    {
+        return self::fromDecoder(new MixedDecoder());
     }
 }
