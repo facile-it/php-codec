@@ -19,6 +19,7 @@ class CallableDecoderTest extends BaseTestCase
         $this
             ->forAll(
                 g\oneOf(
+                    GeneratorUtils::scalar(),
                     g\map(
                         function ($x): callable {
                             return static function () use ($x) {
