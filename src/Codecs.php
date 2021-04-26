@@ -12,7 +12,7 @@ use Facile\PhpCodec\Internal\Combinators\LiteralType;
 use Facile\PhpCodec\Internal\Combinators\UnionCodec;
 use Facile\PhpCodec\Internal\IdentityEncoder;
 use Facile\PhpCodec\Internal\Primitives\BoolType;
-use Facile\PhpCodec\Internal\Primitives\CallableType;
+use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
 use Facile\PhpCodec\Internal\Primitives\FloatType;
 use Facile\PhpCodec\Internal\Primitives\IntType;
 use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
@@ -234,6 +234,6 @@ final class Codecs
      */
     public static function callable(): Codec
     {
-        return self::fromDecoder(new CallableType());
+        return self::fromDecoder(new CallableDecoder());
     }
 }
