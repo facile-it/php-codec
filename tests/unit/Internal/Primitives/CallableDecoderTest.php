@@ -46,12 +46,8 @@ class CallableDecoderTest extends BaseTestCase
                         },
                         GeneratorUtils::scalar()
                     ),
-                    function (): callable {
-                        return 'date';
-                    },
-                    function (): callable {
-                        return [T::class, 'm'];
-                    }
+                    g\constant('date'),
+                    g\constant([T::class, 'm'])
                 ),
                 g\oneOf(
                     g\map(
@@ -80,12 +76,8 @@ class CallableDecoderTest extends BaseTestCase
                         },
                         GeneratorUtils::scalar()
                     ),
-                    function (): callable {
-                        return 'date';
-                    },
-                    function (): callable {
-                        return [T::class, 'm'];
-                    }
+                    g\constant('date'),
+                    g\constant([T::class, 'm'])
                 )
             )
             ->then(self::codecLaws(Codecs::callable()));
