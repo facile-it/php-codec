@@ -36,7 +36,7 @@ All the implemented codecs and combinators are exposed through methods of the cl
 
 | Typescript Type | Psalm Type | Codec | 
 | --- | --- | --- |
-| `unknown` | `mixed` | TODO |
+| `unknown` | `mixed` | `Codecs::mixed()` |
 | `null` | `null` | `Codecs::null()` |
 | `bool` | `bool` | `Codecs::bool()` |
 | `number` | `int` | `Codecs::int()` |
