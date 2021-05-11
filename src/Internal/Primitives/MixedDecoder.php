@@ -10,7 +10,7 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template U of mixed
+ * @psalm-template U of mixed
  * @implements Decoder<U, U>
  */
 class MixedDecoder implements Decoder

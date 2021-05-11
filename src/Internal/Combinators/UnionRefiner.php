@@ -7,8 +7,8 @@ namespace Facile\PhpCodec\Internal\Combinators;
 use Facile\PhpCodec\Refiner;
 
 /**
- * @template A
- * @template B
+ * @psalm-template A
+ * @psalm-template B
  * @implements Refiner<A|B>
  */
 class UnionRefiner implements Refiner
@@ -19,8 +19,8 @@ class UnionRefiner implements Refiner
     private $b;
 
     /**
-     * @param Refiner<A> $a
-     * @param Refiner<B> $b
+     * @psalm-param Refiner<A> $a
+     * @psalm-param Refiner<B> $b
      */
     public function __construct(Refiner $a, Refiner $b)
     {

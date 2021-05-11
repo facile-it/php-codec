@@ -7,7 +7,7 @@ namespace Facile\PhpCodec\Internal\Combinators;
 use Facile\PhpCodec\Refiner;
 
 /**
- * @template T of bool | int | string
+ * @psalm-template T of bool | int | string
  * @implements Refiner<T>
  */
 class LiteralRefiner implements Refiner
@@ -16,7 +16,9 @@ class LiteralRefiner implements Refiner
     private $literal;
 
     /**
-     * @param T $literal
+     * @psalm-param T $literal
+     *
+     * @param mixed $literal
      */
     public function __construct($literal)
     {

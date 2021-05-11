@@ -15,7 +15,7 @@ class AssociativeArrayRefiner implements Refiner
     private $props;
 
     /**
-     * @param non-empty-array<array-key, Refiner> $props
+     * @psalm-param non-empty-array<array-key, Refiner> $props
      */
     public function __construct(array $props)
     {

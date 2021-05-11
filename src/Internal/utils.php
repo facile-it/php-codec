@@ -49,8 +49,8 @@ function typeof($x): string
 }
 
 /**
- * @template A
- * @template I
+ * @psalm-template A
+ * @psalm-template I
  * @psalm-param Decoder<I, A> $decoder
  * @psalm-param I             $input
  * @psalm-return Validation<A>

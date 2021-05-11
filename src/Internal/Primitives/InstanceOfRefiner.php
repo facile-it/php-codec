@@ -7,7 +7,7 @@ namespace Facile\PhpCodec\Internal\Primitives;
 use Facile\PhpCodec\Refiner;
 
 /**
- * @template T of object
+ * @psalm-template T of object
  * @implements Refiner<T>
  */
 class InstanceOfRefiner implements Refiner
@@ -16,7 +16,7 @@ class InstanceOfRefiner implements Refiner
     private $fqcn;
 
     /**
-     * @param class-string<T> $fqcn
+     * @psalm-param class-string<T> $fqcn
      */
     public function __construct(string $fqcn)
     {

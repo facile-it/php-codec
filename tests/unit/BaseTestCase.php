@@ -13,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 class BaseTestCase extends TestCase
 {
     /**
-     * @template T
-     * @template R
+     * @psalm-template T
+     * @psalm-template R
      *
      * @param class-string         $fqcn
      * @param Validation<T>        $v
@@ -44,8 +44,8 @@ class BaseTestCase extends TestCase
     }
 
     /**
-     * @template T
-     * @template R
+     * @psalm-template T
+     * @psalm-template R
      *
      * @param T             $expected
      * @param Validation<T> $v
@@ -70,8 +70,8 @@ class BaseTestCase extends TestCase
     }
 
     /**
-     * @template T
-     * @template R
+     * @psalm-template T
+     * @psalm-template R
      *
      * @param Validation<T> $v
      * @param callable(T):R $thenDo
@@ -93,9 +93,9 @@ class BaseTestCase extends TestCase
     }
 
     /**
-     * @template I
-     * @template A
-     * @template O
+     * @psalm-template I
+     * @psalm-template A
+     * @psalm-template O
      *
      * @param Codec<A, I, O> $codec
      *
@@ -111,9 +111,9 @@ class BaseTestCase extends TestCase
     }
 
     /**
-     * @template I
-     * @template A
-     * @template O
+     * @psalm-template I
+     * @psalm-template A
+     * @psalm-template O
      *
      * @param Codec<A, I, O> $codec
      * @param I              $input
@@ -137,9 +137,9 @@ class BaseTestCase extends TestCase
     }
 
     /**
-     * @template A
-     * @template I
-     * @template O
+     * @psalm-template A
+     * @psalm-template I
+     * @psalm-template O
      *
      * @param Codec<A, I, O> $codec
      * @param A              $a

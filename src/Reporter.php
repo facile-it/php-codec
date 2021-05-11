@@ -7,12 +7,12 @@ namespace Facile\PhpCodec;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template T
+ * @psalm-template T
  */
 interface Reporter
 {
     /**
-     * @template A
+     * @psalm-template A
      * @psalm-param Validation<A> $validation
      *
      * @return T

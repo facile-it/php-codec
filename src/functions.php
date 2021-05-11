@@ -12,7 +12,7 @@ use Examples\Facile\PhpCodec\internal\A;
 const identity = __NAMESPACE__ . '\identity';
 
 /**
- * @template A
+ * @psalm-template A
  * @psalm-param A $x
  * @psalm-return A
  *
@@ -52,7 +52,7 @@ function strigify($x): string
 }
 
 /**
- * @template R
+ * @psalm-template R
  * @psalm-param callable(...mixed):R $f
  * @psalm-return callable(list<mixed>):R
  */

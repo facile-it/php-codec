@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Validation;
 
 /**
- * @template A
+ * @psalm-template A
  * @extends Validation<A>
  */
 final class ValidationFailures extends Validation

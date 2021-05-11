@@ -8,9 +8,9 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template A
- * @template I
- * @template O
+ * @psalm-template A
+ * @psalm-template I
+ * @psalm-template O
  *
  * @implements Codec<A, I, O>
  */

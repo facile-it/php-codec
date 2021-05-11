@@ -10,11 +10,11 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template A
- * @template IA
- * @template OA
- * @template B
- * @template OB
+ * @psalm-template A
+ * @psalm-template IA
+ * @psalm-template OA
+ * @psalm-template B
+ * @psalm-template OB
  *
  * Codec<A, IA, OA>
  * Codec<B, A, OB>
@@ -29,8 +29,8 @@ class ComposeCodec implements Codec
     private $b;
 
     /**
-     * @param Codec<A, IA, OA> $a
-     * @param Codec<B, A, OB>  $b
+     * @psalm-param Codec<A, IA, OA> $a
+     * @psalm-param Codec<B, A, OB>  $b
      */
     public function __construct(
         Codec $a,
@@ -41,16 +41,19 @@ class ComposeCodec implements Codec
     }
 
     /**
-     * @param IA      $i
-     * @param Context $context
+     * @psalm-param IA      $i
+     * @psalm-param Context $context
+     * @psalm-return Validation<B>
      *
-     * @return Validation<B>
+     * @param mixed $i
      */
     public function validate($i, Context $context): Validation
     {
         return Validation::bind(
             /**
-             * @param A $aValue
+             * @psalm-param A $aValue
+             *
+             * @param mixed $aValue
              */
             function ($aValue) use ($context): Validation {
                 return $this->b->validate($aValue, $context);

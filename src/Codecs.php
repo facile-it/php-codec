@@ -66,7 +66,7 @@ final class Codecs
     }
 
     /**
-     * @template T of bool | string | int
+     * @psalm-template T of bool | string | int
      * @psalm-param T $x
      * @psalm-return Codec<T, mixed, T>
      *
@@ -94,7 +94,7 @@ final class Codecs
     }
 
     /**
-     * @template T
+     * @psalm-template T
      * @psalm-param Codec<T, mixed, T> $itemCodec
      * @psalm-return Codec<list<T>, mixed, list<T>>
      */
@@ -104,7 +104,7 @@ final class Codecs
     }
 
     /**
-     * @template T
+     * @psalm-template T
      * @psalm-param non-empty-array<string, Codec> $props
      * @psalm-param callable(...mixed):T           $factory
      * @psalm-param class-string<T>                $fqcn
@@ -122,16 +122,16 @@ final class Codecs
     }
 
     /**
-     * @template A
-     * @template IA
-     * @template B
-     * @template OB
-     * @template C
-     * @template OC
-     * @template D
-     * @template OD
-     * @template E
-     * @template OE
+     * @psalm-template A
+     * @psalm-template IA
+     * @psalm-template B
+     * @psalm-template OB
+     * @psalm-template C
+     * @psalm-template OC
+     * @psalm-template D
+     * @psalm-template OD
+     * @psalm-template E
+     * @psalm-template OE
      *
      * @psalm-param Codec<A, IA, mixed>    $a
      * @psalm-param Codec<B, A, OB>        $b
@@ -182,8 +182,8 @@ final class Codecs
     }
 
     /**
-     * @template I
-     * @template T
+     * @psalm-template I
+     * @psalm-template T
      *
      * @psalm-param Decoder<I, T> $decoder
      * @psalm-return Codec<T, I, T>
@@ -194,7 +194,7 @@ final class Codecs
     }
 
     /**
-     * @template U
+     * @psalm-template U
      *
      * @psalm-param U | null $default
      * @psalm-return Codec<U, mixed, U>
@@ -207,7 +207,7 @@ final class Codecs
     }
 
     /**
-     * @template U of mixed
+     * @psalm-template U of mixed
      * @psalm-return Codec<U, mixed, U>
      */
     public static function mixed(): Codec

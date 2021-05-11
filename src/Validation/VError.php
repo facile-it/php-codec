@@ -17,6 +17,8 @@ final class VError
      * @psalm-param mixed       $value
      * @psalm-param Context     $context
      * @psalm-param string|null $message
+     *
+     * @param mixed $value
      */
     public function __construct(
         $value,

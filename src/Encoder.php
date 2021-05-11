@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Facile\PhpCodec;
 
 /**
- * @template A
- * @template O
+ * @psalm-template A
+ * @psalm-template O
  */
 interface Encoder
 {
