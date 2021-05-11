@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec;
 
 /**
- * @template A
+ * @psalm-template A
  */
 interface Refiner
 {

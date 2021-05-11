@@ -16,7 +16,7 @@ use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template T
+ * @psalm-template T
  * @extends Type<T, array<array-key, mixed>, T>
  */
 class ClassFromArray extends Type
@@ -27,9 +27,9 @@ class ClassFromArray extends Type
     private $props;
 
     /**
-     * @param non-empty-array<array-key, Codec> $props
-     * @param callable(...mixed):T              $builder
-     * @param class-string<T>                   $fqcn
+     * @psalm-param non-empty-array<array-key, Codec> $props
+     * @psalm-param callable(...mixed):T              $builder
+     * @psalm-param class-string<T>                   $fqcn
      */
     public function __construct(
         array $props,

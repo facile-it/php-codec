@@ -8,23 +8,26 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template I
- * @template A
+ * @psalm-template I
+ * @psalm-template A
  */
 interface Decoder
 {
     /**
-     * @param I       $i
-     * @param Context $context
+     * @psalm-template RA
+     * @psalm-param I $i
+     * @psalm-param Context $context
+     * @psalm-return Validation<A>
      *
-     * @return Validation<A>
+     * @param mixed $i
      */
     public function validate($i, Context $context): Validation;
 
     /**
-     * @param I $i
+     * @psalm-param I $i
+     * @psalm-return Validation<A>
      *
-     * @return Validation<A>
+     * @param mixed $i
      */
     public function decode($i): Validation;
 

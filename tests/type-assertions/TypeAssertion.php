@@ -15,14 +15,14 @@ class TypeAssertion
     }
 
     /**
-     * @param true $b
+     * @psalm-param true $b
      */
     protected static function assertTrue(bool $b): void
     {
     }
 
     /**
-     * @param false $b
+     * @psalm-param false $b
      */
     protected static function assertFalse(bool $b): void
     {

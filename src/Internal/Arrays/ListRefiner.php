@@ -7,7 +7,7 @@ namespace Facile\PhpCodec\Internal\Arrays;
 use Facile\PhpCodec\Refiner;
 
 /**
- * @template T
+ * @psalm-template T
  * @implements Refiner<list<T>>
  */
 class ListRefiner implements Refiner
@@ -16,7 +16,7 @@ class ListRefiner implements Refiner
     private $itemRefiner;
 
     /**
-     * @param Refiner<T> $item
+     * @psalm-param Refiner<T> $item
      */
     public function __construct(Refiner $item)
     {

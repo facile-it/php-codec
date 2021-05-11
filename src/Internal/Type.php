@@ -10,9 +10,9 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template A
- * @template I
- * @template O
+ * @psalm-template A
+ * @psalm-template I
+ * @psalm-template O
  *
  * @implements Codec<A, I, O>
  */
@@ -26,9 +26,9 @@ abstract class Type implements Codec
     private $refine;
 
     /**
-     * @param string       $name
-     * @param Refiner<A>   $refine
-     * @param Encode<A, O> $encode
+     * @psalm-param string       $name
+     * @psalm-param Refiner<A>   $refine
+     * @psalm-param Encode<A, O> $encode
      */
     public function __construct(
         string $name,
@@ -52,9 +52,10 @@ abstract class Type implements Codec
     }
 
     /**
-     * @param I $i
+     * @psalm-param I $i
+     * @psalm-return Validation<A>
      *
-     * @return Validation<A>
+     * @param mixed $i
      */
     public function decode($i): Validation
     {
@@ -62,16 +63,19 @@ abstract class Type implements Codec
     }
 
     /**
-     * @param I $i
+     * @psalm-param I $i
+     * @psalm-param Context $context
+     * @psalm-return Validation<A>
      *
-     * @return Validation<A>
+     * @param mixed $i
      */
     abstract public function validate($i, Context $context): Validation;
 
     /**
-     * @param A $a
+     * @psalm-param A $a
+     * @psalm-return O
      *
-     * @return O
+     * @param mixed $a
      */
     public function encode($a)
     {

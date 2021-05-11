@@ -13,11 +13,11 @@ final class Decoders
     }
 
     /**
-     * @template U
+     * @psalm-template U
+     * @psalm-param U $default
+     * @psalm-return Decoder<mixed, U>
      *
-     * @param U $default
-     *
-     * @return Decoder<mixed, U>
+     * @param null|mixed $default
      */
     public static function undefined($default = null): Decoder
     {

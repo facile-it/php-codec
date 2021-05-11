@@ -7,7 +7,7 @@ namespace Facile\PhpCodec\Internal;
 use Facile\PhpCodec\Encoder;
 
 /**
- * @template T
+ * @psalm-template T
  *
  * @implements Encoder<T, T>
  */

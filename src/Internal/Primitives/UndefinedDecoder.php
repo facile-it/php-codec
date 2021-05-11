@@ -11,7 +11,7 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template U
+ * @psalm-template U
  * @implements Decoder<mixed, U>
  */
 class UndefinedDecoder implements Decoder
@@ -20,7 +20,9 @@ class UndefinedDecoder implements Decoder
     private $default;
 
     /**
-     * @param U $default
+     * @psalm-param U $default
+     *
+     * @param mixed $default
      */
     public function __construct($default)
     {

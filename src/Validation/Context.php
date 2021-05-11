@@ -4,28 +4,34 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Validation;
 
+use Facile\PhpCodec\Decoder;
+
 final class Context implements \Iterator
 {
     /** @var ContextEntry[] */
     private $entries;
     /** @var int */
     private $currentIndex;
+    /** @var Decoder */
+    private $decoder;
 
-    public static function mempty(): self
-    {
-        return new self();
-    }
-
+    /**
+     * @psalm-param Decoder $decoder
+     * @psalm-param ContextEntry ...$entries
+     */
     public function __construct(
+        Decoder $decoder,
         ContextEntry ...$entries
     ) {
         $this->entries = $entries;
         $this->currentIndex = 0;
+        $this->decoder = $decoder;
     }
 
     public function appendEntries(ContextEntry ...$entries): self
     {
         return new self(
+            $this->decoder,
             ...\array_merge(
                 $this->entries,
                 $entries

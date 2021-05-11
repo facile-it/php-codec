@@ -11,9 +11,9 @@ use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 
 /**
- * @template A
- * @template B
- * @template T of A | B
+ * @psalm-template A
+ * @psalm-template B
+ * @psalm-template T of A | B
  * @implements Codec<T, mixed, T>
  */
 class UnionCodec implements Codec
@@ -24,8 +24,8 @@ class UnionCodec implements Codec
     private $b;
 
     /**
-     * @param Codec<A, mixed, A> $a
-     * @param Codec<B, mixed, B> $b
+     * @psalm-param Codec<A, mixed, A> $a
+     * @psalm-param Codec<B, mixed, B> $b
      */
     public function __construct(
         Codec $a,

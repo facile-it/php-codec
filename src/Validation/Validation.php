@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Validation;
 
 /**
- * @template A
+ * @psalm-template A
  */
 abstract class Validation
 {
     /**
-     * @template T
+     * @psalm-template T
+     * @psalm-param T $a
+     * @psalm-return ValidationSuccess<T>
      *
-     * @param T $a
-     *
-     * @return Validation<T>
+     * @param mixed $a
      */
     public static function success($a): self
     {
@@ -22,11 +22,11 @@ abstract class Validation
     }
 
     /**
-     * @template T
+     * @psalm-template T
+     * @psalm-param list<VError> $errors
+     * @psalm-return ValidationFailures<T>
      *
-     * @param list<VError> $errors
-     *
-     * @return Validation<T>
+     * @param VError[] $errors
      */
     public static function failures(array $errors): self
     {
@@ -34,11 +34,13 @@ abstract class Validation
     }
 
     /**
-     * @param mixed       $value
-     * @param Context     $context
-     * @param string|null $message
+     * @psalm-template T
+     * @psalm-param mixed $value
+     * @psalm-param Context $context
+     * @psalm-param string|null $message
+     * @psalm-return ValidationFailures<T>
      *
-     * @return Validation<empty>
+     * @param mixed $value
      */
     public static function failure($value, Context $context, ?string $message = null): self
     {
@@ -48,23 +50,21 @@ abstract class Validation
     }
 
     /**
-     * @template T
-     * @template R
+     * @psalm-template T
+     * @psalm-template R
      *
-     * @param callable(list<VError>):R $onFailures
-     * @param callable(T):R            $onSuccess
-     * @param Validation<T>            $v
-     *
-     * @return R
+     * @psalm-param callable(list<VError>):R $onFailures
+     * @psalm-param callable(T):R $onSuccess
+     * @psalm-param Validation<T> $v
+     * @psalm-return R
      */
     public static function fold(callable $onFailures, callable $onSuccess, self $v)
     {
-        if ($v instanceof ValidationSuccess) {
-            /** @var ValidationSuccess<T> $v */
+        if (self::isSuccess($v)) {
             return $onSuccess($v->getValue());
         }
 
-        if ($v instanceof ValidationFailures) {
+        if (self::isFailures($v)) {
             return $onFailures($v->getErrors());
         }
 
@@ -72,11 +72,29 @@ abstract class Validation
     }
 
     /**
-     * @template T
-     *
-     * @param list<Validation<T>> $validations
-     *
-     * @return Validation<list<T>>
+     * @psalm-template T
+     * @psalm-param Validation<T> $v
+     * @psalm-assert-if-true ValidationSuccess<T> $v
+     */
+    private static function isSuccess(self $v): bool
+    {
+        return $v instanceof ValidationSuccess;
+    }
+
+    /**
+     * @psalm-template T
+     * @psalm-param Validation<T> $v
+     * @psalm-assert-if-true ValidationFailures<T> $v
+     */
+    private static function isFailures(self $v): bool
+    {
+        return $v instanceof ValidationFailures;
+    }
+
+    /**
+     * @psalm-template T
+     * @psalm-param list<Validation<T>> $validations
+     * @psalm-return Validation<list<T>>
      */
     public static function sequence(array $validations): self
     {
@@ -86,7 +104,7 @@ abstract class Validation
                 /** @var ValidationSuccess<T> $v */
                 $results[] = $v->getValue();
             } else {
-                /** @var ValidationFailures<empty> */
+                /** @var ValidationFailures<T> */
                 return $v;
             }
         }
@@ -95,11 +113,9 @@ abstract class Validation
     }
 
     /**
-     * @template T
-     *
-     * @param list<Validation<T>> $validations
-     *
-     * @return Validation<list<T>>
+     * @psalm-template T
+     * @psalm-param list<Validation<T>> $validations
+     * @psalm-return Validation<list<T>>
      */
     public static function reduceToSuccessOrAllFailures(array $validations): self
     {
@@ -110,7 +126,7 @@ abstract class Validation
                 /** @var ValidationSuccess<T> $v */
                 $results[] = $v->getValue();
             } else {
-                /** @var ValidationFailures<empty> $v */
+                /** @var ValidationFailures<T> $v */
                 $errors[] = $v->getErrors();
             }
         }
@@ -123,42 +139,38 @@ abstract class Validation
     }
 
     /**
-     * @template T1
-     * @template T2
+     * @psalm-template T1
+     * @psalm-template T2
      *
-     * @param callable(T1):T2 $f
-     * @param Validation<T1>  $v
-     *
-     * @return Validation<T2>
+     * @psalm-param callable(T1):T2 $f
+     * @psalm-param Validation<T1> $v
+     * @psalm-return Validation<T2>
      */
     public static function map(callable $f, self $v): self
     {
-        if ($v instanceof ValidationSuccess) {
-            /** @var ValidationSuccess<T1> $v */
+        if (self::isSuccess($v)) {
             return self::success($f($v->getValue()));
         }
 
-        /** @var ValidationFailures<empty> $v */
+        /** @var ValidationFailures<T2> $v */
         return $v;
     }
 
     /**
-     * @template T1
-     * @template T2
+     * @psalm-template T1
+     * @psalm-template T2
      *
-     * @param callable(T1):Validation<T2> $f
-     * @param Validation<T1>              $v
-     *
-     * @return Validation<T2>
+     * @psalm-param callable(T1):Validation<T2> $f
+     * @psalm-param Validation<T1> $v
+     * @psalm-return Validation<T2>
      */
     public static function bind(callable $f, self $v): self
     {
-        if ($v instanceof ValidationSuccess) {
-            /** @var ValidationSuccess<T1> $v */
+        if (self::isSuccess($v)) {
             return $f($v->getValue());
         }
 
-        /** @var ValidationFailures<empty> $v */
+        /** @var ValidationFailures<T2> $v */
         return $v;
     }
 }

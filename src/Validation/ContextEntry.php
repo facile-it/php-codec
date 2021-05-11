@@ -16,9 +16,11 @@ final class ContextEntry
     private $actual;
 
     /**
-     * @param string                $key
-     * @param Decoder<mixed, mixed> $decoder
-     * @param mixed                 $actual
+     * @psalm-param string $key
+     * @psalm-param Decoder<mixed, mixed> $decoder
+     * @psalm-param mixed  $actual
+     *
+     * @param mixed $actual
      */
     public function __construct(
         string $key,

@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace Facile\PhpCodec;
 
 /**
- * @template A
- * @template O
+ * @psalm-template A
+ * @psalm-template O
  */
 interface Encoder
 {
     /**
-     * @param A $a
+     * @psalm-param A $a
+     * @psalm-return O
      *
-     * @return O
+     * @param mixed $a
      */
     public function encode($a);
 }

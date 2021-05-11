@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
+use Examples\Facile\PhpCodec\internal\A;
+
 /**
  * @const callable
  */
 const identity = __NAMESPACE__ . '\identity';
 
 /**
- * @template A
+ * @psalm-template A
+ * @psalm-param A $x
+ * @psalm-return A
  *
- * @param A $x
- *
- * @return A
+ * @param mixed $x
  */
 function identity($x)
 {
@@ -50,11 +52,9 @@ function strigify($x): string
 }
 
 /**
- * @template R
- *
- * @param callable(...mixed):R $f
- *
- * @return callable(list<mixed>):R
+ * @psalm-template R
+ * @psalm-param callable(...mixed):R $f
+ * @psalm-return callable(list<mixed>):R
  */
 function destructureIn(callable $f): callable
 {

@@ -14,9 +14,11 @@ final class VError
     private $message;
 
     /**
-     * @param mixed       $value
-     * @param Context     $context
-     * @param string|null $message
+     * @psalm-param mixed       $value
+     * @psalm-param Context     $context
+     * @psalm-param string|null $message
+     *
+     * @param mixed $value
      */
     public function __construct(
         $value,

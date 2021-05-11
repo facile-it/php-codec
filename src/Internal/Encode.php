@@ -7,8 +7,8 @@ namespace Facile\PhpCodec\Internal;
 use const Facile\PhpCodec\identity;
 
 /**
- * @template A
- * @template O
+ * @psalm-template A
+ * @psalm-template O
  */
 class Encode
 {
@@ -16,9 +16,8 @@ class Encode
     private $encode;
 
     /**
-     * @template X
-     *
-     * @return Encode<X, X>
+     * @psalm-template X
+     * @psalm-return Encode<X, X>
      */
     public static function identity(): self
     {
@@ -26,7 +25,7 @@ class Encode
     }
 
     /**
-     * @param callable(A):O $encode
+     * @psalm-param callable(A):O $encode
      */
     public function __construct(callable $encode)
     {
@@ -34,9 +33,10 @@ class Encode
     }
 
     /**
-     * @param A $a
+     * @psalm-param A $a
+     * @psalm-return O
      *
-     * @return O
+     * @param mixed $a
      */
     public function __invoke($a)
     {

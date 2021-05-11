@@ -11,7 +11,7 @@ use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template T
+ * @psalm-template T
  *
  * @implements Codec<list<T>, mixed, list<T>>
  */
@@ -21,7 +21,9 @@ class ListCodec implements Codec
     private $itemCodec;
 
     /**
-     * @param Codec<T, mixed, T> $itemCodec
+     * @psalm-param Codec<T, mixed, T> $itemCodec
+     *
+     * @param Codec $itemCodec
      */
     public function __construct(Codec $itemCodec)
     {

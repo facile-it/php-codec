@@ -10,13 +10,15 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @template T of bool | string | int
+ * @psalm-template T of bool | string | int
  * @extends Type<T, mixed, T>
  */
 class LiteralType extends Type
 {
     /**
-     * @param T $literal
+     * @psalm-param T $literal
+     *
+     * @param mixed $literal
      */
     public function __construct($literal)
     {
