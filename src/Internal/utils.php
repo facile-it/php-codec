@@ -62,6 +62,7 @@ function standardDecode(Decoder $decoder, $input): Validation
     return $decoder->validate(
         $input,
         new Context(
+            $decoder,
             new ContextEntry('', $decoder, $input)
         )
     );

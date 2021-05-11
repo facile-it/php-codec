@@ -20,17 +20,17 @@ final class PathReporter implements Reporter
 
     public function report(Validation $validation): array
     {
-        return Validation::fold(
+        return Validation::fold2(
+            $validation,
+            function (): array {
+                return ['No errors!'];
+            },
             function (array $errors): array {
                 return \array_map(
                     [self::class, 'getMessage'],
                     $errors
                 );
-            },
-            function (): array {
-                return ['No errors!'];
-            },
-            $validation
+            }
         );
     }
 
