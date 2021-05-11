@@ -14,7 +14,8 @@ use Facile\PhpCodec\Validation\Validation;
 interface Decoder
 {
     /**
-     * @param I $i
+     * @param I       $i
+     * @param Context $context
      *
      * @return Validation<A>
      */

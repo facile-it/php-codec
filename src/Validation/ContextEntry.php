@@ -6,7 +6,7 @@ namespace Facile\PhpCodec\Validation;
 
 use Facile\PhpCodec\Decoder;
 
-class ContextEntry
+final class ContextEntry
 {
     /** @var string */
     private $key;

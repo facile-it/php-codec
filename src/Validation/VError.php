@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Validation;
 
-class VError
+final class VError
 {
     /** @var mixed */
     private $value;

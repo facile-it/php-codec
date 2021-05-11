@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Validation;
 
-class Context implements \Iterator
+final class Context implements \Iterator
 {
     /** @var ContextEntry[] */
     private $entries;

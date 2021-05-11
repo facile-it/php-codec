@@ -14,7 +14,7 @@ use Facile\PhpCodec\Validation\Validation;
  *
  * @implements Codec<A, I, O>
  */
-class ConcreteCodec implements Codec
+final class ConcreteCodec implements Codec
 {
     /** @var Decoder<I, A> */
     private $decoder;

@@ -8,7 +8,7 @@ namespace Facile\PhpCodec\Validation;
  * @template A
  * @extends Validation<A>
  */
-class ValidationSuccess extends Validation
+final class ValidationSuccess extends Validation
 {
     /** @var A */
     private $value;

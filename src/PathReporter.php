@@ -11,7 +11,7 @@ use Facile\PhpCodec\Validation\VError;
 /**
  * @implements Reporter<list<string>>
  */
-class PathReporter implements Reporter
+final class PathReporter implements Reporter
 {
     public static function create(): self
     {

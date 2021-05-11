@@ -8,7 +8,7 @@ namespace Facile\PhpCodec\Validation;
  * @template A
  * @extends Validation<A>
  */
-class ValidationFailures extends Validation
+final class ValidationFailures extends Validation
 {
     /** @var list<VError> */
     private $errors;
