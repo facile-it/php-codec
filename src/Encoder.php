@@ -11,9 +11,12 @@ namespace Facile\PhpCodec;
 interface Encoder
 {
     /**
-     * @param A $a
+     * @psalm-param A $a
+     * @psalm-return O
      *
-     * @return O
+     * @param mixed $a
+     *
+     * @return mixed
      */
     public function encode($a);
 }

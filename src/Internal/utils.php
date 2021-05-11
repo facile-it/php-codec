@@ -11,7 +11,8 @@ use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @param non-empty-array<array-key, Codec> $props
+ * @psalm-param non-empty-array<array-key, Codec> $props
+ * @param Codec[] $props
  */
 function nameFromProps(array $props): string
 {
@@ -49,11 +50,14 @@ function typeof($x): string
 /**
  * @template A
  * @template I
+ * @psalm-param Decoder<I, A> $decoder
+ * @psalm-param I             $input
+ * @psalm-return Validation<A>
  *
- * @param Decoder<I, A> $decoder
- * @param I             $input
+ * @param Decoder $decoder
+ * @param mixed   $input
  *
- * @return Validation<A>
+ * @return Validation
  */
 function standardDecode(Decoder $decoder, $input): Validation
 {

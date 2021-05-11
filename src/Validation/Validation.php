@@ -12,7 +12,9 @@ abstract class Validation
     /**
      * @template T
      *
-     * @param T $a
+     * @psalm-param T $a
+     *
+     * @param mixed $a
      *
      * @return Validation<T>
      */
@@ -24,7 +26,9 @@ abstract class Validation
     /**
      * @template T
      *
-     * @param list<VError> $errors
+     * @psalm-param list<VError> $errors
+     *
+     * @param VError[] $errors
      *
      * @return Validation<T>
      */
@@ -51,9 +55,13 @@ abstract class Validation
      * @template T
      * @template R
      *
-     * @param callable(list<VError>):R $onFailures
-     * @param callable(T):R            $onSuccess
-     * @param Validation<T>            $v
+     * @psalm-param callable(list<VError>):R $onFailures
+     *
+     * @param callable $onFailures
+     * @psalm-param callable(T):R $onSuccess
+     *
+     * @param callable      $onSuccess
+     * @param Validation<T> $v
      *
      * @return R
      */
@@ -126,8 +134,10 @@ abstract class Validation
      * @template T1
      * @template T2
      *
-     * @param callable(T1):T2 $f
-     * @param Validation<T1>  $v
+     * @psalm-param callable(T1):T2 $f
+     *
+     * @param callable       $f
+     * @param Validation<T1> $v
      *
      * @return Validation<T2>
      */
@@ -146,8 +156,10 @@ abstract class Validation
      * @template T1
      * @template T2
      *
-     * @param callable(T1):Validation<T2> $f
-     * @param Validation<T1>              $v
+     * @psalm-param callable(T1):Validation<T2> $f
+     *
+     * @param callable       $f
+     * @param Validation<T1> $v
      *
      * @return Validation<T2>
      */
