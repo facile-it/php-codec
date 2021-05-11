@@ -19,6 +19,8 @@ final class ContextEntry
      * @psalm-param string $key
      * @psalm-param Decoder<mixed, mixed> $decoder
      * @psalm-param mixed  $actual
+     *
+     * @param mixed $actual
      */
     public function __construct(
         string $key,
