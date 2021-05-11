@@ -15,8 +15,6 @@ interface Encoder
      * @psalm-return O
      *
      * @param mixed $a
-     *
-     * @return mixed
      */
     public function encode($a);
 }

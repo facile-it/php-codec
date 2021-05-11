@@ -22,8 +22,8 @@ final class ConcreteCodec implements Codec
     private $encoder;
 
     /**
-     * @param Decoder<I, A> $decoder
-     * @param Encoder<A, O> $encoder
+     * @psalm-param Decoder<I, A> $decoder
+     * @psalm-param Encoder<A, O> $encoder
      */
     public function __construct(Decoder $decoder, Encoder $encoder)
     {

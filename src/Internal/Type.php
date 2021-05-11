@@ -26,9 +26,9 @@ abstract class Type implements Codec
     private $refine;
 
     /**
-     * @param string       $name
-     * @param Refiner<A>   $refine
-     * @param Encode<A, O> $encode
+     * @psalm-param string       $name
+     * @psalm-param Refiner<A>   $refine
+     * @psalm-param Encode<A, O> $encode
      */
     public function __construct(
         string $name,
@@ -52,9 +52,10 @@ abstract class Type implements Codec
     }
 
     /**
-     * @param I $i
+     * @psalm-param I $i
+     * @psalm-return Validation<A>
      *
-     * @return Validation<A>
+     * @param mixed $i
      */
     public function decode($i): Validation
     {
@@ -62,16 +63,18 @@ abstract class Type implements Codec
     }
 
     /**
-     * @param I $i
+     * @psalm-param I $i
+     * @psalm-return Validation<A>
      *
-     * @return Validation<A>
+     * @param mixed $i
      */
     abstract public function validate($i, Context $context): Validation;
 
     /**
-     * @param A $a
+     * @psalm-param A $a
+     * @psalm-return O
      *
-     * @return O
+     * @param mixed $a
      */
     public function encode($a)
     {

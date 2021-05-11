@@ -14,7 +14,9 @@ final class ValidationSuccess extends Validation
     private $value;
 
     /**
-     * @param A $a
+     * @psalm-param A $a
+     *
+     * @param mixed $a
      */
     public function __construct($a)
     {
@@ -22,7 +24,7 @@ final class ValidationSuccess extends Validation
     }
 
     /**
-     * @return A
+     * @psalm-return A
      */
     public function getValue()
     {

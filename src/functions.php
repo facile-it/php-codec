@@ -17,8 +17,6 @@ const identity = __NAMESPACE__ . '\identity';
  * @psalm-return A
  *
  * @param mixed $x
- *
- * @return mixed
  */
 function identity($x)
 {
@@ -57,10 +55,6 @@ function strigify($x): string
  * @template R
  * @psalm-param callable(...mixed):R $f
  * @psalm-return callable(list<mixed>):R
- *
- * @param callable $f
- *
- * @return callable
  */
 function destructureIn(callable $f): callable
 {

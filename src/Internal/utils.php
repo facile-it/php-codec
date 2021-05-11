@@ -12,6 +12,7 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @psalm-param non-empty-array<array-key, Codec> $props
+ *
  * @param Codec[] $props
  */
 function nameFromProps(array $props): string
@@ -54,10 +55,7 @@ function typeof($x): string
  * @psalm-param I             $input
  * @psalm-return Validation<A>
  *
- * @param Decoder $decoder
- * @param mixed   $input
- *
- * @return Validation
+ * @param mixed $input
  */
 function standardDecode(Decoder $decoder, $input): Validation
 {

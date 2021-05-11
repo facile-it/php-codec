@@ -26,7 +26,7 @@ use Facile\PhpCodec\Internal\Useful\RegexType;
 final class Codecs
 {
     /**
-     * @return Codec<null, mixed, null>
+     * @psalm-return Codec<null, mixed, null>
      */
     public static function null(): Codec
     {
@@ -34,7 +34,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<string, mixed, string>
+     * @psalm-return Codec<string, mixed, string>
      */
     public static function string(): Codec
     {
@@ -42,7 +42,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<int, mixed, int>
+     * @psalm-return Codec<int, mixed, int>
      */
     public static function int(): Codec
     {
@@ -50,7 +50,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<float, mixed, float>
+     * @psalm-return Codec<float, mixed, float>
      */
     public static function float(): Codec
     {
@@ -58,7 +58,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<bool, mixed, bool>
+     * @psalm-return Codec<bool, mixed, bool>
      */
     public static function bool(): Codec
     {
@@ -67,10 +67,10 @@ final class Codecs
 
     /**
      * @template T of bool | string | int
+     * @psalm-param T $x
+     * @psalm-return Codec<T, mixed, T>
      *
-     * @param T $x
-     *
-     * @return Codec<T, mixed, T>
+     * @param mixed $x
      */
     public static function literal($x): Codec
     {
@@ -78,7 +78,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<int, string, int>
+     * @psalm-return Codec<int, string, int>
      */
     public static function intFromString(): Codec
     {
@@ -86,7 +86,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<\DateTime, string, \DateTime>
+     * @psalm-return Codec<\DateTime, string, \DateTime>
      */
     public static function dateTimeFromIsoString(): Codec
     {
@@ -95,10 +95,8 @@ final class Codecs
 
     /**
      * @template T
-     *
-     * @param Codec<T,mixed,T> $itemCodec
-     *
-     * @return Codec<list<T>, mixed, list<T>>
+     * @psalm-param Codec<T, mixed, T> $itemCodec
+     * @psalm-return Codec<list<T>, mixed, list<T>>
      */
     public static function listt(Codec $itemCodec): Codec
     {
@@ -107,12 +105,10 @@ final class Codecs
 
     /**
      * @template T
-     *
-     * @param non-empty-array<string, Codec> $props
-     * @param callable(...mixed):T           $factory
-     * @param class-string<T>                $fqcn
-     *
-     * @return Codec<T, mixed, T>
+     * @psalm-param non-empty-array<string, Codec> $props
+     * @psalm-param callable(...mixed):T           $factory
+     * @psalm-param class-string<T>                $fqcn
+     * @psalm-return Codec<T, mixed, T>
      */
     public static function classFromArray(
         array $props,
@@ -137,15 +133,13 @@ final class Codecs
      * @template E
      * @template OE
      *
-     * @param Codec<A, IA, mixed>    $a
-     * @param Codec<B, A, OB>        $b
-     * @param Codec<C, B, OC> | null $c
-     * @param Codec<D, C, OD> | null $d
-     * @param Codec<E, D, OE> | null $e
+     * @psalm-param Codec<A, IA, mixed>    $a
+     * @psalm-param Codec<B, A, OB>        $b
+     * @psalm-param Codec<C, B, OC> | null $c
+     * @psalm-param Codec<D, C, OD> | null $d
+     * @psalm-param Codec<E, D, OE> | null $e
      *
-     * // TODO must add type assertions
-     *
-     * @return (func_num_args() is 2 ? Codec<B, IA, OB>
+     * @psalm-return (func_num_args() is 2 ? Codec<B, IA, OB>
      *                          : (func_num_args() is 3 ? Codec<C, IA, OC>
      *                          : (func_num_args() is 4 ? Codec<D, IA, OD>
      *                          : (func_num_args() is 5 ? Codec<E, IA, OC> : Codec)
@@ -167,13 +161,6 @@ final class Codecs
         );
     }
 
-    /**
-     * @param Codec ...$others
-     *
-     * @return Codec
-     *
-     * TODO simple to write, awful to type
-     */
     public static function union(Codec $a, Codec $b, Codec ...$others): Codec
     {
         // Order is important, this is not commutative
@@ -187,7 +174,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<string[], string, string[]>
+     * @psalm-return Codec<string[], string, string[]>
      */
     public static function regex(string $regex): Codec
     {
@@ -198,9 +185,8 @@ final class Codecs
      * @template I
      * @template T
      *
-     * @param Decoder<I, T> $decoder
-     *
-     * @return Codec<T, I, T>
+     * @psalm-param Decoder<I, T> $decoder
+     * @psalm-return Codec<T, I, T>
      */
     public static function fromDecoder(Decoder $decoder): Codec
     {
@@ -210,9 +196,10 @@ final class Codecs
     /**
      * @template U
      *
-     * @param U | null $default
+     * @psalm-param U | null $default
+     * @psalm-return Codec<U, mixed, U>
      *
-     * @return Codec<U, mixed, U>
+     * @param null|mixed $default
      */
     public static function undefined($default = null): Codec
     {
@@ -221,8 +208,7 @@ final class Codecs
 
     /**
      * @template U of mixed
-     *
-     * @return Codec<U, mixed, U>
+     * @psalm-return Codec<U, mixed, U>
      */
     public static function mixed(): Codec
     {
@@ -230,7 +216,7 @@ final class Codecs
     }
 
     /**
-     * @return Codec<callable, mixed, callable>
+     * @psalm-return Codec<callable, mixed, callable>
      */
     public static function callable(): Codec
     {

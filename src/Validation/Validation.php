@@ -11,12 +11,10 @@ abstract class Validation
 {
     /**
      * @template T
-     *
      * @psalm-param T $a
+     * @psalm-return ValidationSuccess<T>
      *
      * @param mixed $a
-     *
-     * @return Validation<T>
      */
     public static function success($a): self
     {
@@ -25,12 +23,12 @@ abstract class Validation
 
     /**
      * @template T
-     *
      * @psalm-param list<VError> $errors
+     * @psalm-return ValidationFailures<T>
      *
      * @param VError[] $errors
      *
-     * @return Validation<T>
+     * @return ValidationFailures
      */
     public static function failures(array $errors): self
     {
@@ -38,11 +36,13 @@ abstract class Validation
     }
 
     /**
-     * @param mixed       $value
-     * @param Context     $context
-     * @param string|null $message
+     * @template V
+     * @psalm-param V $value
+     * @psalm-param Context $context
+     * @psalm-param string|null $message
+     * @psalm-return Validation<empty>
      *
-     * @return Validation<empty>
+     * @param mixed $value
      */
     public static function failure($value, Context $context, ?string $message = null): self
     {
@@ -56,14 +56,9 @@ abstract class Validation
      * @template R
      *
      * @psalm-param callable(list<VError>):R $onFailures
-     *
-     * @param callable $onFailures
      * @psalm-param callable(T):R $onSuccess
-     *
-     * @param callable      $onSuccess
-     * @param Validation<T> $v
-     *
-     * @return R
+     * @psalm-param Validation<T> $v
+     * @psalm-return R
      */
     public static function fold(callable $onFailures, callable $onSuccess, self $v)
     {
@@ -81,10 +76,8 @@ abstract class Validation
 
     /**
      * @template T
-     *
-     * @param list<Validation<T>> $validations
-     *
-     * @return Validation<list<T>>
+     * @psalm-param list<Validation<T>> $validations
+     * @psalm-return Validation<list<T>>
      */
     public static function sequence(array $validations): self
     {
@@ -104,10 +97,8 @@ abstract class Validation
 
     /**
      * @template T
-     *
-     * @param list<Validation<T>> $validations
-     *
-     * @return Validation<list<T>>
+     * @psalm-param list<Validation<T>> $validations
+     * @psalm-return Validation<list<T>>
      */
     public static function reduceToSuccessOrAllFailures(array $validations): self
     {
@@ -135,11 +126,8 @@ abstract class Validation
      * @template T2
      *
      * @psalm-param callable(T1):T2 $f
-     *
-     * @param callable       $f
-     * @param Validation<T1> $v
-     *
-     * @return Validation<T2>
+     * @psalm-param Validation<T1> $v
+     * @psalm-return Validation<T2>
      */
     public static function map(callable $f, self $v): self
     {
@@ -157,11 +145,8 @@ abstract class Validation
      * @template T2
      *
      * @psalm-param callable(T1):Validation<T2> $f
-     *
-     * @param callable       $f
-     * @param Validation<T1> $v
-     *
-     * @return Validation<T2>
+     * @psalm-param Validation<T1> $v
+     * @psalm-return Validation<T2>
      */
     public static function bind(callable $f, self $v): self
     {
