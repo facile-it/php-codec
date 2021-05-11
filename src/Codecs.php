@@ -176,7 +176,7 @@ final class Codecs
      */
     public static function union(Codec $a, Codec $b, Codec ...$others): Codec
     {
-        // Order is not important, unions should be commutatives
+        // Order is important, this is not commutative
         return \array_reduce(
             $others,
             static function (Codec $carry, Codec $current): Codec {
@@ -222,7 +222,7 @@ final class Codecs
     /**
      * @template U of mixed
      *
-     * @return Codec<U, U, U>
+     * @return Codec<U, mixed, U>
      */
     public static function mixed(): Codec
     {

@@ -13,7 +13,8 @@ use Facile\PhpCodec\Validation\ValidationSuccess;
 /**
  * @template A
  * @template B
- * @implements Codec<A|B, mixed, A|B>
+ * @template T of A | B
+ * @implements Codec<T, mixed, T>
  */
 class UnionCodec implements Codec
 {
@@ -39,11 +40,14 @@ class UnionCodec implements Codec
         $va = $this->a->validate($i, $context);
 
         if ($va instanceof ValidationSuccess) {
-            /** @var ValidationSuccess<A> */
+            /** @var Validation<T> */
             return $va;
         }
 
-        return $this->b->validate($i, $context);
+        /** @var Validation<T> $vb */
+        $vb = $this->b->validate($i, $context);
+
+        return $vb;
     }
 
     public function decode($i): Validation
