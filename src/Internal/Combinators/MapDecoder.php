@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Decoder;
+use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
-use function Facile\PhpCodec\Internal\standardDecode;
 
 /**
  * @template A
@@ -19,6 +21,7 @@ class MapDecoder implements Decoder
 
     /**
      * @psalm-param callable(A):B $f
+     *
      * @param callable $f
      */
     public function __construct(callable $f)

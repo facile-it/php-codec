@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Useful;
 
 use Facile\PhpCodec\Decoder;
+use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
-use function Facile\PhpCodec\Internal\standardDecode;
 
 /**
  * @implements Decoder<string, int>
