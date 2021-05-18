@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Facile\PhpCodec;
+namespace Facile\PhpCodec\Utils;
 
+use Facile\PhpCodec\Decoder;
 use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;

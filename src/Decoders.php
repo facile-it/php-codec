@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
+use Facile\PhpCodec\Internal\Primitives\IntDecoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
+use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
+use Facile\PhpCodec\Utils\ConcreteDecoder;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
@@ -50,5 +53,18 @@ final class Decoders
     public static function undefined($default = null): Decoder
     {
         return new UndefinedDecoder($default);
+    }
+
+    public static function int(): Decoder
+    {
+        return new IntDecoder();
+    }
+
+    /**
+     * @psalm-return Decoder<string, int>
+     */
+    public static function intFromString(): Decoder
+    {
+        return new IntFromStringDecoder();
     }
 }
