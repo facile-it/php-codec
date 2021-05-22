@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
+use Facile\PhpCodec\Internal\Combinators\ComposeDecoder;
+use Facile\PhpCodec\Internal\Combinators\MapDecoder;
 use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
 use Facile\PhpCodec\Internal\Primitives\IntDecoder;
 use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
@@ -22,6 +24,31 @@ final class Decoders
     /**
      * @template I
      * @template A
+     * @psalm-param callable(I, Context):Validation<A> $f
+     * @psalm-param string $name
+     * @psalm-return Decoder<I, A>
+     */
+    public static function make(callable $f, string $name = 'anon'): Decoder
+    {
+        return new ConcreteDecoder($f, $name);
+    }
+
+    /**
+     * @template I
+     * @template A
+     * @template B
+     * @psalm-param Decoder<A, B> $db
+     * @psalm-param Decoder<I, A> $da
+     * @psalm-return Decoder<I, B>
+     */
+    public static function compose(Decoder $db, Decoder $da): Decoder
+    {
+        return new ComposeDecoder($db, $da);
+    }
+
+    /**
+     * @template I
+     * @template A
      * @template B
      * @psalm-param callable(A):B $f
      * @psalm-param Decoder<I, A> $da
@@ -29,14 +56,9 @@ final class Decoders
      */
     public static function map(callable $f, Decoder $da): Decoder
     {
-        return new ConcreteDecoder(
-            /**
-             * @param I $i
-             */
-            function ($i, Context $context) use ($f, $da): Validation {
-                return Validation::map($f, $da->validate($i, $context));
-            },
-            $da->getName()
+        return self::compose(
+            new MapDecoder($f, $da->getName()),
+            $da
         );
     }
 
