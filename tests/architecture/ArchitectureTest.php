@@ -7,6 +7,7 @@ namespace ArchitectureAssertions\Facile\PhpCodec;
 use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Decoder;
+use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Encoder;
 use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Refiner;
@@ -66,6 +67,15 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
             ->classesThat(Selector::haveClassName(Codecs::class))
             ->mustDependOn()
             ->andClassesThat(Selector::extendClass(Type::class))
+            ->build();
+    }
+
+    public function testDecodersMustExposeEveryInteralDecoder(): Rule
+    {
+        return $this->newRule
+            ->classesThat(Selector::haveClassName(Decoders::class))
+            ->mustDependOn()
+            ->classesThat(Selector::implementInterface(Decoder::class))
             ->build();
     }
 }

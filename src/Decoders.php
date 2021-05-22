@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
+use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
 use Facile\PhpCodec\Internal\Primitives\IntDecoder;
+use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
 use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
 use Facile\PhpCodec\Utils\ConcreteDecoder;
@@ -22,25 +24,20 @@ final class Decoders
      * @template A
      * @template B
      * @psalm-param callable(A):B $f
-     * @psalm-return callable(Decoder<I, A>): Decoder<I, B>
-     *
-     * @param callable $f
-     *
-     * @return callable
+     * @psalm-param Decoder<I, A> $da
+     * @psalm-return Decoder<I, B>
      */
-    public static function map(callable $f): callable
+    public static function map(callable $f, Decoder $da): Decoder
     {
-        return function (Decoder $da) use ($f): Decoder {
-            return new ConcreteDecoder(
-                /**
-                 * @param I $i
-                 */
-                function ($i, Context $context) use ($f, $da): Validation {
-                    return Validation::map($f, $da->validate($i, $context));
-                },
-                $da->getName()
-            );
-        };
+        return new ConcreteDecoder(
+            /**
+             * @param I $i
+             */
+            function ($i, Context $context) use ($f, $da): Validation {
+                return Validation::map($f, $da->validate($i, $context));
+            },
+            $da->getName()
+        );
     }
 
     /**
@@ -66,5 +63,21 @@ final class Decoders
     public static function intFromString(): Decoder
     {
         return new IntFromStringDecoder();
+    }
+
+    /**
+     * @psalm-return Decoder<mixed, mixed>
+     */
+    public static function mixed(): Decoder
+    {
+        return new MixedDecoder();
+    }
+
+    /**
+     * @psalm-return Decoder<mixed, callable>
+     */
+    public static function callable(): Decoder
+    {
+        return new CallableDecoder();
     }
 }

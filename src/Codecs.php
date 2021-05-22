@@ -45,6 +45,9 @@ final class Codecs
     /**
      * @template I of mixed
      * @psalm-return Codec<int, I, int>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::int()
      */
     public static function int(): Codec
     {
@@ -81,6 +84,9 @@ final class Codecs
 
     /**
      * @psalm-return Codec<int, string, int>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::intFromString()
      */
     public static function intFromString(): Codec
     {
@@ -202,6 +208,9 @@ final class Codecs
      * @psalm-return Codec<U, mixed, U>
      *
      * @param null|mixed $default
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::undefined()
      */
     public static function undefined($default = null): Codec
     {
@@ -211,6 +220,9 @@ final class Codecs
     /**
      * @psalm-template U of mixed
      * @psalm-return Codec<U, mixed, U>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::mixed()
      */
     public static function mixed(): Codec
     {
@@ -219,6 +231,9 @@ final class Codecs
 
     /**
      * @psalm-return Codec<callable, mixed, callable>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::callable()
      */
     public static function callable(): Codec
     {
