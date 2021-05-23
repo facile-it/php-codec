@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Map function for decoders. (#24)
+- `trasformValidationSuccess` function for decoders. Structurally equivalent to a map. (#24)
 ### Fixed
 - Used Psalm specific annotations to avoid confusing IDEs without Psalm support. (#26)
 ### Deprecated

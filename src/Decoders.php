@@ -47,7 +47,11 @@ final class Decoders
     }
 
     /**
+     * This is structurally equivalent to a map function
      * map :: (a -> b) -> Decoder a -> Decoder b
+     *
+     * I still don't know if decoders could be functors or something more complicated.
+     * By now, let me introduce it with this strange name. I just need this feature.
      *
      * @template I
      * @template A
@@ -56,7 +60,7 @@ final class Decoders
      * @psalm-param Decoder<I, A> $da
      * @psalm-return Decoder<I, B>
      */
-    public static function map(callable $f, Decoder $da): Decoder
+    public static function transformValidationSuccess(callable $f, Decoder $da): Decoder
     {
         return self::compose(
             new MapDecoder($f, $da->getName()),
