@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec;
 
+use Eris\Generator;
+use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 
 class DecodersTest extends BaseTestCase
 {
+    use TestTrait;
+
     public function testMap(): void
     {
         $decoder = Decoders::map(
@@ -17,10 +21,19 @@ class DecodersTest extends BaseTestCase
             Decoders::int()
         );
 
-        self::asserSuccessInstanceOf(
-            DecodersTest\A::class,
-            $decoder->decode(1)
-        );
+        $this
+            ->forAll(
+                Generator\int()
+            )
+            ->then(function(int $i) use ($decoder) {
+                self::asserSuccessInstanceOf(
+                    DecodersTest\A::class,
+                    $decoder->decode($i),
+                    function(DecodersTest\A $a) use ($i) {
+                        self::assertSame($i, $a->getValue());
+                    }
+                );
+            });
     }
 }
 
@@ -34,5 +47,10 @@ class A
     public function __construct(int $v)
     {
         $this->v = $v;
+    }
+
+    public function getValue(): int
+    {
+        return $this->v;
     }
 }

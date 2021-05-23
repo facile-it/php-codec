@@ -74,6 +74,9 @@ final class Decoders
         return new UndefinedDecoder($default);
     }
 
+    /**
+     * @psalm-return Decoder<mixed, int>
+     */
     public static function int(): Decoder
     {
         return new IntDecoder();
