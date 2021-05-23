@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TypeAssertions\Facile\PhpCodec;
 
 use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Validation\Validation;
 
 class CodecsTypeAssertions extends TypeAssertion
@@ -12,7 +13,7 @@ class CodecsTypeAssertions extends TypeAssertion
     public function testPipe(): void
     {
         $c2 = Codecs::pipe(
-            Codecs::mixed(),
+            Codecs::fromDecoder(Decoders::mixed()),
             Codecs::string()
         );
 
@@ -24,9 +25,9 @@ class CodecsTypeAssertions extends TypeAssertion
         );
 
         $c3 = Codecs::pipe(
-            Codecs::mixed(),
+            Codecs::fromDecoder(Decoders::mixed()),
             Codecs::string(),
-            Codecs::intFromString()
+            Codecs::fromDecoder(Decoders::intFromString())
         );
 
         Validation::fold(

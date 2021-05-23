@@ -14,14 +14,15 @@ use Facile\PhpCodec\Internal\IdentityEncoder;
 use Facile\PhpCodec\Internal\Primitives\BoolType;
 use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
 use Facile\PhpCodec\Internal\Primitives\FloatType;
-use Facile\PhpCodec\Internal\Primitives\IntType;
+use Facile\PhpCodec\Internal\Primitives\IntDecoder;
 use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
 use Facile\PhpCodec\Internal\Primitives\NullType;
 use Facile\PhpCodec\Internal\Primitives\StringType;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
 use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
-use Facile\PhpCodec\Internal\Useful\IntFromStringType;
+use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
 use Facile\PhpCodec\Internal\Useful\RegexType;
+use Facile\PhpCodec\Utils\ConcreteCodec;
 
 final class Codecs
 {
@@ -42,11 +43,15 @@ final class Codecs
     }
 
     /**
-     * @psalm-return Codec<int, mixed, int>
+     * @template I of mixed
+     * @psalm-return Codec<int, I, int>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::int()
      */
     public static function int(): Codec
     {
-        return new IntType();
+        return self::fromDecoder(new IntDecoder());
     }
 
     /**
@@ -79,10 +84,13 @@ final class Codecs
 
     /**
      * @psalm-return Codec<int, string, int>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::intFromString()
      */
     public static function intFromString(): Codec
     {
-        return new IntFromStringType();
+        return self::fromDecoder(new IntFromStringDecoder());
     }
 
     /**
@@ -200,6 +208,9 @@ final class Codecs
      * @psalm-return Codec<U, mixed, U>
      *
      * @param null|mixed $default
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::undefined()
      */
     public static function undefined($default = null): Codec
     {
@@ -209,6 +220,9 @@ final class Codecs
     /**
      * @psalm-template U of mixed
      * @psalm-return Codec<U, mixed, U>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::mixed()
      */
     public static function mixed(): Codec
     {
@@ -217,6 +231,9 @@ final class Codecs
 
     /**
      * @psalm-return Codec<callable, mixed, callable>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::callable()
      */
     public static function callable(): Codec
     {

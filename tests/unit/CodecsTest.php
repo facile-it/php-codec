@@ -226,6 +226,16 @@ class CodecsTest extends BaseTestCase
             $type->decode('foo:abc#bar:123')
         );
     }
+
+    public function testIntCodecLaws(): void
+    {
+        $this
+            ->forAll(
+                GeneratorUtils::scalar(),
+                g\int()
+            )
+            ->then(self::codecLaws(Codecs::int()));
+    }
 }
 
 namespace Tests\Facile\PhpCodec\in;

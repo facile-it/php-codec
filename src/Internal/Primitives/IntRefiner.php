@@ -8,6 +8,8 @@ use Facile\PhpCodec\Refiner;
 
 /**
  * @implements Refiner<int>
+ *
+ * @deprecated
  */
 class IntRefiner implements Refiner
 {
