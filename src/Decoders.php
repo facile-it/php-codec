@@ -47,6 +47,8 @@ final class Decoders
     }
 
     /**
+     * map :: (a -> b) -> Decoder a -> Decoder b
+     *
      * @template I
      * @template A
      * @template B

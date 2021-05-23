@@ -25,11 +25,11 @@ class DecodersTest extends BaseTestCase
             ->forAll(
                 Generator\int()
             )
-            ->then(function(int $i) use ($decoder) {
+            ->then(function (int $i) use ($decoder): void {
                 self::asserSuccessInstanceOf(
                     DecodersTest\A::class,
                     $decoder->decode($i),
-                    function(DecodersTest\A $a) use ($i) {
+                    function (DecodersTest\A $a) use ($i): void {
                         self::assertSame($i, $a->getValue());
                     }
                 );

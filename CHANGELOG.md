@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Map function for decoders. (#24)
 ### Fixed
-- Used Psalm specific annotations to avoid confusing IDEs without Psalm support. (#26) 
+- Used Psalm specific annotations to avoid confusing IDEs without Psalm support. (#26)
+### Deprecated
+- Usage of codecs is deprecated in favour of decoders. (#24)
 
 ## [0.0.1] - 2021-04-30 
 ### Added
