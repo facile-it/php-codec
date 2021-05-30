@@ -11,13 +11,13 @@ use Facile\PhpCodec\Internal\Combinators\ComposeCodec;
 use Facile\PhpCodec\Internal\Combinators\LiteralType;
 use Facile\PhpCodec\Internal\Combinators\UnionCodec;
 use Facile\PhpCodec\Internal\IdentityEncoder;
-use Facile\PhpCodec\Internal\Primitives\BoolType;
+use Facile\PhpCodec\Internal\Primitives\BoolDecoder;
 use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
-use Facile\PhpCodec\Internal\Primitives\FloatType;
+use Facile\PhpCodec\Internal\Primitives\FloatDecoder;
 use Facile\PhpCodec\Internal\Primitives\IntDecoder;
 use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
-use Facile\PhpCodec\Internal\Primitives\NullType;
-use Facile\PhpCodec\Internal\Primitives\StringType;
+use Facile\PhpCodec\Internal\Primitives\NullDecoder;
+use Facile\PhpCodec\Internal\Primitives\StringDecoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
 use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
 use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
@@ -28,18 +28,24 @@ final class Codecs
 {
     /**
      * @psalm-return Codec<null, mixed, null>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::null()
      */
     public static function null(): Codec
     {
-        return new NullType();
+        return self::fromDecoder(new NullDecoder());
     }
 
     /**
      * @psalm-return Codec<string, mixed, string>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::string()
      */
     public static function string(): Codec
     {
-        return new StringType();
+        return self::fromDecoder(new StringDecoder());
     }
 
     /**
@@ -56,18 +62,24 @@ final class Codecs
 
     /**
      * @psalm-return Codec<float, mixed, float>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::float()
      */
     public static function float(): Codec
     {
-        return new FloatType();
+        return self::fromDecoder(new FloatDecoder());
     }
 
     /**
      * @psalm-return Codec<bool, mixed, bool>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::bool()
      */
     public static function bool(): Codec
     {
-        return new BoolType();
+        return self::fromDecoder(new BoolDecoder());
     }
 
     /**

@@ -8,6 +8,8 @@ use Facile\PhpCodec\Refiner;
 
 /**
  * @implements Refiner<string>
+ *
+ * @deprecated
  */
 class StringRefiner implements Refiner
 {

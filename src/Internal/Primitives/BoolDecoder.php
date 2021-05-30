@@ -11,14 +11,14 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @template I of mixed
- * @template-implements Decoder<I, int>
+ * @template-implements Decoder<I, bool>
  * @psalm-internal Facile\PhpCodec
  */
-final class IntDecoder implements Decoder
+final class BoolDecoder implements Decoder
 {
     public function validate($i, Context $context): Validation
     {
-        return \is_int($i)
+        return \is_bool($i)
             ? Validation::success($i)
             : Validation::failure($i, $context);
     }
@@ -30,6 +30,6 @@ final class IntDecoder implements Decoder
 
     public function getName(): string
     {
-        return 'int';
+        return 'bool';
     }
 }

@@ -12,6 +12,7 @@ class CodecsTypeAssertions extends TypeAssertion
 {
     public function testPipe(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $c2 = Codecs::pipe(
             Codecs::fromDecoder(Decoders::mixed()),
             Codecs::string()
@@ -24,6 +25,7 @@ class CodecsTypeAssertions extends TypeAssertion
             $c2->decode('hello')
         );
 
+        /** @psalm-suppress DeprecatedMethod */
         $c3 = Codecs::pipe(
             Codecs::fromDecoder(Decoders::mixed()),
             Codecs::string(),

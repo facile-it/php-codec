@@ -6,9 +6,13 @@ namespace Facile\PhpCodec;
 
 use Facile\PhpCodec\Internal\Combinators\ComposeDecoder;
 use Facile\PhpCodec\Internal\Combinators\MapDecoder;
+use Facile\PhpCodec\Internal\Primitives\BoolDecoder;
 use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
+use Facile\PhpCodec\Internal\Primitives\FloatDecoder;
 use Facile\PhpCodec\Internal\Primitives\IntDecoder;
 use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
+use Facile\PhpCodec\Internal\Primitives\NullDecoder;
+use Facile\PhpCodec\Internal\Primitives\StringDecoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
 use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
 use Facile\PhpCodec\Utils\ConcreteDecoder;
@@ -68,6 +72,12 @@ final class Decoders
         );
     }
 
+    ############################################################
+    #
+    # Primitives
+    #
+    ############################################################
+
     /**
      * @psalm-template U
      * @psalm-param U $default
@@ -81,11 +91,43 @@ final class Decoders
     }
 
     /**
+     * @return Decoder<mixed, null>
+     */
+    public static function null(): Decoder
+    {
+        return new NullDecoder();
+    }
+
+    /**
+     * @psalm-return Decoder<mixed, bool>
+     */
+    public static function bool(): Decoder
+    {
+        return new BoolDecoder();
+    }
+
+    /**
      * @psalm-return Decoder<mixed, int>
      */
     public static function int(): Decoder
     {
         return new IntDecoder();
+    }
+
+    /**
+     * @psalm-return Decoder<mixed, float>
+     */
+    public static function float(): Decoder
+    {
+        return new FloatDecoder();
+    }
+
+    /**
+     * @psalm-return Decoder<mixed, string>
+     */
+    public static function string(): Decoder
+    {
+        return new StringDecoder();
     }
 
     /**

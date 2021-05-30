@@ -8,6 +8,8 @@ use Facile\PhpCodec\Refiner;
 
 /**
  * @implements Refiner<null>
+ *
+ * @deprecated use decoder
  */
 class NullRefiner implements Refiner
 {
