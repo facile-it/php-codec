@@ -20,8 +20,9 @@ use Facile\PhpCodec\Validation\Validation;
  * Codec<B, A, OB>
  *
  * @implements Codec<B, IA, OB>
+ * @psalm-internal Facile\PhpCodec
  */
-class ComposeCodec implements Codec
+final class PipeCodec implements Codec
 {
     /** @var Codec<A, IA, OA> */
     private $a;

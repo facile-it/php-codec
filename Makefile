@@ -29,4 +29,6 @@ cs-fix:
 cs-check:
 	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
 
-ci: test cs-check psalm type-assertions architecture
+ci: test cs-fix psalm type-assertions architecture
+
+ci-check: test cs-check psalm type-assertions architecture

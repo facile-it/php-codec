@@ -7,8 +7,7 @@ namespace Facile\PhpCodec;
 use Facile\PhpCodec\Internal\Arrays\ListCodec;
 use Facile\PhpCodec\Internal\Arrays\MapType;
 use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
-use Facile\PhpCodec\Internal\Combinators\ComposeCodec;
-use Facile\PhpCodec\Internal\Combinators\LiteralType;
+use Facile\PhpCodec\Internal\Combinators\PipeCodec;
 use Facile\PhpCodec\Internal\Combinators\UnionCodec;
 use Facile\PhpCodec\Internal\IdentityEncoder;
 use Facile\PhpCodec\Internal\Primitives\BoolDecoder;
@@ -19,9 +18,7 @@ use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
 use Facile\PhpCodec\Internal\Primitives\NullDecoder;
 use Facile\PhpCodec\Internal\Primitives\StringDecoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
-use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
 use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
-use Facile\PhpCodec\Internal\Useful\RegexType;
 use Facile\PhpCodec\Utils\ConcreteCodec;
 
 final class Codecs
@@ -88,10 +85,13 @@ final class Codecs
      * @psalm-return Codec<T, mixed, T>
      *
      * @param mixed $x
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::literal()
      */
     public static function literal($x): Codec
     {
-        return new LiteralType($x);
+        return self::fromDecoder(Decoders::literal($x));
     }
 
     /**
@@ -106,11 +106,14 @@ final class Codecs
     }
 
     /**
-     * @psalm-return Codec<\DateTime, string, \DateTime>
+     * @psalm-return Codec<\DateTimeInterface, string, \DateTimeInterface>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::dateTimeFromString()
      */
     public static function dateTimeFromIsoString(): Codec
     {
-        return new DateTimeFromIsoStringType();
+        return self::fromDecoder(Decoders::dateTimeFromString());
     }
 
     /**
@@ -162,7 +165,7 @@ final class Codecs
      * @psalm-return (func_num_args() is 2 ? Codec<B, IA, OB>
      *                          : (func_num_args() is 3 ? Codec<C, IA, OC>
      *                          : (func_num_args() is 4 ? Codec<D, IA, OD>
-     *                          : (func_num_args() is 5 ? Codec<E, IA, OC> : Codec)
+     *                          : (func_num_args() is 5 ? Codec<E, IA, OE> : Codec)
      *                          )))
      */
     public static function pipe(
@@ -173,7 +176,7 @@ final class Codecs
         ?Codec $e = null
     ): Codec {
         // Order is important: composition is not commutative
-        return new ComposeCodec(
+        return new PipeCodec(
             $a,
             $c instanceof Codec
                 ? self::pipe($b, $c, $d, $e)
@@ -195,10 +198,13 @@ final class Codecs
 
     /**
      * @psalm-return Codec<string[], string, string[]>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::regex()
      */
     public static function regex(string $regex): Codec
     {
-        return new RegexType($regex);
+        return self::fromDecoder(Decoders::regex($regex));
     }
 
     /**

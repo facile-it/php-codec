@@ -15,8 +15,9 @@ use Facile\PhpCodec\Validation\Validation;
  * @psalm-template B
  *
  * @template-implements Decoder<IA, B>
+ * @psalm-internal Facile\PhpCodec
  */
-class ComposeDecoder implements Decoder
+final class ComposeDecoder implements Decoder
 {
     /** @var Decoder<A, B> */
     private $db;

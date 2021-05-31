@@ -8,7 +8,6 @@ use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
-use Facile\PhpCodec\Internal\Useful\RegexType;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 
@@ -210,7 +209,7 @@ class CodecsTest extends BaseTestCase
     {
         $type = Codecs::pipe(
             Codecs::string(),
-            new RegexType('/^foo:(?<foo>\w{2,5})#bar:(?<bar>\d{1,3})$/'),
+            Codecs::regex('/^foo:(?<foo>\w{2,5})#bar:(?<bar>\d{1,3})$/'),
             Codecs::classFromArray(
                 [
                     'foo' => Codecs::string(),

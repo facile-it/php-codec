@@ -7,8 +7,8 @@ namespace Tests\Facile\PhpCodec\Internal\Combinators;
 use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codec;
+use Facile\PhpCodec\Codecs;
 use function Facile\PhpCodec\destructureIn;
-use Facile\PhpCodec\Internal\Combinators\LiteralType;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
@@ -28,7 +28,7 @@ class LiteralTypeTest extends BaseTestCase
                     ),
                     function ($literal): g {
                         return g\tuple(
-                            g\constant(new LiteralType($literal)),
+                            g\constant(Codecs::literal($literal)),
                             g\oneOf(
                                 GeneratorUtils::scalar(),
                                 g\constant($literal)

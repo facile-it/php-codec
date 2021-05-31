@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec;
 
 use Facile\PhpCodec\Internal\Combinators\ComposeDecoder;
+use Facile\PhpCodec\Internal\Combinators\LiteralDecoder;
 use Facile\PhpCodec\Internal\Combinators\MapDecoder;
 use Facile\PhpCodec\Internal\Primitives\BoolDecoder;
 use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
@@ -14,7 +15,9 @@ use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
 use Facile\PhpCodec\Internal\Primitives\NullDecoder;
 use Facile\PhpCodec\Internal\Primitives\StringDecoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
+use Facile\PhpCodec\Internal\Useful\DateTimeFromStringDecoder;
 use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
+use Facile\PhpCodec\Internal\Useful\RegexDecoder;
 use Facile\PhpCodec\Utils\ConcreteDecoder;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
@@ -51,6 +54,42 @@ final class Decoders
     }
 
     /**
+     * @psalm-template IA
+     * @psalm-template A
+     * @psalm-template B
+     * @psalm-template C
+     * @psalm-template D
+     * @psalm-template E
+     *
+     * @psalm-param Decoder<IA, A> $a
+     * @psalm-param Decoder<A, B> $b
+     * @psalm-param Decoder<B, C> | null $c
+     * @psalm-param Decoder<C, D> | null $d
+     * @psalm-param Decoder<D, E> | null $e
+     *
+     * @psalm-return (func_num_args() is 2 ? Decoder<IA, B>
+     *                          : (func_num_args() is 3 ? Decoder<IA, C>
+     *                          : (func_num_args() is 4 ? Decoder<IA, D>
+     *                          : (func_num_args() is 5 ? Decoder<IA, E> : Decoder)
+     *                          )))
+     */
+    public static function pipe(
+        Decoder $a,
+        Decoder $b,
+        ?Decoder $c = null,
+        ?Decoder $d = null,
+        ?Decoder $e = null
+    ): Decoder {
+        // Order is important: composition is not commutative
+        return self::compose(
+            $c instanceof Decoder
+                ? self::pipe($b, $c, $d, $e)
+                : $b,
+            $a
+        );
+    }
+
+    /**
      * This is structurally equivalent to a map function
      * map :: (a -> b) -> Decoder a -> Decoder b
      *
@@ -70,6 +109,18 @@ final class Decoders
             new MapDecoder($f, $da->getName()),
             $da
         );
+    }
+
+    /**
+     * @psalm-template T of bool | string | int
+     * @psalm-param T $l
+     * @psalm-return Decoder<mixed, T>
+     *
+     * @param mixed $l
+     */
+    public static function literal($l): Decoder
+    {
+        return new LiteralDecoder($l);
     }
 
     ############################################################
@@ -131,14 +182,6 @@ final class Decoders
     }
 
     /**
-     * @psalm-return Decoder<string, int>
-     */
-    public static function intFromString(): Decoder
-    {
-        return new IntFromStringDecoder();
-    }
-
-    /**
      * @psalm-return Decoder<mixed, mixed>
      */
     public static function mixed(): Decoder
@@ -152,5 +195,35 @@ final class Decoders
     public static function callable(): Decoder
     {
         return new CallableDecoder();
+    }
+
+    ############################################################
+    #
+    # Useful decoders
+    #
+    ############################################################
+
+    /**
+     * @psalm-return Decoder<string, int>
+     */
+    public static function intFromString(): Decoder
+    {
+        return new IntFromStringDecoder();
+    }
+
+    /**
+     * @psalm-return Decoder<string, \DateTimeInterface>
+     */
+    public static function dateTimeFromString(string $format = \DATE_ATOM): Decoder
+    {
+        return new DateTimeFromStringDecoder($format);
+    }
+
+    /**
+     * @psalm-return Decoder<string, string[]>
+     */
+    public static function regex(string $regex): Decoder
+    {
+        return new RegexDecoder($regex);
     }
 }

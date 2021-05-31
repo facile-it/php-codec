@@ -13,8 +13,9 @@ use Facile\PhpCodec\Validation\Validation;
  * @template A
  * @template B
  * @implements Decoder<A, B>
+ * @psalm-internal Facile\PhpCodec
  */
-class MapDecoder implements Decoder
+final class MapDecoder implements Decoder
 {
     /** @var callable(A):B */
     private $f;
