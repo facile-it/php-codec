@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Validation;
 
 /**
- * @template-covariant A
+ * @template A
  */
 abstract class Validation
 {

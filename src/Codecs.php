@@ -4,21 +4,11 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
-use Facile\PhpCodec\Internal\Arrays\ListCodec;
 use Facile\PhpCodec\Internal\Arrays\MapType;
 use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
 use Facile\PhpCodec\Internal\Combinators\PipeCodec;
-use Facile\PhpCodec\Internal\Combinators\UnionCodec;
 use Facile\PhpCodec\Internal\IdentityEncoder;
-use Facile\PhpCodec\Internal\Primitives\BoolDecoder;
-use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
-use Facile\PhpCodec\Internal\Primitives\FloatDecoder;
-use Facile\PhpCodec\Internal\Primitives\IntDecoder;
-use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
-use Facile\PhpCodec\Internal\Primitives\NullDecoder;
-use Facile\PhpCodec\Internal\Primitives\StringDecoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
-use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
 use Facile\PhpCodec\Utils\ConcreteCodec;
 
 final class Codecs
@@ -31,7 +21,7 @@ final class Codecs
      */
     public static function null(): Codec
     {
-        return self::fromDecoder(new NullDecoder());
+        return self::fromDecoder(Decoders::null());
     }
 
     /**
@@ -42,7 +32,7 @@ final class Codecs
      */
     public static function string(): Codec
     {
-        return self::fromDecoder(new StringDecoder());
+        return self::fromDecoder(Decoders::string());
     }
 
     /**
@@ -54,7 +44,7 @@ final class Codecs
      */
     public static function int(): Codec
     {
-        return self::fromDecoder(new IntDecoder());
+        return self::fromDecoder(Decoders::int());
     }
 
     /**
@@ -65,7 +55,7 @@ final class Codecs
      */
     public static function float(): Codec
     {
-        return self::fromDecoder(new FloatDecoder());
+        return self::fromDecoder(Decoders::float());
     }
 
     /**
@@ -76,7 +66,7 @@ final class Codecs
      */
     public static function bool(): Codec
     {
-        return self::fromDecoder(new BoolDecoder());
+        return self::fromDecoder(Decoders::bool());
     }
 
     /**
@@ -102,7 +92,7 @@ final class Codecs
      */
     public static function intFromString(): Codec
     {
-        return self::fromDecoder(new IntFromStringDecoder());
+        return self::fromDecoder(Decoders::intFromString());
     }
 
     /**
@@ -120,10 +110,13 @@ final class Codecs
      * @psalm-template T
      * @psalm-param Codec<T, mixed, T> $itemCodec
      * @psalm-return Codec<list<T>, mixed, list<T>>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::listOf()
      */
     public static function listt(Codec $itemCodec): Codec
     {
-        return new ListCodec($itemCodec);
+        return self::fromDecoder(Decoders::listOf($itemCodec));
     }
 
     /**
@@ -184,15 +177,25 @@ final class Codecs
         );
     }
 
+    /**
+     * @param Codec $a
+     * @param Codec $b
+     * @param Codec ...$others
+     *
+     * @return Codec
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::union()
+     */
     public static function union(Codec $a, Codec $b, Codec ...$others): Codec
     {
         // Order is important, this is not commutative
         return \array_reduce(
             $others,
             static function (Codec $carry, Codec $current): Codec {
-                return new UnionCodec($current, $carry);
+                return self::fromDecoder(Decoders::union($current, $carry));
             },
-            new UnionCodec($a, $b)
+            self::fromDecoder(Decoders::union($a, $b))
         );
     }
 
@@ -244,7 +247,7 @@ final class Codecs
      */
     public static function mixed(): Codec
     {
-        return self::fromDecoder(new MixedDecoder());
+        return self::fromDecoder(Decoders::mixed());
     }
 
     /**
@@ -255,6 +258,6 @@ final class Codecs
      */
     public static function callable(): Codec
     {
-        return self::fromDecoder(new CallableDecoder());
+        return self::fromDecoder(Decoders::callable());
     }
 }

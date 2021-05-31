@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
+use Facile\PhpCodec\Internal\Arrays\ListOfDecoder;
 use Facile\PhpCodec\Internal\Combinators\ComposeDecoder;
+use Facile\PhpCodec\Internal\Combinators\IntersectionDecoder;
 use Facile\PhpCodec\Internal\Combinators\LiteralDecoder;
 use Facile\PhpCodec\Internal\Combinators\MapDecoder;
+use Facile\PhpCodec\Internal\Combinators\UnionDecoder;
 use Facile\PhpCodec\Internal\Primitives\BoolDecoder;
 use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
 use Facile\PhpCodec\Internal\Primitives\FloatDecoder;
@@ -90,6 +93,59 @@ final class Decoders
     }
 
     /**
+     * @psalm-template IA
+     * @psalm-template A
+     * @psalm-template IB
+     * @psalm-template B
+     * @psalm-template IC
+     * @psalm-template C
+     * @psalm-template ID
+     * @psalm-template D
+     * @psalm-template IE
+     * @psalm-template E
+     *
+     * @psalm-param Decoder<IA, A> $a
+     * @psalm-param Decoder<IB, B> $b
+     * @psalm-param Decoder<IC, C> | null $c
+     * @psalm-param Decoder<ID, D> | null $d
+     * @psalm-param Decoder<IE, E> | null $e
+     *
+     * @psalm-return (func_num_args() is 2 ? Decoder<IA & IB, A | B>
+     *                          : (func_num_args() is 3 ? Decoder<IA & IB & IC, A | B | C>
+     *                          : (func_num_args() is 4 ? Decoder<IA & IB & IC & ID, A | B | C | D>
+     *                          : (func_num_args() is 5 ? Decoder<IA & IB & IC & ID & IE, A | B | C | D | E> : Decoder)
+     *                          )))
+     */
+    public static function union(Decoder $a, Decoder $b, ?Decoder $c = null, ?Decoder $d = null, ?Decoder $e = null): Decoder
+    {
+        // Order is important, this is not commutative
+
+        return new UnionDecoder(
+            $a,
+            $c instanceof Decoder
+                ? self::union($b, $c, $d, $e)
+                : $b
+        );
+    }
+
+    /**
+     * @psalm-template I
+     * @psalm-template A
+     * @psalm-template B
+     *
+     * @psalm-param Decoder<I, A> $a
+     * @psalm-param Decoder<I, B> $b
+     *
+     * @psalm-return Decoder<I, A & B>
+     */
+    public static function intersection(Decoder $a, Decoder $b): Decoder
+    {
+        // Intersection seems to mess up implements annotation
+        /** @var Decoder<I, A & B> */
+        return new IntersectionDecoder($a, $b);
+    }
+
+    /**
      * This is structurally equivalent to a map function
      * map :: (a -> b) -> Decoder a -> Decoder b
      *
@@ -121,6 +177,19 @@ final class Decoders
     public static function literal($l): Decoder
     {
         return new LiteralDecoder($l);
+    }
+
+    /**
+     * @psalm-template I
+     * @psalm-template T
+     *
+     * @param Decoder<I, T> $elementDecoder
+     *
+     * @return Decoder<mixed, list<T>>
+     */
+    public static function listOf(Decoder $elementDecoder): Decoder
+    {
+        return new ListOfDecoder($elementDecoder);
     }
 
     ############################################################

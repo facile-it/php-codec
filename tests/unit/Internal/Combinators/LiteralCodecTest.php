@@ -8,11 +8,12 @@ use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Decoders;
 use function Facile\PhpCodec\destructureIn;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
-class LiteralTypeTest extends BaseTestCase
+class LiteralCodecTest extends BaseTestCase
 {
     use TestTrait;
 
@@ -28,7 +29,7 @@ class LiteralTypeTest extends BaseTestCase
                     ),
                     function ($literal): g {
                         return g\tuple(
-                            g\constant(Codecs::literal($literal)),
+                            g\constant(Codecs::fromDecoder(Decoders::literal($literal))),
                             g\oneOf(
                                 GeneratorUtils::scalar(),
                                 g\constant($literal)

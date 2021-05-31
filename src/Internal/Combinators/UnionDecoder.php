@@ -4,32 +4,34 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Combinators;
 
-use Facile\PhpCodec\Codec;
+use Facile\PhpCodec\Decoder;
 use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
-use Facile\PhpCodec\Validation\ValidationSuccess;
+use Facile\PhpCodec\Validation\ValidationFailures;
 
 /**
+ * @psalm-template IA
+ * @psalm-template IB
  * @psalm-template A
  * @psalm-template B
- * @psalm-template T of A | B
- * @implements Codec<T, mixed, T>
+ * @template-implements Decoder<IA & IB, A | B>
+ * @psalm-internal Facile\PhpCodec
  */
-class UnionCodec implements Codec
+final class UnionDecoder implements Decoder
 {
-    /** @var Codec<A, mixed, A> */
+    /** @var Decoder<IA, A> */
     private $a;
-    /** @var Codec<B, mixed, B> */
+    /** @var Decoder<IB, B> */
     private $b;
 
     /**
-     * @psalm-param Codec<A, mixed, A> $a
-     * @psalm-param Codec<B, mixed, B> $b
+     * @psalm-param Decoder<IA, A> $a
+     * @psalm-param Decoder<IB, B> $b
      */
     public function __construct(
-        Codec $a,
-        Codec $b
+        Decoder $a,
+        Decoder $b
     ) {
         $this->a = $a;
         $this->b = $b;
@@ -39,15 +41,11 @@ class UnionCodec implements Codec
     {
         $va = $this->a->validate($i, $context);
 
-        if ($va instanceof ValidationSuccess) {
-            /** @var Validation<T> */
-            return $va;
+        if ($va instanceof ValidationFailures) {
+            return $this->b->validate($i, $context);
         }
 
-        /** @var Validation<T> $vb */
-        $vb = $this->b->validate($i, $context);
-
-        return $vb;
+        return $va;
     }
 
     public function decode($i): Validation
@@ -58,10 +56,5 @@ class UnionCodec implements Codec
     public function getName(): string
     {
         return \sprintf('%s | %s', $this->a->getName(), $this->b->getName());
-    }
-
-    public function encode($a)
-    {
-        return $a;
     }
 }

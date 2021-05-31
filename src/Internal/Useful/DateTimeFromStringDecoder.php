@@ -39,6 +39,7 @@ final class DateTimeFromStringDecoder implements Decoder
             return Validation::failure($i, $context);
         }
 
+        /** @var \DateTimeInterface $r */
         return Validation::success($r);
     }
 

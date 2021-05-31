@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
-use Facile\PhpCodec\Codecs;
-use Facile\PhpCodec\Internal\Combinators\UnionCodec;
+use Facile\PhpCodec\Decoders;
+use Facile\PhpCodec\Internal\Combinators\UnionDecoder;
 use Facile\PhpCodec\PathReporter;
 use PHPUnit\Framework\TestCase;
 
-class UnionTypeTest extends TestCase
+class UnionDecoderTest extends TestCase
 {
     public function testValidate(): void
     {
-        $unionOfTwo = new UnionCodec(Codecs::null(), Codecs::string());
+        $unionOfTwo = new UnionDecoder(Decoders::null(), Decoders::string());
 
         $r = $unionOfTwo->decode(1);
 
@@ -27,7 +27,7 @@ class UnionTypeTest extends TestCase
 
     public function testUnionOfThree(): void
     {
-        $unionOfTwo = new UnionCodec(Codecs::null(), new UnionCodec(Codecs::string(), Codecs::int()));
+        $unionOfTwo = new UnionDecoder(Decoders::null(), new UnionDecoder(Decoders::string(), Decoders::int()));
 
         $r = $unionOfTwo->decode(1.2);
 
