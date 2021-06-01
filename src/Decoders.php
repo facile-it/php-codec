@@ -198,17 +198,17 @@ final class Decoders
     /**
      * @psalm-template K of array-key
      * @psalm-template Vs
-     * @psalm-template I
      * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
      *
      * @psalm-param PD $props
-     * @psalm-return Decoder<I, non-empty-array<K, Vs>>
+     * @psalm-return Decoder<mixed, non-empty-array<K, Vs>>
      *
      * @param Decoder[] $props
      *
      * @return Decoder
      *
      * Waiting for this feature to provide a better typing. I need something like mapped types from Typescript.
+     *
      * @see https://github.com/vimeo/psalm/issues/3589
      */
     public static function arrayProps(array $props): Decoder
