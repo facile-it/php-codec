@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
-use Facile\PhpCodec\Internal\Arrays\MapType;
-use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
 use Facile\PhpCodec\Internal\Combinators\PipeCodec;
 use Facile\PhpCodec\Internal\IdentityEncoder;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
@@ -120,20 +118,32 @@ final class Codecs
     }
 
     /**
-     * @psalm-template T
-     * @psalm-param non-empty-array<string, Codec> $props
-     * @psalm-param callable(...mixed):T           $factory
+     * @psalm-template T of object
+     * @psalm-template K of array-key
+     * @psalm-template Vs
+     * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
+     * @psalm-param PD $props
+     * @psalm-param callable(...Vs):T           $factory
      * @psalm-param class-string<T>                $fqcn
      * @psalm-return Codec<T, mixed, T>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::classFromArrayPropsDecoder()
      */
     public static function classFromArray(
         array $props,
         callable $factory,
         string $fqcn
     ): Codec {
-        return self::pipe(
-            new MapType(),
-            new ClassFromArray($props, $factory, $fqcn)
+        /** @var Decoder<mixed, non-empty-array<array-key, Vs>> $propsDecoder */
+        $propsDecoder = Decoders::arrayProps($props);
+
+        return self::fromDecoder(
+            Decoders::classFromArrayPropsDecoder(
+                $propsDecoder,
+                $factory,
+                $fqcn
+            )
         );
     }
 

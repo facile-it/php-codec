@@ -216,6 +216,31 @@ final class Decoders
         return new ArrayPropsDecoder($props);
     }
 
+    /**
+     * @psalm-template T of object
+     * @psalm-template K of array-key
+     * @psalm-template Vs
+     * @psalm-param Decoder<mixed, non-empty-array<K, Vs>> $propsDecoder
+     * @psalm-param callable(...Vs):T $factory
+     * @psalm-param class-string<T> $fqcn
+     * @psalm-return Decoder<mixed, T>
+     */
+    public static function classFromArrayPropsDecoder(
+        Decoder $propsDecoder,
+        callable $factory,
+        string $fqcn
+    ): Decoder {
+        return self::pipe(
+            $propsDecoder,
+            new MapDecoder(
+                function (array $props) use ($factory) {
+                    return destructureIn($factory)(\array_values($props));
+                },
+                \sprintf('%s(%s)', $fqcn, $propsDecoder->getName())
+            )
+        );
+    }
+
     ############################################################
     #
     # Primitives

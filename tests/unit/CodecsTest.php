@@ -7,7 +7,6 @@ namespace Tests\Facile\PhpCodec;
 use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
-use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 
@@ -62,7 +61,7 @@ class CodecsTest extends BaseTestCase
 
     public function testDecodeMapToClass(): void
     {
-        $type = new ClassFromArray(
+        $type = Codecs::classFromArray(
             [
                 'foo' => Codecs::string(),
                 'bar' => Codecs::int(),

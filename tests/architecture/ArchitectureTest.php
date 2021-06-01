@@ -9,23 +9,12 @@ use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Decoder;
 use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Encoder;
-use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Refiner;
 use PhpAT\Rule\Rule;
 use PhpAT\Selector\Selector;
 
 class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
 {
-    public function testAllTypesExtendsAbstractType(): Rule
-    {
-        return $this->newRule
-            ->classesThat(Selector::haveClassName('*Type'))
-            ->excludingClassesThat(Selector::haveClassName(Type::class))
-            ->mustExtend()
-            ->classesThat(Selector::haveClassName(Type::class))
-            ->build();
-    }
-
     public function testRefineNamedClassesMustImplementsRefineInterface(): Rule
     {
         return $this->newRule
@@ -58,15 +47,6 @@ class ArchitectureTest extends \PhpAT\Test\ArchitectureTest
             ->andExcludingClassesThat(Selector::haveClassName(Decoder::class))
             ->andExcludingClassesThat(Selector::haveClassName(Encoder::class))
             ->andExcludingClassesThat(Selector::haveClassName(Codec::class))
-            ->build();
-    }
-
-    public function testCodecsMustExposeEveryInteralCodec(): Rule
-    {
-        return $this->newRule
-            ->classesThat(Selector::haveClassName(Codecs::class))
-            ->mustDependOn()
-            ->andClassesThat(Selector::extendClass(Type::class))
             ->build();
     }
 
