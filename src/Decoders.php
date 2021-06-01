@@ -21,6 +21,7 @@ use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
 use Facile\PhpCodec\Internal\Useful\DateTimeFromStringDecoder;
 use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
 use Facile\PhpCodec\Internal\Useful\RegexDecoder;
+use Facile\PhpCodec\Internal\Useful\StringMatchingRegexDecoder;
 use Facile\PhpCodec\Utils\ConcreteDecoder;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
@@ -294,5 +295,14 @@ final class Decoders
     public static function regex(string $regex): Decoder
     {
         return new RegexDecoder($regex);
+    }
+
+    /**
+     * @psalm-param string $regex
+     * @psalm-return Decoder<string, string>
+     */
+    public static function stringMatchingRegex(string $regex): Decoder
+    {
+        return new StringMatchingRegexDecoder($regex);
     }
 }
