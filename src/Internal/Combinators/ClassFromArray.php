@@ -13,6 +13,7 @@ use Facile\PhpCodec\Internal\Type;
 use Facile\PhpCodec\Internal\Undefined;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
+use Facile\PhpCodec\Validation\ListOfValidation;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
@@ -60,7 +61,7 @@ class ClassFromArray extends Type
 
         return Validation::map(
             destructureIn($this->builder),
-            Validation::reduceToSuccessOrAllFailures($validations)
+            ListOfValidation::reduceToSuccessOrAllFailures($validations)
         );
     }
 }

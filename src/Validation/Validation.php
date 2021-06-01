@@ -108,26 +108,13 @@ abstract class Validation
      * @psalm-template T
      * @psalm-param list<Validation<T>> $validations
      * @psalm-return Validation<list<T>>
+     *
+     * @deprecated use ListOfValidation instead
+     * @see ListOfValidation::reduceToSuccessOrAllFailures()
      */
     public static function reduceToSuccessOrAllFailures(array $validations): self
     {
-        $results = [];
-        $errors = [];
-        foreach ($validations as $v) {
-            if ($v instanceof ValidationSuccess) {
-                /** @var ValidationSuccess<T> $v */
-                $results[] = $v->getValue();
-            } else {
-                /** @var ValidationFailures<T> $v */
-                $errors[] = $v->getErrors();
-            }
-        }
-
-        if (! empty($errors)) {
-            return self::failures(\array_merge([], ...$errors));
-        }
-
-        return self::success($results);
+        return ListOfValidation::reduceToSuccessOrAllFailures($validations);
     }
 
     /**

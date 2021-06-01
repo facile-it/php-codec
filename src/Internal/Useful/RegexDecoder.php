@@ -11,6 +11,7 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @template-implements Decoder<string, string[]>
+ * @psalm-internal Facile\PhpCodec
  */
 final class RegexDecoder implements Decoder
 {

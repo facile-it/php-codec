@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec;
 
 use Facile\PhpCodec\Internal\Arrays\ListOfDecoder;
+use Facile\PhpCodec\Internal\Combinators\ArrayPropsDecoder;
 use Facile\PhpCodec\Internal\Combinators\ComposeDecoder;
 use Facile\PhpCodec\Internal\Combinators\IntersectionDecoder;
 use Facile\PhpCodec\Internal\Combinators\LiteralDecoder;
@@ -130,19 +131,20 @@ final class Decoders
     }
 
     /**
-     * @psalm-template I
+     * @psalm-template IA
+     * @psalm-template IB
      * @psalm-template A
      * @psalm-template B
      *
-     * @psalm-param Decoder<I, A> $a
-     * @psalm-param Decoder<I, B> $b
+     * @psalm-param Decoder<IA, A> $a
+     * @psalm-param Decoder<IB, B> $b
      *
-     * @psalm-return Decoder<I, A & B>
+     * @psalm-return Decoder<IA & IB, A & B>
      */
     public static function intersection(Decoder $a, Decoder $b): Decoder
     {
         // Intersection seems to mess up implements annotation
-        /** @var Decoder<I, A & B> */
+        /** @var Decoder<IA & IB, A & B> */
         return new IntersectionDecoder($a, $b);
     }
 
@@ -191,6 +193,24 @@ final class Decoders
     public static function listOf(Decoder $elementDecoder): Decoder
     {
         return new ListOfDecoder($elementDecoder);
+    }
+
+    /**
+     * @psalm-template K of array-key
+     * @psalm-template Vs
+     * @psalm-template I
+     * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
+     *
+     * @psalm-param PD $props
+     * @psalm-return Decoder<I, non-empty-array<K, Vs>>
+     *
+     * @param Decoder[] $props
+     *
+     * @return Decoder
+     */
+    public static function arrayProps(array $props): Decoder
+    {
+        return new ArrayPropsDecoder($props);
     }
 
     ############################################################

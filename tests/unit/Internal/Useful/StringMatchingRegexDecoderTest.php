@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Useful;
 
@@ -6,9 +8,9 @@ use Eris\Generator;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoder;
 use Facile\PhpCodec\Decoders;
+use function Facile\PhpCodec\destructureIn;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Tests\Facile\PhpCodec\BaseTestCase;
-use function Facile\PhpCodec\destructureIn;
 
 class StringMatchingRegexDecoderTest extends BaseTestCase
 {
@@ -41,7 +43,7 @@ class StringMatchingRegexDecoderTest extends BaseTestCase
                     })
                 )
             )
-            ->then(destructureIn(function (Decoder $d, string $i) {
+            ->then(destructureIn(function (Decoder $d, string $i): void {
                 self::asserSuccessSameTo(
                     $i,
                     $d->decode($i)
