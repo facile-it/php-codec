@@ -95,21 +95,13 @@ abstract class Validation
      * @psalm-template T
      * @psalm-param list<Validation<T>> $validations
      * @psalm-return Validation<list<T>>
+     *
+     * @deprecated use sequence in ListOfValidation
+     * @see ListOfValidation::sequence()
      */
     public static function sequence(array $validations): self
     {
-        $results = [];
-        foreach ($validations as $v) {
-            if ($v instanceof ValidationSuccess) {
-                /** @var ValidationSuccess<T> $v */
-                $results[] = $v->getValue();
-            } else {
-                /** @var ValidationFailures<T> */
-                return $v;
-            }
-        }
-
-        return self::success($results);
+        return ListOfValidation::sequence($validations);
     }
 
     /**

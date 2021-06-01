@@ -8,6 +8,7 @@ use Facile\PhpCodec\Decoder;
 use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
+use Facile\PhpCodec\Validation\ListOfValidation;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
@@ -53,7 +54,7 @@ final class ListOfDecoder implements Decoder
             $validation[] = $this->elementDecoder->validate($item, $context);
         }
 
-        return Validation::sequence($validation);
+        return ListOfValidation::sequence($validation);
     }
 
     public function decode($i): Validation
