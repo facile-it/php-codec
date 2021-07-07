@@ -220,7 +220,8 @@ final class Decoders
      * @psalm-template T of object
      * @psalm-template K of array-key
      * @psalm-template Vs
-     * @psalm-param Decoder<mixed, non-empty-array<K, Vs>> $propsDecoder
+     * @psalm-template PD of non-empty-array<K, Vs>
+     * @psalm-param Decoder<mixed, PD> $propsDecoder
      * @psalm-param callable(...Vs):T $factory
      * @psalm-param class-string<T> $fqcn
      * @psalm-return Decoder<mixed, T>

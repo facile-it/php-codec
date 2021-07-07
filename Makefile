@@ -16,6 +16,9 @@ psalm:
 type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
 
+psalm-examples:
+	./vendor/bin/psalm tests/examples --no-cache
+
 test:
 	./vendor/bin/phpunit
 
