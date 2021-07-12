@@ -8,8 +8,8 @@ use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\PathReporter;
-use Tests\Facile\PhpCodec\PathReporterTest as in;
 use function Facile\PhpCodec\strigify;
+use Tests\Facile\PhpCodec\PathReporterTest as in;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
 class PathReporterTest extends BaseTestCase
@@ -62,11 +62,15 @@ class PathReporterTest extends BaseTestCase
                 g\oneOf(g\string(), g\int(), g\bool(), g\constant(null))
             )
             ->then(
-            /**
-             * @psalm-param mixed $a
-             * @psalm-param mixed $b
-             * @psalm-param mixed $c
-             */
+                /**
+                 * @psalm-param mixed $a
+                 * @psalm-param mixed $b
+                 * @psalm-param mixed $c
+                 *
+                 * @param mixed $a
+                 * @param mixed $b
+                 * @param mixed $c
+                 */
                 function ($a, $b, $c) use ($type, $reporter): void {
                     $errors = $reporter->report(
                         $type->decode([

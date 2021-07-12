@@ -37,7 +37,7 @@ class CodecsTest extends BaseTestCase
                 )
             )
             ->then(
-            /** @psalm-param mixed $x */
+                /** @psalm-param mixed $x */
                 function ($x) use ($nullCodec): void {
                     self::assertInstanceOf(
                         ValidationFailures::class,
@@ -50,9 +50,8 @@ class CodecsTest extends BaseTestCase
         $this
             ->forAll(g\string())
             ->then(
-            /** @psalm-param mixed $x */
+                /** @psalm-param mixed $x */
                 function ($x): void {
-
                     /** @psalm-suppress DeprecatedMethod */
                     self::assertSame(
                         $x,
