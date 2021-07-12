@@ -10,6 +10,7 @@ use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 use PHPUnit\Framework\TestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class BaseTestCase extends TestCase
 {
     /**
@@ -21,6 +22,8 @@ class BaseTestCase extends TestCase
      * @param null | callable(T):R $thenDo
      *
      * @return R | T
+     *
+     * @deprecated
      */
     public static function asserSuccessInstanceOf(
         string $fqcn,
@@ -39,6 +42,31 @@ class BaseTestCase extends TestCase
         if (\is_callable($thenDo)) {
             return $thenDo($x);
         }
+
+        return $x;
+    }
+
+    /**
+     * @psalm-template A of object
+     * @psalm-template B of object
+     *
+     * @psalm-param class-string<B> $fqcn
+     * @psalm-param Validation<A>   $v
+     *
+     * @psalm-return B
+     * @psalm-assert ValidationSuccess<B> $v
+     */
+    public static function assertSuccessInstanceOf(
+        string $fqcn,
+        Validation $v
+    ) {
+        self::assertInstanceOf(
+            ValidationSuccess::class,
+            $v,
+            \implode("\n", PathReporter::create()->report($v))
+        );
+        $x = $v->getValue();
+        self::assertInstanceOf($fqcn, $x);
 
         return $x;
     }
@@ -128,6 +156,7 @@ class BaseTestCase extends TestCase
                 function () use ($input) {
                     return $input;
                 },
+                /** @psalm-param A $a */
                 function ($a) use ($codec) {
                     return $codec->encode($a);
                 },
@@ -139,9 +168,8 @@ class BaseTestCase extends TestCase
     /**
      * @psalm-template A
      * @psalm-template I
-     * @psalm-template O
      *
-     * @param Codec<A, I, O> $codec
+     * @param Codec<A, I, I> $codec
      * @param A              $a
      */
     public static function assertCodecLaw2(
@@ -150,6 +178,7 @@ class BaseTestCase extends TestCase
     ): void {
         self::asserSuccessAnd(
             $codec->decode($codec->encode($a)),
+            /** @psalm-param A $r */
             function ($r) use ($a): void {
                 self::assertEquals($a, $r);
             }

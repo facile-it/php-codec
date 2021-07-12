@@ -6,7 +6,6 @@ namespace Examples\Facile\PhpCodec;
 
 use Examples\Facile\PhpCodec\in\Coordinates;
 use Examples\Facile\PhpCodec\in\Sys;
-use Facile\PhpCodec\Decoder;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
@@ -15,22 +14,6 @@ class DecodeApiResponseTest extends BaseTestCase
 {
     public function testJsonDecoding(): void
     {
-
-
-        Decoders::classFromArrayPropsDecoder(
-            Decoders::arrayProps([
-                'lon' => Decoders::float(),
-                'lat' => Decoders::float(),
-            ]),
-            function (float $lon, float $lat): in\Coordinates {
-                return new in\Coordinates($lon, $lat);
-            },
-            in\Coordinates::class
-        );
-        Decoders::arrayProps([
-            'lon' => Decoders::float(),
-            'lat' => Decoders::float(),
-        ]);
         $decoder = Decoders::classFromArrayPropsDecoder(
             Decoders::arrayProps([
                 'coord' => Decoders::classFromArrayPropsDecoder(
@@ -76,10 +59,7 @@ class DecodeApiResponseTest extends BaseTestCase
 
         $result = $decoder->decode(\json_decode(self::weatherJson(), true));
 
-        self::asserSuccessInstanceOf(
-            in\OpenWeatherResponse::class,
-            $result
-        );
+        self::assertSuccessInstanceOf(in\OpenWeatherResponse::class, $result);
     }
 
     private static function weatherJson(): string

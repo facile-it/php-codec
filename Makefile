@@ -10,14 +10,16 @@ sh:
 	docker-compose up -d
 	docker-compose exec php bash
 
-psalm:
+psalm-src:
 	./vendor/bin/psalm src --no-cache
-
-type-assertions:
-	./vendor/bin/psalm tests/type-assertions --no-cache
 
 psalm-examples:
 	./vendor/bin/psalm tests/examples --no-cache
+
+psalm: psalm-src psalm-examples
+
+type-assertions:
+	./vendor/bin/psalm tests/type-assertions --no-cache
 
 test:
 	./vendor/bin/phpunit
