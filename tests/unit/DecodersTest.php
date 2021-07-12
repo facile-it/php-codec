@@ -8,6 +8,7 @@ use Eris\Generator;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class DecodersTest extends BaseTestCase
 {
     use TestTrait;
@@ -21,18 +22,17 @@ class DecodersTest extends BaseTestCase
             Decoders::int()
         );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generator\int()
             )
             ->then(function (int $i) use ($decoder): void {
-                self::asserSuccessInstanceOf(
+                $a = self::assertSuccessInstanceOf(
                     DecodersTest\A::class,
-                    $decoder->decode($i),
-                    function (DecodersTest\A $a) use ($i): void {
-                        self::assertSame($i, $a->getValue());
-                    }
+                    $decoder->decode($i)
                 );
+                self::assertSame($i, $a->getValue());
             });
     }
 }

@@ -34,8 +34,7 @@ final class Codecs
     }
 
     /**
-     * @template I of mixed
-     * @psalm-return Codec<int, I, int>
+     * @psalm-return Codec<int, mixed, int>
      *
      * @deprecated use decoder instead
      * @see Decoders::int()
@@ -123,7 +122,7 @@ final class Codecs
      * @psalm-template Vs
      * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
      * @psalm-param PD $props
-     * @psalm-param callable(...Vs):T           $factory
+     * @psalm-param callable(...mixed):T           $factory
      * @psalm-param class-string<T>                $fqcn
      * @psalm-return Codec<T, mixed, T>
      *

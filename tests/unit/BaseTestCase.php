@@ -47,7 +47,7 @@ class BaseTestCase extends TestCase
     }
 
     /**
-     * @psalm-template A of object
+     * @psalm-template A
      * @psalm-template B of object
      *
      * @psalm-param class-string<B> $fqcn
