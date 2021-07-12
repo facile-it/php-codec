@@ -105,6 +105,8 @@ class BaseTestCase extends TestCase
      * @param callable(T):R $thenDo
      *
      * @return R
+     *
+     * @deprecated
      */
     public static function asserSuccessAnd(
         Validation $v,
@@ -118,6 +120,26 @@ class BaseTestCase extends TestCase
 
         /** @var ValidationSuccess<T> $v */
         return $thenDo($v->getValue());
+    }
+
+    /**
+     * @psalm-template T
+     * @psalm-param Validation<T> $v
+     * @psalm-assert ValidationSuccess<T> $v
+     * @psalm-return T
+     */
+    public static function assertValidationSuccess(Validation $v)
+    {
+        self::assertInstanceOf(
+            ValidationSuccess::class,
+            $v,
+            \implode("\n", PathReporter::create()->report($v))
+        );
+
+        /** @var T $value */
+        $value = $v->getValue();
+
+        return $value;
     }
 
     /**
@@ -176,12 +198,8 @@ class BaseTestCase extends TestCase
         Codec $codec,
         $a
     ): void {
-        self::asserSuccessAnd(
-            $codec->decode($codec->encode($a)),
-            /** @psalm-param A $r */
-            function ($r) use ($a): void {
-                self::assertEquals($a, $r);
-            }
-        );
+        $r = self::assertValidationSuccess($codec->decode($codec->encode($a)));
+
+        self::assertEquals($a, $r);
     }
 }
