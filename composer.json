@@ -3,12 +3,12 @@
     "description": "A partial porting of io-ts in PHP",
     "type": "library",
     "require-dev": {
-        "vimeo/psalm": "^4.4.0",
         "phpunit/phpunit": "^8.5",
         "giorgiosironi/eris": "^0.12.0",
         "phpunit/php-code-coverage": "^7.0",
         "phpat/phpat": "^0.7.5",
-        "facile-it/facile-coding-standard": "^0.4.1"
+        "facile-it/facile-coding-standard": "^0.4.1",
+        "icomefromthenet/reverse-regex": "^0.1.0"
     },
     "license": "MIT",
     "authors": [
@@ -35,7 +35,8 @@
         }
     },
     "require": {
-        "php": "^7.2 | ^8.0"
+        "php": "^7.2 | ^8.0",
+        "vimeo/psalm": "^4.8"
     },
     "prefer-stable": true,
     "archive": {

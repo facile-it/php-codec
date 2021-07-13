@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Validation;
 
 /**
- * @psalm-template A
+ * @template A
  */
 abstract class Validation
 {
@@ -95,47 +95,26 @@ abstract class Validation
      * @psalm-template T
      * @psalm-param list<Validation<T>> $validations
      * @psalm-return Validation<list<T>>
+     *
+     * @deprecated use sequence in ListOfValidation
+     * @see ListOfValidation::sequence()
      */
     public static function sequence(array $validations): self
     {
-        $results = [];
-        foreach ($validations as $v) {
-            if ($v instanceof ValidationSuccess) {
-                /** @var ValidationSuccess<T> $v */
-                $results[] = $v->getValue();
-            } else {
-                /** @var ValidationFailures<T> */
-                return $v;
-            }
-        }
-
-        return self::success($results);
+        return ListOfValidation::sequence($validations);
     }
 
     /**
      * @psalm-template T
      * @psalm-param list<Validation<T>> $validations
      * @psalm-return Validation<list<T>>
+     *
+     * @deprecated use ListOfValidation instead
+     * @see ListOfValidation::reduceToSuccessOrAllFailures()
      */
     public static function reduceToSuccessOrAllFailures(array $validations): self
     {
-        $results = [];
-        $errors = [];
-        foreach ($validations as $v) {
-            if ($v instanceof ValidationSuccess) {
-                /** @var ValidationSuccess<T> $v */
-                $results[] = $v->getValue();
-            } else {
-                /** @var ValidationFailures<T> $v */
-                $errors[] = $v->getErrors();
-            }
-        }
-
-        if (! empty($errors)) {
-            return self::failures(\array_merge([], ...$errors));
-        }
-
-        return self::success($results);
+        return ListOfValidation::reduceToSuccessOrAllFailures($validations);
     }
 
     /**

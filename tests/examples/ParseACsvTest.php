@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Examples\Facile\PhpCodec;
 
 use Examples\Facile\PhpCodec\ParseACsvTest\in;
-use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class ParseACsvTest extends BaseTestCase
 {
     public function test(): void
@@ -18,16 +19,16 @@ class ParseACsvTest extends BaseTestCase
 3,Monte Urano,F653
 CSV;
 
-        $codec = Codecs::listt(
-            Codecs::pipe(
-                Codecs::string(),
-                Codecs::regex('/^(?<id>\d),(?<name>.*),(?<code>[A-Z]{1}\d{3})$/'),
-                Codecs::classFromArray(
-                    [
-                        'id' => Codecs::intFromString(),
-                        'name' => Codecs::string(),
-                        'code' => Codecs::string(),
-                    ],
+        $codec = Decoders::listOf(
+            Decoders::pipe(
+                Decoders::string(),
+                Decoders::regex('/^(?<id>\d),(?<name>.*),(?<code>[A-Z]{1}\d{3})$/'),
+                Decoders::classFromArrayPropsDecoder(
+                    Decoders::arrayProps([
+                        'id' => Decoders::intFromString(),
+                        'name' => Decoders::string(),
+                        'code' => Decoders::string(),
+                    ]),
                     function (int $id, string $name, string $code): in\City {
                         return new in\City($id, $name, $code);
                     },
@@ -40,27 +41,23 @@ CSV;
             \explode("\n", $simpleCsv)
         );
 
-        self::asserSuccessAnd(
-            $result,
-            function (array $cs): void {
-                /** @var in\City[] $cs */
-                self::assertContainsOnlyInstancesOf(in\City::class, $cs);
+        $cs = self::assertValidationSuccess($result);
 
-                [$milano, $roma, $mu] = $cs;
+        self::assertContainsOnlyInstancesOf(in\City::class, $cs);
 
-                self::assertSame(1, $milano->getId());
-                self::assertSame('Milano', $milano->getName());
-                self::assertSame('F205', $milano->getItalianLandRegistryCode());
+        [$milano, $roma, $mu] = $cs;
 
-                self::assertSame(2, $roma->getId());
-                self::assertSame('Roma', $roma->getName());
-                self::assertSame('H501', $roma->getItalianLandRegistryCode());
+        self::assertSame(1, $milano->getId());
+        self::assertSame('Milano', $milano->getName());
+        self::assertSame('F205', $milano->getItalianLandRegistryCode());
 
-                self::assertSame(3, $mu->getId());
-                self::assertSame('Monte Urano', $mu->getName());
-                self::assertSame('F653', $mu->getItalianLandRegistryCode());
-            }
-        );
+        self::assertSame(2, $roma->getId());
+        self::assertSame('Roma', $roma->getName());
+        self::assertSame('H501', $roma->getItalianLandRegistryCode());
+
+        self::assertSame(3, $mu->getId());
+        self::assertSame('Monte Urano', $mu->getName());
+        self::assertSame('F653', $mu->getItalianLandRegistryCode());
     }
 }
 

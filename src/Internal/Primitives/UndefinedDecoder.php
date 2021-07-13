@@ -12,9 +12,10 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @psalm-template U
- * @implements Decoder<mixed, U>
+ * @template-implements Decoder<mixed, U>
+ * @psalm-internal Facile\PhpCodec
  */
-class UndefinedDecoder implements Decoder
+final class UndefinedDecoder implements Decoder
 {
     /** @var U */
     private $default;

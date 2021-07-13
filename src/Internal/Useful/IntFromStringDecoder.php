@@ -11,6 +11,7 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @implements Decoder<string, int>
+ * @psalm-internal Facile\PhpCodec
  */
 final class IntFromStringDecoder implements Decoder
 {

@@ -10,9 +10,11 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @implements Decoder<mixed, callable>
+ * @template I of mixed
+ * @template-implements Decoder<I, callable>
+ * @psalm-internal Facile\PhpCodec
  */
-class CallableDecoder implements Decoder
+final class CallableDecoder implements Decoder
 {
     public function validate($i, Context $context): Validation
     {

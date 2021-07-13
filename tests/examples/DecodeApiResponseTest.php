@@ -6,62 +6,60 @@ namespace Examples\Facile\PhpCodec;
 
 use Examples\Facile\PhpCodec\in\Coordinates;
 use Examples\Facile\PhpCodec\in\Sys;
-use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class DecodeApiResponseTest extends BaseTestCase
 {
     public function testJsonDecoding(): void
     {
-        $codec = Codecs::classFromArray(
-            [
-                'coord' => Codecs::classFromArray(
-                    [
-                        'lon' => Codecs::float(),
-                        'lat' => Codecs::float(),
-                    ],
+        $decoder = Decoders::classFromArrayPropsDecoder(
+            Decoders::arrayProps([
+                'coord' => Decoders::classFromArrayPropsDecoder(
+                    Decoders::arrayProps([
+                        'lon' => Decoders::float(),
+                        'lat' => Decoders::float(),
+                    ]),
                     function (float $lon, float $lat): in\Coordinates {
                         return new in\Coordinates($lon, $lat);
                     },
                     in\Coordinates::class
                 ),
-                'weather' => Codecs::listt(
-                    Codecs::classFromArray(
-                        [
-                            'id' => Codecs::int(),
-                            'main' => Codecs::string(),
-                            'description' => Codecs::string(),
-                        ],
+                'weather' => Decoders::listOf(
+                    Decoders::classFromArrayPropsDecoder(
+                        Decoders::arrayProps([
+                            'id' => Decoders::int(),
+                            'main' => Decoders::string(),
+                            'description' => Decoders::string(),
+                        ]),
                         function (int $id, string $main, string $desc): in\Weather {
                             return new in\Weather($id, $main, $desc);
                         },
                         in\Weather::class
                     )
                 ),
-                'sys' => Codecs::classFromArray(
-                    [
-                        'country' => Codecs::string(),
-                        'sunrise' => Codecs::dateTimeFromIsoString(),
-                        'sunset' => Codecs::dateTimeFromIsoString(),
-                    ],
+                'sys' => Decoders::classFromArrayPropsDecoder(
+                    Decoders::arrayProps([
+                        'country' => Decoders::string(),
+                        'sunrise' => Decoders::dateTimeFromString(),
+                        'sunset' => Decoders::dateTimeFromString(),
+                    ]),
                     function (string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): in\Sys {
                         return new Sys($county, $sunrise, $sunset);
                     },
                     in\Sys::class
                 ),
-            ],
+            ]),
             function (Coordinates $coordinates, array $weathers, Sys $sys): in\OpenWeatherResponse {
                 return new in\OpenWeatherResponse($coordinates, $weathers, $sys);
             },
             in\OpenWeatherResponse::class
         );
 
-        $result = $codec->decode(\json_decode(self::weatherJson(), true));
+        $result = $decoder->decode(\json_decode(self::weatherJson(), true));
 
-        self::asserSuccessInstanceOf(
-            in\OpenWeatherResponse::class,
-            $result
-        );
+        self::assertSuccessInstanceOf(in\OpenWeatherResponse::class, $result);
     }
 
     private static function weatherJson(): string

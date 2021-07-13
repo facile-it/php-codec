@@ -10,7 +10,7 @@ use const Facile\PhpCodec\identity;
  * @psalm-template A
  * @psalm-template O
  */
-class Encode
+final class Encode
 {
     /** @var callable(A):O */
     private $encode;

@@ -8,8 +8,15 @@ use Eris\Generator as g;
 
 final class GeneratorUtils
 {
+    /**
+     * @psalm-suppress MixedInferredReturnType
+     */
     public static function scalar(): g
     {
+        /**
+         * @psalm-suppress UndefinedFunction
+         * @psalm-suppress MixedReturnStatement
+         */
         return g\oneOf(
             g\int(),
             g\float(),

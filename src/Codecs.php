@@ -4,70 +4,66 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
-use Facile\PhpCodec\Internal\Arrays\ListCodec;
-use Facile\PhpCodec\Internal\Arrays\MapType;
-use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
-use Facile\PhpCodec\Internal\Combinators\ComposeCodec;
-use Facile\PhpCodec\Internal\Combinators\LiteralType;
-use Facile\PhpCodec\Internal\Combinators\UnionCodec;
+use Facile\PhpCodec\Internal\Combinators\PipeCodec;
 use Facile\PhpCodec\Internal\IdentityEncoder;
-use Facile\PhpCodec\Internal\Primitives\BoolType;
-use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
-use Facile\PhpCodec\Internal\Primitives\FloatType;
-use Facile\PhpCodec\Internal\Primitives\IntDecoder;
-use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
-use Facile\PhpCodec\Internal\Primitives\NullType;
-use Facile\PhpCodec\Internal\Primitives\StringType;
 use Facile\PhpCodec\Internal\Primitives\UndefinedDecoder;
-use Facile\PhpCodec\Internal\Useful\DateTimeFromIsoStringType;
-use Facile\PhpCodec\Internal\Useful\IntFromStringDecoder;
-use Facile\PhpCodec\Internal\Useful\RegexType;
 use Facile\PhpCodec\Utils\ConcreteCodec;
 
 final class Codecs
 {
     /**
      * @psalm-return Codec<null, mixed, null>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::null()
      */
     public static function null(): Codec
     {
-        return new NullType();
+        return self::fromDecoder(Decoders::null());
     }
 
     /**
      * @psalm-return Codec<string, mixed, string>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::string()
      */
     public static function string(): Codec
     {
-        return new StringType();
+        return self::fromDecoder(Decoders::string());
     }
 
     /**
-     * @template I of mixed
-     * @psalm-return Codec<int, I, int>
+     * @psalm-return Codec<int, mixed, int>
      *
      * @deprecated use decoder instead
      * @see Decoders::int()
      */
     public static function int(): Codec
     {
-        return self::fromDecoder(new IntDecoder());
+        return self::fromDecoder(Decoders::int());
     }
 
     /**
      * @psalm-return Codec<float, mixed, float>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::float()
      */
     public static function float(): Codec
     {
-        return new FloatType();
+        return self::fromDecoder(Decoders::float());
     }
 
     /**
      * @psalm-return Codec<bool, mixed, bool>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::bool()
      */
     public static function bool(): Codec
     {
-        return new BoolType();
+        return self::fromDecoder(Decoders::bool());
     }
 
     /**
@@ -76,10 +72,13 @@ final class Codecs
      * @psalm-return Codec<T, mixed, T>
      *
      * @param mixed $x
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::literal()
      */
     public static function literal($x): Codec
     {
-        return new LiteralType($x);
+        return self::fromDecoder(Decoders::literal($x));
     }
 
     /**
@@ -90,42 +89,60 @@ final class Codecs
      */
     public static function intFromString(): Codec
     {
-        return self::fromDecoder(new IntFromStringDecoder());
+        return self::fromDecoder(Decoders::intFromString());
     }
 
     /**
-     * @psalm-return Codec<\DateTime, string, \DateTime>
+     * @psalm-return Codec<\DateTimeInterface, string, \DateTimeInterface>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::dateTimeFromString()
      */
     public static function dateTimeFromIsoString(): Codec
     {
-        return new DateTimeFromIsoStringType();
+        return self::fromDecoder(Decoders::dateTimeFromString());
     }
 
     /**
      * @psalm-template T
      * @psalm-param Codec<T, mixed, T> $itemCodec
      * @psalm-return Codec<list<T>, mixed, list<T>>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::listOf()
      */
     public static function listt(Codec $itemCodec): Codec
     {
-        return new ListCodec($itemCodec);
+        return self::fromDecoder(Decoders::listOf($itemCodec));
     }
 
     /**
-     * @psalm-template T
-     * @psalm-param non-empty-array<string, Codec> $props
+     * @psalm-template T of object
+     * @psalm-template K of array-key
+     * @psalm-template Vs
+     * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
+     * @psalm-param PD $props
      * @psalm-param callable(...mixed):T           $factory
      * @psalm-param class-string<T>                $fqcn
      * @psalm-return Codec<T, mixed, T>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::classFromArrayPropsDecoder()
      */
     public static function classFromArray(
         array $props,
         callable $factory,
         string $fqcn
     ): Codec {
-        return self::pipe(
-            new MapType(),
-            new ClassFromArray($props, $factory, $fqcn)
+        /** @var Decoder<mixed, non-empty-array<array-key, Vs>> $propsDecoder */
+        $propsDecoder = Decoders::arrayProps($props);
+
+        return self::fromDecoder(
+            Decoders::classFromArrayPropsDecoder(
+                $propsDecoder,
+                $factory,
+                $fqcn
+            )
         );
     }
 
@@ -150,7 +167,7 @@ final class Codecs
      * @psalm-return (func_num_args() is 2 ? Codec<B, IA, OB>
      *                          : (func_num_args() is 3 ? Codec<C, IA, OC>
      *                          : (func_num_args() is 4 ? Codec<D, IA, OD>
-     *                          : (func_num_args() is 5 ? Codec<E, IA, OC> : Codec)
+     *                          : (func_num_args() is 5 ? Codec<E, IA, OE> : Codec)
      *                          )))
      */
     public static function pipe(
@@ -161,7 +178,7 @@ final class Codecs
         ?Codec $e = null
     ): Codec {
         // Order is important: composition is not commutative
-        return new ComposeCodec(
+        return new PipeCodec(
             $a,
             $c instanceof Codec
                 ? self::pipe($b, $c, $d, $e)
@@ -169,24 +186,37 @@ final class Codecs
         );
     }
 
+    /**
+     * @param Codec $a
+     * @param Codec $b
+     * @param Codec ...$others
+     *
+     * @return Codec
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::union()
+     */
     public static function union(Codec $a, Codec $b, Codec ...$others): Codec
     {
         // Order is important, this is not commutative
         return \array_reduce(
             $others,
             static function (Codec $carry, Codec $current): Codec {
-                return new UnionCodec($current, $carry);
+                return self::fromDecoder(Decoders::union($current, $carry));
             },
-            new UnionCodec($a, $b)
+            self::fromDecoder(Decoders::union($a, $b))
         );
     }
 
     /**
      * @psalm-return Codec<string[], string, string[]>
+     *
+     * @deprecated use decoder instead
+     * @see Decoders::regex()
      */
     public static function regex(string $regex): Codec
     {
-        return new RegexType($regex);
+        return self::fromDecoder(Decoders::regex($regex));
     }
 
     /**
@@ -226,7 +256,7 @@ final class Codecs
      */
     public static function mixed(): Codec
     {
-        return self::fromDecoder(new MixedDecoder());
+        return self::fromDecoder(Decoders::mixed());
     }
 
     /**
@@ -237,6 +267,6 @@ final class Codecs
      */
     public static function callable(): Codec
     {
-        return self::fromDecoder(new CallableDecoder());
+        return self::fromDecoder(Decoders::callable());
     }
 }

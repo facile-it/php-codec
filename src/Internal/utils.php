@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal;
 
-use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Decoder;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @psalm-param non-empty-array<array-key, Codec> $props
+ * @psalm-param non-empty-array<array-key, Decoder> $props
  *
- * @param Codec[] $props
+ * @param Decoder[] $props
  */
 function nameFromProps(array $props): string
 {
@@ -22,7 +21,7 @@ function nameFromProps(array $props): string
         \implode(
             ', ',
             \array_map(
-                static function (Codec $t, $k): string {
+                static function (Decoder $t, $k): string {
                     return \sprintf(
                         '%s: %s',
                         \is_string($k) ? $k : \sprintf('[%d]', $k),

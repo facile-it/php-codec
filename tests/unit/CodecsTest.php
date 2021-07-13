@@ -7,17 +7,17 @@ namespace Tests\Facile\PhpCodec;
 use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
-use Facile\PhpCodec\Internal\Combinators\ClassFromArray;
-use Facile\PhpCodec\Internal\Useful\RegexType;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class CodecsTest extends BaseTestCase
 {
     use TestTrait;
 
     public function testCodec(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $nullCodec = Codecs::null();
 
         self::assertInstanceOf(
@@ -25,6 +25,7 @@ class CodecsTest extends BaseTestCase
             $nullCodec->decode(null)
         );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\oneOf(
@@ -35,35 +36,48 @@ class CodecsTest extends BaseTestCase
                     g\bool()
                 )
             )
-            ->then(function ($x) use ($nullCodec): void {
-                self::assertInstanceOf(
-                    ValidationFailures::class,
-                    $nullCodec->decode($x)
-                );
-            });
+            ->then(
+                /** @psalm-param mixed $x */
+                function ($x) use ($nullCodec): void {
+                    self::assertInstanceOf(
+                        ValidationFailures::class,
+                        $nullCodec->decode($x)
+                    );
+                }
+            );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(g\string())
-            ->then(function ($x): void {
-                /** @var ValidationSuccess $validation */
-                $validation = Codecs::string()->decode($x);
-                self::assertInstanceOf(ValidationSuccess::class, $validation);
-                self::assertSame($x, $validation->getValue());
-            });
+            ->then(
+                /** @psalm-param mixed $x */
+                function ($x): void {
+                    /** @psalm-suppress DeprecatedMethod */
+                    self::assertSame(
+                        $x,
+                        self::assertValidationSuccess(Codecs::string()->decode($x))
+                    );
+                }
+            );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(g\int())
-            ->then(function ($x): void {
-                /** @var ValidationSuccess $validation */
-                $validation = Codecs::int()->decode($x);
-                self::assertInstanceOf(ValidationSuccess::class, $validation);
-                self::assertSame($x, $validation->getValue());
-            });
+            ->then(
+                function (int $x): void {
+                    /** @psalm-suppress DeprecatedMethod */
+                    self::assertSame(
+                        $x,
+                        self::assertValidationSuccess(Codecs::int()->decode($x))
+                    );
+                }
+            );
     }
 
     public function testDecodeMapToClass(): void
     {
-        $type = new ClassFromArray(
+        /** @psalm-suppress DeprecatedMethod */
+        $type = Codecs::classFromArray(
             [
                 'foo' => Codecs::string(),
                 'bar' => Codecs::int(),
@@ -74,6 +88,7 @@ class CodecsTest extends BaseTestCase
             in\A::class
         );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\associative([
@@ -82,15 +97,12 @@ class CodecsTest extends BaseTestCase
                 ])
             )
             ->then(function (array $i) use ($type): void {
-                /** @var ValidationSuccess<A> $validation */
-                $validation = $type->decode($i);
-
-                self::assertInstanceOf(ValidationSuccess::class, $validation);
-                self::assertInstanceOf(in\A::class, $validation->getValue());
-                self::assertSame($i['foo'], $validation->getValue()->getFoo());
-                self::assertSame($i['bar'], $validation->getValue()->getBar());
+                $r = self::assertSuccessInstanceOf(in\A::class, $type->decode($i));
+                self::assertSame($i['foo'], $r->getFoo());
+                self::assertSame($i['bar'], $r->getBar());
             });
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\associative([
@@ -117,6 +129,7 @@ class CodecsTest extends BaseTestCase
 
     public function testUnionType(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $type = Codecs::union(
             Codecs::classFromArray(
                 [
@@ -131,6 +144,7 @@ class CodecsTest extends BaseTestCase
             Codecs::null()
         );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\associative([
@@ -139,16 +153,16 @@ class CodecsTest extends BaseTestCase
                 ])
             )
             ->then(function (array $i) use ($type): void {
-                self::asserSuccessInstanceOf(
+                $a = self::assertSuccessInstanceOf(
                     in\A::class,
-                    $type->decode($i),
-                    function (in\A $a) use ($i): void {
-                        self::assertSame($i['foo'], $a->getFoo());
-                        self::assertSame($i['bar'], $a->getBar());
-                    }
+                    $type->decode($i)
                 );
+
+                self::assertSame($i['foo'], $a->getFoo());
+                self::assertSame($i['bar'], $a->getBar());
             });
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\oneOf(
@@ -159,14 +173,14 @@ class CodecsTest extends BaseTestCase
                     g\constant(null)
                 )
             )
-            ->then(function ($i) use ($type): void {
-                $validation = $type->decode($i);
-                self::assertInstanceOf(ValidationSuccess::class, $validation);
+            ->then(function (?array $i) use ($type): void {
+                self::assertValidationSuccess($type->decode($i));
             });
     }
 
     public function testListType(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $type = Codecs::listt(
             Codecs::classFromArray(
                 [
@@ -180,11 +194,19 @@ class CodecsTest extends BaseTestCase
             )
         );
 
+        /**
+         * @psalm-suppress UndefinedFunction
+         * @psalm-suppress MixedInferredReturnType
+         */
         $this
             ->forAll(
                 g\bind(
                     g\choose(3, 10),
                     function (int $size): g {
+                        /**
+                         * @psalm-suppress UndefinedFunction
+                         * @psalm-suppress MixedReturnStatement
+                         */
                         return g\vector(
                             $size,
                             g\associative([
@@ -196,21 +218,19 @@ class CodecsTest extends BaseTestCase
                 )
             )
             ->then(function (array $list) use ($type): void {
-                self::asserSuccessAnd(
-                    $type->decode($list),
-                    function (array $decoded) use ($list): void {
-                        self::assertCount(\count($list), $decoded);
-                        self::assertContainsOnly(in\A::class, $decoded);
-                    }
-                );
+                $decoded = self::assertValidationSuccess($type->decode($list));
+
+                self::assertCount(\count($list), $decoded);
+                self::assertContainsOnly(in\A::class, $decoded);
             });
     }
 
     public function testComposition(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $type = Codecs::pipe(
             Codecs::string(),
-            new RegexType('/^foo:(?<foo>\w{2,5})#bar:(?<bar>\d{1,3})$/'),
+            Codecs::regex('/^foo:(?<foo>\w{2,5})#bar:(?<bar>\d{1,3})$/'),
             Codecs::classFromArray(
                 [
                     'foo' => Codecs::string(),
@@ -221,7 +241,7 @@ class CodecsTest extends BaseTestCase
             )
         );
 
-        self::asserSuccessInstanceOf(
+        self::assertSuccessInstanceOf(
             in\A::class,
             $type->decode('foo:abc#bar:123')
         );
@@ -229,6 +249,10 @@ class CodecsTest extends BaseTestCase
 
     public function testIntCodecLaws(): void
     {
+        /**
+         * @psalm-suppress UndefinedFunction
+         * @psalm-suppress DeprecatedMethod
+         */
         $this
             ->forAll(
                 GeneratorUtils::scalar(),

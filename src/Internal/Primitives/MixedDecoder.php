@@ -11,9 +11,10 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @psalm-template U of mixed
- * @implements Decoder<U, U>
+ * @template-implements Decoder<U, U>
+ * @psalm-internal Facile\PhpCodec
  */
-class MixedDecoder implements Decoder
+final class MixedDecoder implements Decoder
 {
     public function validate($i, Context $context): Validation
     {

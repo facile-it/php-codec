@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace Examples\Facile\PhpCodec;
 
-use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class DecodePartialPropertiesTest extends BaseTestCase
 {
     public function test(): void
     {
-        $c = Codecs::classFromArray(
-            [
-                'foo' => Codecs::string(),
-                'bar' => Codecs::union(Codecs::int(), Codecs::undefined(-1)),
-            ],
+        $c = Decoders::classFromArrayPropsDecoder(
+            Decoders::arrayProps([
+                'foo' => Decoders::string(),
+                'bar' => Decoders::union(Decoders::int(), Decoders::undefined(-1)),
+            ]),
             function (string $foo, int $bar): DecodePartialPropertiesTest\A {
                 return new DecodePartialPropertiesTest\A($foo, $bar);
             },
             DecodePartialPropertiesTest\A::class
         );
 
-        self::asserSuccessInstanceOf(
+        $a = self::assertSuccessInstanceOf(
             DecodePartialPropertiesTest\A::class,
-            $c->decode(['foo' => 'str']),
-            function (DecodePartialPropertiesTest\A $a): void {
-                self::assertSame('str', $a->getFoo());
-                self::assertSame(-1, $a->getBar());
-            }
+            $c->decode(['foo' => 'str'])
         );
+
+        self::assertSame('str', $a->getFoo());
+        self::assertSame(-1, $a->getBar());
     }
 }
 

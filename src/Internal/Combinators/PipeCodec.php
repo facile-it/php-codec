@@ -4,36 +4,41 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Internal\Combinators;
 
-use Facile\PhpCodec\Decoder;
+use Facile\PhpCodec\Codec;
 use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @psalm-template IA
  * @psalm-template A
+ * @psalm-template IA
+ * @psalm-template OA
  * @psalm-template B
+ * @psalm-template OB
  *
- * @template-implements Decoder<IA, B>
+ * Codec<A, IA, OA>
+ * Codec<B, A, OB>
+ *
+ * @implements Codec<B, IA, OB>
  * @psalm-internal Facile\PhpCodec
  */
-final class ComposeDecoder implements Decoder
+final class PipeCodec implements Codec
 {
-    /** @var Decoder<A, B> */
-    private $db;
-    /** @var Decoder<IA, A> */
-    private $da;
+    /** @var Codec<A, IA, OA> */
+    private $a;
+    /** @var Codec<B, A, OB> */
+    private $b;
 
     /**
-     * @psalm-param Decoder<A, B> $db
-     * @psalm-param Decoder<IA, A> $da
+     * @psalm-param Codec<A, IA, OA> $a
+     * @psalm-param Codec<B, A, OB>  $b
      */
     public function __construct(
-        Decoder $db,
-        Decoder $da
+        Codec $a,
+        Codec $b
     ) {
-        $this->db = $db;
-        $this->da = $da;
+        $this->a = $a;
+        $this->b = $b;
     }
 
     /**
@@ -52,9 +57,9 @@ final class ComposeDecoder implements Decoder
              * @param mixed $aValue
              */
             function ($aValue) use ($context): Validation {
-                return $this->db->validate($aValue, $context);
+                return $this->b->validate($aValue, $context);
             },
-            $this->da->validate($i, $context)
+            $this->a->validate($i, $context)
         );
     }
 
@@ -65,6 +70,11 @@ final class ComposeDecoder implements Decoder
 
     public function getName(): string
     {
-        return $this->db->getName();
+        return $this->b->getName();
+    }
+
+    public function encode($a)
+    {
+        return $this->b->encode($a);
     }
 }

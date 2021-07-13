@@ -10,8 +10,13 @@ sh:
 	docker-compose up -d
 	docker-compose exec php bash
 
-psalm:
+psalm-src:
 	./vendor/bin/psalm src --no-cache
+
+psalm-tests:
+	./vendor/bin/psalm tests --no-cache
+
+psalm: psalm-src psalm-tests
 
 type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
@@ -29,4 +34,6 @@ cs-fix:
 cs-check:
 	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
 
-ci: test cs-check psalm type-assertions architecture
+ci: test cs-fix psalm type-assertions architecture
+
+ci-check: test cs-check psalm type-assertions architecture

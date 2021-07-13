@@ -10,17 +10,23 @@ use Facile\PhpCodec\Codecs;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ * @psalm-suppress UndefinedFunction
+ */
 class CallableDecoderTest extends BaseTestCase
 {
     use TestTrait;
 
     public function testLaws(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $this
             ->forAll(
                 g\oneOf(
                     GeneratorUtils::scalar(),
                     g\map(
+                        /** @psalm-param scalar $x */
                         function ($x): callable {
                             return static function () use ($x) {
                                 return $x;
@@ -29,15 +35,19 @@ class CallableDecoderTest extends BaseTestCase
                         GeneratorUtils::scalar()
                     ),
                     g\map(
+                        /** @psalm-param scalar $x */
                         function ($x): callable {
                             return new class($x) {
+                                /** @var scalar */
                                 private $n;
 
+                                /** @psalm-param scalar $n */
                                 public function __construct($n)
                                 {
                                     $this->n = $n;
                                 }
 
+                                /** @psalm-return scalar */
                                 public function __invoke()
                                 {
                                     return $this->n;
@@ -51,6 +61,7 @@ class CallableDecoderTest extends BaseTestCase
                 ),
                 g\oneOf(
                     g\map(
+                        /** @psalm-param scalar $x */
                         function ($x): callable {
                             return static function () use ($x) {
                                 return $x;
@@ -59,15 +70,19 @@ class CallableDecoderTest extends BaseTestCase
                         GeneratorUtils::scalar()
                     ),
                     g\map(
+                        /** @psalm-param scalar $x */
                         function ($x): callable {
                             return new class($x) {
+                                /** @var scalar */
                                 private $n;
 
+                                /** @psalm-param scalar $n */
                                 public function __construct($n)
                                 {
                                     $this->n = $n;
                                 }
 
+                                /** @psalm-return scalar */
                                 public function __invoke()
                                 {
                                     return $this->n;

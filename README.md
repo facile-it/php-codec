@@ -30,57 +30,13 @@ Its documentation starts with:
 I strongly recomend the reading of [The Idea](https://github.com/gcanti/io-ts/blob/master/index.md#the-idea) section
 from the io-ts documentation.
 
-## Types and combinators
+## Decoders
 
-All the implemented codecs and combinators are exposed through methods of the class `Facile\PhpCodec\Codecs`.
+Decoders are objects with decoding capabilities.
+A decoder of type `Decoder<I, A>` takes an input of type `I` and builds a result of type `Validation<A>`.
 
-| Typescript Type | Psalm Type | Codec | 
-| --- | --- | --- |
-| `unknown` | `mixed` | `Codecs::mixed()` |
-| `null` | `null` | `Codecs::null()` |
-| `bool` | `bool` | `Codecs::bool()` |
-| `number` | `int` | `Codecs::int()` |
-| `number` | `float` | `Codecs::float()` |
-| `string` | `string` | `Codecs::string()` |
-| `'s'` | `'s'` | `Codecs::literal('s')` |
-| `Array<T>` | `list<T>` | `Codecs::listt(Type $item)` |
-| - | `A::class` | `Codecs::classFromArray(Type[] $props, callable $factory, A::class)` |
+The class `Facile\PhpCodec\Decoders` provides a list of built-in decoders.
 
 ## Examples
 
-For further examples take a look to the [examples](https://github.com/facile-it/php-codec/tree/master/tests/examples):
-
-```php
-use Facile\PhpCodec\Codecs;
-
-$codec = Codecs::classFromArray(
-    [
-        'a' => Codecs::string(),
-        'b' => Codecs::int(),
-        'c' => Codecs::bool(),
-        'd' => Codecs::float()
-    ],
-    function (string $a, int $b, bool $c, float $d): Foo {
-        return new Foo($a, $b, $c, $d);
-    },
-    Foo::class
-);
-
-// Gives an instance of ValidationSuccess<Foo>
-$validation = $codec->decode(['a' => 'hey', 'b' => 123, 'c' => false, 'd' => 1.23]);
-
-// Gives an instance of ValidationFailures
-$failures = $codec->decode(['a' => 'hey', 'b' => 123, 'c' => 'a random string', 'd' => 1.23]);
-
-class Foo { 
-    public function __construct(
-        string $a,
-        int $b,
-        bool $c,
-        float $d
-    ) {
-    // [...]
-    }
-}
-```
-
+Take a look to the [examples](https://github.com/facile-it/php-codec/tree/master/tests/examples) folder.
