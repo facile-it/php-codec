@@ -10,6 +10,7 @@ use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class IntersectionDecoderTest extends BaseTestCase
 {
     use TestTrait;
@@ -44,6 +45,7 @@ class IntersectionDecoderTest extends BaseTestCase
             Decoders::arrayProps(['b' => Decoders::int()])
         );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\associative([
@@ -51,16 +53,15 @@ class IntersectionDecoderTest extends BaseTestCase
                     'b' => g\int(),
                 ])
             )
-            ->then(function ($i) use ($d): void {
-                self::asserSuccessAnd(
-                    $d->decode($i),
-                    function (array $a): void {
-                        self::assertIsString($a['a']);
-                        self::assertIsInt($a['b']);
-                    }
+            ->then(function (array $i) use ($d): void {
+                $a = self::assertValidationSuccess(
+                    $d->decode($i)
                 );
+                self::assertIsString($a['a']);
+                self::assertIsInt($a['b']);
             });
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\oneOf(
@@ -74,7 +75,7 @@ class IntersectionDecoderTest extends BaseTestCase
                     ])
                 )
             )
-            ->then(function ($i) use ($d): void {
+            ->then(function (array $i) use ($d): void {
                 self::assertInstanceOf(
                     ValidationFailures::class,
                     $d->decode($i)
@@ -98,6 +99,7 @@ class IntersectionDecoderTest extends BaseTestCase
             )
         );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\oneOf(
@@ -113,20 +115,18 @@ class IntersectionDecoderTest extends BaseTestCase
                     ])
                 )
             )
-            ->then(function ($i) use ($d): void {
-                self::asserSuccessAnd(
-                    $d->decode($i),
-                    function (array $a): void {
-                        self::assertIsString($a['a']);
-
-                        if ($a['b'] === null) {
-                            self::assertNull($a['c']);
-                        } else {
-                            self::assertIsInt($a['b']);
-                            self::assertIsBool($a['c']);
-                        }
-                    }
+            ->then(function (array $i) use ($d): void {
+                $a = self::assertValidationSuccess(
+                    $d->decode($i)
                 );
+                self::assertIsString($a['a']);
+
+                if ($a['b'] === null) {
+                    self::assertNull($a['c']);
+                } else {
+                    self::assertIsInt($a['b']);
+                    self::assertIsBool($a['c']);
+                }
             });
 
         self::assertInstanceOf(

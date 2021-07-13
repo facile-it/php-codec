@@ -10,21 +10,27 @@ use Facile\PhpCodec\Internal\Undefined;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ * @psalm-suppress UndefinedFunction
+ */
 class UndefinedDecoderTest extends BaseTestCase
 {
     use TestTrait;
 
     public function testDefault(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $this
             ->forAll(GeneratorUtils::scalar())
-            ->then(function ($default): void {
-                self::asserSuccessAnd(
-                    Codecs::undefined($default)->decode(new Undefined()),
-                    function ($x) use ($default): void {
-                        self::assertSame($default, $x);
-                    }
-                );
-            });
+            ->then(
+                /** @psalm-param scalar $default */
+                function ($default): void {
+                    $x = self::assertValidationSuccess(
+                        Codecs::undefined($default)->decode(new Undefined())
+                    );
+                    self::assertSame($default, $x);
+                }
+            );
     }
 }

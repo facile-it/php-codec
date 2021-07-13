@@ -10,6 +10,7 @@ use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\PathReporter;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class ArrayPropsDecoderTest extends BaseTestCase
 {
     use TestTrait;
@@ -23,6 +24,7 @@ class ArrayPropsDecoderTest extends BaseTestCase
             'd' => Decoders::literal('hello'),
         ]);
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 g\associative([
@@ -32,16 +34,15 @@ class ArrayPropsDecoderTest extends BaseTestCase
                     'd' => g\constant('hello'),
                 ])
             )
-            ->then(function ($i) use ($d): void {
-                self::asserSuccessAnd(
-                    $d->decode($i),
-                    function (array $a): void {
-                        self::assertIsString($a['a']);
-                        self::assertIsInt($a['b']);
-                        self::assertIsBool($a['c']);
-                        self::assertSame('hello', $a['d']);
-                    }
+            ->then(function (array $i) use ($d): void {
+                $a = self::assertValidationSuccess(
+                    $d->decode($i)
                 );
+
+                self::assertIsString($a['a']);
+                self::assertIsInt($a['b']);
+                self::assertIsBool($a['c']);
+                self::assertSame('hello', $a['d']);
             });
 
         $msgs = PathReporter::create()

@@ -12,6 +12,7 @@ use function Facile\PhpCodec\destructureIn;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class StringMatchingRegexDecoderTest extends BaseTestCase
 {
     use TestTrait;
@@ -25,6 +26,7 @@ class StringMatchingRegexDecoderTest extends BaseTestCase
             $d->decode('hello')
         );
 
+        /** @psalm-suppress UndefinedFunction */
         $this
             ->limitTo(1000)
             ->forAll(
@@ -35,12 +37,19 @@ class StringMatchingRegexDecoderTest extends BaseTestCase
                         ['/^[a-zA-Z0-9]{2,3}$/', '^[A-Z]{3}$'],
                         ['/^[a-zA-Z0-9]{2,3}$/', '^[a-zA-Z0-9]{2,3}$'],
                     ]),
-                    destructureIn(function (string $pcreRegex, string $generatorRegex) {
+                    destructureIn(
+                    /** @psalm-suppress MixedInferredReturnType */
+                    function (string $pcreRegex, string $generatorRegex): Generator {
+                        /**
+                         * @psalm-suppress UndefinedFunction
+                         * @psalm-suppress MixedReturnStatement
+                         */
                         return Generator\tuple(
                             Decoders::stringMatchingRegex($pcreRegex),
                             Generator\regex($generatorRegex)
                         );
-                    })
+                    }
+                    )
                 )
             )
             ->then(destructureIn(function (Decoder $d, string $i): void {

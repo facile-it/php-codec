@@ -10,12 +10,17 @@ use Facile\PhpCodec\Codecs;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ * @psalm-suppress UndefinedFunction
+ */
 class StringTypeTest extends BaseTestCase
 {
     use TestTrait;
 
     public function testLaws(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $this
             ->forAll(
                 GeneratorUtils::scalar(),
