@@ -26,8 +26,6 @@ Everything rounds about the concept of decoder, encoder and codec.
 Decoders are capable of transform values from one type to another one. This transformation may fail.
 
 ```php
-<?php declare(strict_types=1);
-
 use Facile\PhpCodec\Validation\Validation;
 
 /**
@@ -68,7 +66,15 @@ I recommend reading the [The Idea](https://github.com/gcanti/io-ts/blob/master/i
 documentation of io-ts. It starts with a beautiful description of what codecs are.
 > A value of type `Type<A, O, I>` (called "codec") is the runtime representation of the static type `A`.
 
+## Getting started
+
+- this could become the main section of this doc
+
 ## Decoders
+
+- how to build decoders
+- how to decode 
+- how to deal with the output
 
 Decoders are objects with decoding capabilities.
 A decoder of type `Decoder<I, A>` takes an input of type `I` and builds a result of type `Validation<A>`.
