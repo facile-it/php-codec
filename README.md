@@ -1,5 +1,4 @@
 # Php-codec
-
 Php-codec is a partial porting of [io-ts](https://github.com/gcanti/io-ts) in PHP.
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
@@ -10,11 +9,10 @@ Php-codec is a partial porting of [io-ts](https://github.com/gcanti/io-ts) in PH
 
 ## Disclaimer
 
-This project is under active development.
-It's very unstable and poorly documented.
-The APIs are likely to change several times, and it won't be ready for production in the near future.
+This project is under active development: it's unstable and still poorly documented.
+The APIs are likely to change several times, and they won't be ready for production soon.
 
-This project follows the [semantic versioning](https://semver.org/).
+The project follows [semantic versioning](https://semver.org/).
 
 ## Installation
 
@@ -22,13 +20,53 @@ This project follows the [semantic versioning](https://semver.org/).
 
 ## Introduction
 
-This is a partial porting of the fantastic [io-ts](https://github.com/gcanti/io-ts) library for Typescript.
-Its documentation starts with:
+This project is a partial porting of the fantastic [io-ts](https://github.com/gcanti/io-ts) library for Typescript.
+Everything rounds about the concept of decoder, encoder and codec.
 
+Decoders are capable of transform values from one type to another one. This transformation may fail.
+
+```php
+<?php declare(strict_types=1);
+
+use Facile\PhpCodec\Validation\Validation;
+
+/**
+ * @psalm-template I
+ * @psalm-template A
+ */
+interface Decoder {
+     /**
+     * @psalm-param I $i
+     * @psalm-return Validation<A>
+     */
+    public function decode($i): Validation;
+    
+    /** ... */
+}
+```
+
+Encoders do a similar transformation but between types such that it cannot fail.
+
+```php
+/**
+ * @psalm-template A
+ * @psalm-template O
+ */
+interface Encoder
+{
+    /**
+     * @psalm-param A $a
+     * @psalm-return O
+     */
+    public function encode($a);
+}
+```
+
+Codecs are a combination of a decoder and an encoder, putting together their features.
+
+I recommend reading the [The Idea](https://github.com/gcanti/io-ts/blob/master/index.md#the-idea) section from the 
+documentation of io-ts. It starts with a beautiful description of what codecs are.
 > A value of type `Type<A, O, I>` (called "codec") is the runtime representation of the static type `A`.
-
-I strongly recomend the reading of [The Idea](https://github.com/gcanti/io-ts/blob/master/index.md#the-idea) section
-from the io-ts documentation.
 
 ## Decoders
 
