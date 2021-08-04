@@ -7,16 +7,16 @@ Php-codec is a partial porting of [io-ts](https://github.com/gcanti/io-ts) in PH
 [![Static analysis](https://github.com/facile-it/php-codec/actions/workflows/static-analysis.yaml/badge.svg?branch=master&event=push)](https://github.com/facile-it/php-codec/actions/workflows/static-analysis.yaml)
 [![codecov](https://codecov.io/gh/facile-it/php-codec/branch/master/graph/badge.svg?token=HP4OFEEPY6)](https://codecov.io/gh/facile-it/php-codec) [![Join the chat at https://gitter.im/php-codec/community](https://badges.gitter.im/php-codec/community.svg)](https://gitter.im/php-codec/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+Install it now. It only requires PHP > 7.2.
+    
+    composer require facile-it/php-codec
+
 ## Disclaimer
 
 This project is under active development: it's unstable and still poorly documented.
 The APIs are likely to change several times, and they won't be ready for production soon.
 
 The project follows [semantic versioning](https://semver.org/).
-
-## Installation
-
-    composer require facile-it/php-codec
 
 ## Introduction
 
@@ -68,19 +68,92 @@ documentation of io-ts. It starts with a beautiful description of what codecs ar
 
 ## Getting started
 
-- this could become the main section of this doc
+    composer require facile-it/php-codec
 
-## Decoders
-
-- how to build decoders
-- how to decode 
-- how to deal with the output
+### Decoders
 
 Decoders are objects with decoding capabilities.
 A decoder of type `Decoder<I, A>` takes an input of type `I` and builds a result of type `Validation<A>`.
 
-The class `Facile\PhpCodec\Decoders` provides a list of built-in decoders.
+The class `Facile\PhpCodec\Decoders` provides factory methods for built-in decoders and combinators.
 
-## Examples
+#### How to use decoders
+
+```php
+use Facile\PhpCodec\Decoders;
+use Facile\PhpCodec\Decoder;
+use Facile\PhpCodec\Validation\Validation;
+use Facile\PhpCodec\Validation\ValidationFailures;
+use Facile\PhpCodec\Validation\ValidationSuccess;
+
+/** @var Decoder<string, int> $decoder */
+$decoder = Decoders::intFromString();
+
+/** @var Validation<int> $v1 */
+$v1 = $decoder->decode('123');
+// Since '123' is a numeric string which represents an integer,
+// then we can expect the decoding to be successful.
+// Hence, $v1 will be instance of ValidationSuccess
+
+if($v1 instanceof ValidationSuccess) {
+    var_dump($v1->getValue());
+}
+
+/** @var Validation<int> $v2 */
+$v2 = $decoder->decode('hello');
+// Similarly, since 'hello' is not a numeric string, we expect 
+// the decoding fail. $v2 will be instance of ValidationError
+
+if($v2 instanceof ValidationFailures) {
+    var_dump($v2->getErrors());
+}
+```
+
+#### Dealing with the validation result
+
+We can use `Validation::fold` to destruct the validation result while providing 
+a valid result in any case. 
+
+```php
+use Facile\PhpCodec\Decoders;
+use Facile\PhpCodec\Decoder;
+use Facile\PhpCodec\Validation\Validation;
+
+/** @var Decoder<string, int> $decoder */
+$decoder = Decoders::intFromString();
+
+Validation::fold(
+    function (\Facile\PhpCodec\Validation\ValidationFailures $failures): int {
+        // I may not care about the error.
+        // Here I want to give a default value when the deconding fails.
+        return 0;
+    },
+    function (\Facile\PhpCodec\Validation\ValidationSuccess $success): int {
+        return $success->getValue();
+    },
+    $decoder->decode($input)
+);
+```
+
+You can use the path reporter to build well formatted error messages for failures.
+
+```php
+use Facile\PhpCodec\Decoders;
+
+$decoder = Decoders::intFromString();
+$v = $decoder->decode('hello');
+$msgs = \Facile\PhpCodec\PathReporter::create()->report($v);
+
+var_dump($msgs);
+/* This will print 
+array(1) {
+  [0] =>
+  string(49) "Invalid value "hello" supplied to : IntFromString"
+}
+*/
+```
+
+### Examples
 
 Take a look to the [examples](https://github.com/facile-it/php-codec/tree/master/tests/examples) folder.
+

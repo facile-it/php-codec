@@ -16,6 +16,16 @@ class PathReporterTest extends BaseTestCase
 {
     use TestTrait;
 
+    public function testReportBuildIn(): void
+    {
+        $d = Decoders::intFromString();
+        $v = $d->decode('hello');
+        self::assertEqualsCanonicalizing(
+            ['Invalid value "hello" supplied to : IntFromString'],
+            PathReporter::create()->report($v)
+        );
+    }
+
     public function testReportClass(): void
     {
         $type = Decoders::classFromArrayPropsDecoder(

@@ -7,14 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - `trasformValidationSuccess` function for decoders. Structurally equivalent to a map. (#24)
-- Decoders to replace codecs (#33).
+- Decoders to replace codecs. (#33)
 ### Changed
-- `Validation::sequence` moved to `ListOfValidation::sequence` (#33)
+- `Validation::sequence` moved to `ListOfValidation::sequence`. (#33)
 ### Deprecated
 - The usage of codecs is deprecated in favour of decoders. (#24)
 ### Fixed
 - Used Psalm specific annotations to avoid confusing IDEs without Psalm support. (#26)
 - Evety class in the namespace `Facile\PhpCodec\Internal` is marked as internal, and it should not be used outside. (#33)
+### Removed
+- `Facile\PhpCodec\Internal\Type`. (#33)
+- `Facile\PhpCodec\Refiner`. (#33)
 
 ## [0.0.1] - 2021-04-30 
 ### Added
