@@ -93,7 +93,7 @@ $decoder = Decoders::intFromString();
 $v1 = $decoder->decode('123');
 // Since '123' is a numeric string which represents an integer,
 // then we can expect the decoding to be successful.
-// Hence, $v1 will be instance of ValidationSuccess
+// Hence, $v1 will be istance of ValidationSuccess
 
 if($v1 instanceof ValidationSuccess) {
     var_dump($v1->getValue());
@@ -102,7 +102,7 @@ if($v1 instanceof ValidationSuccess) {
 /** @var Validation<int> $v2 */
 $v2 = $decoder->decode('hello');
 // Similarly, since 'hello' is not a numeric string, we expect 
-// the decoding fail. $v2 will be instance of ValidationError
+// the decoding fail. $v2 will be istance of ValidationError
 
 if($v2 instanceof ValidationFailures) {
     var_dump($v2->getErrors());
@@ -156,4 +156,3 @@ array(1) {
 ### Examples
 
 Take a look to the [examples](https://github.com/facile-it/php-codec/tree/master/tests/examples) folder.
-
