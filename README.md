@@ -1,5 +1,5 @@
-# Php-codec
-Php-codec is a partial porting of [io-ts](https://github.com/gcanti/io-ts) in PHP.
+# PHP-codec
+PHP-codec is a partial porting of [io-ts](https://github.com/gcanti/io-ts) in PHP.
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
 
@@ -14,7 +14,7 @@ Install it now. It only requires PHP > 7.2.
 ## Disclaimer
 
 This project is under active development: it's unstable and still poorly documented.
-The APIs are likely to change several times, and they won't be ready for production soon.
+The API is likely to change several times, and they won't be ready for production soon.
 
 The project follows [semantic versioning](https://semver.org/).
 
@@ -64,7 +64,7 @@ Codecs are a combination of a decoder and an encoder, putting together their fea
 
 I recommend reading the [The Idea](https://github.com/gcanti/io-ts/blob/master/index.md#the-idea) section from the 
 documentation of io-ts. It starts with a beautiful description of what codecs are.
-> A value of type `Type<A, O, I>` (called "codec") is the runtime representation of the static type `A`.
+> A value of type `Type<A, O, I>` (called "codec") is the run time representation of the static type `A`.
 
 ## Getting started
 
@@ -93,7 +93,7 @@ $decoder = Decoders::intFromString();
 $v1 = $decoder->decode('123');
 // Since '123' is a numeric string which represents an integer,
 // then we can expect the decoding to be successful.
-// Hence, $v1 will be istance of ValidationSuccess
+// Hence, $v1 will be an instance of ValidationSuccess
 
 if($v1 instanceof ValidationSuccess) {
     var_dump($v1->getValue());
@@ -102,7 +102,7 @@ if($v1 instanceof ValidationSuccess) {
 /** @var Validation<int> $v2 */
 $v2 = $decoder->decode('hello');
 // Similarly, since 'hello' is not a numeric string, we expect 
-// the decoding fail. $v2 will be istance of ValidationError
+// the decoding fail. $v2 will be an instance of ValidationError
 
 if($v2 instanceof ValidationFailures) {
     var_dump($v2->getErrors());
