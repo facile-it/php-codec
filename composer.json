@@ -8,7 +8,8 @@
         "phpunit/php-code-coverage": "^7.0",
         "phpat/phpat": "^0.7.5",
         "facile-it/facile-coding-standard": "^0.4.1",
-        "icomefromthenet/reverse-regex": "^0.1.0"
+        "icomefromthenet/reverse-regex": "^0.1.0",
+        "vimeo/psalm": "4.8.1"
     },
     "license": "MIT",
     "authors": [
@@ -35,8 +36,7 @@
         }
     },
     "require": {
-        "php": "^7.2 | ^8.0",
-        "vimeo/psalm": "4.8.1"
+        "php": "^7.2 | ^8.0"
     },
     "prefer-stable": true,
     "archive": {
