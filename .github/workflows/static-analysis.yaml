@@ -34,5 +34,3 @@ jobs:
       - name: Install dependencies
         uses: "ramsey/composer-install@v1"
       - run: ${{ matrix.script }}
-      - name: typos-action
-        uses: crate-ci/typos@v1.0.4
