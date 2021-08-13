@@ -36,7 +36,7 @@
     },
     "require": {
         "php": "^7.2 | ^8.0",
-        "vimeo/psalm": "^4.8"
+        "vimeo/psalm": "4.8.1"
     },
     "prefer-stable": true,
     "archive": {
