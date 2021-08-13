@@ -14,7 +14,7 @@ Install it now. It only requires PHP > 7.2.
 ## Disclaimer
 
 This project is under active development: it's unstable and still poorly documented.
-The API is likely to change several times, and they won't be ready for production soon.
+The API is likely to change several times, and it won't be ready for production soon.
 
 The project follows [semantic versioning](https://semver.org/).
 
@@ -135,7 +135,7 @@ Validation::fold(
 );
 ```
 
-You can use the path reporter to build well formatted error messages for failures.
+You can use the path reporter to build well-formatted error messages for failures.
 
 ```php
 use Facile\PhpCodec\Decoders;
