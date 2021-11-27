@@ -4,7 +4,7 @@ usage:
 	@echo "select target"
 
 setup:
-	docker-compose run php composer install
+	docker-compose run php composer install --no-interaction
 
 sh:
 	docker-compose up -d
