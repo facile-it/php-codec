@@ -22,9 +22,8 @@ abstract class Validation
     }
 
     /**
-     * @psalm-template T
      * @psalm-param list<VError> $errors
-     * @psalm-return ValidationFailures<T>
+     * @psalm-return ValidationFailures<never-return>
      *
      * @param VError[] $errors
      */
@@ -34,11 +33,10 @@ abstract class Validation
     }
 
     /**
-     * @psalm-template T
      * @psalm-param mixed $value
      * @psalm-param Context $context
      * @psalm-param string|null $message
-     * @psalm-return ValidationFailures<T>
+     * @psalm-return ValidationFailures<never-return>
      *
      * @param mixed $value
      */
