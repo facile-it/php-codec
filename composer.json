@@ -4,7 +4,7 @@
     "type": "library",
     "require-dev": {
         "phpunit/phpunit": "^8.5",
-        "giorgiosironi/eris": "^0.12.0 || ^0.13.0",
+        "giorgiosironi/eris": "^0.13.0",
         "phpunit/php-code-coverage": "^7.0",
         "phpat/phpat": "^0.7.5",
         "facile-it/facile-coding-standard": "^0.5.1",
