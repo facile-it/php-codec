@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Decoders;
-use Facile\PhpCodec\PathReporter;
+use Facile\PhpCodec\Reporters\PathReporter;
 use PHPUnit\Framework\TestCase;
 
 /** @psalm-suppress PropertyNotSetInConstructor */

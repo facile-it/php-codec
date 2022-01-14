@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Facile\PhpCodec;
+namespace Tests\Facile\PhpCodec\Reporters;
 
 use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
-use Facile\PhpCodec\PathReporter;
+use Facile\PhpCodec\Reporters\PathReporter;
 use function Facile\PhpCodec\strigify;
-use Tests\Facile\PhpCodec\PathReporterTest as in;
+use Tests\Facile\PhpCodec\BaseTestCase;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
 class PathReporterTest extends BaseTestCase
@@ -34,32 +34,32 @@ class PathReporterTest extends BaseTestCase
                 'b' => Decoders::int(),
                 'c' => Decoders::float(),
             ]),
-            function (string $a, int $b, float $c): in\A {
-                return new in\A($a, $b, $c);
+            static function (string $a, int $b, float $c): Models\A {
+                return new Models\A($a, $b, $c);
             },
-            in\A::class
+            Models\A::class
         );
 
         $reporter = new PathReporter();
 
         self::assertEquals(
-            ['Invalid value 1 supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string'],
+            ['Invalid value 1 supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/a: string'],
             $reporter->report($type->decode(['a' => 1, 'b' => 2, 'c' => 1.23]))
         );
 
         self::assertEquals(
             [
-                'Invalid value 1 supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string',
-                'Invalid value "ciao" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int',
-                'Invalid value undefined supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float',
+                'Invalid value 1 supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/a: string',
+                'Invalid value "ciao" supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/b: int',
+                'Invalid value undefined supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/c: float',
             ],
             $reporter->report($type->decode(['a' => 1, 'b' => 'ciao']))
         );
 
         self::assertEquals(
             [
-                'Invalid value "ciao" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int',
-                'Invalid value undefined supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float',
+                'Invalid value "ciao" supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/b: int',
+                'Invalid value undefined supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/c: float',
             ],
             $reporter->report($type->decode(['a' => 'ciao', 'b' => 'ciao']))
         );
@@ -92,9 +92,9 @@ class PathReporterTest extends BaseTestCase
 
                     self::assertEquals(
                         [
-                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/a: string', strigify($a)),
-                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/b: int', strigify($b)),
-                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})/c: float', strigify($c)),
+                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/a: string', strigify($a)),
+                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/b: int', strigify($b)),
+                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/c: float', strigify($c)),
                         ],
                         $errors
                     );
@@ -103,21 +103,9 @@ class PathReporterTest extends BaseTestCase
 
         self::assertEquals(
             [
-                'Invalid value "abc" supplied to : Tests\Facile\PhpCodec\PathReporterTest\A({a: string, b: int, c: float})',
+                'Invalid value "abc" supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})',
             ],
             $reporter->report($type->decode('abc'))
         );
-    }
-}
-
-namespace Tests\Facile\PhpCodec\PathReporterTest;
-
-class A
-{
-    public function __construct(
-        string $a,
-        int $b,
-        float $d
-    ) {
     }
 }

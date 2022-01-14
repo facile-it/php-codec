@@ -7,7 +7,7 @@ namespace Tests\Facile\PhpCodec\Internal\Combinators;
 use Eris\Generator as g;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
-use Facile\PhpCodec\PathReporter;
+use Facile\PhpCodec\Reporters\PathReporter;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
 /** @psalm-suppress PropertyNotSetInConstructor */

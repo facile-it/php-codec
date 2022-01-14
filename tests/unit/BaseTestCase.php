@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Facile\PhpCodec;
 
 use Facile\PhpCodec\Codec;
-use Facile\PhpCodec\PathReporter;
+use Facile\PhpCodec\Reporters\PathReporter;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 use PHPUnit\Framework\TestCase;

@@ -142,7 +142,7 @@ use Facile\PhpCodec\Decoders;
 
 $decoder = Decoders::intFromString();
 $v = $decoder->decode('hello');
-$msgs = \Facile\PhpCodec\PathReporter::create()->report($v);
+$msgs = \Facile\PhpCodec\Reporters::path()->report($v);
 
 var_dump($msgs);
 /* This will print 
