@@ -195,6 +195,81 @@ class ReportersTest extends BaseTestCase
             );
     }
 
+    /**
+     * @param Reporter $reporter
+     * @param array    $expected
+     * @param mixed    $value
+     *
+     * @return void
+     * @dataProvider provideNestedArrayPropsReport
+     */
+    public function testNestedArrayPropsReport(Reporter $reporter, $value, array $expected): void
+    {
+        $decoder = Decoders::arrayProps([
+            'a' => Decoders::arrayProps([
+                'a1' => Decoders::int(),
+                'a2' => Decoders::string(),
+            ]),
+            'b' => Decoders::arrayProps(['b1' => Decoders::bool()]),
+        ]);
+
+        self::assertReports(
+            $expected,
+            $reporter,
+            $decoder->decode($value)
+        );
+    }
+
+    public function provideNestedArrayPropsReport(): array
+    {
+        return [
+            [
+                Reporters::path(),
+                ['a' => ['a1' => 'str', 'a2' => 1], 'b' => []],
+                [
+                    'Invalid value "str" supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/a: {a1: int, a2: string}/a1: int',
+                    'Invalid value 1 supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/a: {a1: int, a2: string}/a2: string',
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/b: {b1: bool}/b1: bool',
+                ],
+            ],
+            [
+                Reporters::path(),
+                ['a' => ['a1' => 'str', 'a2' => 1], 'b' => 2],
+                [
+                    'Invalid value "str" supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/a: {a1: int, a2: string}/a1: int',
+                    'Invalid value 1 supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/a: {a1: int, a2: string}/a2: string',
+                    'Invalid value 2 supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/b: {b1: bool}',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                ['a' => ['a1' => 'str', 'a2' => 1], 'b' => []],
+                [
+                    '/a/a1: Invalid value "str" supplied to decoder "int"',
+                    '/a/a2: Invalid value 1 supplied to decoder "string"',
+                    '/b/b1: Invalid value undefined supplied to decoder "bool"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                ['a' => ['a1' => 'str', 'a2' => 1], 'b' => 2],
+                [
+                    '/a/a1: Invalid value "str" supplied to decoder "int"',
+                    '/a/a2: Invalid value 1 supplied to decoder "string"',
+                    '/b: Invalid value 2 supplied to decoder "{b1: bool}"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                ['b' => 2],
+                [
+                    '/a: Invalid value undefined supplied to decoder "{a1: int, a2: string}"',
+                    '/b: Invalid value 2 supplied to decoder "{b1: bool}"',
+                ],
+            ],
+        ];
+    }
+
     private static function assertReports(array $expected, Reporter $reporter, Validation $validation): void
     {
         self::assertEqualsCanonicalizing(
