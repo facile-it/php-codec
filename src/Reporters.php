@@ -20,7 +20,7 @@ final class Reporters
     /**
      * @return Reporter<list<string>>
      */
-    public static function simple(): Reporter
+    public static function simplePath(): Reporter
     {
         return new SimplePathReporter();
     }
