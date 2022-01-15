@@ -44,12 +44,30 @@ final class UnionDecoder implements Decoder
 
     public function validate($i, Context $context): Validation
     {
-        $contextA = $context->appendEntries(new ContextEntry((string) $this->indexBegin, $this->a, $i));
-        $va = $this->a->validate($i, $contextA);
+        $va = $this->a->validate(
+            $i,
+            $context->appendEntries(
+                new ContextEntry(
+                    (string) $this->indexBegin,
+                    $this->a,
+                    $i
+                )
+            )
+        );
 
         if ($va instanceof ValidationFailures) {
-            $contextB = $context->appendEntries(new ContextEntry((string) ($this->indexBegin + 1), $this->b, $i));
-            $vb = $this->b->validate($i, $this->b instanceof self ? $context : $contextB);
+            $vb = $this->b->validate(
+                $i,
+                $this->b instanceof self
+                    ? $context
+                    : $context->appendEntries(
+                        new ContextEntry(
+                            (string) ($this->indexBegin + 1),
+                            $this->b,
+                            $i
+                        )
+                    )
+            );
 
             if ($vb instanceof ValidationFailures) {
                 return Validation::failures(
