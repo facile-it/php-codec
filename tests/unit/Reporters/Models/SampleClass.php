@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Reporters\Models;
 
-final class A
+final class SampleClass
 {
     public function __construct(
-        string $a,
-        int $b,
-        float $c
+        string $name,
+        int $number,
+        float $amount,
+        bool $flag
     ) {
     }
 }

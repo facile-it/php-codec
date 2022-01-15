@@ -12,6 +12,7 @@ use Facile\PhpCodec\Reporters;
 use function Facile\PhpCodec\strigify;
 use Facile\PhpCodec\Validation\Validation;
 use Tests\Facile\PhpCodec\BaseTestCase;
+use Tests\Facile\PhpCodec\Reporters\Models\SampleClass;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
 class ReportersTest extends BaseTestCase
@@ -265,6 +266,72 @@ class ReportersTest extends BaseTestCase
                 [
                     '/a: Invalid value undefined supplied to decoder "{a1: int, a2: string}"',
                     '/b: Invalid value 2 supplied to decoder "{b1: bool}"',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param Reporter $reporter
+     * @param mixed    $value
+     * @param array    $expected
+     *
+     * @return void
+     * @dataProvider provideListOfClassReport
+     */
+    public function testListOfClassReport(Reporter $reporter, $value, array $expected): void
+    {
+        $decoder = Decoders::listOf(
+            Decoders::classFromArrayPropsDecoder(
+                Decoders::arrayProps([
+                    'name' => Decoders::string(),
+                    'number' => Decoders::int(),
+                    'amount' => Decoders::float(),
+                    'flag' => Decoders::bool(),
+                ]),
+                static function (string $name, int $number, float $amount, bool $flag) {
+                    return new SampleClass($name, $number, $amount, $flag);
+                },
+                'SampleClass'
+            )
+        );
+
+        self::assertReports(
+            $expected,
+            $reporter,
+            $decoder->decode($value)
+        );
+    }
+
+    public function provideListOfClassReport(): array
+    {
+        return [
+            [
+                Reporters::simplePath(),
+                [null],
+                ['/0: Invalid value null supplied to decoder "SampleClass({name: string, number: int, amount: float, flag: bool})"'],
+            ],
+            [
+                Reporters::simplePath(),
+                [
+                    ['name' => 'tom', 'number' => 1, 'amount' => true, 'flag' => 1.3],
+                    ['name' => 2, 'number' => 2],
+                ],
+                [
+                    '/0/amount: Invalid value true supplied to decoder "float"',
+                    '/0/flag: Invalid value 1.3 supplied to decoder "bool"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                [
+                    ['name' => 'tom', 'number' => 1, 'amount' => 1.3, 'flag' => true],
+                    ['name' => 2, 'number' => 2],
+                ],
+                [
+                    '/1/amount: Invalid value undefined supplied to decoder "float"',
+                    '/1/flag: Invalid value undefined supplied to decoder "bool"',
+                    '/1/name: Invalid value 2 supplied to decoder "string"',
                 ],
             ],
         ];

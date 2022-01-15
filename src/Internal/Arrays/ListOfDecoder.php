@@ -50,8 +50,17 @@ final class ListOfDecoder implements Decoder
         $validation = [];
 
         /** @var IT $item */
-        foreach ($i as $item) {
-            $validation[] = $this->elementDecoder->validate($item, $context);
+        foreach ($i as $index => $item) {
+            $validation[] = $this->elementDecoder->validate(
+                $item,
+                $context->appendEntries(
+                    new ContextEntry(
+                        (string) $index,
+                        $this->elementDecoder,
+                        $item
+                    )
+                )
+            );
         }
 
         return ListOfValidation::sequence($validation);

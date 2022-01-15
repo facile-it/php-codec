@@ -224,13 +224,13 @@ final class Decoders
      * @psalm-template CF of callable(...mixed):T
      * @psalm-param Decoder<mixed, PD> $propsDecoder
      * @psalm-param CF $factory
-     * @psalm-param class-string<T> $fqcn
+     * @psalm-param string $decoderName
      * @psalm-return Decoder<mixed, T>
      */
     public static function classFromArrayPropsDecoder(
         Decoder $propsDecoder,
         callable $factory,
-        string $fqcn
+        string $decoderName
     ): Decoder {
         return self::pipe(
             $propsDecoder,
@@ -238,7 +238,7 @@ final class Decoders
                 function (array $props) use ($factory) {
                     return destructureIn($factory)(\array_values($props));
                 },
-                \sprintf('%s(%s)', $fqcn, $propsDecoder->getName())
+                \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
             )
         );
     }
