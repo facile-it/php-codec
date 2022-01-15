@@ -7,6 +7,7 @@ namespace Facile\PhpCodec\Internal\Combinators;
 use Facile\PhpCodec\Decoder;
 use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationFailures;
 
@@ -24,6 +25,8 @@ final class UnionDecoder implements Decoder
     private $a;
     /** @var Decoder<IB, B> */
     private $b;
+    /** @var int */
+    private $indexBegin;
 
     /**
      * @psalm-param Decoder<IA, A> $a
@@ -31,18 +34,33 @@ final class UnionDecoder implements Decoder
      */
     public function __construct(
         Decoder $a,
-        Decoder $b
+        Decoder $b,
+        int $indexBegin = 0
     ) {
         $this->a = $a;
         $this->b = $b;
+        $this->indexBegin = $indexBegin;
     }
 
     public function validate($i, Context $context): Validation
     {
-        $va = $this->a->validate($i, $context);
+        $contextA = $context->appendEntries(new ContextEntry((string) $this->indexBegin, $this->a, $i));
+        $va = $this->a->validate($i, $contextA);
 
         if ($va instanceof ValidationFailures) {
-            return $this->b->validate($i, $context);
+            $contextB = $context->appendEntries(new ContextEntry((string) ($this->indexBegin + 1), $this->b, $i));
+            $vb = $this->b->validate($i, $this->b instanceof self ? $context : $contextB);
+
+            if ($vb instanceof ValidationFailures) {
+                return Validation::failures(
+                    array_merge(
+                        $va->getErrors(),
+                        $vb->getErrors()
+                    )
+                );
+            }
+
+            return $vb;
         }
 
         return $va;

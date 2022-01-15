@@ -122,12 +122,27 @@ final class Decoders
     {
         // Order is important, this is not commutative
 
-        return new UnionDecoder(
-            $a,
-            $c instanceof Decoder
-                ? self::union($b, $c, $d, $e)
-                : $b
+        $args = array_values(
+            array_filter(
+                func_get_args(),
+                static function ($x): bool {
+                    return $x instanceof Decoder;
+                }
+            )
         );
+        $argc = count($args);
+
+        $res = new UnionDecoder($args[$argc - 2], $args[$argc - 1], $argc - 2);
+
+        for ($i = $argc - 3; $i >= 0; --$i) {
+            $res = new UnionDecoder(
+                $args[$i],
+                $res,
+                $i
+            );
+        }
+
+        return $res;
     }
 
     /**

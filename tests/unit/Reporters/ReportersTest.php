@@ -365,6 +365,97 @@ class ReportersTest extends BaseTestCase
         ];
     }
 
+    /**
+     * @param Reporter $reporter
+     * @param mixed    $value
+     * @param array    $expected
+     *
+     * @return void
+     * @dataProvider provideUnionReport
+     */
+    public function testUnionReport(Reporter $reporter, $value, array $expected): void
+    {
+        $decoder = Decoders::arrayProps([
+            'a' => Decoders::union(
+                Decoders::arrayProps([
+                    'a1' => Decoders::int(),
+                    'a2' => Decoders::float(),
+                ]),
+                Decoders::arrayProps([
+                    'b1' => Decoders::string(),
+                    'b2' => Decoders::bool(),
+                ]),
+                Decoders::arrayProps([
+                    'c1' => Decoders::pipe(Decoders::string(), Decoders::regex('/^\d*$/')),
+                ])
+            ),
+        ]);
+
+        self::assertReports(
+            $expected,
+            $reporter,
+            $decoder->decode($value)
+        );
+    }
+
+    public function provideUnionReport(): array
+    {
+        return [
+            [
+                Reporters::path(),
+                null,
+                [
+                    'Invalid value null supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}',
+                ],
+            ],
+            [
+                Reporters::path(),
+                [],
+                [
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}/a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}/0: {a1: int, a2: float}',
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}/a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}/1: {b1: string, b2: bool}',
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}/a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}/2: {c1: regex(/^\d*$/)}',
+                ],
+            ],
+            [
+                Reporters::path(),
+                ['a' => ['a1' => 1]],
+                [
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}/a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}/0: {a1: int, a2: float}/a2: float',
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}/a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}/1: {b1: string, b2: bool}/b1: string',
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}/a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}/1: {b1: string, b2: bool}/b2: bool',
+                    'Invalid value undefined supplied to : {a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}/a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}/2: {c1: regex(/^\d*$/)}/c1: regex(/^\d*$/)',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                null,
+                [
+                    'Invalid value null supplied to decoder "{a: {a1: int, a2: float} | {b1: string, b2: bool} | {c1: regex(/^\d*$/)}}"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                [],
+                [
+                    '/a/0: Invalid value undefined supplied to decoder "{a1: int, a2: float}"',
+                    '/a/1: Invalid value undefined supplied to decoder "{b1: string, b2: bool}"',
+                    '/a/2: Invalid value undefined supplied to decoder "{c1: regex(/^\d*$/)}"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                ['a' => ['a1' => 1]],
+                [
+                    '/a/0/a2: Invalid value undefined supplied to decoder "float"',
+                    '/a/1/b1: Invalid value undefined supplied to decoder "string"',
+                    '/a/1/b2: Invalid value undefined supplied to decoder "bool"',
+                    '/a/2/c1: Invalid value undefined supplied to decoder "regex(/^\d*$/)"',
+                ],
+            ],
+        ];
+    }
+
     private static function assertReports(array $expected, Reporter $reporter, Validation $validation): void
     {
         self::assertEqualsCanonicalizing(
