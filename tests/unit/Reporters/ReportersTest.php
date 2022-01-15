@@ -307,6 +307,34 @@ class ReportersTest extends BaseTestCase
     {
         return [
             [
+                Reporters::path(),
+                [null],
+                ['Invalid value null supplied to : SampleClass({name: string, number: int, amount: float, flag: bool})[]/0: SampleClass({name: string, number: int, amount: float, flag: bool})'],
+            ],
+            [
+                Reporters::path(),
+                [
+                    ['name' => 'tom', 'number' => 1, 'amount' => true, 'flag' => 1.3],
+                    ['name' => 2, 'number' => 2],
+                ],
+                [
+                    'Invalid value true supplied to : SampleClass({name: string, number: int, amount: float, flag: bool})[]/0: SampleClass({name: string, number: int, amount: float, flag: bool})/amount: float',
+                    'Invalid value 1.3 supplied to : SampleClass({name: string, number: int, amount: float, flag: bool})[]/0: SampleClass({name: string, number: int, amount: float, flag: bool})/flag: bool',
+                ],
+            ],
+            [
+                Reporters::path(),
+                [
+                    ['name' => 'tom', 'number' => 1, 'amount' => 1.3, 'flag' => true],
+                    ['name' => 2, 'number' => 2],
+                ],
+                [
+                    'Invalid value undefined supplied to : SampleClass({name: string, number: int, amount: float, flag: bool})[]/1: SampleClass({name: string, number: int, amount: float, flag: bool})/amount: float',
+                    'Invalid value 2 supplied to : SampleClass({name: string, number: int, amount: float, flag: bool})[]/1: SampleClass({name: string, number: int, amount: float, flag: bool})/name: string',
+                    'Invalid value undefined supplied to : SampleClass({name: string, number: int, amount: float, flag: bool})[]/1: SampleClass({name: string, number: int, amount: float, flag: bool})/flag: bool',
+                ],
+            ],
+            [
                 Reporters::simplePath(),
                 [null],
                 ['/0: Invalid value null supplied to decoder "SampleClass({name: string, number: int, amount: float, flag: bool})"'],

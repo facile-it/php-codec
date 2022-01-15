@@ -11,14 +11,14 @@ Install it now. It only requires PHP > 7.2.
     
     composer require facile-it/php-codec
 
-## Disclaimer
+# Disclaimer
 
 This project is under active development: it's unstable and still poorly documented.
 The API is likely to change several times, and it won't be ready for production soon.
 
 The project follows [semantic versioning](https://semver.org/).
 
-## Introduction
+# Introduction
 
 This project is a partial porting of the fantastic [io-ts](https://github.com/gcanti/io-ts) library for Typescript.
 Everything rounds about the concept of decoder, encoder and codec.
@@ -66,18 +66,18 @@ I recommend reading the [The Idea](https://github.com/gcanti/io-ts/blob/master/i
 documentation of io-ts. It starts with a beautiful description of what codecs are.
 > A value of type `Type<A, O, I>` (called "codec") is the run time representation of the static type `A`.
 
-## Getting started
+# Getting started
 
     composer require facile-it/php-codec
 
-### Decoders
+## Decoders
 
 Decoders are objects with decoding capabilities.
 A decoder of type `Decoder<I, A>` takes an input of type `I` and builds a result of type `Validation<A>`.
 
 The class `Facile\PhpCodec\Decoders` provides factory methods for built-in decoders and combinators.
 
-#### How to use decoders
+### How to use decoders
 
 ```php
 use Facile\PhpCodec\Decoders;
@@ -109,7 +109,7 @@ if($v2 instanceof ValidationFailures) {
 }
 ```
 
-#### Dealing with the validation result
+### Dealing with the validation result
 
 We can use `Validation::fold` to destruct the validation result while providing 
 a valid result in any case. 
@@ -153,6 +153,21 @@ array(1) {
 */
 ```
 
-### Examples
+## Examples
 
 Take a look to the [examples](https://github.com/facile-it/php-codec/tree/master/tests/examples) folder.
+
+
+# Reporters
+
+Reporters do create reports from `Validation` objects.
+Generally speaking, reporters are objects that implement the `Reporter<T>` interface, given `T` the type of the report that the generate.
+
+One interesting group of reporters is the validation error reporters group.
+They implements `Reporter<list<string>>`.
+Thus, given a `Validation` object, they generate a list of error messages for each validation error.
+
+PHP-Codec comes with two error reporters:
+
+- PathReporter, which is a pretty straightforward porting of io-ts' [PathReporter](https://github.com/gcanti/io-ts/blob/master/index.md#error-reporters).
+- SimplePathReporter, which is a simplified (read: shorter messages) version of the PathReporter.
