@@ -171,3 +171,26 @@ PHP-Codec comes with two error reporters:
 
 - PathReporter, which is a pretty straightforward porting of io-ts' [PathReporter](https://github.com/gcanti/io-ts/blob/master/index.md#error-reporters).
 - SimplePathReporter, which is a simplified (read: shorter messages) version of the PathReporter.
+
+```php
+$d = Decoders::arrayProps([
+  'a' => Decoders::arrayProps([
+    'a1' => Decoders::int(),
+    'a2' => Decoders::string(),
+  ]),
+  'b' => Decoders::arrayProps(['b1' => Decoders::bool()])
+]);
+$v = $d->decode(['a'=> ['a1' => 'str', 'a2' => 1], 'b' => 2]);
+
+$x = \Facile\PhpCodec\Reporters::path()->report($v);
+// $x will be
+// ['Invalid value "str" supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/a: {a1: int, a2: string}/a1: int',
+//  'Invalid value 1 supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/a: {a1: int, a2: string}/a2: string',
+//  'Invalid value undefined supplied to : {a: {a1: int, a2: string}, b: {b1: bool}}/b: {b1: bool}/b1: bool']
+
+$y = \Facile\PhpCodec\Reporters::simplePath()->report($v);
+// $y will be
+// ['/a/a1: Invalid value "str" supplied to decoder "int"',
+//  '/a/a2: Invalid value 1 supplied to decoder "string"',
+//  '/b/b1: Invalid value undefined supplied to decoder "bool"']
+```
