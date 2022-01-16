@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Decoder;
+use function Facile\PhpCodec\destructureIn;
 use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
+use Facile\PhpCodec\Validation\ContextEntry;
+use Facile\PhpCodec\Validation\ListOfValidation;
 use Facile\PhpCodec\Validation\Validation;
+use Facile\PhpCodec\Validation\ValidationFailures;
+use Facile\PhpCodec\Validation\ValidationSuccess;
 
 /**
  * @psalm-template I
@@ -35,23 +40,45 @@ final class IntersectionDecoder implements Decoder
 
     public function validate($i, Context $context): Validation
     {
-        return Validation::bind(
-            /**
-             * @psalm-param A $a
-             * @psalm-return Validation<A & B>
-             *
-             * @param mixed $a
-             */
-            function ($a) use ($i): Validation {
-                /** @psalm-var Closure(B):A&B $f */
-                $f = $this->curryIntersect($a);
+        /** @var Validation<A> $va */
+        $va = $this->a->validate($i, $context->appendEntries(new ContextEntry('0', $this->a, $i)));
+        /** @var Validation<B> $vb */
+        $vb = $this->b->validate($i, $context->appendEntries(new ContextEntry('1', $this->b, $i)));
 
-                return Validation::map(
-                    $f,
-                    $this->b->decode($i)
-                );
-            },
-            $this->a->decode($i)
+        if ($va instanceof ValidationFailures && $vb instanceof ValidationFailures) {
+            return ValidationFailures::failures(
+                array_merge(
+                    $va->getErrors(),
+                    $vb->getErrors()
+                )
+            );
+        }
+
+        if ($va instanceof ValidationFailures && $vb instanceof ValidationSuccess) {
+            /** @psalm-var Validation<A&B> $va */
+            return $va;
+        }
+
+        if ($va instanceof ValidationSuccess && $vb instanceof ValidationFailures) {
+            /** @psalm-var Validation<A&B> $vb */
+            return $vb;
+        }
+
+        return Validation::map(
+            destructureIn(
+                /**
+                 * @psalm-param A $a
+                 * @psalm-param B $b
+                 * @psalm-return A&B
+                 *
+                 * @param mixed $a
+                 * @param mixed $b
+                 */
+                function ($a, $b) {
+                    return self::intersectResults($a, $b);
+                }
+            ),
+            ListOfValidation::sequence([$va, $vb])
         );
     }
 
@@ -67,37 +94,32 @@ final class IntersectionDecoder implements Decoder
     }
 
     /**
-     * @psalm-param A $a
-     * @psalm-return Closure(B):A&B
+     * @template T1
+     * @template T2
+     * @psalm-param T1 $a
+     * @psalm-param T2 $b
+     * @psalm-return T1&T2
      *
      * @param mixed $a
+     * @param mixed $b
+     *
+     * @return array|object
      */
-    private function curryIntersect($a): \Closure
+    private static function intersectResults($a, $b)
     {
-        $f =
-            /**
-             * @psalm-param B $b
-             * @psalm-return A&B
-             *
-             * @param mixed $b
-             */
-            static function ($b) use ($a) {
-                if (\is_array($a) && \is_array($b)) {
-                    /** @var A&B */
-                    return \array_merge($a, $b);
-                }
+        if (\is_array($a) && \is_array($b)) {
+            /** @var T1&T2 */
+            return \array_merge($a, $b);
+        }
 
-                if ($a instanceof \stdClass && $b instanceof \stdClass) {
-                    /** @var A&B */
-                    return (object) \array_merge((array) $a, (array) $b);
-                }
+        if ($a instanceof \stdClass && $b instanceof \stdClass) {
+            /** @var T1&T2 */
+            return (object) \array_merge((array) $a, (array) $b);
+        }
 
-                /**
-                 * @psalm-var A&B $b
-                 */
-                return $b;
-            };
-
-        return $f;
+        /**
+         * @psalm-var T1&T2 $b
+         */
+        return $b;
     }
 }

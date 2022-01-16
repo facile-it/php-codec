@@ -456,6 +456,97 @@ class ReportersTest extends BaseTestCase
         ];
     }
 
+    /**
+     * @param Reporter $reporter
+     * @param mixed    $value
+     * @param array    $expected
+     *
+     * @return void
+     * @dataProvider provideIntersectionReport
+     */
+    public function testIntersectionReport(
+        Reporter $reporter,
+        $value,
+        array $expected
+    ): void {
+        $d = Decoders::intersection(
+            Decoders::arrayProps(['a' => Decoders::string()]),
+            Decoders::arrayProps(['b' => Decoders::int()])
+        );
+
+        self::assertReports(
+            $expected,
+            $reporter,
+            $d->decode($value)
+        );
+    }
+
+    public function provideIntersectionReport(): array
+    {
+        return [
+            [
+                Reporters::path(),
+                null,
+                [
+                    'Invalid value null supplied to : {a: string} & {b: int}/0: {a: string}',
+                    'Invalid value null supplied to : {a: string} & {b: int}/1: {b: int}',
+                ],
+            ],
+            [
+                Reporters::path(),
+                [],
+                [
+                    'Invalid value undefined supplied to : {a: string} & {b: int}/0: {a: string}/a: string',
+                    'Invalid value undefined supplied to : {a: string} & {b: int}/1: {b: int}/b: int',
+                ],
+            ],
+            [
+                Reporters::path(),
+                ['a' => 'hello'],
+                ['Invalid value undefined supplied to : {a: string} & {b: int}/1: {b: int}/b: int'],
+            ],
+            [
+                Reporters::path(),
+                ['b' => 'hello'],
+                [
+                    'Invalid value undefined supplied to : {a: string} & {b: int}/0: {a: string}/a: string',
+                    'Invalid value "hello" supplied to : {a: string} & {b: int}/1: {b: int}/b: int',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                null,
+                [
+                    '/0: Invalid value null supplied to decoder "{a: string}"',
+                    '/1: Invalid value null supplied to decoder "{b: int}"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                [],
+                [
+                    '/0/a: Invalid value undefined supplied to decoder "string"',
+                    '/1/b: Invalid value undefined supplied to decoder "int"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                ['a' => 'hello'],
+                [
+                    '/1/b: Invalid value undefined supplied to decoder "int"',
+                ],
+            ],
+            [
+                Reporters::simplePath(),
+                ['b' => 'hello'],
+                [
+                    '/0/a: Invalid value undefined supplied to decoder "string"',
+                    '/1/b: Invalid value "hello" supplied to decoder "int"',
+                ],
+            ],
+        ];
+    }
+
     private static function assertReports(array $expected, Reporter $reporter, Validation $validation): void
     {
         self::assertEqualsCanonicalizing(
