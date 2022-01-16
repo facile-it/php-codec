@@ -86,6 +86,7 @@ final class Decoders
         ?Decoder $e = null
     ): Decoder {
         // Order is important: composition is not commutative
+        /** @psalm-suppress InvalidArgument */
         return self::compose(
             $c instanceof Decoder
                 ? self::pipe($b, $c, $d, $e)
@@ -246,14 +247,16 @@ final class Decoders
         callable $factory,
         string $decoderName
     ): Decoder {
+        /** @var MapDecoder<PD, T> $mapDecoder */
+        $mapDecoder = new MapDecoder(
+            function (array $props) use ($factory) {
+                return destructureIn($factory)(\array_values($props));
+            },
+            \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
+        );
         return self::pipe(
             $propsDecoder,
-            new MapDecoder(
-                function (array $props) use ($factory) {
-                    return destructureIn($factory)(\array_values($props));
-                },
-                \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
-            )
+            $mapDecoder
         );
     }
 

@@ -64,22 +64,16 @@ final class IntersectionDecoder implements Decoder
             return $vb;
         }
 
-        return Validation::map(
-            destructureIn(
-                /**
-                 * @psalm-param A $a
-                 * @psalm-param B $b
-                 * @psalm-return A&B
-                 *
-                 * @param mixed $a
-                 * @param mixed $b
-                 */
-                function ($a, $b) {
-                    return self::intersectResults($a, $b);
-                }
-            ),
-            ListOfValidation::sequence([$va, $vb])
-        );
+        if ($va instanceof ValidationSuccess && $vb instanceof ValidationSuccess) {
+            return Validation::success(
+                self::intersectResults(
+                    $va->getValue(),
+                    $vb->getValue()
+                )
+            );
+        }
+
+        throw new \LogicException('You cannot get here');
     }
 
     public function decode($i): Validation

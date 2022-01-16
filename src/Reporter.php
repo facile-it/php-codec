@@ -12,10 +12,9 @@ use Facile\PhpCodec\Validation\Validation;
 interface Reporter
 {
     /**
-     * @psalm-template A
-     * @psalm-param Validation<A> $validation
+     * @psalm-return T
      *
-     * @return T
+     * @return mixed
      */
     public function report(Validation $validation);
 }
