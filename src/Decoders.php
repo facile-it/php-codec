@@ -122,12 +122,27 @@ final class Decoders
     {
         // Order is important, this is not commutative
 
-        return new UnionDecoder(
-            $a,
-            $c instanceof Decoder
-                ? self::union($b, $c, $d, $e)
-                : $b
+        $args = array_values(
+            array_filter(
+                func_get_args(),
+                static function ($x): bool {
+                    return $x instanceof Decoder;
+                }
+            )
         );
+        $argc = count($args);
+
+        $res = new UnionDecoder($args[$argc - 2], $args[$argc - 1], $argc - 2);
+
+        for ($i = $argc - 3; $i >= 0; --$i) {
+            $res = new UnionDecoder(
+                $args[$i],
+                $res,
+                $i
+            );
+        }
+
+        return $res;
     }
 
     /**
@@ -224,13 +239,13 @@ final class Decoders
      * @psalm-template CF of callable(...mixed):T
      * @psalm-param Decoder<mixed, PD> $propsDecoder
      * @psalm-param CF $factory
-     * @psalm-param class-string<T> $fqcn
+     * @psalm-param string $decoderName
      * @psalm-return Decoder<mixed, T>
      */
     public static function classFromArrayPropsDecoder(
         Decoder $propsDecoder,
         callable $factory,
-        string $fqcn
+        string $decoderName
     ): Decoder {
         return self::pipe(
             $propsDecoder,
@@ -238,7 +253,7 @@ final class Decoders
                 function (array $props) use ($factory) {
                     return destructureIn($factory)(\array_values($props));
                 },
-                \sprintf('%s(%s)', $fqcn, $propsDecoder->getName())
+                \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
             )
         );
     }

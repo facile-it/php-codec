@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Facile\PhpCodec;
+namespace Facile\PhpCodec\Reporters;
 
+use Facile\PhpCodec\Reporter;
+use function Facile\PhpCodec\strigify;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\VError;
