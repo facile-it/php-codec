@@ -146,20 +146,19 @@ final class Decoders
     }
 
     /**
-     * @psalm-template IA
-     * @psalm-template IB
+     * @psalm-template I
      * @psalm-template A
      * @psalm-template B
      *
-     * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<IB, B> $b
+     * @psalm-param Decoder<I, A> $a
+     * @psalm-param Decoder<I, B> $b
      * Intersection works only for objects and object-like arrays :(
-     * @psalm-return (A is object ? ( B is object ? Decoder<IA & IB, A & B> : Decoder<IA & IB, A | B>) : Decoder<IA & IB, A | B>)
+     * @psalm-return (A is object ? ( B is object ? Decoder<I, A & B> : Decoder<I, A | B>) : Decoder<I, A | B>)
      */
     public static function intersection(Decoder $a, Decoder $b): Decoder
     {
         // Intersection seems to mess up implements annotation
-        /** @var Decoder<IA & IB, A & B> */
+        /** @var Decoder<I, A & B> */
         return new IntersectionDecoder($a, $b);
     }
 

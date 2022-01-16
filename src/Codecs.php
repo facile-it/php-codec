@@ -178,6 +178,7 @@ final class Codecs
         ?Codec $e = null
     ): Codec {
         // Order is important: composition is not commutative
+        /** @psalm-suppress InvalidArgument */
         return new PipeCodec(
             $a,
             $c instanceof Codec
@@ -228,7 +229,9 @@ final class Codecs
      */
     public static function fromDecoder(Decoder $decoder): Codec
     {
-        return new ConcreteCodec($decoder, new IdentityEncoder());
+        /** @var Encoder<T, T> $encoder */
+        $encoder = new IdentityEncoder();
+        return new ConcreteCodec($decoder, $encoder);
     }
 
     /**
