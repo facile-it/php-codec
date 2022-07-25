@@ -23,7 +23,7 @@ final class ListOfValidation
                 /** @var ValidationSuccess<T> $v */
                 $results[] = $v->getValue();
             } else {
-                /** @var ValidationFailures<T> */
+                /** @var ValidationFailures<never-return> */
                 return $v;
             }
         }
