@@ -1,12 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.28.0@52e96bea381e6cb07a672aefec791a5817694a26">
+  <file src="src/Decoders.php">
+    <InvalidArgument occurrences="2">
+      <code>new IntersectionDecoder($a, $b)</code>
+    </InvalidArgument>
+    <InvalidReturnStatement occurrences="1">
+      <code>new IntersectionDecoder($a, $b)</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>(A is object ? ( B is object ? Decoder&lt;IA &amp; IB, A &amp; B&gt; : Decoder&lt;IA &amp; IB, A | B&gt;) : Decoder&lt;IA &amp; IB, A | B&gt;)</code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Internal/Combinators/IntersectionDecoder.php">
+    <InvalidArgument occurrences="1">
+      <code>ListOfValidation::sequence([$va, $vb])</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Internal/Combinators/UnionDecoder.php">
+    <InvalidArgument occurrences="1">
+      <code>standardDecode($this, $i)</code>
+    </InvalidArgument>
+  </file>
+  <file src="tests/examples/CodecForSumtype/CodecForSumtypeTest.php">
+    <InvalidArgument occurrences="2"/>
+  </file>
+  <file src="tests/examples/DecodeApiResponseTest.php">
+    <InvalidArgument occurrences="3"/>
+  </file>
+  <file src="tests/examples/DecodePartialPropertiesTest.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="tests/examples/ParseACsvTest.php">
+    <InvalidArgument occurrences="2"/>
+  </file>
+  <file src="tests/type-assertions/Internal/Combinators/ArrayPropsDecoderTest.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="tests/unit/BaseTestCase.php">
+    <MixedArgumentTypeCoercion occurrences="5">
+      <code>PathReporter::create()-&gt;report($v)</code>
+      <code>PathReporter::create()-&gt;report($v)</code>
+      <code>PathReporter::create()-&gt;report($v)</code>
+      <code>PathReporter::create()-&gt;report($v)</code>
+      <code>PathReporter::create()-&gt;report($v)</code>
+    </MixedArgumentTypeCoercion>
+  </file>
   <file src="tests/unit/GeneratorUtils.php">
     <TooManyArguments occurrences="1"/>
   </file>
+  <file src="tests/unit/Internal/Combinators/ArrayPropsDecoderTest.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
   <file src="tests/unit/Internal/Combinators/IntersectionDecoderTest.php">
+    <InvalidArgument occurrences="2"/>
     <TooManyArguments occurrences="4">
       <code>Generators::oneOf(Generators::int(), Generators::float(), Generators::bool())</code>
       <code>Generators::oneOf(Generators::string(), Generators::float(), Generators::bool())</code>
     </TooManyArguments>
+  </file>
+  <file src="tests/unit/Reporters/ReportersTest.php">
+    <InvalidArgument occurrences="6"/>
   </file>
 </files>

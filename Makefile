@@ -11,18 +11,13 @@ sh:
 	docker-compose exec php bash
 
 
-.PHONY: psalm psalm-src psalm-tests psalm-update-baseline
+.PHONY: psalm psalm-update-baseline
 
-psalm-src:
-	./vendor/bin/psalm src --no-cache
-
-psalm-tests:
-	./vendor/bin/psalm tests --no-cache
-
-psalm: psalm-src psalm-tests
+psalm:
+	./vendor/bin/psalm src tests --no-cache
 
 psalm-update-baseline:
-	./vendor/bin/psalm --update-baseline src tests
+	./vendor/bin/psalm --set-baseline=psalm-baseline.xml --no-cache src tests
 
 
 .PHONY: phpstan phpstan-update-baseline
