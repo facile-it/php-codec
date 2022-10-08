@@ -12,25 +12,23 @@ use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationFailures;
 
 /**
- * @psalm-template IA
- * @psalm-template IB
+ * @psalm-template I
  * @psalm-template A
  * @psalm-template B
- * @template-implements Decoder<IA & IB, A | B>
+ * @template-implements Decoder<I, A | B>
  * @psalm-internal Facile\PhpCodec
  */
 final class UnionDecoder implements Decoder
 {
-    /** @var Decoder<IA, A> */
-    private $a;
-    /** @var Decoder<IB, B> */
-    private $b;
-    /** @var int */
-    private $indexBegin;
+    /** @var Decoder<I, A> */
+    private Decoder $a;
+    /** @var Decoder<I, B> */
+    private Decoder $b;
+    private int $indexBegin;
 
     /**
-     * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<IB, B> $b
+     * @psalm-param Decoder<I, A> $a
+     * @psalm-param Decoder<I, B> $b
      */
     public function __construct(
         Decoder $a,

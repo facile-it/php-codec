@@ -61,7 +61,6 @@ class IntersectionDecoderTest extends BaseTestCase
                 self::assertIsInt($a['b']);
             });
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::oneOf(
@@ -99,7 +98,6 @@ class IntersectionDecoderTest extends BaseTestCase
             )
         );
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::oneOf(

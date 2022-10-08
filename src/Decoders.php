@@ -155,19 +155,20 @@ final class Decoders
     }
 
     /**
-     * @psalm-template IA
-     * @psalm-template IB
+     * @psalm-template I
+     * @psalm-template I
      * @psalm-template A
      * @psalm-template B
      *
-     * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<IB, B> $b
-     * Intersection works only for objects and object-like arrays :(
-     * @psalm-return (A is object ? ( B is object ? Decoder<IA & IB, A & B> : Decoder<IA & IB, A | B>) : Decoder<IA & IB, A | B>)
+     * @psalm-param Decoder<I, A> $a
+     * @psalm-param Decoder<I, B> $b
+     * @psalm-return Decoder<I, (A & B)>
      */
     public static function intersection(Decoder $a, Decoder $b): Decoder
     {
-        return new IntersectionDecoder($a, $b);
+        /** @var Decoder<I, (A & B)> $intersectionDecoder */
+        $intersectionDecoder = new IntersectionDecoder($a, $b);
+        return $intersectionDecoder;
     }
 
     /**

@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Decoder;
-use function Facile\PhpCodec\destructureIn;
 use function Facile\PhpCodec\Internal\standardDecode;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
-use Facile\PhpCodec\Validation\ListOfValidation;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Facile\PhpCodec\Validation\ValidationSuccess;
@@ -24,9 +22,9 @@ use Facile\PhpCodec\Validation\ValidationSuccess;
 final class IntersectionDecoder implements Decoder
 {
     /** @var Decoder<I, A> */
-    private $a;
+    private Decoder $a;
     /** @var Decoder<I, B> */
-    private $b;
+    private Decoder $b;
 
     /**
      * @psalm-param Decoder<I, A> $a
@@ -45,6 +43,10 @@ final class IntersectionDecoder implements Decoder
         /** @var Validation<B> $vb */
         $vb = $this->b->validate($i, $context->appendEntries(new ContextEntry('1', $this->b, $i)));
 
+        if ($va instanceof ValidationSuccess && $vb instanceof ValidationSuccess) {
+            return Validation::success(self::intersectResults($va->getValue(), $vb->getValue()));
+        }
+
         if ($va instanceof ValidationFailures && $vb instanceof ValidationFailures) {
             return ValidationFailures::failures(
                 array_merge(
@@ -54,32 +56,17 @@ final class IntersectionDecoder implements Decoder
             );
         }
 
-        if ($va instanceof ValidationFailures && $vb instanceof ValidationSuccess) {
+        if ($va instanceof ValidationFailures) {
             /** @psalm-var Validation<A&B> $va */
             return $va;
         }
 
-        if ($va instanceof ValidationSuccess && $vb instanceof ValidationFailures) {
+        if ($vb instanceof ValidationFailures) {
             /** @psalm-var Validation<A&B> $vb */
             return $vb;
         }
 
-        return Validation::map(
-            destructureIn(
-                /**
-                 * @psalm-param A $a
-                 * @psalm-param B $b
-                 * @psalm-return A&B
-                 *
-                 * @param mixed $a
-                 * @param mixed $b
-                 */
-                function ($a, $b) {
-                    return self::intersectResults($a, $b);
-                }
-            ),
-            ListOfValidation::sequence([$va, $vb])
-        );
+        throw new \LogicException('Unhandled class');
     }
 
     public function decode($i): Validation
