@@ -1,4 +1,4 @@
-.PHONY: setup sh psalm usage test type-assertions architecture
+.PHONY: setup sh usage
 
 usage:
 	@echo "select target"
@@ -10,6 +10,9 @@ sh:
 	docker-compose up -d
 	docker-compose exec php bash
 
+
+.PHONY: psalm psalm-src psalm-tests psalm-update-baseline
+
 psalm-src:
 	./vendor/bin/psalm src --no-cache
 
@@ -18,23 +21,26 @@ psalm-tests:
 
 psalm: psalm-src psalm-tests
 
-.PHONY: phpstan-src phpstan-tests phpstan
-phpstan-src:
-	./vendor/bin/phpstan analyse src
+psalm-update-baseline:
+	./vendor/bin/psalm --update-baseline src tests
 
-phpstan-tests:
-	./vendor/bin/phpstan analyse tests
 
-phpstan: phpstan-src phpstan-tests
+.PHONY: phpstan phpstan-update-baseline
+
+phpstan:
+	./vendor/bin/phpstan analyse src tests
+
+phpstan-update-baseline:
+	./vendor/bin/phpstan analyse src tests --generate-baseline
+
+
+.PHONY: type-assertions test
 
 type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
 
 test:
 	./vendor/bin/phpunit
-
-architecture:
-	./vendor/bin/phpat
 
 .PHONY: ci cs-check cs-fix
 cs-fix:
@@ -43,6 +49,6 @@ cs-fix:
 cs-check:
 	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
 
-ci: test cs-fix psalm type-assertions architecture
+ci: test cs-fix psalm type-assertions
 
-ci-check: test cs-check psalm type-assertions architecture
+ci-check: test cs-check psalm type-assertions

@@ -1,3 +1,7 @@
+includes:
+    - vendor/phpat/phpat/extension.neon
+    - phpat.neon
+    - phpstan-baseline.neon
 parameters:
 	level: 0
 	paths:

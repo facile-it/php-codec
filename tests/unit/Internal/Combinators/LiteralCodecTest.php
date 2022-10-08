@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
 use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Codecs;
@@ -23,11 +24,11 @@ class LiteralCodecTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\bind(
-                    g\oneOf(
-                        g\int(),
-                        g\string(),
-                        g\bool()
+                Generators::bind(
+                    Generators::oneOf(
+                        Generators::int(),
+                        Generators::string(),
+                        Generators::bool()
                     ),
                     /**
                      * @psalm-param int | string | bool $literal
@@ -37,13 +38,13 @@ class LiteralCodecTest extends BaseTestCase
                      * @param mixed $literal
                      */
                     function ($literal): g {
-                        return g\tuple(
-                            g\constant(Codecs::fromDecoder(Decoders::literal($literal))),
-                            g\oneOf(
+                        return Generators::tuple(
+                            Generators::constant(Codecs::fromDecoder(Decoders::literal($literal))),
+                            Generators::oneOf(
                                 GeneratorUtils::scalar(),
-                                g\constant($literal)
+                                Generators::constant($literal)
                             ),
-                            g\constant($literal)
+                            Generators::constant($literal)
                         );
                     }
                 )

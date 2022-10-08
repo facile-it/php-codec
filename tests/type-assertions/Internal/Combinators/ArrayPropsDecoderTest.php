@@ -28,10 +28,9 @@ class ArrayPropsDecoderTest extends TypeAssertion
          * @psalm-type V = string | int
          * @psalm-param  Validation<non-empty-array<K, V>> $v
          */
-        function assert1(Validation $v): void
-        {
-        }
+        $assert1 = function (Validation $v): void {
+        };
 
-        assert1($v);
+        $assert1($v);
     }
 }

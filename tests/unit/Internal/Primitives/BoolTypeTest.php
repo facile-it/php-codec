@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
-use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
 use Tests\Facile\PhpCodec\BaseTestCase;
@@ -24,7 +24,7 @@ class BoolTypeTest extends BaseTestCase
         $this
             ->forAll(
                 GeneratorUtils::scalar(),
-                g\bool()
+                Generators::bool()
             )
             ->then(self::codecLaws(Codecs::bool()));
     }

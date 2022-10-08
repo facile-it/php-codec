@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.8.1@f73f2299dbc59a3e6c4d66cff4605176e728ee69">
+  <file src="tests/unit/CodecsTest.php">
+    <MixedArgument occurrences="1"/>
+    <TooManyArguments occurrences="4"/>
+  </file>
+  <file src="tests/unit/GeneratorUtils.php">
+    <TooManyArguments occurrences="1"/>
+  </file>
+  <file src="tests/unit/Internal/Combinators/IntersectionDecoderTest.php">
+    <TooManyArguments occurrences="4">
+      <code>Generators::oneOf(Generators::int(), Generators::float(), Generators::bool())</code>
+      <code>Generators::oneOf(Generators::string(), Generators::float(), Generators::bool())</code>
+    </TooManyArguments>
+  </file>
+  <file src="tests/unit/Internal/Combinators/LiteralCodecTest.php">
+    <TooManyArguments occurrences="2"/>
+  </file>
+  <file src="tests/unit/Internal/Primitives/CallableDecoderTest.php">
+    <TooManyArguments occurrences="2"/>
+  </file>
+  <file src="tests/unit/Internal/Primitives/NullTypeTest.php">
+    <TooManyArguments occurrences="1"/>
+  </file>
+</files>

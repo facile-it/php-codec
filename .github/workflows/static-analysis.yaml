@@ -21,8 +21,6 @@ jobs:
             script: make psalm
           - description: Type assertions
             script: make type-assertions
-          - description: Architecture assertions
-            script: make architecture
 
     name: ${{ matrix.description }}
     runs-on: ubuntu-latest

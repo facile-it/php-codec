@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
-use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
 use Tests\Facile\PhpCodec\BaseTestCase;
@@ -23,9 +23,9 @@ class CallableDecoderTest extends BaseTestCase
         /** @psalm-suppress DeprecatedMethod */
         $this
             ->forAll(
-                g\oneOf(
+                Generators::oneOf(
                     GeneratorUtils::scalar(),
-                    g\map(
+                    Generators::map(
                         /** @psalm-param scalar $x */
                         function ($x): callable {
                             return static function () use ($x) {
@@ -34,7 +34,7 @@ class CallableDecoderTest extends BaseTestCase
                         },
                         GeneratorUtils::scalar()
                     ),
-                    g\map(
+                    Generators::map(
                         /** @psalm-param scalar $x */
                         function ($x): callable {
                             return new class($x) {
@@ -56,11 +56,11 @@ class CallableDecoderTest extends BaseTestCase
                         },
                         GeneratorUtils::scalar()
                     ),
-                    g\constant('date'),
-                    g\constant([T::class, 'm'])
+                    Generators::constant('date'),
+                    Generators::constant([T::class, 'm'])
                 ),
-                g\oneOf(
-                    g\map(
+                Generators::oneOf(
+                    Generators::map(
                         /** @psalm-param scalar $x */
                         function ($x): callable {
                             return static function () use ($x) {
@@ -69,7 +69,7 @@ class CallableDecoderTest extends BaseTestCase
                         },
                         GeneratorUtils::scalar()
                     ),
-                    g\map(
+                    Generators::map(
                         /** @psalm-param scalar $x */
                         function ($x): callable {
                             return new class($x) {
@@ -91,8 +91,8 @@ class CallableDecoderTest extends BaseTestCase
                         },
                         GeneratorUtils::scalar()
                     ),
-                    g\constant('date'),
-                    g\constant([T::class, 'm'])
+                    Generators::constant('date'),
+                    Generators::constant([T::class, 'm'])
                 )
             )
             ->then(self::codecLaws(Codecs::callable()));

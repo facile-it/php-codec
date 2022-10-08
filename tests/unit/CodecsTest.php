@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec;
 
-use Eris\Generator as g;
+use Eris\Generator;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Validation\ValidationFailures;
@@ -28,12 +29,12 @@ class CodecsTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\oneOf(
-                    g\int(),
-                    g\float(),
-                    g\date(),
-                    g\string(),
-                    g\bool()
+                Generators::oneOf(
+                    Generators::int(),
+                    Generators::float(),
+                    Generators::date(),
+                    Generators::string(),
+                    Generators::bool()
                 )
             )
             ->then(
@@ -48,7 +49,7 @@ class CodecsTest extends BaseTestCase
 
         /** @psalm-suppress UndefinedFunction */
         $this
-            ->forAll(g\string())
+            ->forAll(Generators::string())
             ->then(
                 /** @psalm-param mixed $x */
                 function ($x): void {
@@ -62,7 +63,7 @@ class CodecsTest extends BaseTestCase
 
         /** @psalm-suppress UndefinedFunction */
         $this
-            ->forAll(g\int())
+            ->forAll(Generators::int())
             ->then(
                 function (int $x): void {
                     /** @psalm-suppress DeprecatedMethod */
@@ -91,9 +92,9 @@ class CodecsTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\associative([
-                    'foo' => g\string(),
-                    'bar' => g\int(),
+                Generators::associative([
+                    'foo' => Generators::string(),
+                    'bar' => Generators::int(),
                 ])
             )
             ->then(function (array $i) use ($type): void {
@@ -105,18 +106,18 @@ class CodecsTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\associative([
-                    'foo' => g\oneOf(
-                        g\int(),
-                        g\float(),
-                        g\date(),
-                        g\bool()
+                Generators::associative([
+                    'foo' => Generators::oneOf(
+                        Generators::int(),
+                        Generators::float(),
+                        Generators::date(),
+                        Generators::bool()
                     ),
-                    'bar' => g\oneOf(
-                        g\float(),
-                        g\date(),
-                        g\bool(),
-                        g\string()
+                    'bar' => Generators::oneOf(
+                        Generators::float(),
+                        Generators::date(),
+                        Generators::bool(),
+                        Generators::string()
                     ),
                 ])
             )
@@ -147,9 +148,9 @@ class CodecsTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\associative([
-                    'foo' => g\string(),
-                    'bar' => g\int(),
+                Generators::associative([
+                    'foo' => Generators::string(),
+                    'bar' => Generators::int(),
                 ])
             )
             ->then(function (array $i) use ($type): void {
@@ -165,12 +166,12 @@ class CodecsTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\oneOf(
-                    g\associative([
-                        'foo' => g\string(),
-                        'bar' => g\int(),
+                Generators::oneOf(
+                    Generators::associative([
+                        'foo' => Generators::string(),
+                        'bar' => Generators::int(),
                     ]),
-                    g\constant(null)
+                    Generators::constant(null)
                 )
             )
             ->then(function (?array $i) use ($type): void {
@@ -200,18 +201,18 @@ class CodecsTest extends BaseTestCase
          */
         $this
             ->forAll(
-                g\bind(
-                    g\choose(3, 10),
-                    function (int $size): g {
+                Generators::bind(
+                    Generators::choose(3, 10),
+                    function (int $size): Generator {
                         /**
                          * @psalm-suppress UndefinedFunction
                          * @psalm-suppress MixedReturnStatement
                          */
-                        return g\vector(
+                        return Generators::vector(
                             $size,
-                            g\associative([
-                                'foo' => g\string(),
-                                'bar' => g\int(),
+                            Generators::associative([
+                                'foo' => Generators::string(),
+                                'bar' => Generators::int(),
                             ])
                         );
                     }
@@ -256,7 +257,7 @@ class CodecsTest extends BaseTestCase
         $this
             ->forAll(
                 GeneratorUtils::scalar(),
-                g\int()
+                Generators::int()
             )
             ->then(self::codecLaws(Codecs::int()));
     }

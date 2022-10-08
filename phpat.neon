@@ -1,0 +1,5 @@
+services:
+    -
+        class: ArchitectureAssertions\Facile\PhpCodec\ArchitectureTest
+        tags:
+            - phpat.test

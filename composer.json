@@ -6,7 +6,7 @@
         "phpunit/phpunit": "^8.5",
         "giorgiosironi/eris": "^0.13.0",
         "phpunit/php-code-coverage": "^7.0",
-        "phpat/phpat": "=0.7.5",
+        "phpat/phpat": "0.10.*",
         "facile-it/facile-coding-standard": "^0.5.1",
         "vimeo/psalm": "4.8.1",
         "friendsofphp/php-cs-fixer": "^3.3",
