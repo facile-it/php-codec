@@ -54,5 +54,10 @@
     },
     "suggest": {
         "ext-json": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "facile-it/facile-coding-standard": false
+        }
     }
 }
