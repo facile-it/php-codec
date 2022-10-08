@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec;
 
-use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Reporters\PathReporter;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationSuccess;
@@ -140,66 +139,5 @@ class BaseTestCase extends TestCase
         $value = $v->getValue();
 
         return $value;
-    }
-
-    /**
-     * @psalm-template I
-     * @psalm-template A
-     * @psalm-template O
-     *
-     * @param Codec<A, I, O> $codec
-     *
-     * @return \Closure(I, A): void
-     */
-    public static function codecLaws(
-        Codec $codec
-    ): \Closure {
-        return function ($input, $a) use ($codec): void {
-            self::assertCodecLaw1($codec, $input);
-            self::assertCodecLaw2($codec, $a);
-        };
-    }
-
-    /**
-     * @psalm-template I
-     * @psalm-template A
-     * @psalm-template O
-     *
-     * @param Codec<A, I, O> $codec
-     * @param I              $input
-     */
-    public static function assertCodecLaw1(
-        Codec $codec,
-        $input
-    ): void {
-        self::assertEquals(
-            $input,
-            Validation::fold(
-                function () use ($input) {
-                    return $input;
-                },
-                /** @psalm-param A $a */
-                function ($a) use ($codec) {
-                    return $codec->encode($a);
-                },
-                $codec->decode($input)
-            )
-        );
-    }
-
-    /**
-     * @psalm-template A
-     * @psalm-template I
-     *
-     * @param Codec<A, I, I> $codec
-     * @param A              $a
-     */
-    public static function assertCodecLaw2(
-        Codec $codec,
-        $a
-    ): void {
-        $r = self::assertValidationSuccess($codec->decode($codec->encode($a)));
-
-        self::assertEquals($a, $r);
     }
 }

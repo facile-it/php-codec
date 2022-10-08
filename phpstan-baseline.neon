@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Template type U of method Facile\\\\PhpCodec\\\\Codecs\\:\\:mixed\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Codecs.php
-
-		-
 			message: "#^Template type RA of method Facile\\\\PhpCodec\\\\Decoder\\:\\:validate\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Decoder.php
@@ -19,11 +14,6 @@ parameters:
 			message: "#^Template type T of method Facile\\\\PhpCodec\\\\Decoders\\:\\:classFromArrayPropsDecoder\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Decoders.php
-
-		-
-			message: "#^Template type X of method Facile\\\\PhpCodec\\\\Internal\\\\Encode\\:\\:identity\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Internal/Encode.php
 
 		-
 			message: "#^Template type VP of method Facile\\\\PhpCodec\\\\Validation\\\\ListOfValidation\\:\\:reduceToIndexedSuccessOrAllFailures\\(\\) is not referenced in a parameter\\.$#"

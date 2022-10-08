@@ -59,24 +59,26 @@ final class Decoders
     }
 
     /**
-     * @psalm-template IA
+     * @psalm-template I
      * @psalm-template A
      * @psalm-template B
      * @psalm-template C
      * @psalm-template D
      * @psalm-template E
      *
-     * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<A, B> $b
-     * @psalm-param Decoder<B, C> | null $c
-     * @psalm-param Decoder<C, D> | null $d
-     * @psalm-param Decoder<D, E> | null $e
+     * @psalm-template DA as Decoder<I, A>
+     * @psalm-template DB as Decoder<A, B>
+     * @psalm-template DC as Decoder<B, C> | null
+     * @psalm-template DD as Decoder<C, D> | null
+     * @psalm-template DE as Decoder<D, E> | null
      *
-     * @psalm-return (func_num_args() is 2 ? Decoder<IA, B>
-     *                          : (func_num_args() is 3 ? Decoder<IA, C>
-     *                          : (func_num_args() is 4 ? Decoder<IA, D>
-     *                          : (func_num_args() is 5 ? Decoder<IA, E> : Decoder)
-     *                          )))
+     * @psalm-param DA $a
+     * @psalm-param DB $b
+     * @psalm-param DC $c
+     * @psalm-param DD $d
+     * @psalm-param DE $e
+     *
+     * @psalm-return (DC is null ? Decoder<I, B> : (DD is null ? Decoder<I, C> : (DE is null ? Decoder<I, D> : Decoder<I, E>)))
      */
     public static function pipe(
         Decoder $a,
@@ -85,13 +87,20 @@ final class Decoders
         ?Decoder $d = null,
         ?Decoder $e = null
     ): Decoder {
-        // Order is important: composition is not commutative
-        return self::compose(
-            $c instanceof Decoder
-                ? self::pipe($b, $c, $d, $e)
-                : $b,
-            $a
-        );
+        // This implementation is very bad looking, but seems to be the only one understandable for psalm
+        if ($c === null) {
+            return self::compose($b, $a);
+        }
+
+        if ($d === null) {
+            return self::compose(self::compose($c, $b), $a);
+        }
+
+        if ($e === null) {
+            return self::compose(self::compose(self::compose($d, $c), $b), $a);
+        }
+
+        return self::compose(self::compose(self::compose(self::compose($e, $d), $c), $b), $a);
     }
 
     /**
@@ -158,8 +167,6 @@ final class Decoders
      */
     public static function intersection(Decoder $a, Decoder $b): Decoder
     {
-        // Intersection seems to mess up implements annotation
-        /** @var Decoder<IA & IB, A & B> */
         return new IntersectionDecoder($a, $b);
     }
 
