@@ -18,6 +18,15 @@ psalm-tests:
 
 psalm: psalm-src psalm-tests
 
+.PHONY: phpstan-src phpstan-tests phpstan
+phpstan-src:
+	./vendor/bin/phpstan analyse src
+
+phpstan-tests:
+	./vendor/bin/phpstan analyse tests
+
+phpstan: phpstan-src phpstan-tests
+
 type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
 

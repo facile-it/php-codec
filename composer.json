@@ -9,7 +9,8 @@
         "phpat/phpat": "=0.7.5",
         "facile-it/facile-coding-standard": "^0.5.1",
         "vimeo/psalm": "4.8.1",
-        "friendsofphp/php-cs-fixer": "^3.3"
+        "friendsofphp/php-cs-fixer": "^3.3",
+        "phpstan/phpstan": "^1.8"
     },
     "license": "MIT",
     "authors": [
