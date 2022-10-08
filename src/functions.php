@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec;
 
-use Examples\Facile\PhpCodec\internal\A;
-
 /**
  * @const callable
  */
@@ -53,7 +51,7 @@ function strigify($x): string
 
 /**
  * @psalm-template R
- * @psalm-param callable(...mixed):R $f
+ * @psalm-param callable(mixed...):R $f
  * @psalm-return callable(list<mixed>):R
  */
 function destructureIn(callable $f): callable

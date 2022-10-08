@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Useful;
 
-use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
@@ -25,7 +25,7 @@ class DateTimeFromStringDecoderTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\date()
+                Generators::date()
             )
             ->then(function (\DateTimeInterface $date) use ($decoder): void {
                 self::assertSuccessInstanceOf(
@@ -38,8 +38,8 @@ class DateTimeFromStringDecoderTest extends BaseTestCase
         $this
             ->limitTo(1000)
             ->forAll(
-                g\date(),
-                g\elements([
+                Generators::date(),
+                Generators::elements([
                     \DATE_ATOM,
                     \DATE_COOKIE,
                     \DATE_ISO8601,

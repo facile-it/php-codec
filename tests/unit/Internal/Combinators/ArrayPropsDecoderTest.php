@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
-use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Reporters\PathReporter;
@@ -27,11 +27,11 @@ class ArrayPropsDecoderTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\associative([
-                    'a' => g\string(),
-                    'b' => g\int(),
-                    'c' => g\bool(),
-                    'd' => g\constant('hello'),
+                Generators::associative([
+                    'a' => Generators::string(),
+                    'b' => Generators::int(),
+                    'c' => Generators::bool(),
+                    'd' => Generators::constant('hello'),
                 ])
             )
             ->then(function (array $i) use ($d): void {

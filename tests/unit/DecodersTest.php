@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec;
 
-use Eris\Generator;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 
@@ -25,7 +25,7 @@ class DecodersTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                Generator\int()
+                Generators::int()
             )
             ->then(function (int $i) use ($decoder): void {
                 $a = self::assertSuccessInstanceOf(

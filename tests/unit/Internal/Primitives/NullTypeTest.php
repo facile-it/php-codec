@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
-use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Codecs;
 use Tests\Facile\PhpCodec\BaseTestCase;
@@ -23,11 +23,11 @@ class NullTypeTest extends BaseTestCase
         /** @psalm-suppress DeprecatedMethod */
         $this
             ->forAll(
-                g\oneOf(
+                Generators::oneOf(
                     GeneratorUtils::scalar(),
-                    g\constant(null)
+                    Generators::constant(null)
                 ),
-                g\constant(null)
+                Generators::constant(null)
             )
             ->then(self::codecLaws(Codecs::null()));
     }

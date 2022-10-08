@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Facile\PhpCodec\Internal\Combinators;
 
-use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Validation\ValidationFailures;
@@ -48,9 +48,9 @@ class IntersectionDecoderTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\associative([
-                    'a' => g\string(),
-                    'b' => g\int(),
+                Generators::associative([
+                    'a' => Generators::string(),
+                    'b' => Generators::int(),
                 ])
             )
             ->then(function (array $i) use ($d): void {
@@ -64,14 +64,14 @@ class IntersectionDecoderTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\oneOf(
-                    g\associative([
-                        'a' => g\oneOf(g\int(), g\float(), g\bool()),
-                        'b' => g\int(),
+                Generators::oneOf(
+                    Generators::associative([
+                        'a' => Generators::oneOf(Generators::int(), Generators::float(), Generators::bool()),
+                        'b' => Generators::int(),
                     ]),
-                    g\associative([
-                        'a' => g\string(),
-                        'b' => g\oneOf(g\string(), g\float(), g\bool()),
+                    Generators::associative([
+                        'a' => Generators::string(),
+                        'b' => Generators::oneOf(Generators::string(), Generators::float(), Generators::bool()),
                     ])
                 )
             )
@@ -102,16 +102,16 @@ class IntersectionDecoderTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\oneOf(
-                    g\associative([
-                        'a' => g\string(),
-                        'b' => g\int(),
-                        'c' => g\bool(),
+                Generators::oneOf(
+                    Generators::associative([
+                        'a' => Generators::string(),
+                        'b' => Generators::int(),
+                        'c' => Generators::bool(),
                     ]),
-                    g\associative([
-                        'a' => g\string(),
-                        'b' => g\constant(null),
-                        'c' => g\constant(null),
+                    Generators::associative([
+                        'a' => Generators::string(),
+                        'b' => Generators::constant(null),
+                        'c' => Generators::constant(null),
                     ])
                 )
             )

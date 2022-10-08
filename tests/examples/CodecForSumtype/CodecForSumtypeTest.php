@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Examples\Facile\PhpCodec\CodecForSumtype;
 
-use Eris\Generator as g;
+use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
@@ -53,11 +53,11 @@ class CodecForSumtypeTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\associative([
-                    'type' => g\constant(P::Type_a),
-                    'subType' => g\elements(A::SUB_foo, A::SUB_bar),
-                    'propA' => g\int(),
-                    'propB' => g\string(),
+                Generators::associative([
+                    'type' => Generators::constant(P::Type_a),
+                    'subType' => Generators::elements(A::SUB_foo, A::SUB_bar),
+                    'propA' => Generators::int(),
+                    'propB' => Generators::string(),
                 ])
             )
             ->then(function (array $i) use ($codec): void {
@@ -73,11 +73,11 @@ class CodecForSumtypeTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                g\associative([
-                    'type' => g\constant(P::Type_b),
-                    'case' => g\elements(B::CASE_B1, B::CASE_B2, B::CASE_B3),
-                    'amount' => g\float(),
-                    'flag' => g\bool(),
+                Generators::associative([
+                    'type' => Generators::constant(P::Type_b),
+                    'case' => Generators::elements(B::CASE_B1, B::CASE_B2, B::CASE_B3),
+                    'amount' => Generators::float(),
+                    'flag' => Generators::bool(),
                 ])
             )
             ->then(function (array $i) use ($codec): void {
