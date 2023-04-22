@@ -3,16 +3,18 @@
 usage:
 	@echo "select target"
 
-setup:
-	docker-compose run php composer install --no-interaction
-
-sh:
-	docker-compose up -d
-	docker-compose exec php bash
-
+.PHONY: run run-php7.4 run-php8.0 run-php8.1 run-php8.2
+run-php7.4:
+	docker-compose run --rm php74 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
+run-php8.0:
+	docker-compose run --rm php80 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
+run-php8.1:
+	docker-compose run --rm php81 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
+run-php8.2:
+	docker-compose run --rm php82 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
+run: run-php7.4
 
 .PHONY: psalm psalm-src psalm-tests psalm-update-baseline
-
 psalm-src:
 	./vendor/bin/psalm src --no-cache
 
@@ -26,7 +28,6 @@ psalm-update-baseline:
 
 
 .PHONY: phpstan phpstan-update-baseline
-
 phpstan:
 	./vendor/bin/phpstan analyse src tests
 
@@ -35,14 +36,13 @@ phpstan-update-baseline:
 
 
 .PHONY: type-assertions test
-
 type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
 
 test:
 	./vendor/bin/phpunit
 
-.PHONY: ci cs-check cs-fix
+.PHONY: ci ci-check cs-check cs-fix
 cs-fix:
 	./vendor/bin/php-cs-fixer fix --ansi --verbose
 

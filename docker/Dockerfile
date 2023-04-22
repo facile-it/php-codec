@@ -1,17 +1,15 @@
-FROM php:7.4
+ARG PHP_IMAGE
+FROM $PHP_IMAGE
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-RUN apt-get update \
-    && apt-get -y install \
-        git \
-        zip \
-    && apt-get -y install libxml2-dev \
-    && docker-php-ext-install \
-        xml \
-        dom \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+RUN apt-get update
+RUN apt-get -y install git zip libxml2-dev
+RUN docker-php-ext-install xml dom
+
+ARG XDEBUG=xdebug
+RUN pecl install ${XDEBUG}
+RUN docker-php-ext-enable xdebug
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
