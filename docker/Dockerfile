@@ -1,4 +1,5 @@
-FROM php:7.4
+ARG PHP_IMAGE
+FROM $PHP_IMAGE
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 

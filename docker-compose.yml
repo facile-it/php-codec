@@ -1,11 +1,31 @@
 version: "3.8"
 
 services:
-  php:
+  php74: &base
     build:
       context: docker/
+      args:
+        PHP_IMAGE: php:7.4
     volumes:
       - .:/home/dev/lib
     tty: true
     user: dev
     working_dir: /home/dev/lib
+  php80:
+    <<: *base
+    build:
+      context: docker/
+      args:
+        PHP_IMAGE: php:8.0
+  php81:
+    <<: *base
+    build:
+      context: docker/
+      args:
+        PHP_IMAGE: php:8.1
+  php82:
+    <<: *base
+    build:
+      context: docker/
+      args:
+        PHP_IMAGE: php:8.2
