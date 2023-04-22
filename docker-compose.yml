@@ -6,6 +6,7 @@ services:
       context: docker/
       args:
         PHP_IMAGE: php:7.4
+        XDEBUG: xdebug-3.1.5
     volumes:
       - .:/home/dev/lib
     tty: true

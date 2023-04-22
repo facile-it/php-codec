@@ -3,15 +3,15 @@
 usage:
 	@echo "select target"
 
-.PHONY: run-php7.4 run-php8.0 run-php8.1 run-php8.2
+.PHONY: run run-php7.4 run-php8.0 run-php8.1 run-php8.2
 run-php7.4:
-	docker-compose run --rm php74 bash -c "composer install --no-interaction; bash"
+	docker-compose run --rm php74 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run-php8.0:
-	docker-compose run --rm php80 bash -c "composer install --no-interaction; bash"
+	docker-compose run --rm php80 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run-php8.1:
-	docker-compose run --rm php81 bash -c "composer install --no-interaction; bash"
+	docker-compose run --rm php81 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run-php8.2:
-	docker-compose run --rm php82 bash -c "composer install --no-interaction; bash"
+	docker-compose run --rm php82 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run: run-php7.4
 
 .PHONY: psalm psalm-src psalm-tests psalm-update-baseline
