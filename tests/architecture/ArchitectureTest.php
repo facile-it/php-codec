@@ -31,30 +31,15 @@ class ArchitectureTest
             );
     }
 
-    public function testCodecsBeAnEndpointClass(): Rule
+    public function testEndpointClasses(): Rule
     {
         return PHPat::rule()
-            ->classes(Selector::namespace('Facile\PhpCodec'))
-            ->excluding(Selector::classname(Codecs::class))
+            ->classes(Selector::namespace('Facile\PhpCodec\*'))
             ->shouldNotDependOn()
-            ->classes(Selector::classname(Codecs::class));
-    }
-
-    public function testDecodersBeAnEndpointClass(): Rule
-    {
-        return PHPat::rule()
-            ->classes(Selector::namespace('Facile\PhpCodec'))
-            ->excluding(Selector::classname(Decoders::class))
-            ->shouldNotDependOn()
-            ->classes(Selector::classname(Decoders::class));
-    }
-
-    public function testReportersBeAnEndpointClass(): Rule
-    {
-        return PHPat::rule()
-            ->classes(Selector::namespace('Facile\PhpCodec'))
-            ->excluding(Selector::classname(Reporters::class))
-            ->shouldNotDependOn()
-            ->classes(Selector::classname(Reporters::class));
+            ->classes(
+                Selector::classname(Codecs::class),
+                Selector::classname(Decoders::class),
+                Selector::classname(Reporters::class)
+            );
     }
 }
