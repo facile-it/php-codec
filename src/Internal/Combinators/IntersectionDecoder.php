@@ -8,7 +8,6 @@ use Facile\PhpCodec\Decoder;
 use Facile\PhpCodec\Internal\FunctionUtils;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
-use Facile\PhpCodec\Validation\ListOfValidation;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Facile\PhpCodec\Validation\ValidationSuccess;
@@ -63,21 +62,15 @@ final class IntersectionDecoder implements Decoder
             return $vb;
         }
 
-        return Validation::map(
-            FunctionUtils::destructureIn(
-                /**
-                 * @psalm-param A $a
-                 * @psalm-param B $b
-                 * @psalm-return A&B
-                 *
-                 * @param mixed $a
-                 * @param mixed $b
-                 */
-                function ($a, $b) {
-                    return self::intersectResults($a, $b);
-                }
-            ),
-            ListOfValidation::sequence([$va, $vb])
+        /**
+         * @psalm-var ValidationSuccess<A> $va
+         * @psalm-var ValidationSuccess<B> $vb
+         */
+        return ValidationSuccess::success(
+            self::intersectResults(
+                $va->getValue(),
+                $vb->getValue()
+            )
         );
     }
 
