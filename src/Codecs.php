@@ -120,7 +120,7 @@ final class Codecs
      * @psalm-template T of object
      * @psalm-template K of array-key
      * @psalm-template Vs
-     * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
+     * @psalm-template PD of non-empty-array<K, Decoder<mixed, mixed>>
      * @psalm-param PD $props
      * @psalm-param callable(...mixed):T           $factory
      * @psalm-param class-string<T>                $fqcn
@@ -134,7 +134,7 @@ final class Codecs
         callable $factory,
         string $fqcn
     ): Codec {
-        /** @var Decoder<mixed, non-empty-array<array-key, Vs>> $propsDecoder */
+        /** @var Decoder<mixed, non-empty-array<array-key, mixed>> $propsDecoder */
         $propsDecoder = Decoders::arrayProps($props);
 
         return self::fromDecoder(
