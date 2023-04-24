@@ -20,9 +20,9 @@ use Facile\PhpCodec\Validation\Validation;
 final class ComposeDecoder implements Decoder
 {
     /** @var Decoder<A, B> */
-    private $db;
+    private \Facile\PhpCodec\Decoder $db;
     /** @var Decoder<IA, A> */
-    private $da;
+    private \Facile\PhpCodec\Decoder $da;
 
     /**
      * @psalm-param Decoder<A, B> $db
@@ -51,9 +51,7 @@ final class ComposeDecoder implements Decoder
              *
              * @param mixed $aValue
              */
-            function ($aValue) use ($context): Validation {
-                return $this->db->validate($aValue, $context);
-            },
+            fn ($aValue): Validation => $this->db->validate($aValue, $context),
             $this->da->validate($i, $context)
         );
     }

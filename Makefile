@@ -47,3 +47,7 @@ cs-check:
 ci: test phpstan psalm type-assertions cs-fix
 
 ci-check: test phpstan psalm type-assertions cs-check
+
+.PHONY: rector
+rector:
+	./vendor/bin/rector

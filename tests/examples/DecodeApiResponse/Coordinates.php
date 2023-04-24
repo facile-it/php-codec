@@ -9,10 +9,8 @@ namespace Examples\Facile\PhpCodec\DecodeApiResponse;
  */
 class Coordinates
 {
-    /** @var float */
-    private $longitude;
-    /** @var float */
-    private $latitude;
+    private float $longitude;
+    private float $latitude;
 
     public function __construct(float $longitude, float $latitude)
     {

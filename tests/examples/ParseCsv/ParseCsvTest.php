@@ -27,9 +27,7 @@ CSV;
                         'name' => Decoders::string(),
                         'code' => Decoders::string(),
                     ]),
-                    static function (int $id, string $name, string $code): City {
-                        return new City($id, $name, $code);
-                    },
+                    static fn (int $id, string $name, string $code): City => new City($id, $name, $code),
                     City::class
                 )
             )

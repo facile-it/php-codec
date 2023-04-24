@@ -70,9 +70,7 @@ class ReportersTest extends BaseTestCase
                 'b' => Decoders::int(),
                 'c' => Decoders::float(),
             ]),
-            static function (string $a, int $b, float $c): Models\A {
-                return new Models\A($a, $b, $c);
-            },
+            static fn (string $a, int $b, float $c): Models\A => new Models\A($a, $b, $c),
             Models\A::class
         );
 
@@ -151,9 +149,7 @@ class ReportersTest extends BaseTestCase
                 'b' => Decoders::int(),
                 'c' => Decoders::float(),
             ]),
-            static function (string $a, int $b, float $c): Models\A {
-                return new Models\A($a, $b, $c);
-            },
+            static fn (string $a, int $b, float $c): Models\A => new Models\A($a, $b, $c),
             Models\A::class
         );
 
@@ -289,9 +285,7 @@ class ReportersTest extends BaseTestCase
                     'amount' => Decoders::float(),
                     'flag' => Decoders::bool(),
                 ]),
-                static function (string $name, int $number, float $amount, bool $flag) {
-                    return new SampleClass($name, $number, $amount, $flag);
-                },
+                static fn (string $name, int $number, float $amount, bool $flag) => new SampleClass($name, $number, $amount, $flag),
                 'SampleClass'
             )
         );

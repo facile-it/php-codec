@@ -15,8 +15,7 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class StringMatchingRegexDecoder implements Decoder
 {
-    /** @var string */
-    private $regex;
+    private string $regex;
 
     public function __construct(string $regex)
     {

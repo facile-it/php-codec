@@ -9,11 +9,9 @@ use Facile\PhpCodec\Decoder;
 final class Context implements \Iterator
 {
     /** @var ContextEntry[] */
-    private $entries;
-    /** @var int */
-    private $currentIndex;
-    /** @var Decoder */
-    private $decoder;
+    private array $entries;
+    private int $currentIndex = 0;
+    private \Facile\PhpCodec\Decoder $decoder;
 
     /**
      * @psalm-param Decoder $decoder
@@ -24,7 +22,6 @@ final class Context implements \Iterator
         ContextEntry ...$entries
     ) {
         $this->entries = $entries;
-        $this->currentIndex = 0;
         $this->decoder = $decoder;
     }
 

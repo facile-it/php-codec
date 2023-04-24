@@ -23,9 +23,9 @@ use Facile\PhpCodec\Validation\ValidationSuccess;
 final class IntersectionDecoder implements Decoder
 {
     /** @var Decoder<IA, A> */
-    private $a;
+    private \Facile\PhpCodec\Decoder $a;
     /** @var Decoder<IB, B> */
-    private $b;
+    private \Facile\PhpCodec\Decoder $b;
 
     /**
      * @psalm-param Decoder<IA, A> $a
@@ -46,10 +46,7 @@ final class IntersectionDecoder implements Decoder
 
         if ($va instanceof ValidationFailures && $vb instanceof ValidationFailures) {
             return ValidationFailures::failures(
-                array_merge(
-                    $va->getErrors(),
-                    $vb->getErrors()
-                )
+                [...$va->getErrors(), ...$vb->getErrors()]
             );
         }
 

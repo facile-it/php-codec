@@ -11,7 +11,7 @@ namespace Facile\PhpCodec\Validation;
 final class ValidationFailures extends Validation
 {
     /** @var list<VError> */
-    private $errors;
+    private array $errors;
 
     /**
      * @psalm-param list<VError> $errors

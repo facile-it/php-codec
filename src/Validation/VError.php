@@ -8,10 +8,8 @@ final class VError
 {
     /** @var mixed */
     private $value;
-    /** @var Context */
-    private $context;
-    /** @var string|null */
-    private $message;
+    private \Facile\PhpCodec\Validation\Context $context;
+    private ?string $message = null;
 
     /**
      * @psalm-param mixed       $value

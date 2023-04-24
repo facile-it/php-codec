@@ -135,9 +135,7 @@ final class Decoders
         $args = array_values(
             array_filter(
                 func_get_args(),
-                static function ($x): bool {
-                    return $x instanceof Decoder;
-                }
+                static fn ($x): bool => $x instanceof Decoder
             )
         );
         $argc = count($args);
@@ -255,9 +253,7 @@ final class Decoders
     ): Decoder {
         /** @psalm-var Decoder<Properties, T> $mapDecoder */
         $mapDecoder = new MapDecoder(
-            function (array $props) use ($factory) {
-                return Internal\FunctionUtils::destructureIn($factory)(\array_values($props));
-            },
+            fn (array $props) => Internal\FunctionUtils::destructureIn($factory)(\array_values($props)),
             \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
         );
 

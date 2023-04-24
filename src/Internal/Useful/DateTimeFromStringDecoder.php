@@ -16,10 +16,9 @@ use Facile\PhpCodec\Validation\Validation;
 final class DateTimeFromStringDecoder implements Decoder
 {
     /**
-     * @var string
      * @psalm-readonly
      */
-    private $format;
+    private string $format;
 
     public function __construct(string $format = \DATE_ATOM)
     {

@@ -17,9 +17,7 @@ class DecodePartialPropertiesTest extends BaseTestCase
                 'foo' => Decoders::string(),
                 'bar' => Decoders::union(Decoders::int(), Decoders::undefined(-1)),
             ]),
-            function (string $foo, int $bar): DecodePartialPropertiesTest\A {
-                return new DecodePartialPropertiesTest\A($foo, $bar);
-            },
+            fn (string $foo, int $bar): DecodePartialPropertiesTest\A => new DecodePartialPropertiesTest\A($foo, $bar),
             DecodePartialPropertiesTest\A::class
         );
 
@@ -37,10 +35,8 @@ namespace Examples\Facile\PhpCodec\DecodePartialPropertiesTest;
 
 class A
 {
-    /** @var string */
-    private $foo;
-    /** @var int */
-    private $bar;
+    private string $foo;
+    private int $bar;
 
     public function __construct(
         string $foo,

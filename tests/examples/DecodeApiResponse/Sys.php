@@ -9,12 +9,9 @@ namespace Examples\Facile\PhpCodec\DecodeApiResponse;
  */
 class Sys
 {
-    /** @var string */
-    private $country;
-    /** @var \DateTimeInterface */
-    private $sunrise;
-    /** @var \DateTimeInterface */
-    private $sunset;
+    private string $country;
+    private \DateTimeInterface $sunrise;
+    private \DateTimeInterface $sunset;
 
     public function __construct(string $country, \DateTimeInterface $sunrise, \DateTimeInterface $sunset)
     {

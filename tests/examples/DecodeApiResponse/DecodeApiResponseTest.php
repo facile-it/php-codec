@@ -19,9 +19,7 @@ class DecodeApiResponseTest extends BaseTestCase
                         'lon' => Decoders::float(),
                         'lat' => Decoders::float(),
                     ]),
-                    function (float $lon, float $lat): Coordinates {
-                        return new Coordinates($lon, $lat);
-                    },
+                    fn (float $lon, float $lat): Coordinates => new Coordinates($lon, $lat),
                     Coordinates::class
                 ),
                 'weather' => Decoders::listOf(
@@ -31,9 +29,7 @@ class DecodeApiResponseTest extends BaseTestCase
                             'main' => Decoders::string(),
                             'description' => Decoders::string(),
                         ]),
-                        function (int $id, string $main, string $desc): Weather {
-                            return new Weather($id, $main, $desc);
-                        },
+                        fn (int $id, string $main, string $desc): Weather => new Weather($id, $main, $desc),
                         Weather::class
                     )
                 ),
@@ -43,19 +39,15 @@ class DecodeApiResponseTest extends BaseTestCase
                         'sunrise' => Decoders::dateTimeFromString(),
                         'sunset' => Decoders::dateTimeFromString(),
                     ]),
-                    function (string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): Sys {
-                        return new Sys($county, $sunrise, $sunset);
-                    },
+                    fn (string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): Sys => new Sys($county, $sunrise, $sunset),
                     Sys::class
                 ),
             ]),
-            function (Coordinates $coordinates, array $weathers, Sys $sys): OpenWeatherResponse {
-                return new OpenWeatherResponse($coordinates, $weathers, $sys);
-            },
+            fn (Coordinates $coordinates, array $weathers, Sys $sys): OpenWeatherResponse => new OpenWeatherResponse($coordinates, $weathers, $sys),
             OpenWeatherResponse::class
         );
 
-        $result = $decoder->decode(\json_decode(self::weatherJson(), true));
+        $result = $decoder->decode(\json_decode(self::weatherJson(), true, 512, JSON_THROW_ON_ERROR));
 
         self::assertSuccessInstanceOf(OpenWeatherResponse::class, $result);
     }

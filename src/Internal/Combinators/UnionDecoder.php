@@ -22,11 +22,10 @@ use Facile\PhpCodec\Validation\ValidationFailures;
 final class UnionDecoder implements Decoder
 {
     /** @var Decoder<IA, A> */
-    private $a;
+    private \Facile\PhpCodec\Decoder $a;
     /** @var Decoder<IB, B> */
-    private $b;
-    /** @var int */
-    private $indexBegin;
+    private \Facile\PhpCodec\Decoder $b;
+    private int $indexBegin;
 
     /**
      * @psalm-param Decoder<IA, A> $a
@@ -71,10 +70,7 @@ final class UnionDecoder implements Decoder
 
             if ($vb instanceof ValidationFailures) {
                 return Validation::failures(
-                    array_merge(
-                        $va->getErrors(),
-                        $vb->getErrors()
-                    )
+                    [...$va->getErrors(), ...$vb->getErrors()]
                 );
             }
 
