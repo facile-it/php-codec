@@ -7,9 +7,9 @@ namespace Tests\Facile\PhpCodec\Reporters;
 use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
+use Facile\PhpCodec\Internal\FunctionUtils;
 use Facile\PhpCodec\Reporter;
 use Facile\PhpCodec\Reporters;
-use function Facile\PhpCodec\strigify;
 use Facile\PhpCodec\Validation\Validation;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\Reporters\Models\SampleClass;
@@ -175,9 +175,9 @@ class ReportersTest extends BaseTestCase
 
                     self::assertReports(
                         [
-                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/a: string', strigify($value['a'])),
-                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/b: int', strigify($value['b'])),
-                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/c: float', strigify($value['c'])),
+                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/a: string', FunctionUtils::strigify($value['a'])),
+                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/b: int', FunctionUtils::strigify($value['b'])),
+                            \sprintf('Invalid value %s supplied to : Tests\Facile\PhpCodec\Reporters\Models\A({a: string, b: int, c: float})/c: float', FunctionUtils::strigify($value['c'])),
                         ],
                         $pathReporter,
                         $validation
@@ -185,9 +185,9 @@ class ReportersTest extends BaseTestCase
 
                     self::assertReports(
                         [
-                            \sprintf('/a: Invalid value %s supplied to decoder "string"', strigify($value['a'])),
-                            \sprintf('/b: Invalid value %s supplied to decoder "int"', strigify($value['b'])),
-                            \sprintf('/c: Invalid value %s supplied to decoder "float"', strigify($value['c'])),
+                            \sprintf('/a: Invalid value %s supplied to decoder "string"', FunctionUtils::strigify($value['a'])),
+                            \sprintf('/b: Invalid value %s supplied to decoder "int"', FunctionUtils::strigify($value['b'])),
+                            \sprintf('/c: Invalid value %s supplied to decoder "float"', FunctionUtils::strigify($value['c'])),
                         ],
                         $simplePathReporter,
                         $validation

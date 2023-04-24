@@ -22,11 +22,7 @@
     "autoload": {
         "psr-4": {
             "Facile\\PhpCodec\\": "src/"
-        },
-        "files": [
-            "src/functions.php",
-            "src/Internal/utils.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

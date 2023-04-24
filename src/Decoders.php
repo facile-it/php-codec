@@ -86,12 +86,9 @@ final class Decoders
         ?Decoder $e = null
     ): Decoder {
         // Order is important: composition is not commutative
-        return self::compose(
-            $c instanceof Decoder
-                ? self::pipe($b, $c, $d, $e)
-                : $b,
-            $a
-        );
+        return $c instanceof Decoder
+            ? self::compose(self::pipe($b, $c, $d, $e), $a)
+            : self::compose($b, $a);
     }
 
     /**
@@ -251,7 +248,7 @@ final class Decoders
             $propsDecoder,
             new MapDecoder(
                 function (array $props) use ($factory) {
-                    return destructureIn($factory)(\array_values($props));
+                    return Internal\FunctionUtils::destructureIn($factory)(\array_values($props));
                 },
                 \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
             )

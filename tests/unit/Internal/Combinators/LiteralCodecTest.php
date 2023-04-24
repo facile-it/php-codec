@@ -10,7 +10,7 @@ use Eris\TestTrait;
 use Facile\PhpCodec\Codec;
 use Facile\PhpCodec\Codecs;
 use Facile\PhpCodec\Decoders;
-use function Facile\PhpCodec\destructureIn;
+use Facile\PhpCodec\Internal\FunctionUtils;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
@@ -49,7 +49,7 @@ class LiteralCodecTest extends BaseTestCase
                     }
                 )
             )
-            ->then(destructureIn(
+            ->then(FunctionUtils::destructureIn(
                 /**
                  * @psalm-param int | string | bool $u
                  * @psalm-param int | string | bool $a

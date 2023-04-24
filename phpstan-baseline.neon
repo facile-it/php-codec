@@ -21,11 +21,6 @@ parameters:
 			path: src/Decoders.php
 
 		-
-			message: "#^Template type X of method Facile\\\\PhpCodec\\\\Internal\\\\Encode\\:\\:identity\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Internal/Encode.php
-
-		-
 			message: "#^Template type VP of method Facile\\\\PhpCodec\\\\Validation\\\\ListOfValidation\\:\\:reduceToIndexedSuccessOrAllFailures\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Validation/ListOfValidation.php

@@ -178,12 +178,9 @@ final class Codecs
         ?Codec $e = null
     ): Codec {
         // Order is important: composition is not commutative
-        return new PipeCodec(
-            $a,
-            $c instanceof Codec
-                ? self::pipe($b, $c, $d, $e)
-                : $b
-        );
+        return $c instanceof Codec
+            ? new PipeCodec($a, self::pipe($b, $c, $d, $e))
+            : new PipeCodec($a, $b);
     }
 
     /**
@@ -228,7 +225,10 @@ final class Codecs
      */
     public static function fromDecoder(Decoder $decoder): Codec
     {
-        return new ConcreteCodec($decoder, new IdentityEncoder());
+        /** @var Encoder<T, T> $encoder */
+        $encoder = new IdentityEncoder();
+
+        return new ConcreteCodec($decoder, $encoder);
     }
 
     /**

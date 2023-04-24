@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Decoder;
-use function Facile\PhpCodec\Internal\standardDecode;
+use Facile\PhpCodec\Internal\FunctionUtils;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
@@ -45,7 +45,7 @@ final class LiteralDecoder implements Decoder
 
     public function decode($i): Validation
     {
-        return standardDecode($this, $i);
+        return FunctionUtils::standardDecode($this, $i);
     }
 
     public function getName(): string
