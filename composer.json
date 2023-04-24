@@ -3,9 +3,8 @@
     "description": "A partial porting of io-ts in PHP",
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^9",
         "giorgiosironi/eris": "^0.14.0",
-        "phpunit/php-code-coverage": "^7.0",
         "phpat/phpat": "^0.10",
         "facile-it/facile-coding-standard": "^0.5.1",
         "vimeo/psalm": "4.30.0",

@@ -35,7 +35,7 @@ type-assertions:
 	./vendor/bin/psalm tests/type-assertions --no-cache
 
 test:
-	./vendor/bin/phpunit
+	XDEBUG_MODE=coverage ./vendor/bin/phpunit
 
 .PHONY: ci ci-check cs-check cs-fix
 cs-fix:
