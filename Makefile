@@ -44,6 +44,6 @@ cs-fix:
 cs-check:
 	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
 
-ci: test cs-fix psalm type-assertions
+ci: test phpstan psalm type-assertions cs-fix
 
-ci-check: test cs-check psalm type-assertions
+ci-check: test phpstan psalm type-assertions cs-check
