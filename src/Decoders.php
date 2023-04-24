@@ -150,8 +150,7 @@ final class Decoders
      *
      * @psalm-param Decoder<IA, A> $a
      * @psalm-param Decoder<IB, B> $b
-     * Intersection works only for objects and object-like arrays :(
-     * @psalm-return (A is object ? ( B is object ? Decoder<IA & IB, A & B> : Decoder<IA & IB, A | B>) : Decoder<IA & IB, A | B>)
+     * @psalm-return Decoder<IA & IB, A & B>
      */
     public static function intersection(Decoder $a, Decoder $b): Decoder
     {

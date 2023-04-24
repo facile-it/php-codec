@@ -86,6 +86,11 @@ final class UnionDecoder implements Decoder
 
     public function decode($i): Validation
     {
+        /**
+         * @psalm-var IA&IB $i
+         * @psalm-var Decoder<IA&IB, A|B> $this
+         */
+
         return FunctionUtils::standardDecode($this, $i);
     }
 

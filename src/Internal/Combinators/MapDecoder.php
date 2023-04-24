@@ -26,6 +26,7 @@ final class MapDecoder implements Decoder
      * @psalm-param callable(A):B $f
      *
      * @param callable $f
+     * @param string   $name
      */
     public function __construct(callable $f, string $name = 'map')
     {

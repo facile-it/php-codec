@@ -13,22 +13,23 @@ use Facile\PhpCodec\Validation\ValidationFailures;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 
 /**
- * @psalm-template I
+ * @psalm-template IA
+ * @psalm-template IB
  * @psalm-template A
  * @psalm-template B
- * @template-implements Decoder<I, A & B>
+ * @template-implements Decoder<IA & IB, A & B>
  * @psalm-internal Facile\PhpCodec
  */
 final class IntersectionDecoder implements Decoder
 {
-    /** @var Decoder<I, A> */
+    /** @var Decoder<IA, A> */
     private $a;
-    /** @var Decoder<I, B> */
+    /** @var Decoder<IB, B> */
     private $b;
 
     /**
-     * @psalm-param Decoder<I, A> $a
-     * @psalm-param Decoder<I, B> $b
+     * @psalm-param Decoder<IA, A> $a
+     * @psalm-param Decoder<IB, B> $b
      */
     public function __construct(Decoder $a, Decoder $b)
     {
@@ -76,7 +77,10 @@ final class IntersectionDecoder implements Decoder
 
     public function decode($i): Validation
     {
-        /** @psalm-var Validation<A & B> */
+        /**
+         * @psalm-var IA & IB $i
+         * @psalm-var Decoder<IA&IB, A&B> $this
+         */
         return FunctionUtils::standardDecode($this, $i);
     }
 
