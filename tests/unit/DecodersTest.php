@@ -44,6 +44,46 @@ class DecodersTest extends BaseTestCase
             Decoders::string()->decode($input)
         );
     }
+
+    public function testNullDecoder(): void
+    {
+        self::asserSuccessSameTo(
+            null,
+            Decoders::null()->decode(null)
+        );
+    }
+
+    public function testMixedDecoder(): void
+    {
+        $d = Decoders::mixed();
+
+        $this
+            ->forAll(
+                Generators::oneOf(
+                    Generators::int(),
+                    Generators::string(),
+                    Generators::bool(),
+                    Generators::constant(null),
+                    Generators::tuple([
+                        'a' => Generators::int(),
+                        'b' => Generators::string(),
+                    ]),
+                    Generators::date()
+                )
+            )
+            ->then(
+                /**
+                 * @psalm-param mixed $any
+                 *
+                 * @psalm-return void
+                 *
+                 * @param mixed $any
+                 */
+                function ($any) use ($d): void {
+                    self::asserSuccessSameTo($any, $d->decode($any));
+                }
+            );
+    }
 }
 
 namespace Tests\Facile\PhpCodec\DecodersTest;

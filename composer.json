@@ -4,7 +4,7 @@
     "type": "library",
     "require-dev": {
         "phpunit/phpunit": "^9",
-        "giorgiosironi/eris": "^0.14.0",
+        "giorgiosironi/eris": "dev-master",
         "phpat/phpat": "^0.10",
         "facile-it/facile-coding-standard": "0.5.2",
         "vimeo/psalm": "4.30.0",
