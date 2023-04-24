@@ -33,6 +33,17 @@ class DecodersTest extends BaseTestCase
                 self::assertSame($i, $a->getValue());
             });
     }
+
+    public function testStringDecoder(): void
+    {
+        /** @psalm-var string $input */
+        $input = 'hello';
+
+        self::asserSuccessSameTo(
+            $input,
+            Decoders::string()->decode($input)
+        );
+    }
 }
 
 namespace Tests\Facile\PhpCodec\DecodersTest;
