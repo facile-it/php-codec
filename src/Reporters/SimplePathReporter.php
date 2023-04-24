@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Reporters;
 
+use Facile\PhpCodec\Internal\FunctionUtils;
 use Facile\PhpCodec\Reporter;
-use function Facile\PhpCodec\strigify;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\VError;
 
@@ -54,7 +54,7 @@ final class SimplePathReporter implements Reporter
         return sprintf(
             '%sInvalid value %s supplied to decoder "%s"',
             empty($path) ? '' : "$path: ",
-            strigify($error->getValue()),
+            FunctionUtils::strigify($error->getValue()),
             $lastName
         );
     }

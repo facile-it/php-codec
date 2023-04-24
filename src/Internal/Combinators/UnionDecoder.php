@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Internal\Combinators;
 
 use Facile\PhpCodec\Decoder;
-use function Facile\PhpCodec\Internal\standardDecode;
+use Facile\PhpCodec\Internal\FunctionUtils;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ContextEntry;
 use Facile\PhpCodec\Validation\Validation;
@@ -86,7 +86,12 @@ final class UnionDecoder implements Decoder
 
     public function decode($i): Validation
     {
-        return standardDecode($this, $i);
+        /**
+         * @psalm-var IA&IB $i
+         * @psalm-var Decoder<IA&IB, A|B> $this
+         */
+
+        return FunctionUtils::standardDecode($this, $i);
     }
 
     public function getName(): string

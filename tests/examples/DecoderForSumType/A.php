@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Examples\Facile\PhpCodec\CodecForSumtype;
+namespace Examples\Facile\PhpCodec\DecoderForSumType;
 
 /**
- * @psalm-internal Examples\Facile\PhpCodec\CodecForSumtype
+ * @psalm-internal Examples\Facile\PhpCodec\DecoderForSumType
  */
 final class A extends P
 {

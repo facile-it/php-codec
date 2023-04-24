@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Examples\Facile\PhpCodec\CodecForSumtype;
+namespace Examples\Facile\PhpCodec\DecoderForSumType;
 
 use Eris\Generators;
 use Eris\TestTrait;
@@ -10,13 +10,13 @@ use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
-class CodecForSumtypeTest extends BaseTestCase
+class DecoderForSumType extends BaseTestCase
 {
     use TestTrait;
 
     public function testSumTypes(): void
     {
-        $codec = Decoders::union(
+        $decoder = Decoders::union(
             Decoders::classFromArrayPropsDecoder(
                 Decoders::arrayProps([
                     'type' => Decoders::literal(P::Type_a),
@@ -60,8 +60,8 @@ class CodecForSumtypeTest extends BaseTestCase
                     'propB' => Generators::string(),
                 ])
             )
-            ->then(function (array $i) use ($codec): void {
-                $result = $codec->decode($i);
+            ->then(function (array $i) use ($decoder): void {
+                $result = $decoder->decode($i);
 
                 $a = self::assertSuccessInstanceOf(A::class, $result);
 
@@ -80,8 +80,8 @@ class CodecForSumtypeTest extends BaseTestCase
                     'flag' => Generators::bool(),
                 ])
             )
-            ->then(function (array $i) use ($codec): void {
-                $result = $codec->decode($i);
+            ->then(function (array $i) use ($decoder): void {
+                $result = $decoder->decode($i);
 
                 $b = self::assertSuccessInstanceOf(B::class, $result);
 

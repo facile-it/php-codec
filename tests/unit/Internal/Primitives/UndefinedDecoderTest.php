@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Eris\TestTrait;
-use Facile\PhpCodec\Codecs;
+use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Internal\Undefined;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
@@ -27,7 +27,7 @@ class UndefinedDecoderTest extends BaseTestCase
                 /** @psalm-param scalar $default */
                 function ($default): void {
                     $x = self::assertValidationSuccess(
-                        Codecs::undefined($default)->decode(new Undefined())
+                        Decoders::undefined($default)->decode(new Undefined())
                     );
                     self::assertSame($default, $x);
                 }

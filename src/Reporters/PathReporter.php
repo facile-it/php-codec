@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Facile\PhpCodec\Reporters;
 
+use Facile\PhpCodec\Internal\FunctionUtils;
 use Facile\PhpCodec\Reporter;
-use function Facile\PhpCodec\strigify;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\VError;
@@ -20,6 +20,10 @@ final class PathReporter implements Reporter
         return new self();
     }
 
+    /**
+     * @param Validation $validation
+     * @psalm-return list<string>
+     */
     public function report(Validation $validation): array
     {
         return Validation::fold(
@@ -41,7 +45,7 @@ final class PathReporter implements Reporter
         return $error->getMessage()
             ?: \sprintf(
                 'Invalid value %s supplied to %s',
-                strigify($error->getValue()),
+                FunctionUtils::strigify($error->getValue()),
                 self::getContextPath($error->getContext())
             );
     }

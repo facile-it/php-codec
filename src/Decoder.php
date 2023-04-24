@@ -14,7 +14,6 @@ use Facile\PhpCodec\Validation\Validation;
 interface Decoder
 {
     /**
-     * @psalm-template RA
      * @psalm-param I $i
      * @psalm-param Context $context
      * @psalm-return Validation<A>

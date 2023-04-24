@@ -18,13 +18,16 @@ class IntersectionDecoderTest extends BaseTestCase
     public function testStringIntersection(): void
     {
         $d = Decoders::intersection(
-            Decoders::stringMatchingRegex('/^\d{2,4}$/'),
+            Decoders::stringMatchingRegex('/^[123]{2,4}$/'),
             Decoders::stringMatchingRegex('/^\d{3}$/')
         );
 
+        /** @psalm-var string $input
+         */
+        $input = '123';
         self::asserSuccessSameTo(
-            '123',
-            $d->decode('123')
+            $input,
+            $d->decode($input)
         );
 
         self::assertInstanceOf(

@@ -26,6 +26,7 @@ use Facile\PhpCodec\Internal\Useful\StringMatchingRegexDecoder;
 use Facile\PhpCodec\Utils\ConcreteDecoder;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
+use Psalm\Internal\Codebase\Properties;
 
 final class Decoders
 {
@@ -46,31 +47,41 @@ final class Decoders
     }
 
     /**
-     * @template I
-     * @template A
+     * @template IA
+     * @template IB
+     * @template A of IB
      * @template B
-     * @psalm-param Decoder<A, B> $db
-     * @psalm-param Decoder<I, A> $da
-     * @psalm-return Decoder<I, B>
+     * @psalm-param Decoder<IB, B> $db
+     * @psalm-param Decoder<IA, A> $da
+     * @psalm-return Decoder<IA, B>
      */
     public static function compose(Decoder $db, Decoder $da): Decoder
     {
+        // TODO Fix this
+        /** @psalm-var Decoder<IA, B> */
+        /** @psalm-suppress InvalidArgument */
         return new ComposeDecoder($db, $da);
     }
 
     /**
-     * @psalm-template IA
+     * @psalm-template IA of mixed
+     * @psalm-template IB of mixed
+     * @psalm-template IC of mixed
+     * @psalm-template ID of mixed
+     * @psalm-template IE of mixed
      * @psalm-template A
      * @psalm-template B
      * @psalm-template C
      * @psalm-template D
      * @psalm-template E
      *
+     * // TODO provide better types for input
+     *
      * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<A, B> $b
-     * @psalm-param Decoder<B, C> | null $c
-     * @psalm-param Decoder<C, D> | null $d
-     * @psalm-param Decoder<D, E> | null $e
+     * @psalm-param Decoder<IB, B> $b
+     * @psalm-param Decoder<IC, C> | null $c
+     * @psalm-param Decoder<ID, D> | null $d
+     * @psalm-param Decoder<IE, E> | null $e
      *
      * @psalm-return (func_num_args() is 2 ? Decoder<IA, B>
      *                          : (func_num_args() is 3 ? Decoder<IA, C>
@@ -86,12 +97,11 @@ final class Decoders
         ?Decoder $e = null
     ): Decoder {
         // Order is important: composition is not commutative
-        return self::compose(
-            $c instanceof Decoder
-                ? self::pipe($b, $c, $d, $e)
-                : $b,
-            $a
-        );
+        // TODO fix this
+        /** @psalm-suppress InvalidArgument */
+        return $c instanceof Decoder
+            ? self::compose(self::pipe($b, $c, $d, $e), $a)
+            : self::compose($b, $a);
     }
 
     /**
@@ -153,8 +163,7 @@ final class Decoders
      *
      * @psalm-param Decoder<IA, A> $a
      * @psalm-param Decoder<IB, B> $b
-     * Intersection works only for objects and object-like arrays :(
-     * @psalm-return (A is object ? ( B is object ? Decoder<IA & IB, A & B> : Decoder<IA & IB, A | B>) : Decoder<IA & IB, A | B>)
+     * @psalm-return Decoder<IA & IB, A & B>
      */
     public static function intersection(Decoder $a, Decoder $b): Decoder
     {
@@ -211,12 +220,10 @@ final class Decoders
     }
 
     /**
-     * @psalm-template K of array-key
-     * @psalm-template Vs
-     * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
+     * @psalm-template MapOfDecoders of non-empty-array<array-key, Decoder<mixed, mixed>>
      *
-     * @psalm-param PD $props
-     * @psalm-return Decoder<mixed, non-empty-array<K, Vs>>
+     * @psalm-param MapOfDecoders $props
+     * @psalm-return Decoder<mixed, non-empty-array<array-key, mixed>>
      *
      * @param Decoder[] $props
      *
@@ -233,12 +240,11 @@ final class Decoders
 
     /**
      * @psalm-template T of object
-     * @psalm-template K of array-key
-     * @psalm-template Vs
-     * @psalm-template PD of non-empty-array<K, Vs>
-     * @psalm-template CF of callable(...mixed):T
-     * @psalm-param Decoder<mixed, PD> $propsDecoder
-     * @psalm-param CF $factory
+     * @psalm-template Properties of non-empty-array<array-key, mixed>
+     * @psalm-template ClassFactory of callable(...mixed):T
+     *
+     * @psalm-param Decoder<mixed, Properties> $propsDecoder
+     * @psalm-param ClassFactory $factory
      * @psalm-param string $decoderName
      * @psalm-return Decoder<mixed, T>
      */
@@ -247,14 +253,17 @@ final class Decoders
         callable $factory,
         string $decoderName
     ): Decoder {
+        /** @psalm-var Decoder<Properties, T> $mapDecoder */
+        $mapDecoder = new MapDecoder(
+            function (array $props) use ($factory) {
+                return Internal\FunctionUtils::destructureIn($factory)(\array_values($props));
+            },
+            \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
+        );
+
         return self::pipe(
             $propsDecoder,
-            new MapDecoder(
-                function (array $props) use ($factory) {
-                    return destructureIn($factory)(\array_values($props));
-                },
-                \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
-            )
+            $mapDecoder
         );
     }
 
@@ -355,7 +364,7 @@ final class Decoders
     }
 
     /**
-     * @psalm-return Decoder<string, string[]>
+     * @psalm-return Decoder<string, array<array-key, string>>
      */
     public static function regex(string $regex): Decoder
     {
