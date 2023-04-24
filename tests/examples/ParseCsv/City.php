@@ -6,12 +6,9 @@ namespace Examples\Facile\PhpCodec\ParseCsv;
 
 class City
 {
-    /** @var int */
-    private $id;
-    /** @var string */
-    private $name;
-    /** @var string */
-    private $italianLandRegistryCode;
+    private int $id;
+    private string $name;
+    private string $italianLandRegistryCode;
 
     public function __construct(
         int $id,

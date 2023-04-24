@@ -9,12 +9,9 @@ namespace Examples\Facile\PhpCodec\DecodeApiResponse;
  */
 class Weather
 {
-    /** @var int */
-    private $id;
-    /** @var string */
-    private $main;
-    /** @var string */
-    private $description;
+    private int $id;
+    private string $main;
+    private string $description;
 
     public function __construct(int $id, string $main, string $description)
     {

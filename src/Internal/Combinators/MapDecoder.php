@@ -19,8 +19,7 @@ final class MapDecoder implements Decoder
 {
     /** @var callable(A):B */
     private $f;
-    /** @var string */
-    private $name;
+    private string $name;
 
     /**
      * @psalm-param callable(A):B $f

@@ -18,8 +18,7 @@ final class ConcreteDecoder implements Decoder
 {
     /** @var callable(I, Context):Validation<A> */
     private $validateFunc;
-    /** @var string */
-    private $name;
+    private string $name;
 
     /**
      * @psalm-param callable(I, Context):Validation<A> $validate

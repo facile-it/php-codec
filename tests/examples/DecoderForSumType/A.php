@@ -12,12 +12,9 @@ final class A extends P
     public const SUB_foo = 'foo';
     public const SUB_bar = 'bar';
 
-    /** @var string */
-    private $subType;
-    /** @var int */
-    private $propertyA;
-    /** @var string */
-    private $propertyB;
+    private string $subType;
+    private int $propertyA;
+    private string $propertyB;
 
     public function __construct(string $subType, int $propertyA, string $propertyB)
     {

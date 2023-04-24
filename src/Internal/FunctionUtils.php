@@ -23,13 +23,11 @@ final class FunctionUtils
             \implode(
                 ', ',
                 \array_map(
-                    static function (Decoder $t, $k): string {
-                        return \sprintf(
-                            '%s: %s',
-                            \is_string($k) ? $k : \sprintf('[%d]', $k),
-                            $t->getName()
-                        );
-                    },
+                    static fn (Decoder $t, $k): string => \sprintf(
+                        '%s: %s',
+                        \is_string($k) ? $k : \sprintf('[%d]', $k),
+                        $t->getName()
+                    ),
                     $props,
                     \array_keys($props)
                 )
@@ -64,9 +62,7 @@ final class FunctionUtils
      */
     public static function destructureIn(callable $f): callable
     {
-        return function (array $params) use ($f) {
-            return $f(...$params);
-        };
+        return fn (array $params) => $f(...$params);
     }
 
     /**
@@ -86,7 +82,7 @@ final class FunctionUtils
 
         if (\is_array($x)) {
             return \function_exists('json_encode')
-                ? \json_encode($x)
+                ? \json_encode($x, JSON_THROW_ON_ERROR)
                 : \serialize($x);
         }
 

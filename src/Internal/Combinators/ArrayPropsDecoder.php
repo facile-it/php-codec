@@ -23,7 +23,7 @@ use Facile\PhpCodec\Validation\Validation;
 final class ArrayPropsDecoder implements Decoder
 {
     /** @var PD */
-    private $props;
+    private array $props;
 
     /**
      * @psalm-param PD $props

@@ -21,7 +21,7 @@ use Facile\PhpCodec\Validation\Validation;
 final class ListOfDecoder implements Decoder
 {
     /** @var Decoder<IT, T> */
-    private $elementDecoder;
+    private \Facile\PhpCodec\Decoder $elementDecoder;
 
     /**
      * @psalm-param Decoder<IT, T> $elementDecoder

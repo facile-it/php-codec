@@ -8,10 +8,8 @@ use Facile\PhpCodec\Decoder;
 
 final class ContextEntry
 {
-    /** @var string */
-    private $key;
-    /** @var Decoder */
-    private $decoder;
+    private string $key;
+    private \Facile\PhpCodec\Decoder $decoder;
     /** @var mixed */
     private $actual;
 

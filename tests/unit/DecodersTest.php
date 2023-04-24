@@ -16,9 +16,7 @@ class DecodersTest extends BaseTestCase
     public function testMap(): void
     {
         $decoder = Decoders::transformValidationSuccess(
-            function (int $v): DecodersTest\A {
-                return new DecodersTest\A($v);
-            },
+            fn (int $v): DecodersTest\A => new DecodersTest\A($v),
             Decoders::int()
         );
 
@@ -41,8 +39,7 @@ namespace Tests\Facile\PhpCodec\DecodersTest;
 
 class A
 {
-    /** @var int */
-    private $v;
+    private int $v;
 
     public function __construct(int $v)
     {
