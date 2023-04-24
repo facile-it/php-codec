@@ -243,14 +243,17 @@ final class Decoders
         callable $factory,
         string $decoderName
     ): Decoder {
+        /** @psalm-var Decoder<PD, T> $mapDecoder */
+        $mapDecoder = new MapDecoder(
+            function (array $props) use ($factory) {
+                return Internal\FunctionUtils::destructureIn($factory)(\array_values($props));
+            },
+            \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
+        );
+
         return self::pipe(
             $propsDecoder,
-            new MapDecoder(
-                function (array $props) use ($factory) {
-                    return Internal\FunctionUtils::destructureIn($factory)(\array_values($props));
-                },
-                \sprintf('%s(%s)', $decoderName, $propsDecoder->getName())
-            )
+            $mapDecoder
         );
     }
 
