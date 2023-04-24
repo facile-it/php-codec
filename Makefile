@@ -14,17 +14,12 @@ run-php8.2:
 	docker-compose run --rm php82 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run: run-php7.4
 
-.PHONY: psalm psalm-src psalm-tests psalm-update-baseline
-psalm-src:
-	./vendor/bin/psalm src --no-cache
-
-psalm-tests:
-	./vendor/bin/psalm tests --no-cache
-
-psalm: psalm-src psalm-tests
+.PHONY: psalm psalm-update-baseline
+psalm:
+	./vendor/bin/psalm --no-cache
 
 psalm-update-baseline:
-	./vendor/bin/psalm --update-baseline src tests
+	./vendor/bin/psalm --update-baseline
 
 
 .PHONY: phpstan phpstan-update-baseline

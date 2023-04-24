@@ -26,6 +26,7 @@ use Facile\PhpCodec\Internal\Useful\StringMatchingRegexDecoder;
 use Facile\PhpCodec\Utils\ConcreteDecoder;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
+use Psalm\Internal\Codebase\Properties;
 
 final class Decoders
 {
@@ -66,11 +67,13 @@ final class Decoders
      * @psalm-template D
      * @psalm-template E
      *
+     * // TODO provide better types for input
+     *
      * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<A, B> $b
-     * @psalm-param Decoder<B, C> | null $c
-     * @psalm-param Decoder<C, D> | null $d
-     * @psalm-param Decoder<D, E> | null $e
+     * @psalm-param Decoder<mixed, B> $b
+     * @psalm-param Decoder<mixed, C> | null $c
+     * @psalm-param Decoder<mixed, D> | null $d
+     * @psalm-param Decoder<mixed, E> | null $e
      *
      * @psalm-return (func_num_args() is 2 ? Decoder<IA, B>
      *                          : (func_num_args() is 3 ? Decoder<IA, C>
@@ -85,6 +88,7 @@ final class Decoders
         ?Decoder $d = null,
         ?Decoder $e = null
     ): Decoder {
+        /** @psalm-trace  */
         // Order is important: composition is not commutative
         return $c instanceof Decoder
             ? self::compose(self::pipe($b, $c, $d, $e), $a)
@@ -207,12 +211,10 @@ final class Decoders
     }
 
     /**
-     * @psalm-template K of array-key
-     * @psalm-template Vs
-     * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
+     * @psalm-template MapOfDecoders of non-empty-array<array-key, Decoder<mixed, mixed>>
      *
-     * @psalm-param PD $props
-     * @psalm-return Decoder<mixed, non-empty-array<K, Vs>>
+     * @psalm-param MapOfDecoders $props
+     * @psalm-return Decoder<mixed, non-empty-array<array-key, mixed>>
      *
      * @param Decoder[] $props
      *
@@ -229,12 +231,11 @@ final class Decoders
 
     /**
      * @psalm-template T of object
-     * @psalm-template K of array-key
-     * @psalm-template Vs
-     * @psalm-template PD of non-empty-array<K, Vs>
-     * @psalm-template CF of callable(...mixed):T
-     * @psalm-param Decoder<mixed, PD> $propsDecoder
-     * @psalm-param CF $factory
+     * @psalm-template Properties of non-empty-array<array-key, mixed>
+     * @psalm-template ClassFactory of callable(...mixed):T
+     *
+     * @psalm-param Decoder<mixed, Properties> $propsDecoder
+     * @psalm-param ClassFactory $factory
      * @psalm-param string $decoderName
      * @psalm-return Decoder<mixed, T>
      */
@@ -243,7 +244,7 @@ final class Decoders
         callable $factory,
         string $decoderName
     ): Decoder {
-        /** @psalm-var Decoder<PD, T> $mapDecoder */
+        /** @psalm-var Decoder<Properties, T> $mapDecoder */
         $mapDecoder = new MapDecoder(
             function (array $props) use ($factory) {
                 return Internal\FunctionUtils::destructureIn($factory)(\array_values($props));
@@ -354,7 +355,7 @@ final class Decoders
     }
 
     /**
-     * @psalm-return Decoder<string, string[]>
+     * @psalm-return Decoder<string, array<array-key, string>>
      */
     public static function regex(string $regex): Decoder
     {

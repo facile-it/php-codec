@@ -19,9 +19,8 @@ class CodecsTypeAssertions extends TypeAssertion
         );
 
         Validation::fold(
-            function (): void {
-            },
-            [self::class, 'assertString'],
+            fn (): string => 'error',
+            fn (string $x): string => $x,
             $c2->decode('hello')
         );
 
@@ -33,9 +32,8 @@ class CodecsTypeAssertions extends TypeAssertion
         );
 
         Validation::fold(
-            function (): void {
-            },
-            [self::class, 'assertInt'],
+            fn () => -1,
+            fn (int $x) => $x,
             $c3->decode('123')
         );
     }
