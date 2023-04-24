@@ -16,7 +16,9 @@ use Facile\PhpCodec\Validation\ValidationFailures;
  * @psalm-template IB
  * @psalm-template A
  * @psalm-template B
+ *
  * @template-implements Decoder<IA & IB, A | B>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class UnionDecoder implements Decoder

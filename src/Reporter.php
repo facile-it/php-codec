@@ -13,6 +13,7 @@ interface Reporter
 {
     /**
      * @psalm-template A
+     *
      * @psalm-param Validation<A> $validation
      *
      * @return T

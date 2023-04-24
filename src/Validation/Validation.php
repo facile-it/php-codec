@@ -11,7 +11,9 @@ abstract class Validation
 {
     /**
      * @psalm-template T
+     *
      * @psalm-param T $a
+     *
      * @psalm-return ValidationSuccess<T>
      *
      * @param mixed $a
@@ -23,7 +25,9 @@ abstract class Validation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param list<VError> $errors
+     *
      * @psalm-return ValidationFailures<T>
      *
      * @param VError[] $errors
@@ -35,9 +39,11 @@ abstract class Validation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param mixed $value
      * @psalm-param Context $context
      * @psalm-param string|null $message
+     *
      * @psalm-return ValidationFailures<T>
      *
      * @param mixed $value
@@ -56,6 +62,7 @@ abstract class Validation
      * @psalm-param callable(list<VError>):R $onFailures
      * @psalm-param callable(T):R $onSuccess
      * @psalm-param Validation<T> $v
+     *
      * @psalm-return R
      */
     public static function fold(callable $onFailures, callable $onSuccess, self $v)
@@ -73,7 +80,9 @@ abstract class Validation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param Validation<T> $v
+     *
      * @psalm-assert-if-true ValidationSuccess<T> $v
      */
     private static function isSuccess(self $v): bool
@@ -83,7 +92,9 @@ abstract class Validation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param Validation<T> $v
+     *
      * @psalm-assert-if-true ValidationFailures<T> $v
      */
     private static function isFailures(self $v): bool
@@ -93,7 +104,9 @@ abstract class Validation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param list<Validation<T>> $validations
+     *
      * @psalm-return Validation<list<T>>
      *
      * @deprecated use sequence in ListOfValidation
@@ -106,7 +119,9 @@ abstract class Validation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param list<Validation<T>> $validations
+     *
      * @psalm-return Validation<list<T>>
      *
      * @deprecated use ListOfValidation instead
@@ -123,6 +138,7 @@ abstract class Validation
      *
      * @psalm-param callable(T1):T2 $f
      * @psalm-param Validation<T1> $v
+     *
      * @psalm-return Validation<T2>
      */
     public static function map(callable $f, self $v): self
@@ -141,6 +157,7 @@ abstract class Validation
      *
      * @psalm-param callable(T1):Validation<T2> $f
      * @psalm-param Validation<T1> $v
+     *
      * @psalm-return Validation<T2>
      */
     public static function bind(callable $f, self $v): self

@@ -37,8 +37,10 @@ final class Decoders
     /**
      * @template I
      * @template A
+     *
      * @psalm-param callable(I, Context):Validation<A> $f
      * @psalm-param string $name
+     *
      * @psalm-return Decoder<I, A>
      */
     public static function make(callable $f, string $name = 'anon'): Decoder
@@ -51,8 +53,10 @@ final class Decoders
      * @template IB
      * @template A of IB
      * @template B
+     *
      * @psalm-param Decoder<IB, B> $db
      * @psalm-param Decoder<IA, A> $da
+     *
      * @psalm-return Decoder<IA, B>
      */
     public static function compose(Decoder $db, Decoder $da): Decoder
@@ -161,6 +165,7 @@ final class Decoders
      *
      * @psalm-param Decoder<IA, A> $a
      * @psalm-param Decoder<IB, B> $b
+     *
      * @psalm-return Decoder<IA & IB, A & B>
      */
     public static function intersection(Decoder $a, Decoder $b): Decoder
@@ -180,8 +185,10 @@ final class Decoders
      * @template I
      * @template A
      * @template B
+     *
      * @psalm-param callable(A):B $f
      * @psalm-param Decoder<I, A> $da
+     *
      * @psalm-return Decoder<I, B>
      */
     public static function transformValidationSuccess(callable $f, Decoder $da): Decoder
@@ -194,7 +201,9 @@ final class Decoders
 
     /**
      * @psalm-template T of bool | string | int
+     *
      * @psalm-param T $l
+     *
      * @psalm-return Decoder<mixed, T>
      *
      * @param mixed $l
@@ -221,6 +230,7 @@ final class Decoders
      * @psalm-template MapOfDecoders of non-empty-array<array-key, Decoder<mixed, mixed>>
      *
      * @psalm-param MapOfDecoders $props
+     *
      * @psalm-return Decoder<mixed, non-empty-array<array-key, mixed>>
      *
      * @param Decoder[] $props
@@ -244,6 +254,7 @@ final class Decoders
      * @psalm-param Decoder<mixed, Properties> $propsDecoder
      * @psalm-param ClassFactory $factory
      * @psalm-param string $decoderName
+     *
      * @psalm-return Decoder<mixed, T>
      */
     public static function classFromArrayPropsDecoder(
@@ -271,7 +282,9 @@ final class Decoders
 
     /**
      * @psalm-template U
+     *
      * @psalm-param U $default
+     *
      * @psalm-return Decoder<mixed, U>
      *
      * @param null|mixed $default
@@ -369,6 +382,7 @@ final class Decoders
 
     /**
      * @psalm-param string $regex
+     *
      * @psalm-return Decoder<string, string>
      */
     public static function stringMatchingRegex(string $regex): Decoder

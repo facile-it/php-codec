@@ -11,15 +11,19 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @psalm-type literable = bool | string | int
+ *
  * @template I of mixed
  * @template T of literable
+ *
  * @template-implements Decoder<I, T>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class LiteralDecoder implements Decoder
 {
     /**
      * @var T
+     *
      * @readonly
      */
     private $literal;

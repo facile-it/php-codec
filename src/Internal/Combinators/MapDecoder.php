@@ -12,7 +12,9 @@ use Facile\PhpCodec\Validation\Validation;
 /**
  * @template A
  * @template B
+ *
  * @implements Decoder<A, B>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class MapDecoder implements Decoder

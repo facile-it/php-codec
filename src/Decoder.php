@@ -16,6 +16,7 @@ interface Decoder
     /**
      * @psalm-param I $i
      * @psalm-param Context $context
+     *
      * @psalm-return Validation<A>
      *
      * @param mixed $i
@@ -24,6 +25,7 @@ interface Decoder
 
     /**
      * @psalm-param I $i
+     *
      * @psalm-return Validation<A>
      *
      * @param mixed $i

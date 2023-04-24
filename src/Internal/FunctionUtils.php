@@ -38,8 +38,10 @@ final class FunctionUtils
     /**
      * @psalm-template A
      * @psalm-template I
+     *
      * @psalm-param Decoder<I, A> $decoder
      * @psalm-param I             $input
+     *
      * @psalm-return Validation<A>
      *
      * @param mixed $input
@@ -57,7 +59,9 @@ final class FunctionUtils
 
     /**
      * @psalm-template R
+     *
      * @psalm-param callable(mixed...):R $f
+     *
      * @psalm-return callable(list<mixed>):R
      */
     public static function destructureIn(callable $f): callable

@@ -15,6 +15,7 @@ use Facile\PhpCodec\Validation\Validation;
  * @psalm-template B
  *
  * @template-implements Decoder<IA, B>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class ComposeDecoder implements Decoder
@@ -39,6 +40,7 @@ final class ComposeDecoder implements Decoder
     /**
      * @psalm-param IA      $i
      * @psalm-param Context $context
+     *
      * @psalm-return Validation<B>
      *
      * @param mixed $i

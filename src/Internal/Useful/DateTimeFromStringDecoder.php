@@ -11,6 +11,7 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @template-implements Decoder<string, \DateTimeInterface>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class DateTimeFromStringDecoder implements Decoder
