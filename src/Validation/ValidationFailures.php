@@ -6,6 +6,7 @@ namespace Facile\PhpCodec\Validation;
 
 /**
  * @psalm-template A
+ *
  * @extends Validation<A>
  */
 final class ValidationFailures extends Validation

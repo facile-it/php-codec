@@ -12,7 +12,9 @@ final class ListOfValidation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param list<Validation<T>> $validations
+     *
      * @psalm-return Validation<list<T>>
      */
     public static function sequence(array $validations): Validation
@@ -33,7 +35,9 @@ final class ListOfValidation
 
     /**
      * @psalm-template T
+     *
      * @psalm-param list<Validation<T>> $validations
+     *
      * @psalm-return Validation<list<T>>
      */
     public static function reduceToSuccessOrAllFailures(array $validations): Validation
@@ -62,7 +66,9 @@ final class ListOfValidation
      * @psalm-template Values
      * @psalm-template Vs of non-empty-array<K, Validation<Values>>
      * @psalm-template VP of Validation<non-empty-array<K, Values>>
+     *
      * @psalm-param Vs $validations
+     *
      * @psalm-return VP
      */
     public static function reduceToIndexedSuccessOrAllFailures(array $validations): Validation

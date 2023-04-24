@@ -11,7 +11,9 @@ use Facile\PhpCodec\Validation\Validation;
 
 /**
  * @template I of mixed
+ *
  * @template-implements Decoder<I, float>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class FloatDecoder implements Decoder

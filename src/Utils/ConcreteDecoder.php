@@ -12,6 +12,7 @@ use Facile\PhpCodec\Validation\Validation;
 /**
  * @template I
  * @template A
+ *
  * @implements Decoder<I, A>
  */
 final class ConcreteDecoder implements Decoder

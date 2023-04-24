@@ -17,7 +17,9 @@ use Facile\PhpCodec\Validation\Validation;
  * @psalm-template Vs
  * @psalm-template I
  * @psalm-template PD of non-empty-array<K, Decoder<mixed, Vs>>
+ *
  * @template-implements Decoder<I, non-empty-array<K, Vs>>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class ArrayPropsDecoder implements Decoder

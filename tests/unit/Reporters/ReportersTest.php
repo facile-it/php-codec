@@ -24,6 +24,7 @@ class ReportersTest extends BaseTestCase
      * @param array    $expected
      *
      * @return void
+     *
      * @dataProvider provideReportRootErrors
      */
     public function testReportRootError(
@@ -57,6 +58,7 @@ class ReportersTest extends BaseTestCase
      * @param array    $expected
      *
      * @return void
+     *
      * @dataProvider provideReportRootClassError
      */
     public function testReportRootClassError(
@@ -198,6 +200,7 @@ class ReportersTest extends BaseTestCase
      * @param mixed    $value
      *
      * @return void
+     *
      * @dataProvider provideNestedArrayPropsReport
      */
     public function testNestedArrayPropsReport(Reporter $reporter, $value, array $expected): void
@@ -273,6 +276,7 @@ class ReportersTest extends BaseTestCase
      * @param array    $expected
      *
      * @return void
+     *
      * @dataProvider provideListOfClassReport
      */
     public function testListOfClassReport(Reporter $reporter, $value, array $expected): void
@@ -365,6 +369,7 @@ class ReportersTest extends BaseTestCase
      * @param array    $expected
      *
      * @return void
+     *
      * @dataProvider provideUnionReport
      */
     public function testUnionReport(Reporter $reporter, $value, array $expected): void
@@ -456,6 +461,7 @@ class ReportersTest extends BaseTestCase
      * @param array    $expected
      *
      * @return void
+     *
      * @dataProvider provideIntersectionReport
      */
     public function testIntersectionReport(

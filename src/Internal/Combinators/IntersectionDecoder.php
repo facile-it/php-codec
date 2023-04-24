@@ -17,7 +17,9 @@ use Facile\PhpCodec\Validation\ValidationSuccess;
  * @psalm-template IB
  * @psalm-template A
  * @psalm-template B
+ *
  * @template-implements Decoder<IA & IB, A & B>
+ *
  * @psalm-internal Facile\PhpCodec
  */
 final class IntersectionDecoder implements Decoder
@@ -89,8 +91,10 @@ final class IntersectionDecoder implements Decoder
     /**
      * @template T1
      * @template T2
+     *
      * @psalm-param T1 $a
      * @psalm-param T2 $b
+     *
      * @psalm-return T1&T2
      *
      * @param mixed $a

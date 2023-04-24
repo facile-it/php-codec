@@ -20,6 +20,7 @@ class BaseTestCase extends TestCase
      * @psalm-param Validation<A>   $v
      *
      * @psalm-return B
+     *
      * @psalm-assert ValidationSuccess<B> $v
      */
     public static function assertSuccessInstanceOf(
@@ -65,8 +66,11 @@ class BaseTestCase extends TestCase
 
     /**
      * @psalm-template T
+     *
      * @psalm-param Validation<T> $v
+     *
      * @psalm-assert ValidationSuccess<T> $v
+     *
      * @psalm-return T
      */
     public static function assertValidationSuccess(Validation $v)
