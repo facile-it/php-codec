@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Removed
 - Support for PHP < 7.4
+- `Codec` and `Encoder` interfaces. Removed `Codecs` entrypoint.
+
 ## [0.0.3] - 2022-01-16
 ### Added
 - `SimplePathReporter` error reporter.
