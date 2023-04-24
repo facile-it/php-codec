@@ -20,6 +20,10 @@ final class PathReporter implements Reporter
         return new self();
     }
 
+    /**
+     * @param Validation $validation
+     * @psalm-return list<string>
+     */
     public function report(Validation $validation): array
     {
         return Validation::fold(

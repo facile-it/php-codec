@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
-  <file src="tests/unit/CodecsTest.php">
-    <MixedArgument occurrences="1"/>
-    <TooManyArguments occurrences="4"/>
-  </file>
   <file src="tests/unit/GeneratorUtils.php">
     <TooManyArguments occurrences="1"/>
   </file>
@@ -12,14 +8,5 @@
       <code>Generators::oneOf(Generators::int(), Generators::float(), Generators::bool())</code>
       <code>Generators::oneOf(Generators::string(), Generators::float(), Generators::bool())</code>
     </TooManyArguments>
-  </file>
-  <file src="tests/unit/Internal/Combinators/LiteralCodecTest.php">
-    <TooManyArguments occurrences="2"/>
-  </file>
-  <file src="tests/unit/Internal/Primitives/CallableDecoderTest.php">
-    <TooManyArguments occurrences="2"/>
-  </file>
-  <file src="tests/unit/Internal/Primitives/NullTypeTest.php">
-    <TooManyArguments occurrences="1"/>
   </file>
 </files>

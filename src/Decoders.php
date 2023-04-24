@@ -47,20 +47,28 @@ final class Decoders
     }
 
     /**
-     * @template I
-     * @template A
+     * @template IA
+     * @template IB
+     * @template A of IB
      * @template B
-     * @psalm-param Decoder<A, B> $db
-     * @psalm-param Decoder<I, A> $da
-     * @psalm-return Decoder<I, B>
+     * @psalm-param Decoder<IB, B> $db
+     * @psalm-param Decoder<IA, A> $da
+     * @psalm-return Decoder<IA, B>
      */
     public static function compose(Decoder $db, Decoder $da): Decoder
     {
+        // TODO Fix this
+        /** @psalm-var Decoder<IA, B> */
+        /** @psalm-suppress InvalidArgument */
         return new ComposeDecoder($db, $da);
     }
 
     /**
-     * @psalm-template IA
+     * @psalm-template IA of mixed
+     * @psalm-template IB of mixed
+     * @psalm-template IC of mixed
+     * @psalm-template ID of mixed
+     * @psalm-template IE of mixed
      * @psalm-template A
      * @psalm-template B
      * @psalm-template C
@@ -70,10 +78,10 @@ final class Decoders
      * // TODO provide better types for input
      *
      * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<mixed, B> $b
-     * @psalm-param Decoder<mixed, C> | null $c
-     * @psalm-param Decoder<mixed, D> | null $d
-     * @psalm-param Decoder<mixed, E> | null $e
+     * @psalm-param Decoder<IB, B> $b
+     * @psalm-param Decoder<IC, C> | null $c
+     * @psalm-param Decoder<ID, D> | null $d
+     * @psalm-param Decoder<IE, E> | null $e
      *
      * @psalm-return (func_num_args() is 2 ? Decoder<IA, B>
      *                          : (func_num_args() is 3 ? Decoder<IA, C>
@@ -88,8 +96,9 @@ final class Decoders
         ?Decoder $d = null,
         ?Decoder $e = null
     ): Decoder {
-        /** @psalm-trace  */
         // Order is important: composition is not commutative
+        // TODO fix this
+        /** @psalm-suppress InvalidArgument */
         return $c instanceof Decoder
             ? self::compose(self::pipe($b, $c, $d, $e), $a)
             : self::compose($b, $a);
