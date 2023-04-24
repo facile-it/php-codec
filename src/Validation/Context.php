@@ -11,7 +11,7 @@ final class Context implements \Iterator
     /** @var ContextEntry[] */
     private $entries;
     /** @var int */
-    private $currentIndex;
+    private $currentIndex = 0;
     /** @var Decoder */
     private $decoder;
 
@@ -24,7 +24,6 @@ final class Context implements \Iterator
         ContextEntry ...$entries
     ) {
         $this->entries = $entries;
-        $this->currentIndex = 0;
         $this->decoder = $decoder;
     }
 
