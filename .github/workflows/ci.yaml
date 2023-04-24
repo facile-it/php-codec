@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         uses: ramsey/composer-install@v2
       - name: Run tests
-        run: ./vendor/bin/phpunit --coverage-clover=build/clover.xml
+        run: ./vendor/bin/phpunit
       - name: Upload code coverage
         uses: codecov/codecov-action@v1
         with:
-          file: build/coverage-report.xml
+          file: build/clover.xml
