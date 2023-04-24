@@ -22,7 +22,7 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: pcov
       - name: Install dependencies
-        uses: "ramsey/composer-install@v1"
+        uses: ramsey/composer-install@v2
       - name: Run tests
         run: ./vendor/bin/phpunit --coverage-clover=build/coverage-report.xml
       - name: Upload code coverage
