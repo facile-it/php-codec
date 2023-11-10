@@ -13,6 +13,7 @@
         <directory name="src"/>
         <directory name="tests"/>
         <ignoreFiles>
+            <directory name="tests/architecture/"/>
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
