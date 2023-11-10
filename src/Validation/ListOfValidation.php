@@ -99,6 +99,7 @@ final class ListOfValidation
         if (! empty($errors)) {
             /** @var list<list<VError>> $errors */
             $failures = Validation::failures(\array_merge(...$errors));
+
             /** @var VP $failures */
             return $failures;
         }
