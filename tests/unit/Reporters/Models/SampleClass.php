@@ -11,6 +11,5 @@ final class SampleClass
         int $number,
         float $amount,
         bool $flag
-    ) {
-    }
+    ) {}
 }

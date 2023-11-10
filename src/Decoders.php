@@ -30,9 +30,7 @@ use Psalm\Internal\Codebase\Properties;
 
 final class Decoders
 {
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @template I
@@ -177,7 +175,7 @@ final class Decoders
 
     /**
      * This is structurally equivalent to a map function
-     * map :: (a -> b) -> Decoder a -> Decoder b
+     * map :: (a -> b) -> Decoder a -> Decoder b.
      *
      * I still don't know if decoders could be functors or something more complicated.
      * By now, let me introduce it with this strange name. I just need this feature.
@@ -274,11 +272,11 @@ final class Decoders
         );
     }
 
-    ############################################################
+    # ###########################################################
     #
     # Primitives
     #
-    ############################################################
+    # ###########################################################
 
     /**
      * @psalm-template U
@@ -350,11 +348,11 @@ final class Decoders
         return new CallableDecoder();
     }
 
-    ############################################################
+    # ###########################################################
     #
     # Useful decoders
     #
-    ############################################################
+    # ###########################################################
 
     /**
      * @psalm-return Decoder<string, int>

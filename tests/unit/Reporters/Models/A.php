@@ -10,6 +10,5 @@ final class A
         string $a,
         int $b,
         float $c
-    ) {
-    }
+    ) {}
 }

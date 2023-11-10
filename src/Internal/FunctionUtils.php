@@ -71,8 +71,6 @@ final class FunctionUtils
 
     /**
      * @param mixed $x
-     *
-     * @return string
      */
     public static function strigify($x): string
     {
@@ -81,7 +79,7 @@ final class FunctionUtils
         }
 
         if (\is_string($x)) {
-            return "\"$x\"";
+            return "\"{$x}\"";
         }
 
         if (\is_array($x)) {

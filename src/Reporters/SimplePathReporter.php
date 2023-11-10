@@ -49,7 +49,7 @@ final class SimplePathReporter implements Reporter
 
         return sprintf(
             '%sInvalid value %s supplied to decoder "%s"',
-            empty($path) ? '' : "$path: ",
+            empty($path) ? '' : "{$path}: ",
             FunctionUtils::strigify($error->getValue()),
             $lastName
         );

@@ -20,11 +20,6 @@ class ReportersTest extends BaseTestCase
     use TestTrait;
 
     /**
-     * @param Reporter $reporter
-     * @param array    $expected
-     *
-     * @return void
-     *
      * @dataProvider provideReportRootErrors
      */
     public function testReportRootError(
@@ -53,11 +48,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideReportRootClassError
      */
@@ -195,11 +186,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param array    $expected
-     * @param mixed    $value
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideNestedArrayPropsReport
      */
@@ -271,11 +258,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideListOfClassReport
      */
@@ -364,11 +347,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideUnionReport
      */
@@ -456,11 +435,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideIntersectionReport
      */
