@@ -54,7 +54,7 @@ final class ListOfValidation
             }
         }
 
-        if (! empty($errors)) {
+        if (!empty($errors)) {
             return Validation::failures(\array_merge([], ...$errors));
         }
 
@@ -96,7 +96,7 @@ final class ListOfValidation
             );
         }
 
-        if (! empty($errors)) {
+        if (!empty($errors)) {
             /** @var list<list<VError>> $errors */
             $failures = Validation::failures(\array_merge(...$errors));
             /** @var VP $failures */
