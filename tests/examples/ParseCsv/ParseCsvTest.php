@@ -12,11 +12,11 @@ class ParseCsvTest extends BaseTestCase
 {
     public function test(): void
     {
-        $simpleCsv = <<<CSV
-1,Milano,F205
-2,Roma,H501
-3,Monte Urano,F653
-CSV;
+        $simpleCsv = <<<'CSV'
+            1,Milano,F205
+            2,Roma,H501
+            3,Monte Urano,F653
+            CSV;
         $decoder = Decoders::listOf(
             Decoders::pipe(
                 Decoders::string(),
@@ -27,7 +27,7 @@ CSV;
                         'name' => Decoders::string(),
                         'code' => Decoders::string(),
                     ]),
-                    static fn (int $id, string $name, string $code): City => new City($id, $name, $code),
+                    static fn(int $id, string $name, string $code): City => new City($id, $name, $code),
                     City::class
                 )
             )

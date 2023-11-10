@@ -23,9 +23,6 @@ final class ConcreteDecoder implements Decoder
 
     /**
      * @psalm-param callable(I, Context):Validation<A> $validate
-     *
-     * @param callable $validate
-     * @param string   $name
      */
     public function __construct(
         callable $validate,

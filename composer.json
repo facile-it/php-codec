@@ -6,7 +6,7 @@
         "phpunit/phpunit": "^9",
         "giorgiosironi/eris": "^0.14.0",
         "phpat/phpat": "^0.10",
-        "facile-it/facile-coding-standard": "0.5.3",
+        "facile-it/facile-coding-standard": "1.0.0",
         "vimeo/psalm": "4.30.0",
         "friendsofphp/php-cs-fixer": "3.38.0",
         "phpstan/phpstan": "^1.8",

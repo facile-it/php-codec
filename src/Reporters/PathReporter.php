@@ -21,18 +21,16 @@ final class PathReporter implements Reporter
     }
 
     /**
-     * @param Validation $validation
-     *
      * @psalm-return list<string>
      */
     public function report(Validation $validation): array
     {
         return Validation::fold(
-            fn (array $errors): array => \array_map(
+            fn(array $errors): array => \array_map(
                 [self::class, 'getMessage'],
                 $errors
             ),
-            fn (): array => ['No errors!'],
+            fn(): array => ['No errors!'],
             $validation
         );
     }

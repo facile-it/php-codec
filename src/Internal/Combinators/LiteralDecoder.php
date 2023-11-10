@@ -65,7 +65,7 @@ final class LiteralDecoder implements Decoder
     private static function literalName($x): string
     {
         if (\is_string($x)) {
-            return "'$x'";
+            return "'{$x}'";
         }
 
         if (\is_bool($x)) {

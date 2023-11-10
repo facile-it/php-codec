@@ -17,7 +17,7 @@ class DecodePartialPropertiesTest extends BaseTestCase
                 'foo' => Decoders::string(),
                 'bar' => Decoders::union(Decoders::int(), Decoders::undefined(-1)),
             ]),
-            fn (string $foo, int $bar): DecodePartialPropertiesTest\A => new DecodePartialPropertiesTest\A($foo, $bar),
+            fn(string $foo, int $bar): DecodePartialPropertiesTest\A => new DecodePartialPropertiesTest\A($foo, $bar),
             DecodePartialPropertiesTest\A::class
         );
 

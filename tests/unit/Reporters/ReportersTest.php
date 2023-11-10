@@ -20,11 +20,6 @@ class ReportersTest extends BaseTestCase
     use TestTrait;
 
     /**
-     * @param Reporter $reporter
-     * @param array    $expected
-     *
-     * @return void
-     *
      * @dataProvider provideReportRootErrors
      */
     public function testReportRootError(
@@ -53,11 +48,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideReportRootClassError
      */
@@ -72,7 +63,7 @@ class ReportersTest extends BaseTestCase
                 'b' => Decoders::int(),
                 'c' => Decoders::float(),
             ]),
-            static fn (string $a, int $b, float $c): Models\A => new Models\A($a, $b, $c),
+            static fn(string $a, int $b, float $c): Models\A => new Models\A($a, $b, $c),
             Models\A::class
         );
 
@@ -151,7 +142,7 @@ class ReportersTest extends BaseTestCase
                 'b' => Decoders::int(),
                 'c' => Decoders::float(),
             ]),
-            static fn (string $a, int $b, float $c): Models\A => new Models\A($a, $b, $c),
+            static fn(string $a, int $b, float $c): Models\A => new Models\A($a, $b, $c),
             Models\A::class
         );
 
@@ -195,11 +186,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param array    $expected
-     * @param mixed    $value
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideNestedArrayPropsReport
      */
@@ -271,11 +258,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideListOfClassReport
      */
@@ -289,7 +272,7 @@ class ReportersTest extends BaseTestCase
                     'amount' => Decoders::float(),
                     'flag' => Decoders::bool(),
                 ]),
-                static fn (string $name, int $number, float $amount, bool $flag) => new SampleClass($name, $number, $amount, $flag),
+                static fn(string $name, int $number, float $amount, bool $flag) => new SampleClass($name, $number, $amount, $flag),
                 'SampleClass'
             )
         );
@@ -364,11 +347,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideUnionReport
      */
@@ -456,11 +435,7 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param Reporter $reporter
-     * @param mixed    $value
-     * @param array    $expected
-     *
-     * @return void
+     * @param mixed $value
      *
      * @dataProvider provideIntersectionReport
      */

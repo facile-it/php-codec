@@ -6,9 +6,7 @@ namespace Facile\PhpCodec\Validation;
 
 final class ListOfValidation
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * @psalm-template T

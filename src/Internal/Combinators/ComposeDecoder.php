@@ -53,7 +53,7 @@ final class ComposeDecoder implements Decoder
              *
              * @param mixed $aValue
              */
-            fn ($aValue): Validation => $this->db->validate($aValue, $context),
+            fn($aValue): Validation => $this->db->validate($aValue, $context),
             $this->da->validate($i, $context)
         );
     }
