@@ -19,7 +19,7 @@ class DecodeApiResponseTest extends BaseTestCase
                         'lon' => Decoders::float(),
                         'lat' => Decoders::float(),
                     ]),
-                    fn (float $lon, float $lat): Coordinates => new Coordinates($lon, $lat),
+                    fn(float $lon, float $lat): Coordinates => new Coordinates($lon, $lat),
                     Coordinates::class
                 ),
                 'weather' => Decoders::listOf(
@@ -29,7 +29,7 @@ class DecodeApiResponseTest extends BaseTestCase
                             'main' => Decoders::string(),
                             'description' => Decoders::string(),
                         ]),
-                        fn (int $id, string $main, string $desc): Weather => new Weather($id, $main, $desc),
+                        fn(int $id, string $main, string $desc): Weather => new Weather($id, $main, $desc),
                         Weather::class
                     )
                 ),
@@ -39,11 +39,11 @@ class DecodeApiResponseTest extends BaseTestCase
                         'sunrise' => Decoders::dateTimeFromString(),
                         'sunset' => Decoders::dateTimeFromString(),
                     ]),
-                    fn (string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): Sys => new Sys($county, $sunrise, $sunset),
+                    fn(string $county, \DateTimeInterface $sunrise, \DateTimeInterface $sunset): Sys => new Sys($county, $sunrise, $sunset),
                     Sys::class
                 ),
             ]),
-            fn (Coordinates $coordinates, array $weathers, Sys $sys): OpenWeatherResponse => new OpenWeatherResponse($coordinates, $weathers, $sys),
+            fn(Coordinates $coordinates, array $weathers, Sys $sys): OpenWeatherResponse => new OpenWeatherResponse($coordinates, $weathers, $sys),
             OpenWeatherResponse::class
         );
 

@@ -27,7 +27,7 @@ class ParseCsvTest extends BaseTestCase
                         'name' => Decoders::string(),
                         'code' => Decoders::string(),
                     ]),
-                    static fn (int $id, string $name, string $code): City => new City($id, $name, $code),
+                    static fn(int $id, string $name, string $code): City => new City($id, $name, $code),
                     City::class
                 )
             )

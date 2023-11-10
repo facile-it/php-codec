@@ -16,7 +16,7 @@ class DecodersTest extends BaseTestCase
     public function testMap(): void
     {
         $decoder = Decoders::transformValidationSuccess(
-            fn (int $v): DecodersTest\A => new DecodersTest\A($v),
+            fn(int $v): DecodersTest\A => new DecodersTest\A($v),
             Decoders::int()
         );
 

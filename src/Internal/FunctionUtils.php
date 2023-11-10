@@ -23,7 +23,7 @@ final class FunctionUtils
             \implode(
                 ', ',
                 \array_map(
-                    static fn (Decoder $t, $k): string => \sprintf(
+                    static fn(Decoder $t, $k): string => \sprintf(
                         '%s: %s',
                         \is_string($k) ? $k : \sprintf('[%d]', $k),
                         $t->getName()
@@ -66,7 +66,7 @@ final class FunctionUtils
      */
     public static function destructureIn(callable $f): callable
     {
-        return fn (array $params) => $f(...$params);
+        return fn(array $params) => $f(...$params);
     }
 
     /**

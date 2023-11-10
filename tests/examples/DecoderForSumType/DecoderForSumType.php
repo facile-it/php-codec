@@ -27,7 +27,7 @@ class DecoderForSumType extends BaseTestCase
                     'propA' => Decoders::int(),
                     'propB' => Decoders::string(),
                 ]),
-                fn (string $t, string $subT, int $propA, string $propB): A => new A($subT, $propA, $propB),
+                fn(string $t, string $subT, int $propA, string $propB): A => new A($subT, $propA, $propB),
                 A::class
             ),
             Decoders::classFromArrayPropsDecoder(
@@ -41,7 +41,7 @@ class DecoderForSumType extends BaseTestCase
                     'amount' => Decoders::float(),
                     'flag' => Decoders::bool(),
                 ]),
-                fn (string $t, int $case, float $amount, bool $flag): B => new B($case, $amount, $flag),
+                fn(string $t, int $case, float $amount, bool $flag): B => new B($case, $amount, $flag),
                 B::class
             )
         );

@@ -28,7 +28,7 @@ class StringMatchingRegexDecoderTest extends BaseTestCase
         $this
             ->forAll(
                 Generators::map(
-                    fn (int $x): string => (string) $x,
+                    fn(int $x): string => (string) $x,
                     Generators::choose(10, 99999)
                 )
             )
