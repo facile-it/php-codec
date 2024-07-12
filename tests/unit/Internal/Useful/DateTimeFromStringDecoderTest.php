@@ -36,7 +36,7 @@ class DateTimeFromStringDecoderTest extends BaseTestCase
 
         /** @psalm-suppress UndefinedFunction */
         $this
-            ->limitTo(1000)
+            ->limitTo(1_000)
             ->forAll(
                 Generators::date(),
                 Generators::elements([

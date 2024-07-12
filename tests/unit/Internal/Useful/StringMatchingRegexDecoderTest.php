@@ -29,7 +29,7 @@ class StringMatchingRegexDecoderTest extends BaseTestCase
             ->forAll(
                 Generators::map(
                     fn(int $x): string => (string) $x,
-                    Generators::choose(10, 99999)
+                    Generators::choose(10, 99_999)
                 )
             )
             ->then(function (string $in): void {
@@ -42,7 +42,7 @@ class StringMatchingRegexDecoderTest extends BaseTestCase
         $this
             ->forAll(
                 Generators::tuple(
-                    Generators::choose(10, 99999),
+                    Generators::choose(10, 99_999),
                     Generators::elements(['a', 'b', 'c', 'd', 'e', 'f', 'g'])
                 )
             )
