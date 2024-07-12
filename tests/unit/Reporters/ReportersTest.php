@@ -48,13 +48,11 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider provideReportRootClassError
      */
     public function testReportRootClassError(
         Reporter $reporter,
-        $value,
+        mixed $value,
         array $expected
     ): void {
         $decoder = Decoders::classFromArrayPropsDecoder(
@@ -186,11 +184,9 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider provideNestedArrayPropsReport
      */
-    public function testNestedArrayPropsReport(Reporter $reporter, $value, array $expected): void
+    public function testNestedArrayPropsReport(Reporter $reporter, mixed $value, array $expected): void
     {
         $decoder = Decoders::arrayProps([
             'a' => Decoders::arrayProps([
@@ -258,11 +254,9 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider provideListOfClassReport
      */
-    public function testListOfClassReport(Reporter $reporter, $value, array $expected): void
+    public function testListOfClassReport(Reporter $reporter, mixed $value, array $expected): void
     {
         $decoder = Decoders::listOf(
             Decoders::classFromArrayPropsDecoder(
@@ -347,11 +341,9 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider provideUnionReport
      */
-    public function testUnionReport(Reporter $reporter, $value, array $expected): void
+    public function testUnionReport(Reporter $reporter, mixed $value, array $expected): void
     {
         $decoder = Decoders::arrayProps([
             'a' => Decoders::union(
@@ -435,13 +427,11 @@ class ReportersTest extends BaseTestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider provideIntersectionReport
      */
     public function testIntersectionReport(
         Reporter $reporter,
-        $value,
+        mixed $value,
         array $expected
     ): void {
         $d = Decoders::intersection(

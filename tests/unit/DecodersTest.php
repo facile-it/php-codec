@@ -39,11 +39,8 @@ namespace Tests\Facile\PhpCodec\DecodersTest;
 
 class A
 {
-    private int $v;
-
-    public function __construct(int $v)
+    public function __construct(private readonly int $v)
     {
-        $this->v = $v;
     }
 
     public function getValue(): int

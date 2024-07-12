@@ -15,10 +15,8 @@ abstract class Validation
      * @psalm-param T $a
      *
      * @psalm-return ValidationSuccess<T>
-     *
-     * @param mixed $a
      */
-    public static function success($a): self
+    public static function success(mixed $a): self
     {
         return new ValidationSuccess($a);
     }
@@ -45,10 +43,8 @@ abstract class Validation
      * @psalm-param string|null $message
      *
      * @psalm-return ValidationFailures<T>
-     *
-     * @param mixed $value
      */
-    public static function failure($value, Context $context, ?string $message = null): self
+    public static function failure(mixed $value, Context $context, ?string $message = null): self
     {
         return self::failures(
             [new VError($value, $context, $message)]

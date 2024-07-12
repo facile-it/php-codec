@@ -85,7 +85,7 @@ final class ListOfValidation
                  *
                  * @param mixed $x
                  */
-                function ($x) use ($k, &$results): void {
+                function (mixed $x) use ($k, &$results): void {
                     /** @var K $k */
                     /** @var array<K, Values> $results */
                     $results[$k] = $x;

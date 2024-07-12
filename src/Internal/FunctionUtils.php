@@ -43,10 +43,8 @@ final class FunctionUtils
      * @psalm-param I             $input
      *
      * @psalm-return Validation<A>
-     *
-     * @param mixed $input
      */
-    public static function standardDecode(Decoder $decoder, $input): Validation
+    public static function standardDecode(Decoder $decoder, mixed $input): Validation
     {
         return $decoder->validate(
             $input,
@@ -69,10 +67,7 @@ final class FunctionUtils
         return fn(array $params) => $f(...$params);
     }
 
-    /**
-     * @param mixed $x
-     */
-    public static function strigify($x): string
+    public static function strigify(mixed $x): string
     {
         if ($x === null) {
             return 'null';

@@ -46,7 +46,7 @@ class StringMatchingRegexDecoderTest extends BaseTestCase
                     Generators::elements(['a', 'b', 'c', 'd', 'e', 'f', 'g'])
                 )
             )
-            ->then(FunctionUtils::destructureIn(function (int $x, string $a) {
+            ->then(FunctionUtils::destructureIn(function (int $x, string $a): void {
                 $in = \sprintf('%d%s', $x, $a);
                 self::asserSuccessSameTo(
                     $in,

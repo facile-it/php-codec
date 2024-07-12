@@ -18,19 +18,15 @@ interface Decoder
      * @psalm-param Context $context
      *
      * @psalm-return Validation<A>
-     *
-     * @param mixed $i
      */
-    public function validate($i, Context $context): Validation;
+    public function validate(mixed $i, Context $context): Validation;
 
     /**
      * @psalm-param I $i
      *
      * @psalm-return Validation<A>
-     *
-     * @param mixed $i
      */
-    public function decode($i): Validation;
+    public function decode(mixed $i): Validation;
 
     public function getName(): string;
 }

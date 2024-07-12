@@ -23,24 +23,18 @@ use Facile\PhpCodec\Validation\ValidationFailures;
  */
 final class UnionDecoder implements Decoder
 {
-    /** @var Decoder<IA, A> */
-    private \Facile\PhpCodec\Decoder $a;
-    /** @var Decoder<IB, B> */
-    private \Facile\PhpCodec\Decoder $b;
-    private int $indexBegin;
-
     /**
      * @psalm-param Decoder<IA, A> $a
      * @psalm-param Decoder<IB, B> $b
      */
     public function __construct(
-        Decoder $a,
-        Decoder $b,
-        int $indexBegin = 0
-    ) {
-        $this->a = $a;
-        $this->b = $b;
-        $this->indexBegin = $indexBegin;
+        /** @var Decoder<IA, A> */
+        private readonly \Facile\PhpCodec\Decoder $a,
+        /** @var Decoder<IB, B> */
+        private readonly \Facile\PhpCodec\Decoder $b,
+        private readonly int $indexBegin = 0
+    )
+    {
     }
 
     public function validate($i, Context $context): Validation

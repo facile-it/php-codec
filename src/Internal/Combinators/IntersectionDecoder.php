@@ -24,19 +24,17 @@ use Facile\PhpCodec\Validation\ValidationSuccess;
  */
 final class IntersectionDecoder implements Decoder
 {
-    /** @var Decoder<IA, A> */
-    private \Facile\PhpCodec\Decoder $a;
-    /** @var Decoder<IB, B> */
-    private \Facile\PhpCodec\Decoder $b;
-
     /**
      * @psalm-param Decoder<IA, A> $a
      * @psalm-param Decoder<IB, B> $b
      */
-    public function __construct(Decoder $a, Decoder $b)
+    public function __construct(
+        /** @var Decoder<IA, A> */
+        private readonly \Facile\PhpCodec\Decoder $a,
+        /** @var Decoder<IB, B> */
+        private readonly \Facile\PhpCodec\Decoder $b
+    )
     {
-        $this->a = $a;
-        $this->b = $b;
     }
 
     public function validate($i, Context $context): Validation
@@ -97,12 +95,10 @@ final class IntersectionDecoder implements Decoder
      *
      * @psalm-return T1&T2
      *
-     * @param mixed $a
-     * @param mixed $b
      *
      * @return array|object
      */
-    private static function intersectResults($a, $b)
+    private static function intersectResults(mixed $a, mixed $b)
     {
         if (\is_array($a) && \is_array($b)) {
             /** @var T1&T2 */

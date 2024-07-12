@@ -13,15 +13,8 @@ final class B extends P
     public const CASE_B2 = 2;
     public const CASE_B3 = 3;
 
-    private int $case;
-    private float $amount;
-    private bool $flag;
-
-    public function __construct(int $case, float $amount, bool $flag)
+    public function __construct(private readonly int $case, private readonly float $amount, private readonly bool $flag)
     {
-        $this->case = $case;
-        $this->amount = $amount;
-        $this->flag = $flag;
     }
 
     public function getType(): string

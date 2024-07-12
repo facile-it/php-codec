@@ -23,7 +23,7 @@ final class SimplePathReporter implements Reporter
     {
         return Validation::fold(
             static fn(array $errors): array => array_map(
-                [self::class, 'getMessage'],
+                self::getMessage(...),
                 $errors
             ),
             static fn(): array => ['No errors'],

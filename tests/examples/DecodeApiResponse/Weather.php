@@ -9,15 +9,8 @@ namespace Examples\Facile\PhpCodec\DecodeApiResponse;
  */
 class Weather
 {
-    private int $id;
-    private string $main;
-    private string $description;
-
-    public function __construct(int $id, string $main, string $description)
+    public function __construct(private readonly int $id, private readonly string $main, private readonly string $description)
     {
-        $this->id = $id;
-        $this->main = $main;
-        $this->description = $description;
     }
 
     public function getId(): int
