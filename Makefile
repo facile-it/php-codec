@@ -17,7 +17,7 @@ run-php8.2:
 	@# Help: It creates and runs a docker image with PHP 8.2
 	docker-compose run --rm php82 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run-php8.3:
-	@# Help: It creates and runs a docker image with PHP 8.2
+	@# Help: It creates and runs a docker image with PHP 8.3
 	docker-compose run --rm php83 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run: run-php8.1
 	@# Help: It creates and runs a docker image with the lowest supported PHP version
