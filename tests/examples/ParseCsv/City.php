@@ -6,18 +6,8 @@ namespace Examples\Facile\PhpCodec\ParseCsv;
 
 class City
 {
-    private int $id;
-    private string $name;
-    private string $italianLandRegistryCode;
-
-    public function __construct(
-        int $id,
-        string $name,
-        string $italianLandRegistryCode
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->italianLandRegistryCode = $italianLandRegistryCode;
+    public function __construct(private readonly int $id, private readonly string $name, private readonly string $italianLandRegistryCode)
+    {
     }
 
     public function getId(): int

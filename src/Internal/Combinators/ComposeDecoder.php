@@ -20,21 +20,17 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class ComposeDecoder implements Decoder
 {
-    /** @var Decoder<A, B> */
-    private \Facile\PhpCodec\Decoder $db;
-    /** @var Decoder<IA, A> */
-    private \Facile\PhpCodec\Decoder $da;
-
     /**
      * @psalm-param Decoder<A, B> $db
      * @psalm-param Decoder<IA, A> $da
      */
     public function __construct(
-        Decoder $db,
-        Decoder $da
-    ) {
-        $this->db = $db;
-        $this->da = $da;
+        /** @var Decoder<A, B> */
+        private readonly \Facile\PhpCodec\Decoder $db,
+        /** @var Decoder<IA, A> */
+        private readonly \Facile\PhpCodec\Decoder $da
+    )
+    {
     }
 
     /**
@@ -53,7 +49,7 @@ final class ComposeDecoder implements Decoder
              *
              * @param mixed $aValue
              */
-            fn($aValue): Validation => $this->db->validate($aValue, $context),
+            fn(mixed $aValue): Validation => $this->db->validate($aValue, $context),
             $this->da->validate($i, $context)
         );
     }

@@ -8,26 +8,13 @@ use Facile\PhpCodec\Decoder;
 
 final class ContextEntry
 {
-    private string $key;
-    private \Facile\PhpCodec\Decoder $decoder;
-    /** @var mixed */
-    private $actual;
-
     /**
      * @psalm-param string $key
      * @psalm-param Decoder<mixed, mixed> $decoder
      * @psalm-param mixed  $actual
-     *
-     * @param mixed $actual
      */
-    public function __construct(
-        string $key,
-        Decoder $decoder,
-        $actual
-    ) {
-        $this->key = $key;
-        $this->decoder = $decoder;
-        $this->actual = $actual;
+    public function __construct(private readonly string $key, private readonly \Facile\PhpCodec\Decoder $decoder, private readonly mixed $actual)
+    {
     }
 
     public function getKey(): string

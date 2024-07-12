@@ -30,10 +30,8 @@ final class LiteralDecoder implements Decoder
 
     /**
      * @psalm-param T $literal
-     *
-     * @param mixed $literal
      */
-    public function __construct($literal)
+    public function __construct(mixed $literal)
     {
         $this->literal = $literal;
     }
@@ -59,10 +57,8 @@ final class LiteralDecoder implements Decoder
 
     /**
      * @psalm-param literable $x
-     *
-     * @param mixed $x
      */
-    private static function literalName($x): string
+    private static function literalName(mixed $x): string
     {
         if (\is_string($x)) {
             return "'{$x}'";

@@ -203,10 +203,8 @@ final class Decoders
      * @psalm-param T $l
      *
      * @psalm-return Decoder<mixed, T>
-     *
-     * @param mixed $l
      */
-    public static function literal($l): Decoder
+    public static function literal(mixed $l): Decoder
     {
         return new LiteralDecoder($l);
     }
