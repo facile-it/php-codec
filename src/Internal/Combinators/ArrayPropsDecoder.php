@@ -30,9 +30,7 @@ final class ArrayPropsDecoder implements Decoder
     public function __construct(
         /** @var PD */
         private readonly array $props
-    )
-    {
-    }
+    ) {}
 
     public function validate($i, Context $context): Validation
     {

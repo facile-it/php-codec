@@ -9,9 +9,7 @@ namespace Examples\Facile\PhpCodec\DecodeApiResponse;
  */
 class Weather
 {
-    public function __construct(private readonly int $id, private readonly string $main, private readonly string $description)
-    {
-    }
+    public function __construct(private readonly int $id, private readonly string $main, private readonly string $description) {}
 
     public function getId(): int
     {

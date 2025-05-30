@@ -35,9 +35,7 @@ namespace Examples\Facile\PhpCodec\DecodePartialPropertiesTest;
 
 class A
 {
-    public function __construct(private readonly string $foo, private readonly int $bar)
-    {
-    }
+    public function __construct(private readonly string $foo, private readonly int $bar) {}
 
     public function getFoo(): string
     {

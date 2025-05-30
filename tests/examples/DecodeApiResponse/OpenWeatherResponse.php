@@ -9,9 +9,7 @@ namespace Examples\Facile\PhpCodec\DecodeApiResponse;
  */
 class OpenWeatherResponse
 {
-    public function __construct(private readonly \Examples\Facile\PhpCodec\DecodeApiResponse\Coordinates $coordinates, private readonly array $weather, private readonly \Examples\Facile\PhpCodec\DecodeApiResponse\Sys $sys)
-    {
-    }
+    public function __construct(private readonly \Examples\Facile\PhpCodec\DecodeApiResponse\Coordinates $coordinates, private readonly array $weather, private readonly \Examples\Facile\PhpCodec\DecodeApiResponse\Sys $sys) {}
 
     public function getCoordinates(): \Examples\Facile\PhpCodec\DecodeApiResponse\Coordinates
     {

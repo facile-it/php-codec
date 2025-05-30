@@ -29,9 +29,7 @@ final class ComposeDecoder implements Decoder
         private readonly \Facile\PhpCodec\Decoder $db,
         /** @var Decoder<IA, A> */
         private readonly \Facile\PhpCodec\Decoder $da
-    )
-    {
-    }
+    ) {}
 
     /**
      * @psalm-param IA      $i

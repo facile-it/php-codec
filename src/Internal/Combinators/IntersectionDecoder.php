@@ -33,9 +33,7 @@ final class IntersectionDecoder implements Decoder
         private readonly \Facile\PhpCodec\Decoder $a,
         /** @var Decoder<IB, B> */
         private readonly \Facile\PhpCodec\Decoder $b
-    )
-    {
-    }
+    ) {}
 
     public function validate($i, Context $context): Validation
     {

@@ -33,9 +33,7 @@ final class UnionDecoder implements Decoder
         /** @var Decoder<IB, B> */
         private readonly \Facile\PhpCodec\Decoder $b,
         private readonly int $indexBegin = 0
-    )
-    {
-    }
+    ) {}
 
     public function validate($i, Context $context): Validation
     {

@@ -24,9 +24,7 @@ final class UndefinedDecoder implements Decoder
      *
      * @param mixed $default
      */
-    public function __construct(private $default)
-    {
-    }
+    public function __construct(private $default) {}
 
     public function validate($i, Context $context): Validation
     {

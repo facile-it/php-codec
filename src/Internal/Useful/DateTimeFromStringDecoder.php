@@ -21,9 +21,7 @@ final class DateTimeFromStringDecoder implements Decoder
          * @psalm-readonly
          */
         private readonly string $format = \DATE_ATOM
-    )
-    {
-    }
+    ) {}
 
     public function validate($i, Context $context): Validation
     {

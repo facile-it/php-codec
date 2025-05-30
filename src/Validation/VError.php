@@ -13,9 +13,7 @@ final class VError
      *
      * @param mixed $value
      */
-    public function __construct(private $value, private readonly \Facile\PhpCodec\Validation\Context $context, private readonly ?string $message = null)
-    {
-    }
+    public function __construct(private $value, private readonly \Facile\PhpCodec\Validation\Context $context, private readonly ?string $message = null) {}
 
     /**
      * @return mixed

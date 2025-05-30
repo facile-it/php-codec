@@ -16,9 +16,7 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class RegexDecoder implements Decoder
 {
-    public function __construct(private readonly string $regex)
-    {
-    }
+    public function __construct(private readonly string $regex) {}
 
     public function validate($i, Context $context): Validation
     {

@@ -16,9 +16,7 @@ final class ValidationSuccess extends Validation
      *
      * @param mixed $value
      */
-    public function __construct(private $value)
-    {
-    }
+    public function __construct(private $value) {}
 
     /**
      * @psalm-return A

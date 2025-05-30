@@ -15,9 +15,7 @@ final class ContextEntry
      *
      * @param mixed $actual
      */
-    public function __construct(private readonly string $key, private readonly \Facile\PhpCodec\Decoder $decoder, private $actual)
-    {
-    }
+    public function __construct(private readonly string $key, private readonly \Facile\PhpCodec\Decoder $decoder, private $actual) {}
 
     public function getKey(): string
     {

@@ -28,9 +28,7 @@ final class ListOfDecoder implements Decoder
     public function __construct(
         /** @var Decoder<IT, T> */
         private readonly \Facile\PhpCodec\Decoder $elementDecoder
-    )
-    {
-    }
+    ) {}
 
     public function validate($i, Context $context): Validation
     {

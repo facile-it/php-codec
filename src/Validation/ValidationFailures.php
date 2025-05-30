@@ -16,9 +16,7 @@ final class ValidationFailures extends Validation
      *
      * @param VError[] $errors
      */
-    public function __construct(private readonly array $errors)
-    {
-    }
+    public function __construct(private readonly array $errors) {}
 
     /**
      * @psalm-return list<VError>
