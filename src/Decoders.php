@@ -26,7 +26,6 @@ use Facile\PhpCodec\Internal\Useful\StringMatchingRegexDecoder;
 use Facile\PhpCodec\Utils\ConcreteDecoder;
 use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
-use Psalm\Internal\Codebase\Properties;
 
 final class Decoders
 {
@@ -61,7 +60,6 @@ final class Decoders
     {
         // TODO Fix this
         /** @psalm-var Decoder<IA, B> */
-        /** @psalm-suppress InvalidArgument */
         return new ComposeDecoder($db, $da);
     }
 
@@ -100,7 +98,6 @@ final class Decoders
     ): Decoder {
         // Order is important: composition is not commutative
         // TODO fix this
-        /** @psalm-suppress InvalidArgument */
         return $c instanceof Decoder
             ? self::compose(self::pipe($b, $c, $d, $e), $a)
             : self::compose($b, $a);
@@ -198,15 +195,13 @@ final class Decoders
     }
 
     /**
-     * @psalm-template T of bool | string | int
+     * @template T of bool | string | int
      *
-     * @psalm-param T $l
+     * @param T $l
      *
-     * @psalm-return Decoder<mixed, T>
-     *
-     * @param mixed $l
+     * @return Decoder<mixed, T>
      */
-    public static function literal($l): Decoder
+    public static function literal(bool|string|int $l): Decoder
     {
         return new LiteralDecoder($l);
     }

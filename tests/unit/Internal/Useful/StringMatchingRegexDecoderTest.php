@@ -11,7 +11,6 @@ use Facile\PhpCodec\Internal\FunctionUtils;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class StringMatchingRegexDecoderTest extends BaseTestCase
 {
     use TestTrait;

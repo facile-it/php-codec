@@ -9,7 +9,6 @@ use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class DecoderForSumType extends BaseTestCase
 {
     use TestTrait;
@@ -46,7 +45,6 @@ class DecoderForSumType extends BaseTestCase
             )
         );
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::associative([
@@ -66,7 +64,6 @@ class DecoderForSumType extends BaseTestCase
                 self::assertSame($i['propB'], $a->getPropertyB());
             });
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::associative([

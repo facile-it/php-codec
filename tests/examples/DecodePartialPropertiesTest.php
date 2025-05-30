@@ -7,7 +7,6 @@ namespace Examples\Facile\PhpCodec;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class DecodePartialPropertiesTest extends BaseTestCase
 {
     public function test(): void

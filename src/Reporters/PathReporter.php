@@ -21,7 +21,7 @@ final class PathReporter implements Reporter
     }
 
     /**
-     * @psalm-return list<string>
+     * @return list<string>
      */
     public function report(Validation $validation): array
     {

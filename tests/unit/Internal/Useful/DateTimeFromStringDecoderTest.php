@@ -9,7 +9,6 @@ use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class DateTimeFromStringDecoderTest extends BaseTestCase
 {
     use TestTrait;
@@ -22,7 +21,6 @@ class DateTimeFromStringDecoderTest extends BaseTestCase
             $decoder->decode('2021-03-12T06:22:48+01:00')
         );
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::date()
@@ -34,7 +32,6 @@ class DateTimeFromStringDecoderTest extends BaseTestCase
                 );
             });
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->limitTo(1_000)
             ->forAll(
@@ -55,7 +52,6 @@ class DateTimeFromStringDecoderTest extends BaseTestCase
                 ])
             )
             ->then(function (\DateTimeInterface $date, string $format): void {
-                /** @psalm-suppress InternalClass */
                 $decoder = Decoders::dateTimeFromString($format);
 
                 self::assertSuccessInstanceOf(

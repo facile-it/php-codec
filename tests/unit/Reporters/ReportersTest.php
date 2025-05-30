@@ -14,7 +14,6 @@ use Facile\PhpCodec\Validation\Validation;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\Reporters\Models\SampleClass;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class ReportersTest extends BaseTestCase
 {
     use TestTrait;
@@ -149,7 +148,6 @@ class ReportersTest extends BaseTestCase
         $pathReporter = Reporters::path();
         $simplePathReporter = Reporters::simplePath();
 
-        /** @psalm-suppress TooManyArguments */
         $this
             ->forAll(
                 Generators::associative([

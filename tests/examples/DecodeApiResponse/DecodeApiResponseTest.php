@@ -7,7 +7,6 @@ namespace Examples\Facile\PhpCodec\DecodeApiResponse;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class DecodeApiResponseTest extends BaseTestCase
 {
     public function testJsonDecoding(): void

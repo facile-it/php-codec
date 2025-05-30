@@ -8,7 +8,6 @@ use Eris\Generators;
 use Eris\TestTrait;
 use Facile\PhpCodec\Decoders;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class DecodersTest extends BaseTestCase
 {
     use TestTrait;
@@ -20,7 +19,6 @@ class DecodersTest extends BaseTestCase
             Decoders::int()
         );
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::int()

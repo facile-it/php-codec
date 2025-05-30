@@ -10,7 +10,6 @@ use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Reporters\PathReporter;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class ArrayPropsDecoderTest extends BaseTestCase
 {
     use TestTrait;
@@ -24,7 +23,6 @@ class ArrayPropsDecoderTest extends BaseTestCase
             'd' => Decoders::literal('hello'),
         ]);
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::associative([

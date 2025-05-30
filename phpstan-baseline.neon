@@ -49,12 +49,6 @@ parameters:
 			path: src/Decoders.php
 
 		-
-			message: '#^Parameter \#1 \$literal of class Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder constructor expects T of Facile\\PhpCodec\\Internal\\Combinators\\literable, T of bool\|int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Decoders.php
-
-		-
 			message: '#^Parameter \#2 \$da of class Facile\\PhpCodec\\Internal\\Combinators\\ComposeDecoder constructor expects Facile\\PhpCodec\\Decoder\<IA, \(A of IB\)\|IB\>, Facile\\PhpCodec\\Decoder\<IA, A of IB\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -121,44 +115,14 @@ parameters:
 			path: src/Internal/Combinators/IntersectionDecoder.php
 
 		-
-			message: '#^Call to function is_bool\(\) with Facile\\PhpCodec\\Internal\\Combinators\\literable will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
-			path: src/Internal/Combinators/LiteralDecoder.php
-
-		-
-			message: '#^Call to function is_string\(\) with Facile\\PhpCodec\\Internal\\Combinators\\literable will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
-			path: src/Internal/Combinators/LiteralDecoder.php
-
-		-
-			message: '#^Class Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder implements generic interface Facile\\PhpCodec\\Decoder but does not specify its types\: I, A$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Internal/Combinators/LiteralDecoder.php
-
-		-
-			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<mixed\> but returns Facile\\PhpCodec\\Validation\\ValidationSuccess\<T of Facile\\PhpCodec\\Internal\\Combinators\\literable\>\.$#'
+			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<T of bool\|int\|string\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: src/Internal/Combinators/LiteralDecoder.php
 
 		-
-			message: '#^Parameter \$literal of method Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:__construct\(\) has invalid type Facile\\PhpCodec\\Internal\\Combinators\\literable\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/Internal/Combinators/LiteralDecoder.php
-
-		-
-			message: '#^Parameter \$x of method Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:literalName\(\) has invalid type Facile\\PhpCodec\\Internal\\Combinators\\literable\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/Internal/Combinators/LiteralDecoder.php
-
-		-
-			message: '#^Property Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:\$literal has unknown class Facile\\PhpCodec\\Internal\\Combinators\\literable as its type\.$#'
-			identifier: class.notFound
+			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<T of bool\|int\|string\> but returns Facile\\PhpCodec\\Validation\\ValidationSuccess\<T of \(bool&I\)\|\(I&int\)\|\(I&string\)\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Internal/Combinators/LiteralDecoder.php
 
@@ -343,12 +307,6 @@ parameters:
 			path: src/Validation/Validation.php
 
 		-
-			message: '#^Method Facile\\PhpCodec\\Validation\\Validation\:\:success\(\) should return Facile\\PhpCodec\\Validation\\ValidationSuccess\<T\> but returns Facile\\PhpCodec\\Validation\\ValidationSuccess\<mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Validation/Validation.php
-
-		-
 			message: '#^Template type T of method Facile\\PhpCodec\\Validation\\Validation\:\:failure\(\) is not referenced in a parameter\.$#'
 			identifier: method.templateTypeNotInParameter
 			count: 1
@@ -359,12 +317,6 @@ parameters:
 			identifier: method.templateTypeNotInParameter
 			count: 1
 			path: src/Validation/Validation.php
-
-		-
-			message: '#^PHPDoc tag @param references unknown parameter\: \$a$#'
-			identifier: parameter.notFound
-			count: 1
-			path: src/Validation/ValidationSuccess.php
 
 		-
 			message: '#^Method Examples\\Facile\\PhpCodec\\DecodeApiResponse\\OpenWeatherResponse\:\:__construct\(\) has parameter \$weather with no value type specified in iterable type array\.$#'

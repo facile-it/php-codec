@@ -10,10 +10,8 @@ use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\Validation;
 
 /**
- * @psalm-type literable = bool | string | int
- *
  * @template I of mixed
- * @template T of literable
+ * @template T of bool | string | int
  *
  * @template-implements Decoder<I, T>
  *
@@ -22,21 +20,9 @@ use Facile\PhpCodec\Validation\Validation;
 final class LiteralDecoder implements Decoder
 {
     /**
-     * @var T
-     *
-     * @readonly
+     * @param T $literal
      */
-    private $literal;
-
-    /**
-     * @psalm-param T $literal
-     *
-     * @param mixed $literal
-     */
-    public function __construct($literal)
-    {
-        $this->literal = $literal;
-    }
+    public function __construct(private readonly string|bool|int $literal) {}
 
     public function validate($i, Context $context): Validation
     {
@@ -57,12 +43,7 @@ final class LiteralDecoder implements Decoder
         return self::literalName($this->literal);
     }
 
-    /**
-     * @psalm-param literable $x
-     *
-     * @param mixed $x
-     */
-    private static function literalName($x): string
+    private static function literalName(string|bool|int $x): string
     {
         if (\is_string($x)) {
             return "'{$x}'";

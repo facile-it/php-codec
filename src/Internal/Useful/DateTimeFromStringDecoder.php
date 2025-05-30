@@ -25,7 +25,6 @@ final class DateTimeFromStringDecoder implements Decoder
 
     public function validate($i, Context $context): Validation
     {
-        /** @psalm-suppress DocblockTypeContradiction */
         if (! \is_string($i)) {
             return Validation::failure($i, $context);
         }

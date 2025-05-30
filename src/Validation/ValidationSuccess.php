@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace Facile\PhpCodec\Validation;
 
 /**
- * @psalm-template A
+ * @template A
  *
  * @extends Validation<A>
  */
 final class ValidationSuccess extends Validation
 {
     /**
-     * @psalm-param A $a
-     *
-     * @param mixed $value
+     * @param A $value
      */
-    public function __construct(private $value) {}
+    public function __construct(private readonly mixed $value) {}
 
     /**
      * @psalm-return A

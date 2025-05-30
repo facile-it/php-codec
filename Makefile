@@ -35,7 +35,7 @@ phpstan-update-baseline:
 	./vendor/bin/phpstan analyse src tests --generate-baseline
 
 
-.PHONY: type-assertions test
+.PHONY: test
 test:
 	@# Help: It runs PHPUnit tests
 	XDEBUG_MODE=coverage ./vendor/bin/phpunit
