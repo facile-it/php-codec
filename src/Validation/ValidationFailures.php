@@ -11,17 +11,13 @@ namespace Facile\PhpCodec\Validation;
  */
 final class ValidationFailures extends Validation
 {
-    /** @var list<VError> */
-    private array $errors;
-
     /**
      * @psalm-param list<VError> $errors
      *
      * @param VError[] $errors
      */
-    public function __construct(array $errors)
+    public function __construct(private readonly array $errors)
     {
-        $this->errors = $errors;
     }
 
     /**

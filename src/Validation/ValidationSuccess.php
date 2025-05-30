@@ -11,17 +11,13 @@ namespace Facile\PhpCodec\Validation;
  */
 final class ValidationSuccess extends Validation
 {
-    /** @var A */
-    private $value;
-
     /**
      * @psalm-param A $a
      *
-     * @param mixed $a
+     * @param mixed $value
      */
-    public function __construct($a)
+    public function __construct(private $value)
     {
-        $this->value = $a;
     }
 
     /**

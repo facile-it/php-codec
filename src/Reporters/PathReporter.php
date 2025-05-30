@@ -27,7 +27,7 @@ final class PathReporter implements Reporter
     {
         return Validation::fold(
             fn(array $errors): array => \array_map(
-                [self::class, 'getMessage'],
+                self::getMessage(...),
                 $errors
             ),
             fn(): array => ['No errors!'],

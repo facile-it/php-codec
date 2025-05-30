@@ -22,15 +22,14 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class ListOfDecoder implements Decoder
 {
-    /** @var Decoder<IT, T> */
-    private \Facile\PhpCodec\Decoder $elementDecoder;
-
     /**
      * @psalm-param Decoder<IT, T> $elementDecoder
      */
-    public function __construct(Decoder $elementDecoder)
+    public function __construct(
+        /** @var Decoder<IT, T> */
+        private readonly \Facile\PhpCodec\Decoder $elementDecoder
+    )
     {
-        $this->elementDecoder = $elementDecoder;
     }
 
     public function validate($i, Context $context): Validation

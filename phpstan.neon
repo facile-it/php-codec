@@ -3,7 +3,8 @@ includes:
     - phpat.neon
     - phpstan-baseline.neon
 parameters:
-	level: 0
+	level: 9
 	paths:
 		- src
-		- tests
+		- tests/examples
+		- tests/unit

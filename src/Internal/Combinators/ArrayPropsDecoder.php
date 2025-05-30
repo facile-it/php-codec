@@ -24,15 +24,14 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class ArrayPropsDecoder implements Decoder
 {
-    /** @var PD */
-    private array $props;
-
     /**
      * @psalm-param PD $props
      */
-    public function __construct(array $props)
+    public function __construct(
+        /** @var PD */
+        private readonly array $props
+    )
     {
-        $this->props = $props;
     }
 
     public function validate($i, Context $context): Validation

@@ -19,17 +19,13 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class UndefinedDecoder implements Decoder
 {
-    /** @var U */
-    private $default;
-
     /**
      * @psalm-param U $default
      *
      * @param mixed $default
      */
-    public function __construct($default)
+    public function __construct(private $default)
     {
-        $this->default = $default;
     }
 
     public function validate($i, Context $context): Validation

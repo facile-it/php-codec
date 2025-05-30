@@ -19,17 +19,15 @@ final class ConcreteDecoder implements Decoder
 {
     /** @var callable(I, Context):Validation<A> */
     private $validateFunc;
-    private string $name;
 
     /**
      * @psalm-param callable(I, Context):Validation<A> $validate
      */
     public function __construct(
         callable $validate,
-        string $name
+        private readonly string $name
     ) {
         $this->validateFunc = $validate;
-        $this->name = $name;
     }
 
     public function validate($i, Context $context): Validation
