@@ -9,15 +9,8 @@ use Eris\Generators;
 
 final class GeneratorUtils
 {
-    /**
-     * @psalm-suppress MixedInferredReturnType
-     */
     public static function scalar(): g
     {
-        /**
-         * @psalm-suppress UndefinedFunction
-         * @psalm-suppress MixedReturnStatement
-         */
         return Generators::oneOf(
             Generators::int(),
             Generators::float(),

@@ -8,7 +8,6 @@ use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Reporters\PathReporter;
 use PHPUnit\Framework\TestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class UnionDecoderTest extends TestCase
 {
     public function testValidate(): void

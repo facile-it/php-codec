@@ -24,20 +24,16 @@ use Facile\PhpCodec\Validation\ValidationSuccess;
  */
 final class IntersectionDecoder implements Decoder
 {
-    /** @var Decoder<IA, A> */
-    private \Facile\PhpCodec\Decoder $a;
-    /** @var Decoder<IB, B> */
-    private \Facile\PhpCodec\Decoder $b;
-
     /**
      * @psalm-param Decoder<IA, A> $a
      * @psalm-param Decoder<IB, B> $b
      */
-    public function __construct(Decoder $a, Decoder $b)
-    {
-        $this->a = $a;
-        $this->b = $b;
-    }
+    public function __construct(
+        /** @var Decoder<IA, A> */
+        private readonly \Facile\PhpCodec\Decoder $a,
+        /** @var Decoder<IB, B> */
+        private readonly \Facile\PhpCodec\Decoder $b
+    ) {}
 
     public function validate($i, Context $context): Validation
     {

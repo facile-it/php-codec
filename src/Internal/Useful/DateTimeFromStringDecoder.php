@@ -16,19 +16,15 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class DateTimeFromStringDecoder implements Decoder
 {
-    /**
-     * @psalm-readonly
-     */
-    private string $format;
-
-    public function __construct(string $format = \DATE_ATOM)
-    {
-        $this->format = $format;
-    }
+    public function __construct(
+        /**
+         * @psalm-readonly
+         */
+        private readonly string $format = \DATE_ATOM
+    ) {}
 
     public function validate($i, Context $context): Validation
     {
-        /** @psalm-suppress DocblockTypeContradiction */
         if (! \is_string($i)) {
             return Validation::failure($i, $context);
         }

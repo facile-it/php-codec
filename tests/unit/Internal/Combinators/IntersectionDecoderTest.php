@@ -10,7 +10,6 @@ use Facile\PhpCodec\Decoders;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class IntersectionDecoderTest extends BaseTestCase
 {
     use TestTrait;
@@ -48,7 +47,6 @@ class IntersectionDecoderTest extends BaseTestCase
             Decoders::arrayProps(['b' => Decoders::int()])
         );
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::associative([
@@ -64,7 +62,6 @@ class IntersectionDecoderTest extends BaseTestCase
                 self::assertIsInt($a['b']);
             });
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::oneOf(
@@ -102,7 +99,6 @@ class IntersectionDecoderTest extends BaseTestCase
             )
         );
 
-        /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
                 Generators::oneOf(

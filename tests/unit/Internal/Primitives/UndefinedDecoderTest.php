@@ -10,17 +10,12 @@ use Facile\PhpCodec\Internal\Undefined;
 use Tests\Facile\PhpCodec\BaseTestCase;
 use Tests\Facile\PhpCodec\GeneratorUtils;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- * @psalm-suppress UndefinedFunction
- */
 class UndefinedDecoderTest extends BaseTestCase
 {
     use TestTrait;
 
     public function testDefault(): void
     {
-        /** @psalm-suppress DeprecatedMethod */
         $this
             ->forAll(GeneratorUtils::scalar())
             ->then(

@@ -7,7 +7,6 @@ namespace Examples\Facile\PhpCodec\ParseCsv;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class ParseCsvTest extends BaseTestCase
 {
     public function test(): void

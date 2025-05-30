@@ -7,7 +7,6 @@ namespace Examples\Facile\PhpCodec;
 use Facile\PhpCodec\Decoders;
 use Tests\Facile\PhpCodec\BaseTestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class DecodePartialPropertiesTest extends BaseTestCase
 {
     public function test(): void
@@ -35,16 +34,7 @@ namespace Examples\Facile\PhpCodec\DecodePartialPropertiesTest;
 
 class A
 {
-    private string $foo;
-    private int $bar;
-
-    public function __construct(
-        string $foo,
-        int $bar
-    ) {
-        $this->foo = $foo;
-        $this->bar = $bar;
-    }
+    public function __construct(private readonly string $foo, private readonly int $bar) {}
 
     public function getFoo(): string
     {

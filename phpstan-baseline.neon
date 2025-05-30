@@ -1,31 +1,535 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Template type ClassFactory of method Facile\\\\PhpCodec\\\\Decoders\\:\\:classFromArrayPropsDecoder\\(\\) is not referenced in a parameter\\.$#"
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:arrayProps\(\) should return Facile\\PhpCodec\\Decoder\<mixed, non\-empty\-array\<mixed\>\> but returns Facile\\PhpCodec\\Internal\\Combinators\\ArrayPropsDecoder\<\(int\|string\), mixed, mixed, MapOfDecoders of non\-empty\-array\<Facile\\PhpCodec\\Decoder\<mixed, mixed\>\>\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Decoders.php
 
 		-
-			message: "#^Template type T of method Facile\\\\PhpCodec\\\\Decoders\\:\\:classFromArrayPropsDecoder\\(\\) is not referenced in a parameter\\.$#"
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:pipe\(\) never returns Facile\\PhpCodec\\Decoder\<I, C\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: src/Decoders.php
 
 		-
-			message: "#^Template type VP of method Facile\\\\PhpCodec\\\\Validation\\\\ListOfValidation\\:\\:reduceToIndexedSuccessOrAllFailures\\(\\) is not referenced in a parameter\\.$#"
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:pipe\(\) never returns Facile\\PhpCodec\\Decoder\<I, D\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:pipe\(\) never returns Facile\\PhpCodec\\Decoder\<I, E\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:regex\(\) should return Facile\\PhpCodec\\Decoder\<string, array\<string\>\> but returns Facile\\PhpCodec\\Internal\\Useful\\RegexDecoder\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$factory with type Facile\\PhpCodec\\ClassFactory is not subtype of native type callable\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^PHPDoc tag @template has invalid value \(ClassFactory of callable\(\.\.\.mixed\)\:T\)\: Unexpected token "\(", expected TOKEN_HORIZONTAL_WS at offset 139 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^PHPDoc tag @var with type Facile\\PhpCodec\\Decoder\<Properties of non\-empty\-array\<mixed\>, T of object\> is not subtype of native type Facile\\PhpCodec\\Internal\\Combinators\\MapDecoder\<array, mixed\>\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Parameter \#1 \$db of class Facile\\PhpCodec\\Internal\\Combinators\\ComposeDecoder constructor expects Facile\\PhpCodec\\Decoder\<\(A of IB\)\|IB, B\>, Facile\\PhpCodec\\Decoder\<IB, B\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Parameter \#1 \$db of static method Facile\\PhpCodec\\Decoders\:\:compose\(\) expects Facile\\PhpCodec\\Decoder\<A, C\|D\|E\>, Facile\\PhpCodec\\Decoder\<A, C\>\|Facile\\PhpCodec\\Decoder\<A, D\>\|Facile\\PhpCodec\\Decoder\<A, E\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Parameter \#2 \$da of class Facile\\PhpCodec\\Internal\\Combinators\\ComposeDecoder constructor expects Facile\\PhpCodec\\Decoder\<IA, \(A of IB\)\|IB\>, Facile\\PhpCodec\\Decoder\<IA, A of IB\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Parameter \$factory of method Facile\\PhpCodec\\Decoders\:\:classFromArrayPropsDecoder\(\) has invalid type Facile\\PhpCodec\\ClassFactory\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Template type T of method Facile\\PhpCodec\\Decoders\:\:classFromArrayPropsDecoder\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Unable to resolve the template type E in call to method static method Facile\\PhpCodec\\Decoders\:\:pipe\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Arrays\\ListOfDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<list\<T\>\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Arrays/ListOfDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\ArrayPropsDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<non\-empty\-array\<K of \(int\|string\), Vs\>\> but returns Facile\\PhpCodec\\Validation\\Validation\<non\-empty\-array\<K of \(int\|string\), non\-empty\-array\<K of \(int\|string\), Facile\\PhpCodec\\Validation\\Validation\<Vs\>\>\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Combinators/ArrayPropsDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\ArrayPropsDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<non\-empty\-array\<K of \(int\|string\), Vs\>\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Combinators/ArrayPropsDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\IntersectionDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<A&B\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Combinators/IntersectionDecoder.php
+
+		-
+			message: '#^PHPDoc tag @var with type Facile\\PhpCodec\\Decoder\<IA&IB, A&B\> is not subtype of native type \$this\(Facile\\PhpCodec\\Internal\\Combinators\\IntersectionDecoder\<IA, IB, A, B\>\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Internal/Combinators/IntersectionDecoder.php
+
+		-
+			message: '#^PHPDoc tag @var with type Facile\\PhpCodec\\Validation\\Validation\<A&B\> is not subtype of native type Facile\\PhpCodec\\Validation\\ValidationFailures\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: src/Internal/Combinators/IntersectionDecoder.php
+
+		-
+			message: '#^PHPDoc tag @var with type T1&T2 is not subtype of native type array\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Internal/Combinators/IntersectionDecoder.php
+
+		-
+			message: '#^PHPDoc tag @var with type T1&T2 is not subtype of native type stdClass\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Internal/Combinators/IntersectionDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<T of bool\|int\|string\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Combinators/LiteralDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\LiteralDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<T of bool\|int\|string\> but returns Facile\\PhpCodec\\Validation\\ValidationSuccess\<T of \(bool&I\)\|\(I&int\)\|\(I&string\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Combinators/LiteralDecoder.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Internal/FunctionUtils.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\FunctionUtils\:\:nameFromProps\(\) has parameter \$props with generic interface Facile\\PhpCodec\\Decoder but does not specify its types\: I, A$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Internal/FunctionUtils.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Primitives\\BoolDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<bool\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<bool&I\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Primitives/BoolDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Primitives\\CallableDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<callable\(\)\: mixed\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<callable\(\)\: mixed&I\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Primitives/CallableDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Primitives\\FloatDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<float\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<float&I\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Primitives/FloatDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Primitives\\IntDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<int\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<I&int\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Primitives/IntDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Primitives\\NullDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<null\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<I&null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Primitives/NullDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Primitives\\StringDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<string\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<I&string\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Primitives/StringDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Primitives\\UndefinedDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<U\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<U\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Primitives/UndefinedDecoder.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Internal/Useful/DateTimeFromStringDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Useful\\DateTimeFromStringDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<DateTimeInterface\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Internal/Useful/DateTimeFromStringDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Useful\\IntFromStringDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<int\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\|Facile\\PhpCodec\\Validation\\ValidationSuccess\<int\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Useful/IntFromStringDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Useful\\RegexDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<array\<string\>\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Internal/Useful/RegexDecoder.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Internal/Useful/StringMatchingRegexDecoder.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Internal\\Useful\\StringMatchingRegexDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<string\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Internal/Useful/StringMatchingRegexDecoder.php
+
+		-
+			message: '#^Class Facile\\PhpCodec\\Validation\\Context implements generic interface Iterator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Validation/Context.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Validation\\Context\:\:__construct\(\) has parameter \$decoder with generic interface Facile\\PhpCodec\\Decoder but does not specify its types\: I, A$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Validation/Context.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Validation\\ContextEntry\:\:getDecoder\(\) return type with generic interface Facile\\PhpCodec\\Decoder does not specify its types\: I, A$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Validation/ContextEntry.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Validation\\ListOfValidation\:\:reduceToIndexedSuccessOrAllFailures\(\) should return VP of Facile\\PhpCodec\\Validation\\Validation\<non\-empty\-array\<K of \(int\|string\), Values\>\> but returns Facile\\PhpCodec\\Validation\\ValidationSuccess\<array\<K of \(int\|string\), Values\>\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Validation/ListOfValidation.php
 
 		-
-			message: "#^Template type T of method Facile\\\\PhpCodec\\\\Validation\\\\Validation\\:\\:failure\\(\\) is not referenced in a parameter\\.$#"
+			message: '#^Method Facile\\PhpCodec\\Validation\\ListOfValidation\:\:reduceToSuccessOrAllFailures\(\) should return Facile\\PhpCodec\\Validation\\Validation\<list\<T\>\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Validation/ListOfValidation.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Validation\\ListOfValidation\:\:reduceToSuccessOrAllFailures\(\) should return Facile\\PhpCodec\\Validation\\Validation\<list\<T\>\> but returns Facile\\PhpCodec\\Validation\\ValidationSuccess\<list\<list\<T\>\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Validation/ListOfValidation.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Validation\\ListOfValidation\:\:sequence\(\) should return Facile\\PhpCodec\\Validation\\Validation\<list\<T\>\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<T\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Validation/ListOfValidation.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Validation\\ListOfValidation\:\:sequence\(\) should return Facile\\PhpCodec\\Validation\\Validation\<list\<T\>\> but returns Facile\\PhpCodec\\Validation\\ValidationSuccess\<list\<list\<T\>\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Validation/ListOfValidation.php
+
+		-
+			message: '#^Template type VP of method Facile\\PhpCodec\\Validation\\ListOfValidation\:\:reduceToIndexedSuccessOrAllFailures\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/Validation/ListOfValidation.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Validation\\Validation\:\:failure\(\) should return Facile\\PhpCodec\\Validation\\ValidationFailures\<T\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Validation/Validation.php
 
 		-
-			message: "#^Template type T of method Facile\\\\PhpCodec\\\\Validation\\\\Validation\\:\\:failures\\(\\) is not referenced in a parameter\\.$#"
+			message: '#^Method Facile\\PhpCodec\\Validation\\Validation\:\:failures\(\) should return Facile\\PhpCodec\\Validation\\ValidationFailures\<T\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Validation/Validation.php
 
 		-
-			message: "#^Template type R of method Tests\\\\Facile\\\\PhpCodec\\\\BaseTestCase\\:\\:asserSuccessSameTo\\(\\) is not referenced in a parameter\\.$#"
+			message: '#^Template type T of method Facile\\PhpCodec\\Validation\\Validation\:\:failure\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/Validation/Validation.php
+
+		-
+			message: '#^Template type T of method Facile\\PhpCodec\\Validation\\Validation\:\:failures\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/Validation/Validation.php
+
+		-
+			message: '#^Method Examples\\Facile\\PhpCodec\\DecodeApiResponse\\OpenWeatherResponse\:\:__construct\(\) has parameter \$weather with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/examples/DecodeApiResponse/OpenWeatherResponse.php
+
+		-
+			message: '#^Method Examples\\Facile\\PhpCodec\\DecodeApiResponse\\OpenWeatherResponse\:\:getWeather\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/examples/DecodeApiResponse/OpenWeatherResponse.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getId\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/examples/ParseCsv/ParseCsvTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getItalianLandRegistryCode\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/examples/ParseCsv/ParseCsvTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getName\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/examples/ParseCsv/ParseCsvTest.php
+
+		-
+			message: '#^Parameter \#2 \$b of static method Facile\\PhpCodec\\Decoders\:\:pipe\(\) expects Facile\\PhpCodec\\Decoder\<string, mixed\>, Facile\\PhpCodec\\Decoder\<string, array\<string\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/examples/ParseCsv/ParseCsvTest.php
+
+		-
+			message: '#^Template type R of method Tests\\Facile\\PhpCodec\\BaseTestCase\:\:asserSuccessSameTo\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
 			count: 1
 			path: tests/unit/BaseTestCase.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\GeneratorUtils\:\:scalar\(\) return type with generic interface Eris\\Generator does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/GeneratorUtils.php
+
+		-
+			message: '#^Parameter \#1 \$f of static method Facile\\PhpCodec\\Internal\\FunctionUtils\:\:destructureIn\(\) expects callable\(mixed \.\.\.\)\: void, Closure\(int, string\)\: void given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/unit/Internal/Useful/StringMatchingRegexDecoderTest.php
+
+		-
+			message: '#^Constructor of class Tests\\Facile\\PhpCodec\\Reporters\\Models\\A has an unused parameter \$a\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: tests/unit/Reporters/Models/A.php
+
+		-
+			message: '#^Constructor of class Tests\\Facile\\PhpCodec\\Reporters\\Models\\A has an unused parameter \$b\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: tests/unit/Reporters/Models/A.php
+
+		-
+			message: '#^Constructor of class Tests\\Facile\\PhpCodec\\Reporters\\Models\\A has an unused parameter \$c\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: tests/unit/Reporters/Models/A.php
+
+		-
+			message: '#^Constructor of class Tests\\Facile\\PhpCodec\\Reporters\\Models\\SampleClass has an unused parameter \$amount\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: tests/unit/Reporters/Models/SampleClass.php
+
+		-
+			message: '#^Constructor of class Tests\\Facile\\PhpCodec\\Reporters\\Models\\SampleClass has an unused parameter \$flag\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: tests/unit/Reporters/Models/SampleClass.php
+
+		-
+			message: '#^Constructor of class Tests\\Facile\\PhpCodec\\Reporters\\Models\\SampleClass has an unused parameter \$name\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: tests/unit/Reporters/Models/SampleClass.php
+
+		-
+			message: '#^Constructor of class Tests\\Facile\\PhpCodec\\Reporters\\Models\\SampleClass has an unused parameter \$number\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: tests/unit/Reporters/Models/SampleClass.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:assertReports\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:assertReports\(\) has parameter \$reporter with generic interface Facile\\PhpCodec\\Reporter but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:assertReports\(\) has parameter \$validation with generic class Facile\\PhpCodec\\Validation\\Validation but does not specify its types\: A$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:provideIntersectionReport\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:provideListOfClassReport\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:provideNestedArrayPropsReport\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:provideReportRootClassError\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:provideReportRootErrors\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:provideUnionReport\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testIntersectionReport\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testIntersectionReport\(\) has parameter \$reporter with generic interface Facile\\PhpCodec\\Reporter but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testListOfClassReport\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testListOfClassReport\(\) has parameter \$reporter with generic interface Facile\\PhpCodec\\Reporter but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testNestedArrayPropsReport\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testNestedArrayPropsReport\(\) has parameter \$reporter with generic interface Facile\\PhpCodec\\Reporter but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testReportRootClassError\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testReportRootClassError\(\) has parameter \$reporter with generic interface Facile\\PhpCodec\\Reporter but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testReportRootError\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testReportRootError\(\) has parameter \$reporter with generic interface Facile\\PhpCodec\\Reporter but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testUnionReport\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php
+
+		-
+			message: '#^Method Tests\\Facile\\PhpCodec\\Reporters\\ReportersTest\:\:testUnionReport\(\) has parameter \$reporter with generic interface Facile\\PhpCodec\\Reporter but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/unit/Reporters/ReportersTest.php

@@ -11,18 +11,16 @@ final class Context implements \Iterator
     /** @var ContextEntry[] */
     private array $entries;
     private int $currentIndex = 0;
-    private \Facile\PhpCodec\Decoder $decoder;
 
     /**
      * @psalm-param Decoder $decoder
      * @psalm-param ContextEntry ...$entries
      */
     public function __construct(
-        Decoder $decoder,
+        private readonly \Facile\PhpCodec\Decoder $decoder,
         ContextEntry ...$entries
     ) {
         $this->entries = $entries;
-        $this->decoder = $decoder;
     }
 
     public function appendEntries(ContextEntry ...$entries): self

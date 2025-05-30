@@ -6,11 +6,6 @@ namespace Facile\PhpCodec\Validation;
 
 final class VError
 {
-    /** @var mixed */
-    private $value;
-    private \Facile\PhpCodec\Validation\Context $context;
-    private ?string $message = null;
-
     /**
      * @psalm-param mixed       $value
      * @psalm-param Context     $context
@@ -18,15 +13,7 @@ final class VError
      *
      * @param mixed $value
      */
-    public function __construct(
-        $value,
-        Context $context,
-        ?string $message = null
-    ) {
-        $this->value = $value;
-        $this->context = $context;
-        $this->message = $message;
-    }
+    public function __construct(private $value, private readonly \Facile\PhpCodec\Validation\Context $context, private readonly ?string $message = null) {}
 
     /**
      * @return mixed

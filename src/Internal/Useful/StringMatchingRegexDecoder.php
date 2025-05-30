@@ -16,16 +16,10 @@ use Facile\PhpCodec\Validation\Validation;
  */
 final class StringMatchingRegexDecoder implements Decoder
 {
-    private string $regex;
-
-    public function __construct(string $regex)
-    {
-        $this->regex = $regex;
-    }
+    public function __construct(private readonly string $regex) {}
 
     public function validate($i, Context $context): Validation
     {
-        /** @psalm-suppress DocblockTypeContradiction */
         if (! \is_string($i)) {
             return Validation::failure($i, $context);
         }

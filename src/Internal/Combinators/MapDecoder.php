@@ -21,15 +21,13 @@ final class MapDecoder implements Decoder
 {
     /** @var callable(A):B */
     private $f;
-    private string $name;
 
     /**
      * @psalm-param callable(A):B $f
      */
-    public function __construct(callable $f, string $name = 'map')
+    public function __construct(callable $f, private readonly string $name = 'map')
     {
         $this->f = $f;
-        $this->name = $name;
     }
 
     public function validate($i, Context $context): Validation

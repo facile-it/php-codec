@@ -12,36 +12,23 @@ use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationFailures;
 
 /**
- * @psalm-template IA
- * @psalm-template IB
- * @psalm-template A
- * @psalm-template B
+ * @template I
+ * @template A
+ * @template B
  *
- * @template-implements Decoder<IA & IB, A | B>
- *
- * @psalm-internal Facile\PhpCodec
+ * @implements Decoder<I, A | B>
  */
 final class UnionDecoder implements Decoder
 {
-    /** @var Decoder<IA, A> */
-    private \Facile\PhpCodec\Decoder $a;
-    /** @var Decoder<IB, B> */
-    private \Facile\PhpCodec\Decoder $b;
-    private int $indexBegin;
-
     /**
-     * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<IB, B> $b
+     * @param Decoder<I, A> $a
+     * @param Decoder<I, B> $b
      */
     public function __construct(
-        Decoder $a,
-        Decoder $b,
-        int $indexBegin = 0
-    ) {
-        $this->a = $a;
-        $this->b = $b;
-        $this->indexBegin = $indexBegin;
-    }
+        private readonly \Facile\PhpCodec\Decoder $a,
+        private readonly \Facile\PhpCodec\Decoder $b,
+        private readonly int $indexBegin = 0
+    ) {}
 
     public function validate($i, Context $context): Validation
     {
@@ -71,24 +58,24 @@ final class UnionDecoder implements Decoder
             );
 
             if ($vb instanceof ValidationFailures) {
-                return Validation::failures(
+                /** @var Validation<A|B> $validationFailures */
+                $validationFailures = Validation::failures(
                     [...$va->getErrors(), ...$vb->getErrors()]
                 );
+
+                return $validationFailures;
             }
 
+            /** @var Validation<A|B> $vb */
             return $vb;
         }
 
+        /** @var Validation<A|B> $va */
         return $va;
     }
 
     public function decode($i): Validation
     {
-        /**
-         * @psalm-var IA&IB $i
-         * @psalm-var Decoder<IA&IB, A|B> $this
-         */
-
         return FunctionUtils::standardDecode($this, $i);
     }
 

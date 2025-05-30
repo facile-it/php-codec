@@ -9,7 +9,6 @@ use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 use PHPUnit\Framework\TestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 class BaseTestCase extends TestCase
 {
     /**

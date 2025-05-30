@@ -12,16 +12,7 @@ final class A extends P
     public const SUB_foo = 'foo';
     public const SUB_bar = 'bar';
 
-    private string $subType;
-    private int $propertyA;
-    private string $propertyB;
-
-    public function __construct(string $subType, int $propertyA, string $propertyB)
-    {
-        $this->subType = $subType;
-        $this->propertyA = $propertyA;
-        $this->propertyB = $propertyB;
-    }
+    public function __construct(private readonly string $subType, private readonly int $propertyA, private readonly string $propertyB) {}
 
     public function getType(): string
     {

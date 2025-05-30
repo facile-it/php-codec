@@ -16,12 +16,12 @@ class ArchitectureTest
     public function testAnyInternalClassShouldNotDependFromAnythingOutsideExceptDefinitionInterfaces(): Rule
     {
         return PHPat::rule()
-            ->classes(Selector::namespace('Facile\PhpCodec\Internal'))
+            ->classes(Selector::inNamespace('Facile\PhpCodec\Internal'))
             ->shouldNotDependOn()
-            ->classes(Selector::namespace('Facile\PhpCodec'))
+            ->classes(Selector::inNamespace('Facile\PhpCodec'))
             ->excluding(
-                Selector::namespace('Facile\PhpCodec\Internal'),
-                Selector::namespace('Facile\PhpCodec\Validation'),
+                Selector::inNamespace('Facile\PhpCodec\Internal'),
+                Selector::inNamespace('Facile\PhpCodec\Validation'),
                 Selector::classname(Decoder::class),
             );
     }
@@ -29,7 +29,7 @@ class ArchitectureTest
     public function testEndpointClasses(): Rule
     {
         return PHPat::rule()
-            ->classes(Selector::namespace('Facile\PhpCodec\*'))
+            ->classes(Selector::inNamespace('Facile\PhpCodec\*'))
             ->shouldNotDependOn()
             ->classes(
                 Selector::classname(Decoders::class),

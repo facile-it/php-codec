@@ -9,31 +9,21 @@ help:
         | xargs -I _ sh -c 'printf "%-40s " _; make _ -nB | (grep -i "^# Help:" || echo "") | tail -1 | sed "s/^# Help: //g"'
 
 
-.PHONY: run run-php7.4 run-php8.0 run-php8.1 run-php8.2
-run-php7.4:
-	@# Help: It creates and runs a docker image with PHP 7.4
-	docker-compose run --rm php74 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
-run-php8.0:
-	@# Help: It creates and runs a docker image with PHP 8.0
-	docker-compose run --rm php80 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
+.PHONY: run run-php8.1 run-php8.2 run-php8.3 run-php8.4
 run-php8.1:
 	@# Help: It creates and runs a docker image with PHP 8.1
 	docker-compose run --rm php81 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
 run-php8.2:
 	@# Help: It creates and runs a docker image with PHP 8.2
 	docker-compose run --rm php82 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
-run: run-php7.4
+run-php8.3:
+	@# Help: It creates and runs a docker image with PHP 8.3
+	docker-compose run --rm php83 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
+run-php8.4:
+	@# Help: It creates and runs a docker image with PHP 8.4
+	docker-compose run --rm php84 bash -c "rm composer.lock || true; composer install --no-interaction; bash"
+run: run-php8.1
 	@# Help: It creates and runs a docker image with the lowest supported PHP version
-
-.PHONY: psalm psalm-update-baseline
-psalm:
-	@# Help: It runs Psalm
-	./vendor/bin/psalm --no-cache
-
-psalm-update-baseline:
-	@# Help: It updates the Psalm baseline
-	./vendor/bin/psalm --update-baseline
-
 
 .PHONY: phpstan phpstan-update-baseline
 phpstan:
@@ -45,11 +35,7 @@ phpstan-update-baseline:
 	./vendor/bin/phpstan analyse src tests --generate-baseline
 
 
-.PHONY: type-assertions test
-type-assertions:
-	@# Help: It runs tests on Psalm types
-	./vendor/bin/psalm tests/type-assertions --no-cache
-
+.PHONY: test
 test:
 	@# Help: It runs PHPUnit tests
 	XDEBUG_MODE=coverage ./vendor/bin/phpunit
@@ -63,10 +49,10 @@ cs-check:
 	@# Help: It runs the code style check
 	./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run
 
-ci: test phpstan psalm type-assertions cs-fix
+ci: test phpstan cs-fix
 	@# Help: It runs all tests and code style fix
 
-ci-check: test phpstan psalm type-assertions cs-check
+ci-check: test phpstan cs-check
 	@# Help: It runs all tests and code style check
 
 .PHONY: rector
