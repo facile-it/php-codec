@@ -16,7 +16,7 @@ interface Decoder
     /**
      * @param I $i
      *
-     * @psalm-return Validation<A>
+     * @return Validation<A>
      */
     public function validate(mixed $i, Context $context): Validation;
 

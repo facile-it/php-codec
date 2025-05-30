@@ -1,14 +1,32 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method Facile\\PhpCodec\\Decoders\:\:pipe\(\) return type with generic interface Facile\\PhpCodec\\Decoder does not specify its types\: I, A$#'
-			identifier: missingType.generics
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:arrayProps\(\) should return Facile\\PhpCodec\\Decoder\<mixed, non\-empty\-array\<mixed\>\> but returns Facile\\PhpCodec\\Internal\\Combinators\\ArrayPropsDecoder\<\(int\|string\), mixed, mixed, MapOfDecoders of non\-empty\-array\<Facile\\PhpCodec\\Decoder\<mixed, mixed\>\>\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Decoders.php
 
 		-
-			message: '#^Method Facile\\PhpCodec\\Decoders\:\:union\(\) return type with generic interface Facile\\PhpCodec\\Decoder does not specify its types\: I, A$#'
-			identifier: missingType.generics
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:pipe\(\) never returns Facile\\PhpCodec\\Decoder\<I, C\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:pipe\(\) never returns Facile\\PhpCodec\\Decoder\<I, D\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:pipe\(\) never returns Facile\\PhpCodec\\Decoder\<I, E\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Method Facile\\PhpCodec\\Decoders\:\:regex\(\) should return Facile\\PhpCodec\\Decoder\<string, array\<string\>\> but returns Facile\\PhpCodec\\Internal\\Useful\\RegexDecoder\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Decoders.php
 
@@ -19,14 +37,8 @@ parameters:
 			path: src/Decoders.php
 
 		-
-			message: '#^PHPDoc tag @var with type Facile\\PhpCodec\\Decoder\<IA&IB, A&B\> is not subtype of native type Facile\\PhpCodec\\Internal\\Combinators\\IntersectionDecoder\<mixed, mixed, mixed, mixed\>\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: src/Decoders.php
-
-		-
-			message: '#^PHPDoc tag @var with type Facile\\PhpCodec\\Decoder\<IA, B\> is not subtype of native type Facile\\PhpCodec\\Internal\\Combinators\\ComposeDecoder\<mixed, mixed, mixed\>\.$#'
-			identifier: varTag.nativeType
+			message: '#^PHPDoc tag @template has invalid value \(ClassFactory of callable\(\.\.\.mixed\)\:T\)\: Unexpected token "\(", expected TOKEN_HORIZONTAL_WS at offset 139 on line 4$#'
+			identifier: phpDoc.parseError
 			count: 1
 			path: src/Decoders.php
 
@@ -43,7 +55,7 @@ parameters:
 			path: src/Decoders.php
 
 		-
-			message: '#^Parameter \#1 \$db of static method Facile\\PhpCodec\\Decoders\:\:compose\(\) expects Facile\\PhpCodec\\Decoder\<A\|IB, B\>, Facile\\PhpCodec\\Decoder\<IB, B\> given\.$#'
+			message: '#^Parameter \#1 \$db of static method Facile\\PhpCodec\\Decoders\:\:compose\(\) expects Facile\\PhpCodec\\Decoder\<A, C\|D\|E\>, Facile\\PhpCodec\\Decoder\<A, C\>\|Facile\\PhpCodec\\Decoder\<A, D\>\|Facile\\PhpCodec\\Decoder\<A, E\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Decoders.php
@@ -63,6 +75,12 @@ parameters:
 		-
 			message: '#^Template type T of method Facile\\PhpCodec\\Decoders\:\:classFromArrayPropsDecoder\(\) is not referenced in a parameter\.$#'
 			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/Decoders.php
+
+		-
+			message: '#^Unable to resolve the template type E in call to method static method Facile\\PhpCodec\\Decoders\:\:pipe\(\)$#'
+			identifier: argument.templateType
 			count: 1
 			path: src/Decoders.php
 
@@ -125,30 +143,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: src/Internal/Combinators/LiteralDecoder.php
-
-		-
-			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\UnionDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<A\|B\> but returns Facile\\PhpCodec\\Validation\\Validation\<A\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Internal/Combinators/UnionDecoder.php
-
-		-
-			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\UnionDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<A\|B\> but returns Facile\\PhpCodec\\Validation\\Validation\<B\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Internal/Combinators/UnionDecoder.php
-
-		-
-			message: '#^Method Facile\\PhpCodec\\Internal\\Combinators\\UnionDecoder\:\:validate\(\) should return Facile\\PhpCodec\\Validation\\Validation\<A\|B\> but returns Facile\\PhpCodec\\Validation\\ValidationFailures\<mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Internal/Combinators/UnionDecoder.php
-
-		-
-			message: '#^PHPDoc tag @var with type Facile\\PhpCodec\\Decoder\<IA&IB, A\|B\> is not subtype of native type \$this\(Facile\\PhpCodec\\Internal\\Combinators\\UnionDecoder\<IA, IB, A, B\>\)\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: src/Internal/Combinators/UnionDecoder.php
 
 		-
 			message: '#^Cannot cast mixed to string\.$#'
@@ -331,39 +325,27 @@ parameters:
 			path: tests/examples/DecodeApiResponse/OpenWeatherResponse.php
 
 		-
-			message: '#^Parameter \#1 \$props of static method Facile\\PhpCodec\\Decoders\:\:arrayProps\(\) expects non\-empty\-array\<Facile\\PhpCodec\\Decoder\<mixed, mixed\>\>, array\{foo\: Facile\\PhpCodec\\Decoder\<mixed, string\>, bar\: Facile\\PhpCodec\\Decoder\} given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/examples/DecodePartialPropertiesTest.php
-
-		-
-			message: '#^Parameter \#1 \$props of static method Facile\\PhpCodec\\Decoders\:\:arrayProps\(\) expects non\-empty\-array\<Facile\\PhpCodec\\Decoder\<mixed, mixed\>\>, array\{type\: Facile\\PhpCodec\\Decoder\<mixed, ''a''\>, subType\: Facile\\PhpCodec\\Decoder, propA\: Facile\\PhpCodec\\Decoder\<mixed, int\>, propB\: Facile\\PhpCodec\\Decoder\<mixed, string\>\} given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/examples/DecoderForSumType/DecoderForSumType.php
-
-		-
-			message: '#^Parameter \#1 \$props of static method Facile\\PhpCodec\\Decoders\:\:arrayProps\(\) expects non\-empty\-array\<Facile\\PhpCodec\\Decoder\<mixed, mixed\>\>, array\{type\: Facile\\PhpCodec\\Decoder\<mixed, ''b''\>, case\: Facile\\PhpCodec\\Decoder, amount\: Facile\\PhpCodec\\Decoder\<mixed, float\>, flag\: Facile\\PhpCodec\\Decoder\<mixed, bool\>\} given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/examples/DecoderForSumType/DecoderForSumType.php
-
-		-
-			message: '#^Cannot call method getId\(\) on mixed\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getId\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: tests/examples/ParseCsv/ParseCsvTest.php
 
 		-
-			message: '#^Cannot call method getItalianLandRegistryCode\(\) on mixed\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getItalianLandRegistryCode\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: tests/examples/ParseCsv/ParseCsvTest.php
 
 		-
-			message: '#^Cannot call method getName\(\) on mixed\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getName\(\)\.$#'
+			identifier: method.notFound
 			count: 3
+			path: tests/examples/ParseCsv/ParseCsvTest.php
+
+		-
+			message: '#^Parameter \#2 \$b of static method Facile\\PhpCodec\\Decoders\:\:pipe\(\) expects Facile\\PhpCodec\\Decoder\<string, mixed\>, Facile\\PhpCodec\\Decoder\<string, array\<string\>\> given\.$#'
+			identifier: argument.type
+			count: 1
 			path: tests/examples/ParseCsv/ParseCsvTest.php
 
 		-

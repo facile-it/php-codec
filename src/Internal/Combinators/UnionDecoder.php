@@ -12,25 +12,20 @@ use Facile\PhpCodec\Validation\Validation;
 use Facile\PhpCodec\Validation\ValidationFailures;
 
 /**
- * @psalm-template IA
- * @psalm-template IB
- * @psalm-template A
- * @psalm-template B
+ * @template I
+ * @template A
+ * @template B
  *
- * @template-implements Decoder<IA & IB, A | B>
- *
- * @psalm-internal Facile\PhpCodec
+ * @implements Decoder<I, A | B>
  */
 final class UnionDecoder implements Decoder
 {
     /**
-     * @psalm-param Decoder<IA, A> $a
-     * @psalm-param Decoder<IB, B> $b
+     * @param Decoder<I, A> $a
+     * @param Decoder<I, B> $b
      */
     public function __construct(
-        /** @var Decoder<IA, A> */
         private readonly \Facile\PhpCodec\Decoder $a,
-        /** @var Decoder<IB, B> */
         private readonly \Facile\PhpCodec\Decoder $b,
         private readonly int $indexBegin = 0
     ) {}
@@ -63,24 +58,24 @@ final class UnionDecoder implements Decoder
             );
 
             if ($vb instanceof ValidationFailures) {
-                return Validation::failures(
+                /** @var Validation<A|B> $validationFailures */
+                $validationFailures = Validation::failures(
                     [...$va->getErrors(), ...$vb->getErrors()]
                 );
+
+                return $validationFailures;
             }
 
+            /** @var Validation<A|B> $vb */
             return $vb;
         }
 
+        /** @var Validation<A|B> $va */
         return $va;
     }
 
     public function decode($i): Validation
     {
-        /**
-         * @psalm-var IA&IB $i
-         * @psalm-var Decoder<IA&IB, A|B> $this
-         */
-
         return FunctionUtils::standardDecode($this, $i);
     }
 
