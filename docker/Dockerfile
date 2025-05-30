@@ -1,4 +1,4 @@
-ARG PHP_IMAGE
+ARG PHP_IMAGE=php:8.1
 FROM $PHP_IMAGE
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer

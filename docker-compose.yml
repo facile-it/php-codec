@@ -1,32 +1,32 @@
-version: "3.8"
-
 services:
-  php74: &base
+  php81: &base
     build:
       context: docker/
       args:
-        PHP_IMAGE: php:7.4
-        XDEBUG: xdebug-3.1.5
+        PHP_IMAGE: php:8.1
     volumes:
       - .:/home/dev/lib
     tty: true
     user: dev
     working_dir: /home/dev/lib
-  php80:
-    <<: *base
-    build:
-      context: docker/
-      args:
-        PHP_IMAGE: php:8.0
-  php81:
-    <<: *base
-    build:
-      context: docker/
-      args:
-        PHP_IMAGE: php:8.1
+
   php82:
     <<: *base
     build:
       context: docker/
       args:
         PHP_IMAGE: php:8.2
+
+  php83:
+    <<: *base
+    build:
+      context: docker/
+      args:
+        PHP_IMAGE: php:8.3
+
+  php84:
+    <<: *base
+    build:
+      context: docker/
+      args:
+        PHP_IMAGE: php:8.4
