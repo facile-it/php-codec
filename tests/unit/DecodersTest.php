@@ -23,20 +23,21 @@ class DecodersTest extends BaseTestCase
         /** @psalm-suppress UndefinedFunction */
         $this
             ->forAll(
-                Generators::int()
+                Generators::int() //provare il decoder con molti interi casuali
             )
             ->then(function (int $i) use ($decoder): void {
                 $a = self::assertSuccessInstanceOf(
                     DecodersTest\A::class,
                     $decoder->decode($i)
                 );
-                self::assertSame($i, $a->getValue());
+                self::assertSame($i, $a->getValue());//verifica che il valore dentro l'oggetto A sia uguale a $i
             });
     }
 }
 
 namespace Tests\Facile\PhpCodec\DecodersTest;
 
+//wrapper class usata per testare la trasformazione: prende un int e lo incapsula in un oggetto
 class A
 {
     private int $v;
