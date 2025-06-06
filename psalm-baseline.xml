@@ -25,4 +25,18 @@
       <code>assertSame</code>
     </RedundantConditionGivenDocblockType>
   </file>
+  <file src="tests/unit/Internal/Useful/BoundedIntDecoderTest.php">
+    <InternalClass occurrences="3">
+      <code>new BoundedIntDecoder(10, 20)</code>
+      <code>new BoundedIntDecoder(10, 20)</code>
+      <code>new BoundedIntDecoder(20, 10)</code>
+    </InternalClass>
+    <InternalMethod occurrences="5">
+      <code>decode</code>
+      <code>decode</code>
+      <code>new BoundedIntDecoder(10, 20)</code>
+      <code>new BoundedIntDecoder(10, 20)</code>
+      <code>new BoundedIntDecoder(20, 10)</code>
+    </InternalMethod>
+  </file>
 </files>
