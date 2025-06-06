@@ -2,17 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\unit\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Internal\Primitives\StringDecoder;
-use Facile\PhpCodec\Validation\Context;
 use Facile\PhpCodec\Validation\ValidationFailures;
 use Facile\PhpCodec\Validation\ValidationSuccess;
 use PHPUnit\Framework\TestCase;
 
 final class StringDecoderTest extends TestCase
 {
-
     public function testValidString(): void
     {
         $decoder = new StringDecoder();
@@ -24,6 +22,8 @@ final class StringDecoderTest extends TestCase
 
     /**
      * @dataProvider invalidValuesProvider
+     *
+     * @param mixed $input
      */
     public function testInvalidValues($input): void
     {

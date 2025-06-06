@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Internal\Primitives\CallableDecoder;
 use Facile\PhpCodec\Validation\ValidationFailures;
@@ -13,8 +13,10 @@ final class CallableDecoderTest extends TestCase
 {
     /**
      * @dataProvider validCallableProvider
+     *
+     * @param mixed $input
      */
-    public function testValidCallables(mixed $input): void
+    public function testValidCallables($input): void
     {
         $decoder = new CallableDecoder();
         $result = $decoder->decode($input);
@@ -24,8 +26,10 @@ final class CallableDecoderTest extends TestCase
 
     /**
      * @dataProvider invalidCallableProvider
+     *
+     * @param mixed $input
      */
-    public function testInvalidCallables(mixed $input): void
+    public function testInvalidCallables($input): void
     {
         $decoder = new CallableDecoder();
         $result = $decoder->decode($input);

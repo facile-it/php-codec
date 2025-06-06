@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Internal\Primitives\BoolDecoder;
 use Facile\PhpCodec\Validation\ValidationFailures;
@@ -13,8 +13,10 @@ final class BoolDecoderTest extends TestCase
 {
     /**
      * @dataProvider validBoolProvider
+     *
+     * @param mixed $input
      */
-    public function testValidBools(mixed $input): void
+    public function testValidBools($input): void
     {
         $decoder = new BoolDecoder();
         $result = $decoder->decode($input);
@@ -24,8 +26,10 @@ final class BoolDecoderTest extends TestCase
 
     /**
      * @dataProvider invalidBoolProvider
+     *
+     * @param mixed $input
      */
-    public function testInvalidBools(mixed $input): void
+    public function testInvalidBools($input): void
     {
         $decoder = new BoolDecoder();
         $result = $decoder->decode($input);

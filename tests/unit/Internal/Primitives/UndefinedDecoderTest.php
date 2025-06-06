@@ -38,29 +38,32 @@ class UndefinedDecoderTest extends BaseTestCase
             );
     }
 
-    //Aggiunti Michele
+    // Aggiunti Michele
     public function testValidUndefined(): void
     {
         $default = 'default-value';
         $decoder = new UndefinedDecoder($default);
         $result = $decoder->decode(new Undefined());
 
-        //fwrite(STDOUT, "\n[testValidUndefined] result: " . var_export($result, true) . "\n");
+        // fwrite(STDOUT, "\n[testValidUndefined] result: " . var_export($result, true) . "\n");
 
         $this->assertInstanceOf(ValidationSuccess::class, $result);
+
         $this->assertSame($default, $result->getValue());
     }
 
     /**
      * @dataProvider provideInvalidValues
+     *
+     * @param mixed $input
      */
-    public function testInvalidValues(mixed $input): void
+    public function testInvalidValues($input): void
     {
         $decoder = new UndefinedDecoder('default');
         $result = $decoder->decode($input);
 
-        //fwrite(STDOUT, "\n[testInvalidValues] input: " . var_export($input, true) . "\n");
-        //fwrite(STDOUT, "[testInvalidValues] result: " . var_export($result, true) . "\n");
+        // fwrite(STDOUT, "\n[testInvalidValues] input: " . var_export($input, true) . "\n");
+        // fwrite(STDOUT, "[testInvalidValues] result: " . var_export($result, true) . "\n");
 
         $this->assertInstanceOf(ValidationFailures::class, $result);
     }

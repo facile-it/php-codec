@@ -13,8 +13,6 @@ use Facile\PhpCodec\Validation\Validation;
  * @template I of mixed
  *
  * @template-implements Decoder<I, null>
- *
- * @psalm-internal Facile\PhpCodec
  */
 final class NullDecoder implements Decoder
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Internal\Primitives\FloatDecoder;
 use Facile\PhpCodec\Validation\ValidationFailures;
@@ -21,6 +21,8 @@ final class FloatDecoderTest extends TestCase
 
     /**
      * @dataProvider invalidFloatProvider
+     *
+     * @param mixed $invalidValue
      */
     public function testInvalidValues($invalidValue): void
     {

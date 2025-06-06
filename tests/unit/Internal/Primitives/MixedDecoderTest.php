@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Internal\Primitives\MixedDecoder;
 use Facile\PhpCodec\Validation\ValidationSuccess;
@@ -12,8 +12,10 @@ final class MixedDecoderTest extends TestCase
 {
     /**
      * @dataProvider provideValues
+     *
+     * @param mixed $value
      */
-    public function testAcceptsAnyValue(mixed $value): void
+    public function testAcceptsAnyValue($value): void
     {
         $decoder = new MixedDecoder();
         $result = $decoder->decode($value);

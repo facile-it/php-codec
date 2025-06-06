@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Internal\Primitives\IntDecoder;
 use Facile\PhpCodec\Validation\ValidationSuccess;
@@ -21,8 +21,10 @@ final class IntDecoderTest extends TestCase
 
     /**
      * @dataProvider invalidIntProvider
+     *
+     * @param mixed $input
      */
-    public function testInvalidValues(mixed $input): void
+    public function testInvalidValues($input): void
     {
         $decoder = new IntDecoder();
         $result = $decoder->decode($input);

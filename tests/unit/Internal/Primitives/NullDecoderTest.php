@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Internal\Primitives;
+namespace Tests\Facile\PhpCodec\Internal\Primitives;
 
 use Facile\PhpCodec\Internal\Primitives\NullDecoder;
 use Facile\PhpCodec\Validation\ValidationFailures;
@@ -22,8 +22,10 @@ final class NullDecoderTest extends TestCase
 
     /**
      * @dataProvider provideInvalidValues
+     *
+     * @param mixed $value
      */
-    public function testInvalidValues(mixed $value): void
+    public function testInvalidValues($value): void
     {
         $decoder = new NullDecoder();
         $result = $decoder->decode($value);
