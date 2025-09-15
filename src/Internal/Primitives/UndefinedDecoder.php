@@ -14,8 +14,6 @@ use Facile\PhpCodec\Validation\Validation;
  * @psalm-template U
  *
  * @template-implements Decoder<mixed, U>
- *
- * @psalm-internal Facile\PhpCodec
  */
 final class UndefinedDecoder implements Decoder
 {
