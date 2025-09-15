@@ -70,40 +70,40 @@ class DateTimeFromStringDecoderTest extends BaseTestCase
     {
         // Test strict mode (default) - should reject invalid dates
         $strictDecoder = Decoders::dateTimeFromString('Y-m-d', true);
-        
+
         // Valid date should pass
         self::assertSuccessInstanceOf(
             \DateTimeInterface::class,
             $strictDecoder->decode('2025-04-30')
         );
-        
+
         // Invalid date should fail in strict mode (April 31st doesn't exist)
         self::assertInstanceOf(
             ValidationFailures::class,
             $strictDecoder->decode('2025-04-31')
         );
-        
+
         // Invalid leap year date should fail in strict mode
         self::assertInstanceOf(
             ValidationFailures::class,
             $strictDecoder->decode('2023-02-29')
         );
-        
+
         // Valid leap year date should pass in strict mode
         self::assertSuccessInstanceOf(
             \DateTimeInterface::class,
             $strictDecoder->decode('2024-02-29')
         );
-        
+
         // Test non-strict mode - should accept invalid dates and adjust them
         $nonStrictDecoder = Decoders::dateTimeFromString('Y-m-d', false);
-        
+
         // Valid date should pass
         self::assertSuccessInstanceOf(
             \DateTimeInterface::class,
             $nonStrictDecoder->decode('2025-04-30')
         );
-        
+
         // Invalid date should pass in non-strict mode (but be adjusted)
         $result = $nonStrictDecoder->decode('2025-04-31');
         $successResult = self::assertSuccessInstanceOf(\DateTimeInterface::class, $result);

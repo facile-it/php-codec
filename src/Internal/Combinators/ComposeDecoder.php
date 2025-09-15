@@ -38,20 +38,20 @@ final class ComposeDecoder implements Decoder
     }
 
     /**
+     * @param mixed $i
+     *
      * @psalm-param IA      $i
      * @psalm-param Context $context
      *
      * @psalm-return Validation<B>
-     *
-     * @param mixed $i
      */
     public function validate($i, Context $context): Validation
     {
         return Validation::bind(
             /**
-             * @psalm-param A $aValue
-             *
              * @param mixed $aValue
+             *
+             * @psalm-param A $aValue
              */
             fn($aValue): Validation => $this->db->validate($aValue, $context),
             $this->da->validate($i, $context)

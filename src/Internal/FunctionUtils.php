@@ -12,9 +12,9 @@ use Facile\PhpCodec\Validation\Validation;
 final class FunctionUtils
 {
     /**
-     * @psalm-param non-empty-array<array-key, Decoder> $props
-     *
      * @param Decoder[] $props
+     *
+     * @psalm-param non-empty-array<array-key, Decoder> $props
      */
     public static function nameFromProps(array $props): string
     {
@@ -39,12 +39,12 @@ final class FunctionUtils
      * @psalm-template A
      * @psalm-template I
      *
+     * @param mixed $input
+     *
      * @psalm-param Decoder<I, A> $decoder
      * @psalm-param I             $input
      *
      * @psalm-return Validation<A>
-     *
-     * @param mixed $input
      */
     public static function standardDecode(Decoder $decoder, $input): Validation
     {

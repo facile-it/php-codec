@@ -12,11 +12,11 @@ abstract class Validation
     /**
      * @psalm-template T
      *
+     * @param mixed $a
+     *
      * @psalm-param T $a
      *
      * @psalm-return ValidationSuccess<T>
-     *
-     * @param mixed $a
      */
     public static function success($a): self
     {
@@ -26,11 +26,11 @@ abstract class Validation
     /**
      * @psalm-template T
      *
+     * @param VError[] $errors
+     *
      * @psalm-param list<VError> $errors
      *
      * @psalm-return ValidationFailures<T>
-     *
-     * @param VError[] $errors
      */
     public static function failures(array $errors): self
     {
@@ -40,13 +40,13 @@ abstract class Validation
     /**
      * @psalm-template T
      *
+     * @param mixed $value
+     *
      * @psalm-param mixed $value
      * @psalm-param Context $context
      * @psalm-param string|null $message
      *
      * @psalm-return ValidationFailures<T>
-     *
-     * @param mixed $value
      */
     public static function failure($value, Context $context, ?string $message = null): self
     {

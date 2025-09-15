@@ -29,9 +29,9 @@ final class LiteralDecoder implements Decoder
     private $literal;
 
     /**
-     * @psalm-param T $literal
-     *
      * @param mixed $literal
+     *
+     * @psalm-param T $literal
      */
     public function __construct($literal)
     {
@@ -58,9 +58,9 @@ final class LiteralDecoder implements Decoder
     }
 
     /**
-     * @psalm-param literable $x
-     *
      * @param mixed $x
+     *
+     * @psalm-param literable $x
      */
     private static function literalName($x): string
     {
