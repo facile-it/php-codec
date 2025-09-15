@@ -15,9 +15,9 @@ final class ValidationFailures extends Validation
     private array $errors;
 
     /**
-     * @psalm-param list<VError> $errors
-     *
      * @param VError[] $errors
+     *
+     * @psalm-param list<VError> $errors
      */
     public function __construct(array $errors)
     {
@@ -25,9 +25,9 @@ final class ValidationFailures extends Validation
     }
 
     /**
-     * @psalm-return list<VError>
-     *
      * @return VError[]
+     *
+     * @psalm-return list<VError>
      */
     public function getErrors(): array
     {

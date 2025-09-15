@@ -81,9 +81,9 @@ final class ListOfValidation
                     $errors[] = $es;
                 },
                 /**
-                 * @psalm-param Values $x
-                 *
                  * @param mixed $x
+                 *
+                 * @psalm-param Values $x
                  */
                 function ($x) use ($k, &$results): void {
                     /** @var K $k */

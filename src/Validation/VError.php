@@ -12,11 +12,11 @@ final class VError
     private ?string $message = null;
 
     /**
+     * @param mixed $value
+     *
      * @psalm-param mixed       $value
      * @psalm-param Context     $context
      * @psalm-param string|null $message
-     *
-     * @param mixed $value
      */
     public function __construct(
         $value,

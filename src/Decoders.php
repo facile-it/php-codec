@@ -200,11 +200,11 @@ final class Decoders
     /**
      * @psalm-template T of bool | string | int
      *
+     * @param mixed $l
+     *
      * @psalm-param T $l
      *
      * @psalm-return Decoder<mixed, T>
-     *
-     * @param mixed $l
      */
     public static function literal($l): Decoder
     {
@@ -227,15 +227,15 @@ final class Decoders
     /**
      * @psalm-template MapOfDecoders of non-empty-array<array-key, Decoder<mixed, mixed>>
      *
-     * @psalm-param MapOfDecoders $props
-     *
-     * @psalm-return Decoder<mixed, non-empty-array<array-key, mixed>>
-     *
      * @param Decoder[] $props
+     *
+     * @psalm-param MapOfDecoders $props
      *
      * @return Decoder
      *
      * Waiting for this feature to provide a better typing. I need something like mapped types from Typescript.
+     *
+     * @psalm-return Decoder<mixed, non-empty-array<array-key, mixed>>
      *
      * @see https://github.com/vimeo/psalm/issues/3589
      */
@@ -281,11 +281,11 @@ final class Decoders
     /**
      * @psalm-template U
      *
+     * @param null|mixed $default
+     *
      * @psalm-param U $default
      *
      * @psalm-return Decoder<mixed, U>
-     *
-     * @param null|mixed $default
      */
     public static function undefined($default = null): Decoder
     {
@@ -365,9 +365,9 @@ final class Decoders
     /**
      * @psalm-return Decoder<string, \DateTimeInterface>
      */
-    public static function dateTimeFromString(string $format = \DATE_ATOM): Decoder
+    public static function dateTimeFromString(string $format = \DATE_ATOM, bool $strict = true): Decoder
     {
-        return new DateTimeFromStringDecoder($format);
+        return new DateTimeFromStringDecoder($format, $strict);
     }
 
     /**

@@ -14,21 +14,21 @@ use Facile\PhpCodec\Validation\Validation;
 interface Decoder
 {
     /**
+     * @param mixed $i
+     *
      * @psalm-param I $i
      * @psalm-param Context $context
      *
      * @psalm-return Validation<A>
-     *
-     * @param mixed $i
      */
     public function validate($i, Context $context): Validation;
 
     /**
+     * @param mixed $i
+     *
      * @psalm-param I $i
      *
      * @psalm-return Validation<A>
-     *
-     * @param mixed $i
      */
     public function decode($i): Validation;
 

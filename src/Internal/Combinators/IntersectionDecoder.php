@@ -92,15 +92,15 @@ final class IntersectionDecoder implements Decoder
      * @template T1
      * @template T2
      *
-     * @psalm-param T1 $a
-     * @psalm-param T2 $b
-     *
-     * @psalm-return T1&T2
-     *
      * @param mixed $a
      * @param mixed $b
      *
+     * @psalm-param T1 $a
+     * @psalm-param T2 $b
+     *
      * @return array|object
+     *
+     * @psalm-return T1&T2
      */
     private static function intersectResults($a, $b)
     {

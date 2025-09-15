@@ -23,9 +23,9 @@ final class UndefinedDecoder implements Decoder
     private $default;
 
     /**
-     * @psalm-param U $default
-     *
      * @param mixed $default
+     *
+     * @psalm-param U $default
      */
     public function __construct($default)
     {
