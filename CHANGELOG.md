@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `DateTimeFromStringDecoder` now supports strict mode configuration to enforce strict date parsing (default: true). In strict mode, invalid dates like "2025-04-31" will be rejected instead of being automatically adjusted.
+
 ### Removed
 - Support for PHP < 7.4
 - `Codec` and `Encoder` interfaces. Removed `Codecs` entrypoint.

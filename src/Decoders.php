@@ -365,9 +365,9 @@ final class Decoders
     /**
      * @psalm-return Decoder<string, \DateTimeInterface>
      */
-    public static function dateTimeFromString(string $format = \DATE_ATOM): Decoder
+    public static function dateTimeFromString(string $format = \DATE_ATOM, bool $strict = true): Decoder
     {
-        return new DateTimeFromStringDecoder($format);
+        return new DateTimeFromStringDecoder($format, $strict);
     }
 
     /**

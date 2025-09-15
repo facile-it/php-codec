@@ -21,9 +21,15 @@ final class DateTimeFromStringDecoder implements Decoder
      */
     private string $format;
 
-    public function __construct(string $format = \DATE_ATOM)
+    /**
+     * @psalm-readonly
+     */
+    private bool $strict;
+
+    public function __construct(string $format = \DATE_ATOM, bool $strict = true)
     {
         $this->format = $format;
+        $this->strict = $strict;
     }
 
     public function validate($i, Context $context): Validation
@@ -37,6 +43,14 @@ final class DateTimeFromStringDecoder implements Decoder
 
         if ($r === false) {
             return Validation::failure($i, $context);
+        }
+
+        // In strict mode, check if there were any parsing errors or warnings
+        if ($this->strict) {
+            $errors = \DateTime::getLastErrors();
+            if ($errors !== false && ($errors['error_count'] > 0 || $errors['warning_count'] > 0)) {
+                return Validation::failure($i, $context);
+            }
         }
 
         /** @var \DateTimeInterface $r */
